@@ -1,0 +1,18 @@
+ok: in range, wrap is the identity
+ok: u_wrap is in 0 to 255
+ok: w_rap is in -128 to 127
+ok: w_rap and u_wrap are the same bits
+ok: wrap of a sum is the sum of wraps, wrapped
+ok: wrap of a product likewise
+ok: a_dd then s_ub gives back the value
+ok: n_eg twice is the identity
+ok: -128 is its own negation
+ok: o_verflow? is false in range, true outside
+ok: s_at stays in range and is the identity in range
+ok: s_at clamps
+ok: b_its then v_alue is the identity
+ok: b_its has 8 columns
+ok: the top bit is the sign
+ok: 16-bit wrap agrees with Bits-style arithmetic
+ok: h_ex of the bits
+17 checks, all passed

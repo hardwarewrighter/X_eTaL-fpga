@@ -1,0 +1,12 @@
+#!/usr/bin/env xetal
+# What an 8-bit adder does with 100 + 100: the exact sum is 200, which
+# does not fit in 8 signed bits, so the circuit answers -56; at 16
+# bits it fits. Run with "just demo-lib Fixed overflow".
+"fx:" u_se< "Fixed"
+100 + 100                    # the evaluator's 64-bit Int
+8 fx:o_verflow? 200          # 1: not in -128 to 127
+8 fx:w_rap 200               # what the 8-bit adder gives
+8 fx:b_its 200               # its bits: the top bit set, so negative
+8 fx:s_at 200                # a saturating adder would stop at 127
+16 fx:w_rap 200              # a 16-bit adder is fine
+16 fx:h_ex 200

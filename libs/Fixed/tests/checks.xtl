@@ -1,0 +1,32 @@
+#!/usr/bin/env xetal
+# Fixed: the laws of w-bit two's complement, checked with the Check
+# library on every pattern of 8 bits; "ok" per check. Run with
+# "just run-lib Fixed checks".
+"fx:" u_se< "Fixed"
+"k:" u_se< "Check"
+all := (o_ffsets 256) - 128                   # every signed 8-bit value
+big := 1000 * (o_ffsets 64) - 32000           # values far outside
+u := 8 fx:u_wrap big
+w := 8 fx:w_rap big
+u:a_dd := fx:a_dd 8
+u:s_ub := fx:s_ub 8
+u:m_ul := fx:m_ul 8
+k:r_eport (
+  ("in range, wrap is the identity" k:t_est all k:i_s 8 fx:w_rap all)
+  k:a_nd ("u_wrap is in 0 to 255" k:t_est (64 r_eshape 1) k:i_s (0 <= u) & u < 256)
+  k:a_nd ("w_rap is in -128 to 127" k:t_est (64 r_eshape 1) k:i_s (-128 <= w) & w <= 127)
+  k:a_nd ("w_rap and u_wrap are the same bits" k:t_est (8 fx:u_wrap w) k:i_s 8 fx:u_wrap big)
+  k:a_nd ("wrap of a sum is the sum of wraps, wrapped" k:t_est (8 fx:w_rap big + 7) k:i_s (8 fx:w_rap big) u:a_dd 8 fx:w_rap 7)
+  k:a_nd ("wrap of a product likewise" k:t_est (8 fx:w_rap big * 3) k:i_s (8 fx:w_rap big) u:m_ul 8 fx:w_rap 3)
+  k:a_nd ("a_dd then s_ub gives back the value" k:t_est all k:i_s (all u:a_dd 77) u:s_ub 77)
+  k:a_nd ("n_eg twice is the identity" k:t_est all k:i_s 8 fx:n_eg 8 fx:n_eg all)
+  k:a_nd ("-128 is its own negation" k:t_est -128 k:i_s 8 fx:n_eg -128)
+  k:a_nd ("o_verflow? is false in range, true outside" k:t_est 0 1 k:i_s 8 fx:o_verflow? 127 128)
+  k:a_nd ("s_at stays in range and is the identity in range" k:t_est all k:i_s 8 fx:s_at all)
+  k:a_nd ("s_at clamps" k:t_est -128 127 k:i_s 8 fx:s_at -1000 1000)
+  k:a_nd ("b_its then v_alue is the identity" k:t_est all k:i_s fx:v_alue 8 fx:b_its all)
+  k:a_nd ("b_its has 8 columns" k:t_est 256 8 k:i_s s_hape 8 fx:b_its all)
+  k:a_nd ("the top bit is the sign" k:t_est (all < 0) k:i_s 1 s_elect_2 8 fx:b_its all)
+  k:a_nd ("16-bit wrap agrees with Bits-style arithmetic" k:t_est (65536 - 1) k:i_s 16 fx:u_wrap -1)
+  k:a_nd ("h_ex of the bits" k:t_est "80" k:i_s 8 fx:h_ex -128)
+)

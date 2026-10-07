@@ -1,0 +1,13 @@
+l:l_owest : Num a => a -> a
+l:h_ighest : Num a => a -> a
+l:u_wrap : Int -> Int -> Int
+l:w_rap : Int -> Int -> Int
+l:o_verflow? : Truthy a => Int -> Int -> a
+l:s_at : Num a => a -> a -> a
+l:a_dd : Int -> Int -> Int -> Int
+l:s_ub : Int -> Int -> Int -> Int
+l:m_ul : Int -> Int -> Int -> Int
+l:n_eg : Int -> Int -> Int
+l:b_its : Int -> Int -> Int
+l:v_alue : Int -> Int
+l:h_ex : Int -> Int -> Char

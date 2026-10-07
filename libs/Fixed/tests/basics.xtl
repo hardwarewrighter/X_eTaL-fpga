@@ -1,0 +1,26 @@
+#!/usr/bin/env xetal
+# Fixed: every function on small arrays at 8 and 16 bits. Run with "just run-lib Fixed basics".
+"fx:" u_se< "Fixed"
+fx:l_owest 8 16
+fx:h_ighest 8 16
+8 fx:u_wrap 100 200 -1 -129 256
+8 fx:w_rap 100 200 -1 -129 256
+16 fx:w_rap 40000 65535 65536 -32769
+8 fx:o_verflow? 127 128 -128 -129
+8 fx:s_at 300 -300 5 127 -128
+u:a_dd := fx:a_dd 8
+100 u:a_dd 100
+(120 -120) u:a_dd 10
+1 u:a_dd 127 -128
+u:s_ub := fx:s_ub 8
+(-100) u:s_ub 100
+u:m_ul := fx:m_ul 8
+16 u:m_ul 16
+(2 3) u:m_ul 50
+8 fx:n_eg 5 -128 0
+8 fx:b_its 5
+8 fx:b_its -1 -128 127
+fx:v_alue 0 0 0 0 0 1 0 1
+fx:v_alue 8 fx:b_its -1 -128 127
+8 fx:h_ex 255
+16 fx:h_ex -1 4096 48879

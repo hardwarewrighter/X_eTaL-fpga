@@ -1,0 +1,10 @@
+#!/usr/bin/env xetal
+# A 16-bit counter near the top of its range: twelve ticks from 65530
+# read unsigned, read signed, and the carry out of the top bit (the
+# tick where the count wraps). Run with "just demo-lib Fixed counter".
+"fx:" u_se< "Fixed"
+ticks := 65530 + o_ffsets 12
+16 fx:u_wrap ticks           # the register, read unsigned: wraps to 0
+16 fx:w_rap ticks            # the same bits, read signed
+16 fx:o_verflow? ticks       # where a 16-bit signed value is lost
+16 fx:h_ex ticks

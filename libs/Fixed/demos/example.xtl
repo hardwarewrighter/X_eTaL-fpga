@@ -1,0 +1,4 @@
+#!/usr/bin/env xetal
+# Fixed in use. Run with "just demo-lib Fixed example".
+"fx:" u_se< "Fixed"
+fx:i_dentity "hello"
