@@ -11,12 +11,12 @@ threads (a GPU, in
 [X_eTaL-gpu](https://github.com/softwarewrighter/X_eTaL-gpu)) or as a
 circuit. This repository is the circuit part: `c := a + b` on eight
 16-bit numbers becomes eight adders, `'+ r_/ v` becomes a tree of
-adders, a calculator written as a step function over a state vector
+adders, a 4-bit machine written as a step function over a state vector
 becomes registers, a decoder and an ALU. A small accelerator IR, a
 netlist with a cycle simulator, a Verilog-2005 emitter, a schedule
 that decides how much of the computation is space and how much is
 time (lanes), and the open Gowin flow (Yosys, nextpnr, Apicula,
-openFPGALoader) to a $20 Tang Nano 4K.
+openFPGALoader) to a small Tang Nano (1K first, or 4K).
 
 The goal is the concept, one typed array program realized as
 sequential time, parallel threads or physical space with the same
@@ -32,7 +32,7 @@ array program to describe the hardware itself.
 | ---- | ------------- |
 | `libs/Fixed/` | fixed-width two's complement numbers (`"fx:" u_se< "Fixed"`): the width written in the program, the evaluator computing what a w-bit adder gives |
 | `libs/Datapath/` | the vector examples at a stated width (`dp:`): add, saxpy, threshold, the reduction tree, the acceptance pipeline; its demos are the programs the circuits realize |
-| `libs/Calc/` | a TMS1000-like four-function calculator as a state vector and a pure step function (`calc:`); the first sequential circuit |
+| `libs/Calc/` | a four-function calculator as a state vector and a pure step function (`calc:`): a behavioral model, an example of a sequential program |
 | `components/xir/` | the provisional accelerator IR (typed values with widths and shapes, elementwise maps, select, reductions, later registers and state), its text form and a reference interpreter |
 | `components/rtl/` | the netlist, the lanes schedule and the reduction tree, the cycle simulator, the Verilog-2005 emitter and testbenches |
 | `components/cli/` | the `xetal-fpga` tool: `check`, `run`, `netlist`, `verilog`, `testbench`, `sim`, `explain` |
@@ -73,7 +73,9 @@ emitter with self-checking testbenches. Every Datapath example's
 answer from the evaluator is reproduced, bit for bit, by the IR
 interpreter and by its circuits simulated at several lane counts, and
 their Verilog is pinned. Next, saga 2 (fpga-state): registers and
-state in the IR, and the calculator as a circuit. See
+state, streams and memories in the IR and the netlist; then saga 3, a
+4-bit calculator machine in the spirit of the TMS1000 (our own design,
+hexadecimal first), sized for a Tang Nano 1K. See
 [`docs/plan.md`](docs/plan.md) for the roadmap and the architecture
 decisions.
 

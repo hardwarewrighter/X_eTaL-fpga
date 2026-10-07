@@ -1,7 +1,9 @@
 # Calculators, state and data: approaches
 
 A discussion document (2026-10-07), written for the user before saga 2
-(fpga-state) starts. It covers four topics:
+(fpga-state) starts. The user's decisions are recorded at the end
+("Decided"); where they differ from a proposal above, the decision
+wins. It covers four topics:
 
 1. the two calculators, the one that exists and the one to demo;
 2. how a clocked machine is written in X_eTaL today, and with the left
@@ -348,3 +350,49 @@ values; the crate is a boundary around them.
 5. **Boards.** Plan for the Tang Nano 1K and 4K for the TMS1000, and
    the 9K or 20K if the Calc circuit or the neural layer needs room,
    with the board as schedule data (a constraints file per board)?
+
+## Decided (2026-10-07, with the user)
+
+1. **The TMS1000 only.** The demo is a TMS1000-class machine; Calc is
+   not the demo (what becomes of `libs/Calc` is still open: it can
+   stay as an example of a behavioral sequential model, or be retired
+   when the machine's reference replaces it). Other calculators may
+   come later, but the higher-priority larger machines are the RCA
+   CDP1802 and the IBM 1130, on larger Tang Nano boards.
+2. **Not a replica: a machine in the spirit of the TMS1000.** We design
+   our own 4-bit machine of equivalent size and complexity (a 4-bit
+   accumulator, a small register file, a 64 by 4-bit RAM, a ROM of
+   about 1K 8-bit instructions, keyboard inputs, display outputs),
+   with our own instruction set and our own ROM program, testable at
+   every level and doing something calculator-like. No TI ROM image
+   and no claim of compatibility. Working name for now: the 4-bit
+   calculator machine (a name to be chosen with the user).
+3. **Radix: hexadecimal first, then octal and decimal.** The plan is
+   simplest first:
+   - **Hexadecimal** is the simplest because one 4-bit RAM word is
+     exactly one digit: the adder's carry out of bit 3 is the digit
+     carry, so digit-serial addition needs no adjustment at all.
+   - **Octal** uses three bits of each word; the carry is at 8, so a
+     digit add needs a compare (or the carry out of bit 2).
+   - **Decimal** is BCD, as real calculators were: a digit add needs
+     the decimal adjust (add 6 when the sum is past 9), done by the
+     program or by one instruction.
+   - **All three** then cost one more thing: a radix the program reads
+     (a RAM word set by a mode key), with the adjust done by a
+     "digit adjust" instruction that takes the radix, or by the
+     program with a compare. Whether that instruction exists is an
+     instruction-set decision, made when octal is added.
+   The reference is a pure X_eTaL function per radix: digit vectors in,
+   digit vectors out (`e_ncode` and `d_ecode` do the conversions), the
+   specification the machine's ROM program must match for every test
+   key sequence.
+5. **Board: the Tang Nano 1K first** (GW1NZ-LV1: from memory about
+   1152 4-input LUTs, 864 flip-flops and 72 Kbit of block RAM, to be
+   checked against Gowin's datasheet and Apicula's device support),
+   with the choice of 1K or 4K made when the design is ready to
+   program; the board is schedule data (a constraints file per
+   board), so both stay buildable. A 9K or larger board is not spent
+   on this design.
+
+Still open: item 4 (how to rewrite ask F6 and whether to file the
+`Session` API as its own ask), and what becomes of `libs/Calc`.

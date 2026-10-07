@@ -1,6 +1,6 @@
 # Calc
 
-A TMS1000-like four-function calculator as a state vector and a pure
+A four-function calculator as a state vector and a pure
 step function: registers, a keyboard, a decoder, an ALU and a display,
 every number 16-bit two's complement, written as ordinary X_eTaL so
 the evaluator can run it and a circuit can be generated from it.

@@ -1,6 +1,6 @@
 # Calc
 
-A TMS1000-like four-function calculator as a state vector and a pure
+A four-function calculator as a state vector and a pure
 step function.
 
 ```
@@ -108,7 +108,10 @@ continuing from a result, clear, and that `r_un` is `s_tep` folded.
 ## Provenance
 
 Written for X_eTaL-fpga after research7's PoC 1 ("Wrighting a
-calculator"): a TMS1000-family calculator-style machine modeled in
-X_eTaL first, run by the evaluator for the reference tests, then
-synthesized. It models the architecture (registers, decode, ALU),
-not a particular historical chip gate for gate.
+calculator") as a behavioral model: what a calculator displays, with
+16-bit binary registers and a one-clock ALU. It is not the demo
+machine. The demo is a 4-bit machine in the spirit of the TMS1000,
+our own design whose calculator is a program in its ROM (see
+[`docs/calc-approaches.md`](../../../docs/calc-approaches.md) and
+saga 3 of [`docs/plan.md`](../../../docs/plan.md)); this library stays
+as an example of a sequential model until the user decides its fate.

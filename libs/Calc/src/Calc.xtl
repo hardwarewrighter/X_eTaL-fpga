@@ -1,4 +1,4 @@
-# Calc: a TMS1000-like four-function calculator as a state vector and a pure step function
+# Calc: a four-function calculator as a state vector and a pure step function
 # Import it with an alias of your choice: "calc:" u_se< "Calc".
 # Put libs/Calc/src on XETAL_PATH ("just path"); the reference is libs/Calc/docs.
 # Names with l: are exported; the others are private to this file.

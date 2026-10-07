@@ -4,7 +4,7 @@ X_eTaL programs as hardware: the RTL generator, the schedule and the
 synthesis flow that take a computation written in X_eTaL (the
 eXperimental Extensible Typed Array Language, developed in
 `../../softwarewrighter/X_eTaL`) to Verilog, to simulation, and to a
-real FPGA (a Tang Nano 4K, GW1NSR-4C, through the open Gowin flow).
+real FPGA (a Tang Nano 1K or 4K, through the open Gowin flow).
 The goal is to demonstrate the concept, that one typed array program
 runs unchanged as sequential software, as massively parallel software
 (the sibling project, X_eTaL-gpu) and as spatial hardware, not to be
@@ -59,7 +59,7 @@ bit:
                         |
                   Yosys, nextpnr, gowin_pack, openFPGALoader
                         v
-                   Tang Nano 4K
+                 Tang Nano 1K or 4K
 ```
 
 The interesting part is the **schedule**: the same `v_add` of 1024
@@ -85,7 +85,7 @@ parallelism?").
 | A9 | **One tool, `xetal-fpga`** (`components/cli`): `check FILE.xir` (parse, types, widths, shapes), `run FILE.xir` (interpret; prints as `xetal` prints), `netlist FILE.xir [--lanes N]` (the scheduled netlist), `verilog FILE.xir [--lanes N]` (the Verilog), `sim FILE.xir [--lanes N]` (the netlist simulated: results and cycles), `explain FILE.xir` (what became what: adders, muxes, registers, cycles, for each schedule), later `synth`, `pnr`, `pack`, `flash` as thin wrappers over the Gowin flow. | One command per question; `explain` is the seed of research7's "visual hardware explanation" (H3). |
 | A10 | **External tools are optional and loud**: the gate runs the Verilog through iverilog and the synthesis through Yosys when they are on `PATH` and prints that it skipped them when they are not; nothing in the gate requires a board. Installing them is the user's call (`brew install icarus-verilog yosys verilator`; nextpnr-himbaechel with Gowin, apycula and openFPGALoader on the Arch machine). | The same tests must pass on this Mac, on the Arch machine with the board, and in CI without either. |
 | A11 | **Rust components in one workspace**, `components/` (`xir`, `rtl`, `cli`; crates `xetal-fpga-*`), each small, with its README, unit tests, `cargo fmt` and `clippy -D warnings` in the gate; `.cargo/config.toml` points every workspace at one `target/`. | The same component discipline as X_eTaL and X_eTaL-gpu. |
-| A12 | **The board is the Tang Nano 4K** (GW1NSR-LV4CQN48PC7/I6, in Project Apicula and openFPGALoader as `tangnano4k`) through Yosys, nextpnr-himbaechel (Gowin), gowin_pack and openFPGALoader; the first physical program is a blinky, the second the calculator over UART (`12 + 34 =` in, `46` out); buttons and a display later. | research7 "What should actually be on the Tang": a fully supported open-source flow, a $20 board, the retro demo. |
+| A12 | **The boards are the small Tang Nanos, the board is schedule data**: the first machine (a 4-bit calculator machine in the spirit of the TMS1000) targets the **Tang Nano 1K** (GW1NZ-LV1), with the choice of 1K or 4K (GW1NSR-LV4C) made when it is ready to program; both stay buildable (a constraints file per board). The flow is Yosys, nextpnr-himbaechel (Gowin), gowin_pack, openFPGALoader, on the Arch machine where the boards are. The first physical program is a blinky, the second the machine over a serial line or the board's buttons and LEDs. Larger boards (9K, 20K) are for the larger machines (the RCA CDP1802, the IBM 1130), never for the first design. | The smallest project on the smallest board; the user has more 4K boards than 1K ones but wants the 1K used first (decided 2026-10-07, `docs/calc-approaches.md`). |
 | A13 | **Process as the siblings'**: `just` is the entry point (recipes call `scripts/*.sh`); `CHANGES.md` gets a line per commit; American spellings only (`scripts/check-spelling.py` in the gate); docs are ASCII-only markdown (`sw-markdown-checker`); a missing X_eTaL feature or bug goes in `docs/xetal-asks.md` and is not fixed or hidden here; work goes to `main` and is pushed. `.xtlm` macro libraries exist at the pinned X_eTaL (v0.1.0) but nothing in this plan needs one: widths are values, schedules are command-line data (A8). | Same process, same reviewers, same tools. |
 
 ## The subset, in X_eTaL, in XIR and in hardware
@@ -141,29 +141,49 @@ single-pass programs and says so for the rest.
 
 ### Saga 2 -- fpga-state  [ACTIVE]
 
-Goal: sequential circuits. The calculator written in X_eTaL runs as
-registers, a decoder and an ALU in simulated Verilog.
+Goal: sequential circuits from X_eTaL step functions: state, input
+streams, lookups, ROM and RAM in the IR, the netlist and the Verilog,
+and a serial line. What the 4-bit machine of saga 3 is built from.
 
 | # | Step slug | Delivers |
 | - | --------- | -------- |
-| 1 | registers | XIR `reg`, `rom`, `lookup`, the state machine as a step function over a state value; the netlist's registers and memories; the simulator clocks them; Verilog `always @(posedge clk)`, `case` |
-| 2 | calc-rtl | the Calc step function hand-lowered to XIR; the calculator as RTL: state registers, next-state logic, a key input and a display output; the key sequences of the tests fed by the testbench; every test's answer reproduced |
-| 3 | uart | a UART receiver and transmitter in the netlist (schedule data: the baud rate, the clock), the calculator framed as `12 + 34 =` in and `46` out; simulated end to end |
-| 4 | testbenches | a self-checking Verilog testbench per sequential example, iverilog and Verilator when present; a VCD per run for inspection |
+| 1 | registers | XIR state (a state value with its init, the next-state binding), an input stream (one item per clock), `lookup`, `rom` and `ram`; the netlist's registers and memories; the simulator clocks them; Verilog; tests (a counter, an accumulator, a shift register, a small state machine) and a twin of Fixed's counter demo |
+| 2 | uart | a UART receiver and transmitter as step functions (clock and baud rate as schedule data), simulated end to end with a loopback |
+| 3 | testbenches | self-checking Verilog testbenches for the sequential examples, iverilog and Verilator when present; a VCD per run |
 
-### Saga 3 -- fpga-board
+### Saga 3 -- nibble-machine
 
-Goal: the Tang Nano 4K physically becomes the calculator. Needs the
-tools (A10) and the board on the Arch machine; nothing here can be
-tested on this Mac.
+Goal: the first demo machine, decided with the user
+(`docs/calc-approaches.md`): a 4-bit machine in the spirit of the
+TMS1000, our own design of equivalent size (a 4-bit accumulator, a
+small register file, 64 by 4-bit RAM, a ROM of about 1K 8-bit
+instructions, keyboard inputs, display outputs), not a replica, with
+our own ROM program that makes it a calculator: hexadecimal first,
+then octal and decimal. Written in X_eTaL, checked against a pure
+X_eTaL reference, then lowered and simulated, sized for the Tang
+Nano 1K. The slug and the machine's name are working names.
 
 | # | Step slug | Delivers |
 | - | --------- | -------- |
-| 1 | flow | `xetal-fpga synth`, `pnr`, `pack`, `flash` as wrappers over Yosys, nextpnr-himbaechel, gowin_pack, openFPGALoader; the board's constraints (`.cst`: clock, LEDs, UART pins) as schedule data; a blinky from an X_eTaL counter (`Fixed`'s wrapping counter demo) on the board |
-| 2 | calc-board | the calculator on the board over UART, driven from the host with the test key sequences; resource and timing report recorded |
-| 3 | lanes-board | the vector datapath on the board at several lane counts; LUT and register counts against lanes tabulated (the space-time trade-off, measured) |
+| 1 | isa | `docs/machine.md`: the registers, memories, instruction set and encoding, I/O (keys in, digits out), sized against the Tang Nano 1K; decided with the user |
+| 2 | radix-lib | the reference: a pure X_eTaL library of digit-serial arithmetic in a radix (digit vectors in and out, `+ - *`, perhaps `/`), hexadecimal, octal and decimal; the specification for the calculator program |
+| 3 | machine-lib | the machine in X_eTaL: the state vector (registers and RAM), the ROM as an Int vector, `s_tep` (one instruction, pure), a run harness; an assembler (instruction text to codes) |
+| 4 | hex-calc | the calculator program in the ROM, hexadecimal; every test key sequence's display equal to the reference's |
+| 5 | radixes | octal and decimal (a radix mode, the digit adjust as an instruction or in the program, an instruction-set decision made here); all three against the reference |
+| 6 | machine-rtl | the machine hand-lowered to XIR (registers, RAM, ROM, decode), simulated with the ROM program, every key sequence reproduced; the Verilog pinned; resource estimate against the 1K |
 
-### Saga 4 -- fpga-nn
+### Saga 4 -- fpga-board
+
+Goal: the machine on a Tang Nano 1K (or 4K, chosen then). Needs the
+tools (A10) and the boards on the Arch machine.
+
+| # | Step slug | Delivers |
+| - | --------- | -------- |
+| 1 | flow | `xetal-fpga synth`, `pnr`, `pack`, `flash` as wrappers over Yosys, nextpnr-himbaechel, gowin_pack, openFPGALoader; a constraints file per board (1K, 4K) as schedule data; a blinky from an X_eTaL counter on each |
+| 2 | machine-board | the machine on the board, keys in and digits out over the serial line (or buttons and LEDs), driven from the host with the test key sequences; resources and timing recorded for 1K and 4K |
+| 3 | lanes-board | the vector datapath on a board at several lane counts; LUTs and registers against lanes tabulated (the space-time trade-off, measured) |
+
+### Saga 5 -- fpga-nn
 
 Goal: research7's F4 and X0, a tiny neural layer as hardware, the same
 layer the GPU repo schedules as kernels.
@@ -172,9 +192,9 @@ layer the GPU repo schedules as kernels.
 | - | --------- | -------- |
 | 1 | neuron-lib | `libs/Neuron` (`nr:`): `y = relu(W x + b)` at i8 with an i32 accumulator, quantization as explicit wraps, X_eTaL-ML's weight layout; tests against X_eTaL-ML's NN at the same weights |
 | 2 | matvec | XIR `matvec`; MAC lanes, weights in a ROM, an accumulator; the schedule's lanes and cycles; the layer simulated |
-| 3 | layer-board | the layer on the Tang Nano 4K; one input, the same decision on the evaluator, the GPU (X_eTaL-gpu) and the board |
+| 3 | layer-board | the layer on a Tang Nano (the smallest that holds it); one input, the same decision on the evaluator, the GPU (X_eTaL-gpu) and the board |
 
-### Saga 5 -- xetal-lowering (deferred: asks F1, F2, F3)
+### Saga 6 -- xetal-lowering (deferred: asks F1, F2, F3)
 
 Goal: the one-command demo, `xetal build --target verilog demo.xtl`,
 once X_eTaL has the accelerator IR and the lowering.
@@ -184,3 +204,10 @@ once X_eTaL has the accelerator IR and the lowering.
 | 1 | adopt-ir | `components/xir` becomes an adapter from X_eTaL's IR; the hand-written twins deleted; the equivalence script runs `xetal` for both sides |
 | 2 | one-command | `xetal build --target verilog FILE.xtl` through the backend registration X_eTaL offers (ask F7), or `xetal-fpga verilog FILE.xtl` calling X_eTaL's lowering |
 | 3 | explain | `xetal explain --device fpga FILE.xtl`: the program, the IR, the netlist, lanes and cycles, side by side (research7 section 10) |
+
+### Later machines (on larger boards)
+
+Higher priority than other calculators, decided with the user: the
+RCA CDP1802 (COSMAC) and the IBM 1130, each larger and more complex
+than the 4-bit machine, on a Tang Nano 9K, 20K or larger. Planned
+after the 4-bit machine has run on a board.

@@ -1,0 +1,8 @@
+number = 3
+slug = "testbenches"
+status = "pending"
+description = "Self-checking Verilog testbenches for the sequential examples (streams fed pe..."
+role = "production"
+context_files = []
+created_at = "2026-10-07T13:57:47"
+commits = []

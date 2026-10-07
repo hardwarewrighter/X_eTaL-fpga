@@ -1,0 +1,1 @@
+replanned before any step began: the Calc circuit dropped for the 4-bit machine of saga 3 (docs/calc-approaches.md)
