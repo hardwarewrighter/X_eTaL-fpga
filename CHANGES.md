@@ -10,6 +10,10 @@ one, `docs` documentation, `plan` saga planning and reordering,
 `release` milestone release, `chore` agentrail bookkeeping (step
 complete, saga archive).
 
+## 2026-10-07
+
+- 09:08 `lib` Datapath (saga fpga-foundation, step 3): the vector examples at a stated width, each one whole-array expression a circuit realizes directly, on Fixed's arithmetic (a wrap at every unit): `v_add`, `s_axpy`, `r_elu`, `t_hreshold`, `k_eep`, `s_um` (a balanced reduction tree: the first half added to the second, down to one number; odd lengths padded), `l_argest`, `d_ot`, `p_ipeline` (multiply, add, select, reduce). Tests: basics at 16 bits; 14 Check laws (each function against a direct computation; the tree equals the sequential sum wrapped once for 16, 15, 7 and 1 items and when every adder overflows); pinned types. The example programs as demos with baselines, the golden reference for the circuits: vector-add (eight 16-bit adders, one pair overflowing), saxpy, threshold, reduce-sum, pipeline. The reference page, with what each function is in hardware. Also removed the template's example demo left in Fixed by step 2 (its missing baseline failed the full test run).
+
 ## 2026-10-06
 
 - 20:34 `lib` Fixed (saga fpga-foundation, step 2): fixed-width two's complement numbers at a stated width, the arithmetic a w-bit circuit does and the stand-in for sized integer types (ask F3): `l_owest`, `h_ighest`, `u_wrap`, `w_rap`, `o_verflow?`, `s_at`, `a_dd`, `s_ub`, `m_ul`, `n_eg` (the exact result wrapped), `b_its`, `v_alue`, `h_ex`; the width first, curried for the three-argument functions (`u:a_dd := fx:a_dd 8`). Tests: basics at 8 and 16 bits; the laws of the ring modulo 2^w checked with Check on all 256 patterns of 8 bits (wrap of a sum is the sum of wraps, bits round-trip, the top bit is the sign, saturation clamps); pinned types. Demos: an 8-bit overflow (100 + 100 is -56), a 16-bit counter wrapping. The reference page.

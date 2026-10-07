@@ -1,0 +1,10 @@
+#!/usr/bin/env xetal
+# research7's first FPGA experiment: c := a + b on eight 16-bit
+# numbers, eight adders. The last pair overflows 16 bits, and the
+# circuit's answer is the wrapped one. Run with "just demo-lib Datapath vector-add".
+"dp:" u_se< "Datapath"
+a := 1 2 3 4 100 -100 32767 30000
+b := 10 20 30 40 -100 100 1 30000
+a + b                         # the evaluator's 64-bit sum
+u:v_add := dp:v_add 16
+a u:v_add b                   # the eight 16-bit adders' sum

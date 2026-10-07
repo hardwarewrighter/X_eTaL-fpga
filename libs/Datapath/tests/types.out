@@ -1,0 +1,9 @@
+l:v_add : Int -> Int -> Int -> Int
+l:s_axpy : Int -> Int -> Int -> Int -> Int
+l:r_elu : Num a => a -> a
+l:t_hreshold : (Num a, Truthy a) => a -> a -> a
+l:k_eep : Num a => a -> a -> a
+l:s_um : Int -> Int -> Int
+l:l_argest : Num a => a -> a
+l:d_ot : Int -> Int -> Int -> Int
+l:p_ipeline : Int -> Int -> Int -> Int

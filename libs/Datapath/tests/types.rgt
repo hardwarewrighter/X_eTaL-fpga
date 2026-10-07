@@ -1,0 +1,2 @@
+command = "../../../scripts/xt type ../src/Datapath.xtl"
+exit_code = 0

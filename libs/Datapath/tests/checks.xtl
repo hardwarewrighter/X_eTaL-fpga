@@ -1,0 +1,31 @@
+#!/usr/bin/env xetal
+# Datapath: each function against a direct computation, and the
+# reduction tree against the sequential sum, with the Check library;
+# "ok" per check. Run with "just run-lib Datapath checks".
+"dp:" u_se< "Datapath"
+"fx:" u_se< "Fixed"
+"k:" u_se< "Check"
+x := 1000 * r_ange 16                           # 1000 .. 16000
+y := 3000 * (r_ange 16) - 8                     # some negative
+k := 1 -1 1 -1 1 -1 1 -1 1 -1 1 -1 1 -1 1 -1
+u:v_add := dp:v_add 16
+u:d_ot := dp:d_ot 16
+u:p_ipeline := dp:p_ipeline 16
+u:s_axpy := 16 dp:s_axpy 7
+u:s_eq := { v -> 16 fx:w_rap '+ r_/ v }          # the sequential sum, wrapped once
+k:r_eport (
+  ("v_add is the wrapped sum" k:t_est (16 fx:w_rap x + y) k:i_s x u:v_add y)
+  k:a_nd ("v_add wraps (30000 + 30000)" k:t_est -5536 k:i_s 30000 u:v_add 30000)
+  k:a_nd ("s_axpy is a x + y, wrapped" k:t_est (16 fx:w_rap y + 7 * x) k:i_s x u:s_axpy y)
+  k:a_nd ("r_elu keeps the positive items" k:t_est ((y > 0) * y) k:i_s dp:r_elu y)
+  k:a_nd ("t_hreshold is a select by x > t" k:t_est ((x > 8000) * x) k:i_s 8000 dp:t_hreshold x)
+  k:a_nd ("k_eep is a select by the mask" k:t_est ((x > 8000) * x) k:i_s (x > 8000) dp:k_eep x)
+  k:a_nd ("the tree equals the sequential sum, 16 items" k:t_est (u:s_eq x) k:i_s 16 dp:s_um x)
+  k:a_nd ("and 15 items (odd, padded)" k:t_est (u:s_eq 15 t_ake x) k:i_s 16 dp:s_um 15 t_ake x)
+  k:a_nd ("and 7 items" k:t_est (u:s_eq 7 t_ake x) k:i_s 16 dp:s_um 7 t_ake x)
+  k:a_nd ("and 1 item" k:t_est 1000 k:i_s 16 dp:s_um 1 t_ake x)
+  k:a_nd ("the tree wraps at every adder and still agrees" k:t_est (u:s_eq 16 r_eshape 30000) k:i_s 16 dp:s_um 16 r_eshape 30000)
+  k:a_nd ("l_argest" k:t_est 16000 k:i_s dp:l_argest x)
+  k:a_nd ("d_ot is the inner product, wrapped" k:t_est (16 fx:w_rap x '+ '* i_nner k) k:i_s x u:d_ot k)
+  k:a_nd ("p_ipeline is the sum of relu(x + x k), wrapped" k:t_est (u:s_eq dp:r_elu 16 fx:w_rap x + x * k) k:i_s x u:p_ipeline k)
+)

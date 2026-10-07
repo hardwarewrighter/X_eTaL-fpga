@@ -1,0 +1,15 @@
+ok: v_add is the wrapped sum
+ok: v_add wraps (30000 + 30000)
+ok: s_axpy is a x + y, wrapped
+ok: r_elu keeps the positive items
+ok: t_hreshold is a select by x > t
+ok: k_eep is a select by the mask
+ok: the tree equals the sequential sum, 16 items
+ok: and 15 items (odd, padded)
+ok: and 7 items
+ok: and 1 item
+ok: the tree wraps at every adder and still agrees
+ok: l_argest
+ok: d_ot is the inner product, wrapped
+ok: p_ipeline is the sum of relu(x + x k), wrapped
+14 checks, all passed

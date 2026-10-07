@@ -1,0 +1,21 @@
+#!/usr/bin/env xetal
+# Datapath: every function on small arrays at 16 bits. Run with "just run-lib Datapath basics".
+"dp:" u_se< "Datapath"
+u:v_add := dp:v_add 16
+1 2 3 4 u:v_add 10 20 30 40
+30000 u:v_add 30000 -30000
+u:s_axpy := 16 dp:s_axpy 3
+1 2 3 4 u:s_axpy 100 200 300 400
+dp:r_elu 1 -2 3 -4
+2 dp:t_hreshold 1 2 3 4
+(1 0 1 0) dp:k_eep 5 6 7 8
+16 dp:s_um 1 2 3 4
+16 dp:s_um 1 2 3 4 5
+16 dp:s_um 20000 20000 20000 20000
+8 dp:s_um 100 100 100
+dp:l_argest 3 9 2
+u:d_ot := dp:d_ot 16
+1 2 3 u:d_ot 4 5 6
+200 200 u:d_ot 200 200
+u:p_ipeline := dp:p_ipeline 16
+1 2 3 4 u:p_ipeline 1 -2 1 -2

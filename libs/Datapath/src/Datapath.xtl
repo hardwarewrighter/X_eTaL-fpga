@@ -1,0 +1,67 @@
+# Datapath: the vector examples at a stated width: the whole-array operations a circuit realizes directly
+# Import it with an alias of your choice: "dp:" u_se< "Datapath".
+# Put libs/Datapath/src on XETAL_PATH ("just path"); the reference is libs/Datapath/docs.
+# Names with l: are exported; the others are private to this file.
+#
+# Each function here is one whole-array expression a circuit can take
+# on directly: arithmetic and comparisons item by item with scalar
+# extension (one unit per element, or one unit and a counter), a
+# select by mask (a mux), and reductions (a tree of adders). The
+# arithmetic is Fixed's (a wrap at every unit), so every result is what w-bit units give, and
+# the X_eTaL evaluator is the reference the generated circuit must
+# match bit for bit (the demos are the programs it checks). The width
+# comes first; a function of three or four arguments is used curried,
+# the width bound once: u:v_add := dp:v_add 16, then x u:v_add y.
+"fx:" u_se< "Fixed"
+
+### Elementwise: one unit per element
+
+# w v_add x y: the sum, item by item, wrapped to w bits (eight 16-bit
+# numbers: eight 16-bit adders).
+l:v_add := { w x y -> w fx:w_rap x + y }
+
+# w s_axpy a x y: a times x plus y, wrapped at each unit (a multiplier
+# and an adder per element); bind w and a: u:s_axpy := 16 dp:s_axpy 3.
+l:s_axpy := { w a x y -> w fx:w_rap y + w fx:w_rap a * x }
+
+# r_elu x: x where positive, 0 elsewhere (a comparator and a mux).
+l:r_elu := { x -> x m_ax 0 }
+
+### Masks and select: a mux
+
+# t t_hreshold x: x where x > t, 0 elsewhere: the mask `x > t` is the
+# mux's select line.
+l:t_hreshold := { t x -> x * x > t }
+
+# m k_eep x: x where the mask m is 1, 0 elsewhere.
+l:k_eep := { m x -> x * m }
+
+### Reductions: a tree of adders
+
+# w s_um x: the sum of a vector as a balanced tree of w-bit adders:
+# the first half added to the second half, item by item, then that
+# vector likewise, down to one number (log2 n levels; an odd length
+# is padded with a 0). Wrapping at every adder gives the same bits as
+# wrapping the exact sum once (checked in tests/checks.xtl).
+l:s_um := { w x ->
+  n := t_ally x
+  n = 1 ? f_irst x
+  1 = n m_od 2 ? w l:s_um x c_at 0
+  h := n d_iv 2
+  w l:s_um w fx:w_rap (h t_ake x) + h d_rop x
+}
+
+# l_argest x: the largest item (a tree of comparators and muxes).
+l:l_argest := { x -> 'm_ax r_/ x }
+
+# w d_ot x y: the inner product, a multiplier per element then the
+# tree.
+l:d_ot := { w x y -> w l:s_um w fx:w_rap x * y }
+
+### The acceptance pipeline
+
+# w p_ipeline x k: multiply, add, select, reduce in one expression,
+# the sum of the positive items of x + x * k, every unit w bits: the
+# first end-to-end test research7 asks for (arithmetic, map, zip,
+# comparison, selection, reduction).
+l:p_ipeline := { w x k -> w l:s_um l:r_elu w fx:w_rap x + w fx:w_rap x * k }

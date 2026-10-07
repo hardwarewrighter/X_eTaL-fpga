@@ -64,10 +64,10 @@ twins go when X_eTaL's lowering lands.
 ## Status
 
 Saga 1 (fpga-foundation) in progress: the process, the pinned X_eTaL
-(75e6a5c) and X_eTaL-libraries (8adcd0d), the library tooling (step 1)
-and the Fixed library (step 2) are in place. Next: the Datapath
-library and its example programs (step 3), the Calc library (4), the
-provisional IR and interpreter (5), the netlist, the schedule, the
+(75e6a5c) and X_eTaL-libraries (8adcd0d), the library tooling (step
+1), the Fixed library (step 2) and the Datapath library with the
+example programs (step 3) are in place. Next: the Calc library (4),
+the provisional IR and interpreter (5), the netlist, the schedule, the
 simulator and the Verilog emitter (6). See
 [`docs/plan.md`](docs/plan.md) for the roadmap and the architecture
 decisions.

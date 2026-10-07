@@ -1,0 +1,9 @@
+#!/usr/bin/env xetal
+# A select by mask: x where x > t, 0 elsewhere, a comparator and a mux
+# per element. Run with "just demo-lib Datapath threshold".
+"dp:" u_se< "Datapath"
+x := 5 -3 12 0 7 -8 20 1
+x > 4                         # the mask: the mux's select lines
+4 dp:t_hreshold x
+(x > 4) dp:k_eep x            # the same, the mask given
+dp:r_elu x                    # threshold at 0

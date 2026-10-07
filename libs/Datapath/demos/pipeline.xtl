@@ -1,0 +1,11 @@
+#!/usr/bin/env xetal
+# The acceptance pipeline: multiply, add, select, reduce, as one
+# expression on eight 16-bit numbers: the sum of the positive items
+# of x + x * k. Run with "just demo-lib Datapath pipeline".
+"dp:" u_se< "Datapath"
+x := 1 2 3 4 5 6 7 8
+k := 1 -1 1 -1 1 -1 1 -1
+x + x * k                     # the elementwise part
+dp:r_elu x + x * k            # after the select
+u:p_ipeline := dp:p_ipeline 16
+x u:p_ipeline k               # the reduce
