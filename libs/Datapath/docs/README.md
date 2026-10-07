@@ -94,7 +94,10 @@ provisional accelerator IR ([`components/xir`](../../../components/xir/README.md
 until X_eTaL lowers its programs itself (ask F2). A twin names the
 baseline lines it reproduces (`# baseline: demo-vector-add 2`; the
 evaluator's own 64-bit lines are not circuit outputs), and
-`just equiv` checks that it prints exactly those lines.
+`just equiv` checks that it prints exactly those lines, and that the
+circuits scheduled from it (spatial, and with 1, 2 and 3 lanes) do
+too when simulated. The Verilog of each, spatial and with one lane,
+is pinned in [`rtl/`](../rtl/) (`just rtl`).
 
 ## Provenance
 

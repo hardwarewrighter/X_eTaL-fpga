@@ -34,8 +34,8 @@ array program to describe the hardware itself.
 | `libs/Datapath/` | the vector examples at a stated width (`dp:`): add, saxpy, threshold, the reduction tree, the acceptance pipeline; its demos are the programs the circuits realize |
 | `libs/Calc/` | a TMS1000-like four-function calculator as a state vector and a pure step function (`calc:`); the first sequential circuit |
 | `components/xir/` | the provisional accelerator IR (typed values with widths and shapes, elementwise maps, select, reductions, later registers and state), its text form and a reference interpreter |
-| `components/rtl/` | the netlist, the lanes schedule and the reduction tree, the cycle simulator, the Verilog-2005 emitter |
-| `components/cli/` | the `xetal-fpga` tool: `check`, `run`, `netlist`, `verilog`, `sim`, `explain` |
+| `components/rtl/` | the netlist, the lanes schedule and the reduction tree, the cycle simulator, the Verilog-2005 emitter and testbenches |
+| `components/cli/` | the `xetal-fpga` tool: `check`, `run`, `netlist`, `verilog`, `testbench`, `sim`, `explain` |
 | `docs/` | the plan, the asks for X_eTaL, the research notes |
 
 Every example is an X_eTaL program first; the pinned X_eTaL evaluator
@@ -63,22 +63,24 @@ twins go when X_eTaL's lowering lands.
 
 ## Status
 
-Saga 1 (fpga-foundation) in progress: the process, the pinned X_eTaL
-(75e6a5c) and X_eTaL-libraries (8adcd0d), the library tooling (step
-1), the three hardware models as tested X_eTaL libraries (Fixed,
-Datapath with the example programs, the Calc calculator: steps 2 to
-4) and the provisional IR with its interpreter, the `xetal-fpga`
-tool's `check` and `run`, and the first equivalence proof (every
-Datapath demo's `.xir` twin prints exactly what the evaluator
-printed: step 5) are in place. Next: the netlist, the lanes schedule
-and the reduction tree, the cycle simulator and the Verilog emitter
-(step 6). See
+Saga 1 (fpga-foundation) is done: the process and the pinned X_eTaL
+(75e6a5c) and X_eTaL-libraries (8adcd0d); the three hardware models
+as tested X_eTaL libraries (Fixed, Datapath with the example
+programs, the Calc calculator); the provisional IR with its
+interpreter; the netlist, the lanes schedule (spatial, or a counter
+with any number of lanes), the cycle simulator and the Verilog-2005
+emitter with self-checking testbenches. Every Datapath example's
+answer from the evaluator is reproduced, bit for bit, by the IR
+interpreter and by its circuits simulated at several lane counts, and
+their Verilog is pinned. Next, saga 2 (fpga-state): registers and
+state in the IR, and the calculator as a circuit. See
 [`docs/plan.md`](docs/plan.md) for the roadmap and the architecture
 decisions.
 
-Nothing here needs an FPGA or the FPGA tools yet: the gate runs the
-Verilog through iverilog and Yosys when they are installed and says
-so when it skips them.
+Nothing here needs an FPGA or the FPGA tools yet. The Verilog is
+proven through the Rust simulator of the same netlist; the gate also
+runs it through iverilog (each module with its testbench) and Yosys
+(synthesis) when they are installed, and says so when it skips them.
 
 ## Build
 
@@ -118,7 +120,11 @@ in its own commit after `just gate` passes.
 ```bash
 just demo-lib Datapath vector-add                  # the evaluator: a + b, then eight 16-bit adders' sum
 just xir-run libs/Datapath/demos/vector-add.xir    # the same sum from the hand-lowered IR
-just equiv                                         # every twin against the evaluator's baseline
+just equiv                                         # every twin and its circuits against the evaluator
+just explain libs/Datapath/demos/vector-add.xir    # spatial: eight 16-bit adders
+just explain libs/Datapath/demos/vector-add.xir 1  # temporal: one adder, a counter, eight clocks
+just verilog libs/Datapath/demos/reduce-sum.xir 1  # the Verilog of a one-lane reduction
+just sim libs/Datapath/demos/pipeline.xir 3        # the pipeline circuit with three lanes, simulated
 just run-lib Calc checks                           # the calculator's 22 checks
 just demo-lib Calc trace                           # its registers, key by key, for 12 + 34 =
 ```

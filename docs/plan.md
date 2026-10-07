@@ -111,7 +111,7 @@ examples); what needs an X_eTaL ask (the lowering, the one-command
 demo) is in the last saga and moves up when the ask lands. What needs
 tools or the board is in sagas 2 and 3 and is gated loudly (A10).
 
-### Saga 1 -- fpga-foundation  [ACTIVE]
+### Saga 1 -- fpga-foundation  [DONE]
 
 Goal: the process, the pinned X_eTaL, the hardware models as tested
 libraries (fixed-width numbers, the vector datapath, the calculator),
@@ -129,7 +129,17 @@ reproduced by a simulated circuit, bit for bit.
 | 5 | xir | `components/xir`: the IR (widths, shapes, ops, select, reduce, slice, concat), its text form (parse and print, round-trip tested), checking, the reference interpreter; each Datapath demo's `.xir` twin; `scripts/check-equiv.sh` (twin against baseline, exact); `xetal-fpga check` and `run` |
 | 6 | verilog | `components/rtl`: the netlist, the lanes schedule (spatial, temporal, tiled) and the reduction tree, the cycle simulator, the Verilog-2005 emitter; every twin's Verilog pinned as text and simulated for every schedule; iverilog and Yosys run when present (a self-checking testbench per example); `xetal-fpga netlist`, `verilog`, `sim`, `explain`; `scripts/check-equiv.sh` runs the netlist simulator (and iverilog when present) too |
 
-### Saga 2 -- fpga-state
+Done (2026-10-07): every step as planned. What it showed: the
+evaluator's answers for the five Datapath examples are reproduced
+exactly by the hand-lowered IR and by the circuits scheduled from it,
+spatial and with 1 to 9 lanes; the generated Verilog is pinned but
+has not yet been through iverilog or Yosys on a machine that has
+them (plan A10). Learned: X_eTaL's application is two-sided, so a
+three-input unit is applied curried or with its operands as one
+vector (ask F9); the temporal schedule takes single-length,
+single-pass programs and says so for the rest.
+
+### Saga 2 -- fpga-state  [ACTIVE]
 
 Goal: sequential circuits. The calculator written in X_eTaL runs as
 registers, a decoder and an ALU in simulated Verilog.

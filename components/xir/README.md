@@ -3,7 +3,7 @@
 The provisional accelerator IR of X_eTaL-fpga: a typed dataflow
 program of named values, its text form, checking, and a reference
 interpreter. It says what is computed; the schedule and the netlist
-(`components/rtl`, next) say how a circuit computes it. It knows
+([`components/rtl`](../rtl/README.md)) say how a circuit computes it. It knows
 nothing of Verilog.
 
 It stands in for X_eTaL's own accelerator IR (ask F1 in

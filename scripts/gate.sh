@@ -4,7 +4,8 @@
 # the library tooling's self-test, every library's baselines, the
 # Rust components (format, clippy, tests), the equivalence checks (the
 # evaluator against the XIR interpreter, the netlist simulator and,
-# when iverilog is installed, the generated Verilog), American
+# when iverilog and yosys are installed, the generated Verilog), the
+# pinned Verilog, American
 # spellings, then ASCII-only markdown for the docs we own.
 #   scripts/gate.sh
 set -euo pipefail
@@ -20,6 +21,7 @@ if [ -f "$root/components/Cargo.toml" ]; then
   echo "ok: components (fmt, clippy, tests)"
 fi
 [ -x "$root/scripts/check-equiv.sh" ] && "$root/scripts/check-equiv.sh"
+[ -x "$root/scripts/check-rtl.sh" ] && "$root/scripts/check-rtl.sh"
 # American spellings only (the checker checks itself first).
 "$root/scripts/check-spelling.py" --self-test
 "$root/scripts/check-spelling.py"

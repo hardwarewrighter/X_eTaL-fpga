@@ -6,6 +6,14 @@ version = 4
 name = "xetal-fpga-cli"
 version = "0.1.0"
 dependencies = [
+ "xetal-fpga-rtl",
+ "xetal-fpga-xir",
+]
+
+[[package]]
+name = "xetal-fpga-rtl"
+version = "0.1.0"
+dependencies = [
  "xetal-fpga-xir",
 ]
 

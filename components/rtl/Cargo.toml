@@ -1,0 +1,11 @@
+[package]
+name = "xetal-fpga-rtl"
+description = "The netlist, the lanes schedule, the cycle simulator and the Verilog-2005 emitter of X_eTaL-fpga"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[dependencies]
+xetal-fpga-xir = { path = "../xir" }

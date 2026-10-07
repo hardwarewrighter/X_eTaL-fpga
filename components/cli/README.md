@@ -7,13 +7,21 @@ about a program in the provisional accelerator IR
 | Command | What it prints |
 | ------- | -------------- |
 | `xetal-fpga check FILE.xir` | each value's type, `%c : i16[8]`, or the first error |
-| `xetal-fpga run FILE.xir` | the outputs, as `xetal` prints them |
+| `xetal-fpga run FILE.xir` | the outputs, as `xetal` prints them (the IR interpreter) |
+| `xetal-fpga netlist FILE.xir [--lanes N]` | the scheduled netlist, a cell per line |
+| `xetal-fpga verilog FILE.xir [--lanes N]` | the circuit as a Verilog-2005 module |
+| `xetal-fpga testbench FILE.xir [--lanes N]` | a self-checking testbench for that module |
+| `xetal-fpga sim FILE.xir [--lanes N]` | the netlist simulated: the outputs, and the clocks on stderr |
+| `xetal-fpga explain FILE.xir [--lanes N]` | the schedule: units by kind and width, registers, clocks |
+
+Without `--lanes` the schedule is spatial, a unit per element; with
+fewer lanes than elements it is temporal (see
+[`components/rtl`](../rtl/README.md)).
 
 ```bash
 just build                                       # target/release/xetal-fpga
 just xir-run libs/Datapath/demos/vector-add.xir  # 11 22 33 44 0 0 -32768 -5536
 ```
 
-The netlist, the Verilog, the simulation and the explanation of a
-schedule (`netlist`, `verilog`, `sim`, `explain`, with `--lanes N`)
-come with the RTL component.
+Later: `synth`, `pnr`, `pack` and `flash` over the open Gowin flow
+for the Tang Nano 4K.

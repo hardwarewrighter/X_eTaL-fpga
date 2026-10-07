@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 # The equivalence checks: every hand-lowered twin, libs/*/demos/*.xir,
-# run by the XIR interpreter (xetal-fpga run) must print exactly the
-# lines of its demo's reg-rs baseline that it names in a comment,
+# run by the XIR interpreter (xetal-fpga run) and as a simulated
+# circuit (xetal-fpga sim) in the spatial schedule and with 1, 2 and 3
+# lanes, must print exactly the lines of its demo's reg-rs baseline
+# that it names in a comment,
 #   # baseline: demo-NAME LINES      (LINES: 2, 1-3, 2,4,5)
 # where demo-NAME.out is the pinned evaluator's output of the .xtl
 # beside it. Ints are compared exactly (plan A2). A twin without a
@@ -32,14 +34,18 @@ for part in sys.argv[2].split(","):
 print("\n".join(text[i - 1] for i in picked))
 PY
 )"
-  if ! got="$("$tool" run "$twin" 2>&1)"; then
-    echo "FAIL: $rel: $got"; fail=1; continue
-  fi
-  if [ "$got" != "$want" ]; then
-    echo "FAIL: $rel does not reproduce $base lines $lines"
-    diff <(echo "$want") <(echo "$got") | sed 's/^/  /' || true
-    fail=1
-  fi
+  for how in "run" "sim" "sim --lanes 1" "sim --lanes 2" "sim --lanes 3"; do
+    read -r cmd opts <<<"$how"
+    # shellcheck disable=SC2086
+    if ! got="$("$tool" $cmd "$twin" $opts 2>/dev/null)"; then
+      echo "FAIL: $rel: xetal-fpga $how: $("$tool" $cmd "$twin" $opts 2>&1 >/dev/null)"; fail=1; continue
+    fi
+    if [ "$got" != "$want" ]; then
+      echo "FAIL: $rel ($how) does not reproduce $base lines $lines"
+      diff <(echo "$want") <(echo "$got") | sed 's/^/  /' || true
+      fail=1
+    fi
+  done
 done
-echo "check-equiv: $n twin(s), XIR interpreter against the evaluator$([ $fail = 0 ] && echo ', all equal' || echo ', DIFFERENCES')"
+echo "check-equiv: $n twin(s), the XIR interpreter and the simulated circuits (spatial; 1, 2, 3 lanes) against the evaluator$([ $fail = 0 ] && echo ', all equal' || echo ', DIFFERENCES')"
 exit $fail

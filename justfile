@@ -76,11 +76,12 @@ test-lib name:
 bless-lib name:
     XETAL_BLESS=1 scripts/test-libs.sh "$1"
 
-# Test everything: every library's baselines, the Rust components, the equivalence checks
+# Test everything: every library's baselines, the Rust components, the equivalence checks, the pinned Verilog
 test:
     scripts/test-libs.sh
     @[ -f components/Cargo.toml ] && (cd components && cargo test -q) || true
     @[ -x scripts/check-equiv.sh ] && scripts/check-equiv.sh || true
+    @[ -x scripts/check-rtl.sh ] && scripts/check-rtl.sh || true
 
 # Check an XIR program: each value's type: just xir-check libs/Datapath/demos/threshold.xir
 xir-check file:
@@ -93,6 +94,34 @@ xir-run file:
 # The equivalence checks: every .xir twin against its demo's baseline (the evaluator)
 equiv:
     scripts/check-equiv.sh
+
+# The scheduled netlist of an XIR program (spatial, or N lanes): just netlist libs/Datapath/demos/vector-add.xir 2
+netlist file lanes="":
+    @cd components && cargo run -q -p xetal-fpga-cli -- netlist "../$1" ${2:+--lanes "$2"}
+
+# The circuit as Verilog-2005: just verilog libs/Datapath/demos/reduce-sum.xir 1
+verilog file lanes="":
+    @cd components && cargo run -q -p xetal-fpga-cli -- verilog "../$1" ${2:+--lanes "$2"}
+
+# A self-checking Verilog testbench for the circuit
+testbench file lanes="":
+    @cd components && cargo run -q -p xetal-fpga-cli -- testbench "../$1" ${2:+--lanes "$2"}
+
+# The circuit simulated: its outputs, the clocks on stderr: just sim libs/Datapath/demos/pipeline.xir 3
+sim file lanes="":
+    @cd components && cargo run -q -p xetal-fpga-cli -- sim "../$1" ${2:+--lanes "$2"}
+
+# What a schedule made: units by kind and width, registers, clocks: just explain libs/Datapath/demos/pipeline.xir 2
+explain file lanes="":
+    @cd components && cargo run -q -p xetal-fpga-cli -- explain "../$1" ${2:+--lanes "$2"}
+
+# The pinned Verilog of every twin, and iverilog and yosys on it when installed
+rtl:
+    scripts/check-rtl.sh
+
+# Rewrite the pinned Verilog from what xetal-fpga writes today (review the diff!)
+bless-rtl:
+    XETAL_BLESS=1 scripts/check-rtl.sh
 
 # Build the FPGA tool, xetal-fpga (components/cli), in release mode
 build:

@@ -13,3 +13,4 @@ path = "src/main.rs"
 
 [dependencies]
 xetal-fpga-xir = { path = "../xir" }
+xetal-fpga-rtl = { path = "../rtl" }
