@@ -1,0 +1,1 @@
+libs/Calc (calc:): five 16-bit registers as a state vector, k_eys, a whole-array d_ecode, a_lu (mux as masked sum), the pure s_tep (next-state logic), r_un/t_race harness (recursive, ask F5), d_isplay, c_alc; basics, 22 Check laws, pinned types; demos session and trace; reference page with state layout and key codes. Ask F9 filed (three-argument application). Gate passes.
