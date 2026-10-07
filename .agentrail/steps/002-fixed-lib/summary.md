@@ -1,0 +1,1 @@
+libs/Fixed (fx:): l_owest, h_ighest, u_wrap, w_rap, o_verflow?, s_at, a_dd, s_ub, m_ul, n_eg, b_its, v_alue, h_ex at a stated width on whole arrays; three-argument functions used curried (u:a_dd := fx:a_dd 8). Tests: basics at 8 and 16 bits, 17 Check laws on all 256 patterns of 8 bits, pinned types; demos overflow and counter with baselines; reference page. Gate passes.
