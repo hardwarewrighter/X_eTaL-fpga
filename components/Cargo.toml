@@ -1,0 +1,10 @@
+[workspace]
+resolver = "2"
+members = ["xir", "cli"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+authors = ["Michael A Wright"]
+repository = "https://github.com/hardwarewrighter/X_eTaL-fpga"

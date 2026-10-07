@@ -89,6 +89,13 @@ reference for the circuit generated from it:
 - [`demos/pipeline.xtl`](../demos/pipeline.xtl): multiply, add,
   select, reduce in one expression.
 
+Each demo has a hand-lowered twin beside it, `demos/NAME.xir`, in the
+provisional accelerator IR ([`components/xir`](../../../components/xir/README.md)),
+until X_eTaL lowers its programs itself (ask F2). A twin names the
+baseline lines it reproduces (`# baseline: demo-vector-add 2`; the
+evaluator's own 64-bit lines are not circuit outputs), and
+`just equiv` checks that it prints exactly those lines.
+
 ## Provenance
 
 Written for X_eTaL-fpga after research7's FPGA milestones F1 to F4

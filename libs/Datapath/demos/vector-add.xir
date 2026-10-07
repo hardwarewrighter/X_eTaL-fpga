@@ -1,0 +1,7 @@
+# vector-add.xtl hand-lowered (until X_eTaL's lowering exists, ask F2):
+# c := a + b on eight 16-bit numbers, eight 16-bit adders.
+# baseline: demo-vector-add 2
+%a = input i16[8] 1 2 3 4 100 -100 32767 30000
+%b = input i16[8] 10 20 30 40 -100 100 1 30000
+%c = map add %a %b
+output %c

@@ -65,11 +65,14 @@ twins go when X_eTaL's lowering lands.
 
 Saga 1 (fpga-foundation) in progress: the process, the pinned X_eTaL
 (75e6a5c) and X_eTaL-libraries (8adcd0d), the library tooling (step
-1), and the three hardware models as tested X_eTaL libraries are in
-place: Fixed (step 2), Datapath with the example programs (3) and the
-Calc calculator (4). Next: the provisional IR and interpreter (5),
-then the netlist, the schedule, the simulator and the Verilog emitter
-(6). See
+1), the three hardware models as tested X_eTaL libraries (Fixed,
+Datapath with the example programs, the Calc calculator: steps 2 to
+4) and the provisional IR with its interpreter, the `xetal-fpga`
+tool's `check` and `run`, and the first equivalence proof (every
+Datapath demo's `.xir` twin prints exactly what the evaluator
+printed: step 5) are in place. Next: the netlist, the lanes schedule
+and the reduction tree, the cycle simulator and the Verilog emitter
+(step 6). See
 [`docs/plan.md`](docs/plan.md) for the roadmap and the architecture
 decisions.
 
@@ -109,6 +112,16 @@ same way (`XETAL_LIBRARIES_COMMIT`, `work/xetal-libraries/`, the
 libraries used linked under `work/libs/`). Maintainers move to a
 newer X_eTaL with `just xetal-pin [REF]` (and `just libs-pin [REF]`),
 in its own commit after `just gate` passes.
+
+## Try it
+
+```bash
+just demo-lib Datapath vector-add                  # the evaluator: a + b, then eight 16-bit adders' sum
+just xir-run libs/Datapath/demos/vector-add.xir    # the same sum from the hand-lowered IR
+just equiv                                         # every twin against the evaluator's baseline
+just run-lib Calc checks                           # the calculator's 22 checks
+just demo-lib Calc trace                           # its registers, key by key, for 12 + 34 =
+```
 
 ## Libraries and examples
 

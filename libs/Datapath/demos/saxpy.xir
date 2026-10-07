@@ -1,0 +1,12 @@
+# saxpy.xtl hand-lowered: a x + y, a multiplier and an adder per
+# element, every unit 16 bits, for a = 3 and a = 10000.
+# baseline: demo-saxpy 1-2
+%x = input i16[8] 1 2 3 4 5 6 7 8
+%y = input i16[8] 100 200 300 400 500 600 700 800
+%a = const i16 3
+%ax = map mul %a %x
+%r = map add %y %ax
+%big = const i16 10000
+%bx = map mul %big %x
+%rb = map add %y %bx
+output %r %rb

@@ -60,8 +60,8 @@ The IR "should know nothing about OpenCL, CUDA, Verilog, Yosys, Gowin,
 Tang Nano, NVIDIA"; its job is "here is the computation", and the
 downstream repositories answer "here is how this device realizes that
 computation". What this repository needs from it, concretely, is in
-`components/xir/README.md` once step 5 lands: the provisional IR is
-the request, written as code and tests. For hardware the IR needs a
+[`components/xir/README.md`](../components/xir/README.md): the
+provisional IR is the request, written as code and tests. For hardware the IR needs a
 little more than the GPU subset (research7, PoC 1 step 2): widths,
 Concat and Slice, Lookup, Register, ROM and RAM, and a state machine,
 "that last group distinguishes FPGA compilation from ordinary array

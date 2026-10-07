@@ -1,0 +1,10 @@
+[package]
+name = "xetal-fpga-xir"
+description = "The provisional accelerator IR of X_eTaL-fpga: typed values with bit widths and static shapes, a text form, checking and a reference interpreter"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[dependencies]

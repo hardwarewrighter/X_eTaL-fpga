@@ -1,0 +1,11 @@
+# reduce-sum.xtl hand-lowered: '+ r_/ v of eight 16-bit numbers (the
+# schedule makes it a tree of seven adders), one that wraps, and the
+# largest item (a tree of comparators). The evaluator's own 64-bit
+# sums (lines 1 and 3) are not circuit outputs.
+# baseline: demo-reduce-sum 2,4,5
+%v = input i16[8] 1 2 3 4 5 6 7 8
+%big = input i16[8] 10000 10000 10000 10000 10000 10000 10000 10000
+%s = reduce add %v
+%sb = reduce add %big
+%l = reduce max %v
+output %s %sb %l

@@ -1,0 +1,15 @@
+[package]
+name = "xetal-fpga-cli"
+description = "xetal-fpga: check and run XIR programs (later: netlist, verilog, sim, explain)"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[[bin]]
+name = "xetal-fpga"
+path = "src/main.rs"
+
+[dependencies]
+xetal-fpga-xir = { path = "../xir" }

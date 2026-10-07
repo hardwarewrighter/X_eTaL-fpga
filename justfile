@@ -82,6 +82,18 @@ test:
     @[ -f components/Cargo.toml ] && (cd components && cargo test -q) || true
     @[ -x scripts/check-equiv.sh ] && scripts/check-equiv.sh || true
 
+# Check an XIR program: each value's type: just xir-check libs/Datapath/demos/threshold.xir
+xir-check file:
+    @cd components && cargo run -q -p xetal-fpga-cli -- check "../$1"
+
+# Run an XIR program with the reference interpreter: just xir-run libs/Datapath/demos/vector-add.xir
+xir-run file:
+    @cd components && cargo run -q -p xetal-fpga-cli -- run "../$1"
+
+# The equivalence checks: every .xir twin against its demo's baseline (the evaluator)
+equiv:
+    scripts/check-equiv.sh
+
 # Build the FPGA tool, xetal-fpga (components/cli), in release mode
 build:
     cd components && cargo build -q --release -p xetal-fpga-cli
