@@ -1,8 +1,9 @@
 number = 1
 slug = "scaffold"
-status = "in-progress"
+status = "completed"
 description = "Scaffold the repository on the sibling repos' precedents (X_eTaL-demos, X_eTa..."
 role = "production"
 context_files = []
 created_at = "2026-10-06T18:38:40"
-commits = []
+completed_at = "2026-10-06T19:23:14"
+commits = ["7c0e0027bd08351554c101d9c06962e5a64e80cc"]
