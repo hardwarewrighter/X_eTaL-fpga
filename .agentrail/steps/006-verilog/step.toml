@@ -1,0 +1,8 @@
+number = 6
+slug = "verilog"
+status = "pending"
+description = "components/rtl (crate xetal-fpga-rtl): the netlist (word-level units of state..."
+role = "production"
+context_files = []
+created_at = "2026-10-06T18:38:40"
+commits = []

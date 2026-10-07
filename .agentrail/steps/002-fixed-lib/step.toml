@@ -1,0 +1,8 @@
+number = 2
+slug = "fixed-lib"
+status = "pending"
+description = "libs/Fixed (alias fx:): fixed-width two's complement numbers at a stated widt..."
+role = "production"
+context_files = []
+created_at = "2026-10-06T18:38:40"
+commits = []

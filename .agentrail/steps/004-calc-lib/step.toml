@@ -1,0 +1,8 @@
+number = 4
+slug = "calc-lib"
+status = "pending"
+description = "libs/Calc (alias calc:): a TMS1000-like four-function calculator modeled as o..."
+role = "production"
+context_files = []
+created_at = "2026-10-06T18:38:40"
+commits = []

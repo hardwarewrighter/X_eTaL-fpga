@@ -1,0 +1,8 @@
+number = 3
+slug = "datapath-lib"
+status = "pending"
+description = "libs/Datapath (alias dp:): the vector examples at a stated width, each one wh..."
+role = "production"
+context_files = []
+created_at = "2026-10-06T18:38:40"
+commits = []
