@@ -1,0 +1,35 @@
+#!/usr/bin/env xetal
+# Calc: keys, the decoder, the ALU, one step at a time, and whole
+# calculations. Run with "just run-lib Calc basics".
+"calc:" u_se< "Calc"
+calc:k_eys "12+34="
+calc:k_eys "7 * 8 ="
+calc:k_eys "C9x"
+calc:d_ecode 0 9 10 13 14 15 16
+1 calc:a_lu 12 34
+2 calc:a_lu 12 34
+3 calc:a_lu 12 34
+4 calc:a_lu 100 7
+4 calc:a_lu 100 0
+3 calc:a_lu 300 300
+calc:Reset calc:s_tep 1
+(calc:Reset calc:s_tep 1) calc:s_tep 2
+calc:Reset calc:r_un calc:k_eys "12+"
+calc:Reset calc:r_un calc:k_eys "12+34"
+calc:Reset calc:r_un calc:k_eys "12+34="
+calc:Reset calc:t_race calc:k_eys "2+3="
+calc:c_alc "2+3="
+calc:c_alc "12+34="
+calc:c_alc "7*8="
+calc:c_alc "123-27="
+calc:c_alc "100/7="
+calc:c_alc "1+2+3="
+calc:c_alc "2*3+4="
+calc:c_alc "5-7="
+calc:c_alc "60000+10000="
+calc:c_alc "12+34=+1="
+calc:c_alc "12+34=5+1="
+calc:c_alc "12+C34="
+calc:c_alc "12="
+calc:c_alc "+5="
+calc:c_alc ""

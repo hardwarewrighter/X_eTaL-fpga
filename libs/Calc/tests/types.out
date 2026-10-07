@@ -1,0 +1,9 @@
+l:k_eys : Char -> Int
+l:d_ecode : (Num a, Truthy a) => Int -> a
+l:Reset : Int
+l:d_isplay : a -> a
+l:a_lu : Num a => a -> Int -> Int
+l:s_tep : Int -> Int -> Int
+l:r_un : Int -> Int -> Int
+l:t_race : Int -> Int -> Int
+l:c_alc : Char -> Int

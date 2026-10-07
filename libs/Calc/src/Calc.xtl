@@ -1,0 +1,121 @@
+# Calc: a TMS1000-like four-function calculator as a state vector and a pure step function
+# Import it with an alias of your choice: "calc:" u_se< "Calc".
+# Put libs/Calc/src on XETAL_PATH ("just path"); the reference is libs/Calc/docs.
+# Names with l: are exported; the others are private to this file.
+#
+# A calculator the way a chip has it: a few registers (the state), a
+# keyboard (one key code per step), a decoder, an ALU and a display.
+# The state is one Int vector, acc entry op phase display:
+#   acc      the accumulator: the first operand, then the running result
+#   entry    the number being keyed in
+#   op       the pending operation: 0 none, 1 +, 2 -, 3 *, 4 /
+#   phase    0 after an operator (the next digit starts an entry),
+#            1 entering digits, 2 after = (the result is shown)
+#   display  the number shown
+# Every number is 16-bit two's complement (Fixed), as the chip's
+# registers would be, so 60000 + 10000 = shows 4464. `s_tep` is pure,
+# one key in, the next state out: it is the circuit's next-state
+# logic, and saga 2 lowers it to registers, a decoder and an ALU.
+# `r_un` folds it over a key sequence and is only the harness (the
+# testbench's clock); X_eTaL has no left fold yet (ask F5), so it
+# recurses.
+"fx:" u_se< "Fixed"
+
+### Keys
+
+# Key codes: the digits are 0 to 9, then the operators, equals and
+# clear, in the order of this text (a key's code is its place, less 1).
+Keyboard := "0123456789+-*/=C"
+KeyPlus := 10; KeyMinus := 11; KeyTimes := 12; KeyDivide := 13
+KeyEquals := 14; KeyClear := 15
+
+# k_eys text: the key codes of a text such as "12+34=" (spaces are
+# skipped; any other character gives 16, which s_tep ignores).
+l:k_eys := { t -> (Keyboard i_ndexOf (t != f_irst " ") r_eplicate t) - 1 }
+
+# d_ecode key: the key's class, 0 a digit, 1 an operator, 2 equals,
+# 3 clear, 4 none (the decoder's output), for every key at once: the
+# class is how many of the boundaries the code has reached (a few
+# comparators and an adder).
+l:d_ecode := { k -> (k >= KeyPlus) + (k >= KeyEquals) + (k >= KeyClear) + k > KeyClear }
+
+### The registers
+
+# Reset: the state at power on (every register 0).
+l:Reset := 0 0 0 0 0
+
+a_cc := { s -> 1 s_elect s }
+e_ntry := { s -> 2 s_elect s }
+o_p := { s -> 3 s_elect s }
+p_hase := { s -> 4 s_elect s }
+
+# d_isplay s: the number shown.
+l:d_isplay := { s -> 5 s_elect s }
+
+### The ALU
+
+# op a_lu acc entry: the pending operation applied to the two operands
+# (one 2-item vector, so 1 a_lu 12 34 reads as written), 16 bits: the four
+# results are computed side by side and the one the op selects is
+# kept (a mux written as a masked sum; a division by zero gives 0).
+l:a_lu := { op ab ->
+  a := f_irst ab
+  b := 2 s_elect ab
+  q := (b != 0) * a d_iv b + b = 0              # 0 when b is 0 (no trap)
+  '+ r_/ (op = 1 2 3 4) * 16 fx:w_rap (a + b) c_at (a - b) c_at (a * b) c_at q
+}
+
+### The step: one key, the next state
+
+# A digit: appended to the entry (or starting one after =).
+d_igit := { s d ->
+  fresh := 2 = p_hase s                        # after =, a new calculation
+  entry := 16 fx:w_rap d + 10 * (n_ot fresh) * e_ntry s
+  keep := n_ot fresh
+  (keep * a_cc s) c_at entry c_at (keep * o_p s) c_at 1 c_at entry
+}
+
+# acc after the pending operation has taken the entry, when there is
+# an entry: the op applied, or the entry itself when no op is pending.
+s_ettle := { s ->
+  1 != p_hase s ? a_cc s
+  0 = o_p s ? e_ntry s
+  (o_p s) l:a_lu (a_cc s) c_at e_ntry s
+}
+
+# An operator: the pending one settles, this one is pending.
+o_perator := { s k ->
+  acc := s_ettle s
+  acc c_at 0 c_at (k - 9) c_at 0 c_at acc
+}
+
+# Equals: the pending operation settles and the result is shown.
+e_quals := { s ->
+  acc := s_ettle s
+  acc c_at 0 c_at 0 c_at 2 c_at acc
+}
+
+# s s_tep key: the next state (pure: the circuit's next-state logic).
+l:s_tep := { s k ->
+  class := l:d_ecode k
+  class = 0 ? s d_igit k
+  class = 1 ? s o_perator k
+  class = 2 ? e_quals s
+  class = 3 ? l:Reset
+  s
+}
+
+### Running a key sequence (the harness)
+
+# s r_un keys: the state after every key, from s.
+l:r_un := { s keys -> 0 = t_ally keys ? s; (s l:s_tep f_irst keys) l:r_un 1 d_rop keys }
+
+# s t_race keys: every state, a row per key, from s (s first).
+l:t_race := { s keys ->
+  0 = t_ally keys ? 1 5 r_eshape s
+  s c_at (s l:s_tep f_irst keys) l:t_race 1 d_rop keys
+}
+
+# c_alc text: what the display shows after the keys of a text, from
+# Reset: calc:c_alc "12+34=" is 46.
+l:c_alc := { t -> l:d_isplay l:Reset l:r_un l:k_eys t }
