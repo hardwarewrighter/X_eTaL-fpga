@@ -32,7 +32,6 @@ array program to describe the hardware itself.
 | ---- | ------------- |
 | `libs/Fixed/` | fixed-width two's complement numbers (`"fx:" u_se< "Fixed"`): the width written in the program, the evaluator computing what a w-bit adder gives |
 | `libs/Datapath/` | the vector examples at a stated width (`dp:`): add, saxpy, threshold, the reduction tree, the acceptance pipeline; its demos are the programs the circuits realize |
-| `libs/Calc/` | a four-function calculator as a state vector and a pure step function (`calc:`): a behavioral model, an example of a sequential program |
 | `components/xir/` | the provisional accelerator IR (typed values with widths and shapes, elementwise maps, select, reductions, later registers and state), its text form and a reference interpreter |
 | `components/rtl/` | the netlist, the lanes schedule and the reduction tree, the cycle simulator, the Verilog-2005 emitter and testbenches |
 | `components/cli/` | the `xetal-fpga` tool: `check`, `run`, `netlist`, `verilog`, `testbench`, `sim`, `explain` |
@@ -64,9 +63,9 @@ twins go when X_eTaL's lowering lands.
 ## Status
 
 Saga 1 (fpga-foundation) is done: the process and the pinned X_eTaL
-(75e6a5c) and X_eTaL-libraries (8adcd0d); the three hardware models
-as tested X_eTaL libraries (Fixed, Datapath with the example
-programs, the Calc calculator); the provisional IR with its
+(75e6a5c) and X_eTaL-libraries (8adcd0d); the hardware models as
+tested X_eTaL libraries (Fixed, and Datapath with the example
+programs); the provisional IR with its
 interpreter; the netlist, the lanes schedule (spatial, or a counter
 with any number of lanes), the cycle simulator and the Verilog-2005
 emitter with self-checking testbenches. Every Datapath example's
@@ -127,8 +126,6 @@ just explain libs/Datapath/demos/vector-add.xir    # spatial: eight 16-bit adder
 just explain libs/Datapath/demos/vector-add.xir 1  # temporal: one adder, a counter, eight clocks
 just verilog libs/Datapath/demos/reduce-sum.xir 1  # the Verilog of a one-lane reduction
 just sim libs/Datapath/demos/pipeline.xir 3        # the pipeline circuit with three lanes, simulated
-just run-lib Calc checks                           # the calculator's 22 checks
-just demo-lib Calc trace                           # its registers, key by key, for 12 + 34 =
 ```
 
 ## Libraries and examples

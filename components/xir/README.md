@@ -79,6 +79,6 @@ just equiv                                         # every twin against its base
 
 ## Not yet
 
-Registers, ROMs, lookups and the state machine (the Calc library's
-step) come in saga 2; widening and narrowing casts, `matvec`, and
+Registers, ROMs, lookups and state machines (a step function over a
+state vector) come in saga 2; widening and narrowing casts, `matvec`, and
 reductions along an axis of a matrix when an example needs them.

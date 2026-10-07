@@ -66,5 +66,5 @@ says so.
 
 ## Not yet
 
-Registers and state written in the program (the Calc library's step
-function), ROMs, a UART, the board's pins and clock: saga 2 and 3.
+Registers and state written in the program (a step function over a
+state vector, as the 4-bit machine of saga 3 is), ROMs, a UART, the board's pins and clock: saga 2 and 3.

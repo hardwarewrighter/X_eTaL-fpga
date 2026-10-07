@@ -1,8 +1,0 @@
-#!/usr/bin/env xetal
-# The registers key by key for 12 + 34 =: a row per step, the columns
-# acc, entry, op, phase, display. What the circuit's registers will
-# hold on each clock. Run with "just demo-lib Calc trace".
-"calc:" u_se< "Calc"
-keys := calc:k_eys "12+34="
-keys
-calc:Reset calc:t_race keys

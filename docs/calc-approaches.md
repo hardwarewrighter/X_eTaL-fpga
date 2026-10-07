@@ -354,9 +354,9 @@ values; the crate is a boundary around them.
 ## Decided (2026-10-07, with the user)
 
 1. **The TMS1000 only.** The demo is a TMS1000-class machine; Calc is
-   not the demo (what becomes of `libs/Calc` is still open: it can
-   stay as an example of a behavioral sequential model, or be retired
-   when the machine's reference replaces it). Other calculators may
+   not the demo, and `libs/Calc` is retired (removed; it remains in
+   git history). The machine's reference is the radix library of
+   saga 3. Other calculators may
    come later, but the higher-priority larger machines are the RCA
    CDP1802 and the IBM 1130, on larger Tang Nano boards.
 2. **Not a replica: a machine in the spirit of the TMS1000.** We design
@@ -394,5 +394,11 @@ values; the crate is a boundary around them.
    board), so both stay buildable. A 9K or larger board is not spent
    on this design.
 
-Still open: item 4 (how to rewrite ask F6 and whether to file the
-`Session` API as its own ask), and what becomes of `libs/Calc`.
+4. **The asks.** F6 narrowed to typed, shaped data files (input is
+   covered today; `.xtln` is the answer, planned upstream, not
+   blocking), and the `Session` API filed as F10 (not blocking),
+   cross-referenced with X_eTaL-ML's M5 and X_eTaL-gpu's G5.
+
+Sections 1 to 4 above are the discussion as it was; where they speak
+of Calc as a specification, read the radix reference library of saga
+3 instead.

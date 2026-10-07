@@ -1,2 +1,0 @@
-command = "../../../scripts/xt type ../src/Calc.xtl"
-exit_code = 0
