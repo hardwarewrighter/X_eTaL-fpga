@@ -1,0 +1,9 @@
+# shift.xtl hand-lowered: a 4-bit shift register, one bit in per clock
+# (each item a one-element vector, so it joins the register's end).
+# baseline: demo-shift 1-7
+%b = stream i8[1] 1 0 1 1 0 1
+%s = state i8[4] 0 0 0 0
+%rest = slice %s 1 3
+%t = concat %rest %b
+next %s %t
+trace %s

@@ -1,0 +1,6 @@
+#!/usr/bin/env xetal
+# An 8-bit counter with an enable, clocked ten times from 120: it
+# counts only when enabled, and wraps past 127. The trace is what its
+# register holds after reset and after each clock. Run with "just demo-lib Clocked counter".
+"ck:" u_se< "Clocked"
+120 'ck:t_ick ck:t_race 1 1 0 1 1 1 1 1 1 1

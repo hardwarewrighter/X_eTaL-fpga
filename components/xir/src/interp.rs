@@ -1,10 +1,11 @@
 //! The reference interpreter: X_eTaL's semantics at the stated
 //! widths, as the Fixed library computes them (every arithmetic
 //! result wrapped to its width), so it reproduces the evaluator's
-//! output exactly.
+//! output exactly. A clocked program runs its nodes once per clock,
+//! the states taking their `next` values between clocks.
 
 use crate::check::extend;
-use crate::{check, Elem, Error, MapOp, Op, Program, RedOp, Type};
+use crate::{check, clocks, Elem, Error, MapOp, Op, Program, RedOp, Type};
 use std::collections::HashMap;
 use std::fmt;
 
@@ -100,68 +101,189 @@ fn reduce(r: RedOp, v: &Value) -> Value {
     }
 }
 
-/// Check and run a program; give its outputs in order.
+/// One node's value from its operands' (not a state or a stream).
+fn eval(op: &Op, env: &HashMap<&str, Value>) -> Value {
+    let get = |x: &String| env.get(x.as_str()).expect("checked");
+    match op {
+        Op::Input(t, d) | Op::Const(t, d) => Value {
+            ty: t.clone(),
+            data: d.clone(),
+        },
+        Op::Map(m, xs) => map(*m, &xs.iter().map(get).collect::<Vec<_>>()),
+        Op::Select(m, a, b) => {
+            let vs = [get(m), get(a), get(b)];
+            let shape =
+                extend(&vs.iter().map(|v| &v.ty.shape).collect::<Vec<_>>()).expect("checked");
+            let data = columns(&vs, shape.iter().product())
+                .map(|c| if c[0] != 0 { c[1] } else { c[2] })
+                .collect();
+            Value {
+                ty: Type::new(vs[1].ty.elem, shape),
+                data,
+            }
+        }
+        Op::Reduce(r, x) => reduce(*r, get(x)),
+        Op::Shl(x, k) => {
+            let v = get(x);
+            Value {
+                ty: v.ty.clone(),
+                data: v
+                    .data
+                    .iter()
+                    .map(|&a| fit(v.ty.elem, (a as i128) << k))
+                    .collect(),
+            }
+        }
+        Op::Shr(x, k) => {
+            let v = get(x);
+            Value {
+                ty: v.ty.clone(),
+                data: v.data.iter().map(|&a| a >> k).collect(),
+            }
+        }
+        Op::Slice(x, s, l) => {
+            let v = get(x);
+            Value {
+                ty: Type::new(v.ty.elem, vec![*l]),
+                data: v.data[*s..s + l].to_vec(),
+            }
+        }
+        Op::Concat(a, b) => {
+            let (va, vb) = (get(a), get(b));
+            let data: Vec<i64> = va.data.iter().chain(&vb.data).copied().collect();
+            Value {
+                ty: Type::new(va.ty.elem, vec![data.len()]),
+                data,
+            }
+        }
+        Op::Cast(e, x) => {
+            let v = get(x);
+            Value {
+                ty: Type::new(*e, v.ty.shape.clone()),
+                data: v.data.iter().map(|&a| fit(*e, a as i128)).collect(),
+            }
+        }
+        Op::Lookup(t, i) => {
+            let (vt, vi) = (get(t), get(i));
+            let data = vi
+                .data
+                .iter()
+                .map(|&a| {
+                    if a >= 0 && (a as usize) < vt.data.len() {
+                        vt.data[a as usize]
+                    } else {
+                        0
+                    }
+                })
+                .collect();
+            Value {
+                ty: Type::new(vt.ty.elem, vi.ty.shape.clone()),
+                data,
+            }
+        }
+        Op::Put(v, i, x) => {
+            let (vv, a, item) = (get(v), get(i).data[0], get(x).data[0]);
+            let mut data = vv.data.clone();
+            if a >= 0 && (a as usize) < data.len() {
+                data[a as usize] = item;
+            }
+            Value {
+                ty: vv.ty.clone(),
+                data,
+            }
+        }
+        Op::State(..) | Op::Stream(..) => unreachable!("states and streams are set by the clock"),
+    }
+}
+
+/// Check and run a program; give its outputs in order (a trace output
+/// stacked: its value after reset and after each clock).
 pub fn run(p: &Program) -> Result<Vec<Value>, Error> {
     check(p)?;
+    let Some(n) = clocks(p) else {
+        let mut env: HashMap<&str, Value> = HashMap::new();
+        for node in &p.nodes {
+            let v = eval(&node.op, &env);
+            env.insert(&node.name, v);
+        }
+        return Ok(p
+            .outputs
+            .iter()
+            .map(|o| env[o.name.as_str()].clone())
+            .collect());
+    };
+    let mut state: HashMap<&str, Value> = p
+        .nodes
+        .iter()
+        .filter_map(|node| match &node.op {
+            Op::State(t, d) => Some((
+                node.name.as_str(),
+                Value {
+                    ty: t.clone(),
+                    data: d.clone(),
+                },
+            )),
+            _ => None,
+        })
+        .collect();
+    let mut traces: Vec<Vec<Value>> = vec![Vec::new(); p.outputs.len()];
     let mut env: HashMap<&str, Value> = HashMap::new();
-    for n in &p.nodes {
-        let get = |x: &String| env.get(x.as_str()).expect("checked");
-        let v = match &n.op {
-            Op::Input(t, d) | Op::Const(t, d) => Value {
-                ty: t.clone(),
-                data: d.clone(),
-            },
-            Op::Map(m, xs) => map(*m, &xs.iter().map(get).collect::<Vec<_>>()),
-            Op::Select(m, a, b) => {
-                let vs = [get(m), get(a), get(b)];
-                let shape =
-                    extend(&vs.iter().map(|v| &v.ty.shape).collect::<Vec<_>>()).expect("checked");
-                let data = columns(&vs, shape.iter().product())
-                    .map(|c| if c[0] != 0 { c[1] } else { c[2] })
-                    .collect();
-                Value {
-                    ty: Type::new(vs[1].ty.elem, shape),
-                    data,
+    for clock in 0..=n {
+        env.clear();
+        for node in &p.nodes {
+            let v = match &node.op {
+                Op::State(..) => state[node.name.as_str()].clone(),
+                Op::Stream(t, d) => {
+                    // After the last clock no item is present: zeros
+                    // (nothing an output reads depends on it).
+                    let c = t.count().max(1);
+                    let data = if clock < n {
+                        d[clock * c..(clock + 1) * c].to_vec()
+                    } else {
+                        vec![0; c]
+                    };
+                    Value {
+                        ty: t.clone(),
+                        data,
+                    }
                 }
+                op => eval(op, &env),
+            };
+            env.insert(&node.name, v);
+        }
+        for (o, t) in p.outputs.iter().zip(traces.iter_mut()) {
+            if o.trace {
+                t.push(env[o.name.as_str()].clone());
             }
-            Op::Reduce(r, x) => reduce(*r, get(x)),
-            Op::Shl(x, k) => {
-                let v = get(x);
-                Value {
-                    ty: v.ty.clone(),
-                    data: v
-                        .data
-                        .iter()
-                        .map(|&a| fit(v.ty.elem, (a as i128) << k))
-                        .collect(),
-                }
+        }
+        if clock < n {
+            for (s, v) in &p.nexts {
+                state.insert(s.as_str(), env[v.as_str()].clone());
             }
-            Op::Shr(x, k) => {
-                let v = get(x);
-                Value {
-                    ty: v.ty.clone(),
-                    data: v.data.iter().map(|&a| a >> k).collect(),
-                }
-            }
-            Op::Slice(x, s, l) => {
-                let v = get(x);
-                Value {
-                    ty: Type::new(v.ty.elem, vec![*l]),
-                    data: v.data[*s..s + l].to_vec(),
-                }
-            }
-            Op::Concat(a, b) => {
-                let (va, vb) = (get(a), get(b));
-                let data: Vec<i64> = va.data.iter().chain(&vb.data).copied().collect();
-                Value {
-                    ty: Type::new(va.ty.elem, vec![data.len()]),
-                    data,
-                }
-            }
-        };
-        env.insert(&n.name, v);
+        }
     }
-    Ok(p.outputs.iter().map(|o| env[o.as_str()].clone()).collect())
+    Ok(p.outputs
+        .iter()
+        .zip(traces)
+        .map(|(o, t)| {
+            if o.trace {
+                stack(&t)
+            } else {
+                env[o.name.as_str()].clone()
+            }
+        })
+        .collect())
+}
+
+/// Values of one type stacked along a new first axis.
+pub fn stack(vs: &[Value]) -> Value {
+    let ty = &vs[0].ty;
+    let mut shape = vec![vs.len()];
+    shape.extend(&ty.shape);
+    Value {
+        ty: Type::new(ty.elem, shape),
+        data: vs.iter().flat_map(|v| v.data.iter().copied()).collect(),
+    }
 }
 
 /// A value printed as `xetal` prints it: a scalar as a number, a

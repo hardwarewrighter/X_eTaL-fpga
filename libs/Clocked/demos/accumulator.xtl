@@ -1,0 +1,7 @@
+#!/usr/bin/env xetal
+# An 8-bit accumulator fed one number per clock: its final value and
+# its trace (the running sum, wrapped). Run with "just demo-lib Clocked accumulator".
+"ck:" u_se< "Clocked"
+xs := 10 20 30 40 50 -60 70
+0 'ck:a_ccumulate ck:r_un xs
+0 'ck:a_ccumulate ck:t_race xs

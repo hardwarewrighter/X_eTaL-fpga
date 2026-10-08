@@ -1,0 +1,11 @@
+ok: the accumulator's last state is the wrapped sum
+ok: its trace is the wrapped running sum
+ok: the counter counts the enables
+ok: the counter wraps at 8 bits
+ok: the shift register holds the last bits
+ok: the detector finds every 1 0 1, overlaps too
+ok: a trace has a row per clock plus the start
+ok: a write with enable 0 changes nothing
+ok: writes land at their addresses, later wins
+ok: a write wraps to 8 bits
+10 checks, all passed

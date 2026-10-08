@@ -157,5 +157,84 @@ fn errors_name_the_problem() {
     assert!(err("%a = frob i8 1").contains("line 1: unknown operation `frob`"));
     assert!(err("%a = map add %a").contains("add takes 2 operand(s)"));
     assert!(err("%a = input i65 1").contains("needs a type"));
-    assert!(err("output %a\n%a = input i8 1").contains("outputs come after"));
+    assert!(err("output %a\n%a = input i8 1")
+        .contains("nodes come before next, clocks and the outputs"));
+}
+
+const ACC: &str = "%x = stream i8 10 20 30 40 50 -60 70
+%s = state i8 0
+%t = map add %s %x
+next %s %t
+output %s
+trace %s
+";
+
+#[test]
+fn a_clocked_program_runs_one_item_per_clock() {
+    assert_eq!(out(ACC), ["-96", "0 10 30 60 100 -106 90 -96"]);
+    let p = parse(ACC).unwrap();
+    assert_eq!(xetal_fpga_xir::clocks(&p), Some(7));
+    assert_eq!(parse(&print(&p)).unwrap(), p);
+    assert_eq!(print(&p), ACC);
+}
+
+#[test]
+fn clocks_without_a_stream_and_vector_state() {
+    let src = "%s = state i8[3] 0 0 0
+%one = const i8 1
+%t = map add %s %one
+next %s %t
+clocks 2
+trace %s
+";
+    assert_eq!(out(src), ["0 0 0\n1 1 1\n2 2 2"]);
+    assert_eq!(print(&parse(src).unwrap()), src);
+}
+
+#[test]
+fn lookup_put_and_cast() {
+    let src = "%t = const i8[4] 10 20 30 40
+%i = input i8[3] 0 3 9
+%r = lookup %t %i
+%k = input i8 2
+%x = input i16 300
+%c = cast i8 %x
+%p = put %t %k %c
+%q = put %t %x %c
+%b = cast bool %i
+%back = cast i16 %b
+output %r %p %q %b %back
+";
+    assert_eq!(
+        out(src),
+        ["10 40 0", "10 20 44 40", "10 20 30 40", "0 1 1", "0 1 1"]
+    );
+    assert_eq!(print(&parse(src).unwrap()), src);
+}
+
+#[test]
+fn clocked_errors_name_the_problem() {
+    let base = "%x = stream i8 1 2\n%s = state i8 0\n%t = map add %s %x\n";
+    assert!(err(&format!("{base}output %s")).contains("needs exactly one `next`, it has 0"));
+    assert!(err(&format!("{base}next %s %t\nnext %s %t\noutput %s")).contains("it has 2"));
+    assert!(err(&format!("{base}next %s %t\noutput %t")).contains("%t depends on a stream"));
+    assert!(err(&format!("{base}next %s %t\nclocks 5\noutput %s"))
+        .contains("clocks 5, but the streams run 2 clocks"));
+    assert!(err(&format!("{base}next %t %s\noutput %s")).contains("%t is not a state"));
+    assert!(
+        err("%s = state i8 0\n%t = map add %s %s\nnext %s %t\noutput %s")
+            .contains("needs a stream or `clocks N`")
+    );
+    assert!(err("%a = input i8 1\ntrace %a").contains("only a clocked program"));
+    assert!(err("%x = stream i8 1\n%a = input i8 1\noutput %a").contains("a stream needs state"));
+    assert!(err("%x = stream i8[2] 1 2 3\n").contains("whole number of items"));
+    assert!(
+        err("%s = state i8 0\n%w = state i16 0\nnext %s %w\nnext %w %w\nclocks 1\noutput %s")
+            .contains("%s is i8 but %w is i16")
+    );
+    assert!(
+        err("%t = const i8[2] 1 2\n%b = input bool 1\n%r = lookup %t %b\noutput %r")
+            .contains("lookup's index must be an integer")
+    );
+    assert!(err("next %s %t\n%s = state i8 0").contains("nodes come before"));
 }

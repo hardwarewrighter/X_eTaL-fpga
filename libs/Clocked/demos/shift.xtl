@@ -1,0 +1,5 @@
+#!/usr/bin/env xetal
+# A 4-bit shift register fed six bits, one per clock: the rows are the
+# register after reset and after each clock. Run with "just demo-lib Clocked shift".
+"ck:" u_se< "Clocked"
+(0 0 0 0) 'ck:s_hift ck:t_race 1 0 1 1 0 1

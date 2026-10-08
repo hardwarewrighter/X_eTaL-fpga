@@ -31,6 +31,7 @@ array program to describe the hardware itself.
 | Part | What it holds |
 | ---- | ------------- |
 | `libs/Fixed/` | fixed-width two's complement numbers (`"fx:" u_se< "Fixed"`): the width written in the program, the evaluator computing what a w-bit adder gives |
+| `libs/Clocked/` | clocked circuits as step functions (`ck:`): a counter, an accumulator, a shift register, a sequence detector, a RAM, and the harness that clocks them |
 | `libs/Datapath/` | the vector examples at a stated width (`dp:`): add, saxpy, threshold, the reduction tree, the acceptance pipeline; its demos are the programs the circuits realize |
 | `components/xir/` | the provisional accelerator IR (typed values with widths and shapes, elementwise maps, select, reductions, later registers and state), its text form and a reference interpreter |
 | `components/rtl/` | the netlist, the lanes schedule and the reduction tree, the cycle simulator, the Verilog-2005 emitter and testbenches |
@@ -71,10 +72,12 @@ with any number of lanes), the cycle simulator and the Verilog-2005
 emitter with self-checking testbenches. Every Datapath example's
 answer from the evaluator is reproduced, bit for bit, by the IR
 interpreter and by its circuits simulated at several lane counts, and
-their Verilog is pinned. Next, saga 2 (fpga-state): registers and
-state, streams and memories in the IR and the netlist; then saga 3, a
-4-bit calculator machine in the spirit of the TMS1000 (our own design,
-hexadecimal first), sized for a Tang Nano 1K. See
+their Verilog is pinned. Saga 2 (fpga-state) is under way: clocked
+programs (state, input streams, ROMs, a RAM's write port) in the IR,
+the netlist, the simulator and the Verilog, with the Clocked library
+as their specification (step 1). Next: a UART, then testbenches;
+then saga 3, a 4-bit calculator machine in the spirit of the TMS1000
+(our own design, hexadecimal first), sized for a Tang Nano 1K. See
 [`docs/plan.md`](docs/plan.md) for the roadmap and the architecture
 decisions.
 
@@ -126,6 +129,9 @@ just explain libs/Datapath/demos/vector-add.xir    # spatial: eight 16-bit adder
 just explain libs/Datapath/demos/vector-add.xir 1  # temporal: one adder, a counter, eight clocks
 just verilog libs/Datapath/demos/reduce-sum.xir 1  # the Verilog of a one-lane reduction
 just sim libs/Datapath/demos/pipeline.xir 3        # the pipeline circuit with three lanes, simulated
+just demo-lib Clocked detect                       # a 1 0 1 detector in X_eTaL: states and where it fires
+just sim libs/Clocked/demos/detect.xir             # the same as a clocked circuit: a ROM and a register
+just verilog libs/Clocked/demos/ram.xir            # a RAM of eight words as Verilog
 ```
 
 ## Libraries and examples

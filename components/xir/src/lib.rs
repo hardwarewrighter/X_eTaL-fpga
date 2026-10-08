@@ -12,8 +12,8 @@ mod check;
 mod interp;
 mod text;
 
-pub use check::check;
-pub use interp::{run, wrap, Value};
+pub use check::{check, clocks, operands};
+pub use interp::{run, stack, wrap, Value};
 pub use text::{parse, print};
 
 use std::fmt;
@@ -192,6 +192,22 @@ pub enum Op {
     Slice(String, usize, usize),
     /// Two vectors joined.
     Concat(String, String),
+    /// `lookup %table %i`: the item of a vector at each index (from 0;
+    /// out of range gives 0). A constant table is a ROM.
+    Lookup(String, String),
+    /// `put %v %i %x`: the vector with the item at the index replaced
+    /// (out of range: unchanged). With a state vector, a RAM's write.
+    Put(String, String, String),
+    /// `cast E %x`: each item as element type E (an integer wrapped to
+    /// E's width, sign-extended when wider; a Bool is 0 or 1; to Bool,
+    /// whether it is not 0). Only the element type is written: `cast i8 %x`.
+    Cast(Elem, String),
+    /// `state T init...`: registers, their value at reset; the value
+    /// after each clock is given by a `next` binding.
+    State(Type, Vec<i64>),
+    /// `stream T items...`: one item of type T per clock (an input
+    /// port in hardware; the data is the testbench's).
+    Stream(Type, Vec<i64>),
 }
 
 /// A node: a name (written `%name`) bound to an operation.
@@ -206,7 +222,29 @@ pub struct Node {
 #[derive(Clone, Debug, Default, PartialEq, Eq)]
 pub struct Program {
     pub nodes: Vec<Node>,
-    pub outputs: Vec<String>,
+    /// `next %state %value`: what each state holds after a clock.
+    pub nexts: Vec<(String, String)>,
+    /// `clocks N`: how many clocks to run a program with state but no
+    /// stream (with a stream, its length).
+    pub clocks: Option<usize>,
+    pub outputs: Vec<Output>,
+}
+
+/// An output: a value after the last clock, or (`trace`) its value
+/// after reset and after every clock, stacked along a new first axis.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct Output {
+    pub name: String,
+    pub trace: bool,
+}
+
+impl Output {
+    pub fn new(name: &str) -> Self {
+        Output {
+            name: name.to_string(),
+            trace: false,
+        }
+    }
 }
 
 /// An error with the line it is about (0 when it is about the

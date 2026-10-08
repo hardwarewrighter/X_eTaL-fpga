@@ -51,6 +51,38 @@ output %c
 | `shl %x k`, `shr %x k` | a shift by a constant (`shr` is arithmetic: floor division by 2^k) | wiring |
 | `slice %x start len` | part of a vector (start from 0) | wiring |
 | `concat %a %b` | two vectors joined | wiring |
+| `lookup %table %i` | the item of a vector at each index (from 0; out of range gives 0) | a ROM when the table is constant, else a mux tree |
+| `put %v %i %x` | the vector with the item at one index replaced (out of range: unchanged) | a write port: a mux per word on an address compare |
+| `cast E %x` | each item as element type `E`: an integer wrapped (narrower) or sign-extended (wider), a Bool as 0 or 1, to Bool whether it is not 0 | wiring, or a compare with 0 |
+
+## Clocked programs
+
+A program with state is clocked: it runs from reset for a number of
+clocks, its nodes computed once per clock from the current state and
+the clock's inputs, every state taking its `next` value between
+clocks.
+
+```
+%x = stream i8 10 20 30 40 50 -60 70
+%s = state i8 0
+%t = map add %s %x
+next %s %t
+output %s
+trace %s
+```
+
+| Form | Meaning | In hardware |
+| ---- | ------- | ----------- |
+| `%s = state T init...` | registers and their value at reset | flip-flops with a synchronous reset |
+| `next %s %v` | what `%s` holds after each clock (one per state, of its type) | the register's input |
+| `%x = stream T items...` | one item of type `T` per clock; the clocks are the stream's length (several streams must agree) | an input port; the items are the testbench's |
+| `clocks N` | the clocks to run a program with state but no stream | the testbench's clock count |
+| `output %v` | the value after the last clock | an output port |
+| `trace %v` | the value after reset and after each clock, stacked along a new first axis (a scalar's trace prints as one vector line, a vector's as a matrix) | the port watched every clock |
+
+An output or trace may not depend on a stream: it is read after the
+last clock, when no item is present. `run` of the accumulator above
+prints `-96`, then `0 10 30 60 100 -106 90 -96`.
 
 `map` operations: `add sub mul min max and or xor` (two integers or,
 for `and or xor eq ne`, two Bools), the comparisons `eq ne lt le gt
@@ -79,6 +111,6 @@ just equiv                                         # every twin against its base
 
 ## Not yet
 
-Registers, ROMs, lookups and state machines (a step function over a
-state vector) come in saga 2; widening and narrowing casts, `matvec`, and
-reductions along an axis of a matrix when an example needs them.
+`matvec`, reductions along an axis of a matrix, and unsigned
+integers when an example needs them (the 4-bit machine may: a nibble
+is 0 to 15).

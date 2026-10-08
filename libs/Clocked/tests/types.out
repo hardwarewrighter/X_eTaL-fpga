@@ -1,0 +1,10 @@
+l:r_un : (a -> b -> a) -> a -> b -> a
+l:t_race : (a -> b -> a) -> a -> b -> a
+l:t_ick : Int -> Int -> Int
+l:a_ccumulate : Int -> Int -> Int
+l:s_hift : a -> a -> a
+l:Next101 : Int
+l:d_etect : Int -> Int -> Int
+l:f_ound? : (Num a, Truthy b) => a -> b
+l:w_rite : Int -> Int -> Int
+l:r_ead : a -> Int -> a

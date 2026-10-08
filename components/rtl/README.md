@@ -24,13 +24,25 @@ length and whose reductions feed only scalars and outputs (a
 two-pass program, such as `x - mean x`, needs the spatial one); it
 refuses the rest with a message saying so.
 
+## Clocked programs
+
+A program with state takes the spatial schedule (lanes are for
+vectors; asking a clocked program for fewer lanes than its longest
+vector is refused): each `state` is a register per element with its
+reset value, each `next` that register's input, each `stream` an
+input port the testbench drives with one item per clock, a constant
+`lookup` table a ROM, a `put` a write port (an address compare and a
+mux per word; an index too narrow to name a word never writes it).
+The simulator resets, runs the stream's clocks, and gives the outputs
+after the last clock and the traces after reset and every clock.
+
 ## The netlist and the simulator
 
 A cell produces one word of an element type (an integer of its
 width, or a 1-bit Bool): an input element, a constant, a unit (any
 of the IR's `map` operations), a mux, a shift by a constant, a
-`select 1 of n` (a mux tree on an address), or a register (its init
-on reset, then its `d` at every clock). `Netlist::simulate` resets,
+`select 1 of n` (a mux tree on an address), a ROM read, a cast, or a
+register (its init on reset, then its `d` at every clock). `Netlist::simulate` resets,
 clocks until `done` (at once for a combinational circuit) and gives
 the outputs and the clocks taken. The units compute exactly as the
 IR interpreter does, so the simulated circuit gives the evaluator's
@@ -42,10 +54,15 @@ Plain Verilog-2005 (plan A7): `assign`, one `always @(posedge clk)`
 with a synchronous reset, no vendor primitives. A port is a bus of
 its elements, element 0 in the low bits; integers are `signed` wires
 of their width, so a 16-bit `+` wraps as the program's does; Bools are
-1-bit wires. A sequential module has `clk`, `rst` and a `done`
-output. `testbench` writes a self-checking testbench that drives the
+1-bit wires. A module with registers has `clk` and `rst`; a temporal
+one also a `done` output. A ROM is a memory initialized in an
+`initial` block, read through a range guard (Yosys maps it to LUTs;
+block RAM wants a registered read, a later refinement for the 4-bit
+machine's program store). `testbench` writes a self-checking testbench that drives the
 program's input data, clocks until done and compares every output
-with the expected bits, printing `PASS` or `FAIL` lines.
+with the expected bits, printing `PASS` or `FAIL` lines; for a
+clocked module it resets, drives one stream item per clock, and
+checks every output (a traced one at its last value).
 
 ## Use
 
@@ -66,5 +83,5 @@ says so.
 
 ## Not yet
 
-Registers and state written in the program (a step function over a
-state vector, as the 4-bit machine of saga 3 is), ROMs, a UART, the board's pins and clock: saga 2 and 3.
+A UART (saga 2), the 4-bit machine (saga 3), the board's pins and
+clock (saga 4).

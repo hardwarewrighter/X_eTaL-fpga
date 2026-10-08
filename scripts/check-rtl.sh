@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # The generated circuits: for every hand-lowered twin,
 # libs/<Lib>/demos/NAME.xir, the Verilog of the spatial schedule and of
-# one lane is pinned as libs/<Lib>/rtl/NAME.v and NAME.lanes1.v, and
+# one lane is pinned as libs/<Lib>/rtl/NAME.v and NAME.lanes1.v (a
+# clocked twin, one with state, only NAME.v), and
 # must be what xetal-fpga writes today (XETAL_BLESS=1 rewrites them:
 # review the diff). Then, when the tools are installed (plan A10; they
 # are optional and never installed from here):
@@ -21,7 +22,9 @@ for twin in "$root"/libs/*/demos/*.xir; do
   [ -e "$twin" ] || continue
   dir="$(dirname "$(dirname "$twin")")/rtl"; mkdir -p "$dir"
   name="$(basename "$twin" .xir)"
-  for sched in spatial lanes1; do
+  scheds=(spatial lanes1)
+  grep -q '= state ' "$twin" && scheds=(spatial)   # a clocked twin has one schedule
+  for sched in "${scheds[@]}"; do
     if [ "$sched" = lanes1 ]; then opts=(--lanes 1); suffix=.lanes1; else opts=(); suffix=; fi
     pinned="$dir/$name$suffix.v"
     rel="${pinned#$root/}"

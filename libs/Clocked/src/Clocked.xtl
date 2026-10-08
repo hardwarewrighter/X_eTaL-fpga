@@ -1,0 +1,73 @@
+# Clocked: clocked circuits as X_eTaL step functions: counters, accumulators, shift registers, a sequence detector, a RAM, and the harness that clocks them
+# Import it with an alias of your choice: "ck:" u_se< "Clocked".
+# Put libs/Clocked/src on XETAL_PATH ("just path"); the reference is libs/Clocked/docs.
+# Names with l: are exported; the others are private to this file.
+#
+# A clocked circuit is `state' = step(state, input)` at every clock.
+# Here a step is an ordinary pure dyadic function, `s f_ x`: the state
+# on the left, one clock's input on the right, the next state out. That
+# function is what becomes hardware: registers for the state, the
+# function as the logic between them. The harness, r_un and t_race,
+# applies it once per input, as a clock would; it recurses because
+# X_eTaL has no left fold yet (ask F5), and it is the testbench, never
+# lowered. Numbers are 8-bit two's complement (Fixed).
+"fx:" u_se< "Fixed"
+
+### The harness: one input per clock
+
+# s0 'step r_un xs: the state after every input (an item, or a row of
+# a matrix, per clock).
+l:r_un := { f_ s xs -> 0 = t_ally xs ? s; (s f_ f_irst xs) 'f_ l:r_un 1 d_rop xs }
+
+# s0 'step t_race xs: every state from s0 on, one per row (a vector
+# for a scalar state): what the registers hold after reset and after
+# each clock.
+l:t_race := { f_ s xs ->
+  0 = t_ally xs ? (1 c_at s_hape s) r_eshape s
+  s c_at (s f_ f_irst xs) 'f_ l:t_race 1 d_rop xs
+}
+
+### Counters and accumulators
+
+# s t_ick e: an 8-bit counter that counts when its enable e is 1.
+l:t_ick := { s e -> 8 fx:w_rap s + e }
+
+# s a_ccumulate x: an 8-bit accumulator (an adder and a register).
+l:a_ccumulate := { s x -> 8 fx:w_rap s + x }
+
+### Shift register
+
+# s s_hift b: the bits move one place toward the front and b comes in
+# at the end (a serial-in, parallel-out shift register: wiring and
+# flip-flops, no logic).
+l:s_hift := { s b -> (1 d_rop s) c_at b }
+
+### A sequence detector: a state machine from a table
+
+# Next101: the next state of a detector of the bits 1 0 1 (overlapping),
+# a table indexed by state and bit: item 1 + s + 4 * b. States: 0
+# nothing yet, 1 seen 1, 2 seen 1 0, 3 seen 1 0 1 (found). In
+# hardware the table is a ROM or a few gates.
+l:Next101 := 0 2 0 2 1 1 3 1
+
+# s d_etect b: the detector's next state.
+l:d_etect := { s b -> (1 + s + 4 * b) s_elect l:Next101 }
+
+# f_ound? s: whether the state says 1 0 1 was just seen (the Moore
+# output).
+l:f_ound? := { s -> s = 3 }
+
+### A RAM
+
+# m w_rite c: a memory of 8-bit words after one clock of a write port:
+# the command c is write-enable, address (from 0) and data; when
+# write-enable is 1 the word at the address becomes the data, every
+# other word is kept (each word a register with a mux in front).
+l:w_rite := { m c ->
+  we := f_irst c
+  hit := (o_ffsets t_ally m) = 2 s_elect c
+  8 fx:w_rap m + we * hit * (3 s_elect c) - m
+}
+
+# m r_ead a: the word at address a (from 0): a read port, a mux.
+l:r_ead := { m a -> (1 + a) s_elect m }

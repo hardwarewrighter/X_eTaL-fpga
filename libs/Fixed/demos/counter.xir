@@ -1,0 +1,10 @@
+# counter.xtl, its signed line hand-lowered as a clocked circuit: a
+# 16-bit register from 65530 (-6 signed) and an adder of 1, eleven
+# clocks; the trace is the register after reset and each clock.
+# baseline: demo-counter 2
+%s = state i16 -6
+%one = const i16 1
+%t = map add %s %one
+next %s %t
+clocks 11
+trace %s

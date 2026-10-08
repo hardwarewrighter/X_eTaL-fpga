@@ -25,6 +25,8 @@ pub fn explain(n: &Netlist) -> String {
                 reg_bits += c.elem.bits();
                 continue;
             }
+            Kind::Rom(table, _) => format!("rom {} x {}", table.len(), ty(c.elem)),
+            Kind::Cast(a) => format!("cast {} to {} (wiring)", ty(n.cells[*a].elem), ty(c.elem)),
             Kind::In { .. } | Kind::Const(_) => continue,
         };
         *units.entry(key).or_default() += 1;
@@ -32,7 +34,11 @@ pub fn explain(n: &Netlist) -> String {
     let mut s = String::new();
     s.push_str(&format!("circuit: {}\n", n.name));
     let total: usize = n.outputs.iter().map(|p| p.ty.count()).sum::<usize>().max(1);
-    if n.is_sequential() {
+    if let Some(c) = n.clocks {
+        s.push_str(&format!(
+            "schedule: clocked, {c} clock(s) from reset, one stream item per clock\n"
+        ));
+    } else if n.done.is_some() {
         s.push_str(&format!(
             "schedule: temporal, {} lane(s), {} clock(s), a counter steps through the vector\n",
             n.lanes, n.steps

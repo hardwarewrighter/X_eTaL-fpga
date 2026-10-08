@@ -1,0 +1,8 @@
+#!/usr/bin/env xetal
+# The 1 0 1 detector on a bit stream: the state after reset and after
+# each bit, and where it has just seen 1 0 1. Run with "just demo-lib Clocked detect".
+"ck:" u_se< "Clocked"
+bits := 1 0 1 0 1 1 0 1 0 0 1
+states := 0 'ck:d_etect ck:t_race bits
+states
+ck:f_ound? states

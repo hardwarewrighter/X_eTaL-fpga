@@ -1,0 +1,10 @@
+#!/usr/bin/env xetal
+# A RAM of eight 8-bit words driven by five commands (write-enable,
+# address, data), one per clock; a disabled write changes nothing and a
+# later write wins. The memory's contents at the end, and after every
+# clock. Run with "just demo-lib Clocked ram".
+"ck:" u_se< "Clocked"
+cmds := 5 3 r_eshape 1 0 11 1 7 77 0 3 99 1 0 12 1 4 200
+mem := 8 r_eshape 0
+mem 'ck:w_rite ck:r_un cmds
+mem 'ck:w_rite ck:t_race cmds

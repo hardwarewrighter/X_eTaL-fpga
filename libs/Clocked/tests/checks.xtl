@@ -1,0 +1,20 @@
+#!/usr/bin/env xetal
+# Clocked: the steps against direct computations, with the Check
+# library; "ok" per check. Run with "just run-lib Clocked checks".
+"ck:" u_se< "Clocked"
+"fx:" u_se< "Fixed"
+"k:" u_se< "Check"
+bits := 1 0 1 0 1 1 0 1 0 0 1 0 1
+xs := 10 * r_ange 20
+k:r_eport (
+  ("the accumulator's last state is the wrapped sum" k:t_est (8 fx:w_rap '+ r_/ xs) k:i_s 0 'ck:a_ccumulate ck:r_un xs)
+  k:a_nd ("its trace is the wrapped running sum" k:t_est (8 fx:w_rap 0 c_at '+ s_\ xs) k:i_s 0 'ck:a_ccumulate ck:t_race xs)
+  k:a_nd ("the counter counts the enables" k:t_est ('+ r_/ bits) k:i_s 0 'ck:t_ick ck:r_un bits)
+  k:a_nd ("the counter wraps at 8 bits" k:t_est -128 k:i_s 127 'ck:t_ick ck:r_un 1 r_eshape 1)
+  k:a_nd ("the shift register holds the last bits" k:t_est (-4 t_ake bits) k:i_s (0 0 0 0) 'ck:s_hift ck:r_un bits)
+  k:a_nd ("the detector finds every 1 0 1, overlaps too" k:t_est (0 0 0 1 0 1 0 0 1 0 0 0 0 1) k:i_s ck:f_ound? 0 'ck:d_etect ck:t_race bits)
+  k:a_nd ("a trace has a row per clock plus the start" k:t_est 14 4 k:i_s s_hape (0 0 0 0) 'ck:s_hift ck:t_race bits)
+  k:a_nd ("a write with enable 0 changes nothing" k:t_est (r_ange 4) k:i_s (r_ange 4) ck:w_rite 0 1 99)
+  k:a_nd ("writes land at their addresses, later wins" k:t_est 7 0 5 0 k:i_s (4 r_eshape 0) 'ck:w_rite ck:r_un 3 3 r_eshape 1 0 9 1 2 5 1 0 7)
+  k:a_nd ("a write wraps to 8 bits" k:t_est -56 k:i_s ((4 r_eshape 0) ck:w_rite 1 0 200) ck:r_ead 0)
+)

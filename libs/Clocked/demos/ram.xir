@@ -1,0 +1,19 @@
+# ram.xtl hand-lowered: eight 8-bit words, a write port driven by a
+# command per clock (write-enable, address, data); the data is wrapped
+# to the word's 8 bits.
+# baseline: demo-ram 1-7
+%c = stream i16[3] 1 0 11 1 7 77 0 3 99 1 0 12 1 4 200
+%mem = state i8[8] 0 0 0 0 0 0 0 0
+%zero = const i16 0
+%one = const i16 1
+%two = const i16 2
+%we = lookup %c %zero
+%addr = lookup %c %one
+%data16 = lookup %c %two
+%data = cast i8 %data16
+%en = map ne %we %zero
+%written = put %mem %addr %data
+%next = select %en %written %mem
+next %mem %next
+output %mem
+trace %mem

@@ -2,7 +2,8 @@
 # The equivalence checks: every hand-lowered twin, libs/*/demos/*.xir,
 # run by the XIR interpreter (xetal-fpga run) and as a simulated
 # circuit (xetal-fpga sim) in the spatial schedule and with 1, 2 and 3
-# lanes, must print exactly the lines of its demo's reg-rs baseline
+# lanes (a clocked twin, one with state: clocked from reset, its one
+# schedule), must print exactly the lines of its demo's reg-rs baseline
 # that it names in a comment,
 #   # baseline: demo-NAME LINES      (LINES: 2, 1-3, 2,4,5)
 # where demo-NAME.out is the pinned evaluator's output of the .xtl
@@ -34,7 +35,10 @@ for part in sys.argv[2].split(","):
 print("\n".join(text[i - 1] for i in picked))
 PY
 )"
-  for how in "run" "sim" "sim --lanes 1" "sim --lanes 2" "sim --lanes 3"; do
+  # A clocked twin (one with state) has one schedule; the lanes are for vectors.
+  hows=("run" "sim" "sim --lanes 1" "sim --lanes 2" "sim --lanes 3")
+  grep -q '= state ' "$twin" && hows=("run" "sim")
+  for how in "${hows[@]}"; do
     read -r cmd opts <<<"$how"
     # shellcheck disable=SC2086
     if ! got="$("$tool" $cmd "$twin" $opts 2>/dev/null)"; then
@@ -47,5 +51,5 @@ PY
     fi
   done
 done
-echo "check-equiv: $n twin(s), the XIR interpreter and the simulated circuits (spatial; 1, 2, 3 lanes) against the evaluator$([ $fail = 0 ] && echo ', all equal' || echo ', DIFFERENCES')"
+echo "check-equiv: $n twin(s), the XIR interpreter and the simulated circuits (spatial; 1, 2, 3 lanes; clocked) against the evaluator$([ $fail = 0 ] && echo ', all equal' || echo ', DIFFERENCES')"
 exit $fail

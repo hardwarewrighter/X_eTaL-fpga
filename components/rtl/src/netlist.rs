@@ -2,7 +2,7 @@
 //! type, and the simulator that clocks it.
 
 use std::fmt;
-use xetal_fpga_xir::{wrap, Elem, MapOp, Type, Value};
+use xetal_fpga_xir::{stack, wrap, Elem, MapOp, Type, Value};
 
 /// What a cell computes. Operands are indexes of earlier cells, except
 /// a register's `d`, which may be any cell (the loop through the
@@ -23,6 +23,11 @@ pub enum Kind {
     /// The item of `items` at the address (a mux tree; out of range
     /// gives 0).
     Pick(Vec<usize>, usize),
+    /// A constant table read at the address (a ROM; out of range gives 0).
+    Rom(Vec<i64>, usize),
+    /// The operand as this cell's element type (wrapped, extended, or
+    /// tested for 0 into a Bool).
+    Cast(usize),
     /// A register: `init` on reset, then `d` at every clock.
     Reg {
         d: usize,
@@ -43,6 +48,8 @@ pub struct Port {
     pub ty: Type,
     /// The cells of an output's elements (empty for an input).
     pub wires: Vec<usize>,
+    /// An output traced: its value after reset and after every clock.
+    pub trace: bool,
 }
 
 /// A scheduled circuit.
@@ -54,6 +61,12 @@ pub struct Netlist {
     /// The data the program gives its inputs (for the simulator and
     /// the testbench).
     pub input_data: Vec<Vec<i64>>,
+    /// For a stream input, every clock's item, one after another (the
+    /// testbench drives the port with one item per clock).
+    pub stream_data: Vec<Option<Vec<i64>>>,
+    /// A clocked program's clock count (its state machine runs this
+    /// many clocks from reset; `None` otherwise).
+    pub clocks: Option<usize>,
     pub outputs: Vec<Port>,
     /// The cell that is 1 when a sequential circuit has finished
     /// (`None` for a combinational one).
@@ -76,7 +89,9 @@ impl Netlist {
 
     /// Whether the circuit has registers (it then has a clock and a reset).
     pub fn is_sequential(&self) -> bool {
-        self.done.is_some()
+        self.cells
+            .iter()
+            .any(|c| matches!(c.kind, Kind::Reg { .. }))
     }
 
     fn eval(&self, data: &[Vec<i64>], state: &[i64]) -> Vec<i64> {
@@ -105,6 +120,15 @@ impl Netlist {
                         0
                     }
                 }
+                Kind::Rom(table, addr) => {
+                    let a = v[*addr];
+                    if a >= 0 && (a as usize) < table.len() {
+                        table[a as usize]
+                    } else {
+                        0
+                    }
+                }
+                Kind::Cast(a) => fit(c.elem, v[*a] as i128),
                 Kind::Reg { .. } => state[i],
             };
         }
@@ -126,6 +150,9 @@ impl Netlist {
                 }
             })
             .collect();
+        if let Some(n) = self.clocks {
+            return Ok((self.run_clocked(n, &mut state), n));
+        }
         let mut v = self.eval(&self.input_data, &state);
         let mut clocks = 0;
         if let Some(done) = self.done {
@@ -155,6 +182,60 @@ impl Netlist {
             })
             .collect();
         Ok((outs, clocks))
+    }
+}
+
+impl Netlist {
+    /// The inputs at a clock: every stream port its item (zeros after
+    /// the last clock, when outputs read only state).
+    fn data_at(&self, clock: usize, n: usize) -> Vec<Vec<i64>> {
+        self.input_data
+            .iter()
+            .zip(&self.stream_data)
+            .zip(&self.inputs)
+            .map(|((d, s), p)| match s {
+                Some(all) => {
+                    let c = p.ty.count().max(1);
+                    if clock < n {
+                        all[clock * c..(clock + 1) * c].to_vec()
+                    } else {
+                        vec![0; c]
+                    }
+                }
+                None => d.clone(),
+            })
+            .collect()
+    }
+
+    /// A clocked circuit from reset for `n` clocks: the outputs after
+    /// the last, a traced output stacked over reset and every clock.
+    fn run_clocked(&self, n: usize, state: &mut [i64]) -> Vec<Value> {
+        let read = |p: &Port, v: &[i64]| Value {
+            ty: p.ty.clone(),
+            data: p.wires.iter().map(|w| v[*w]).collect(),
+        };
+        let mut traces: Vec<Vec<Value>> = vec![Vec::new(); self.outputs.len()];
+        let mut v = Vec::new();
+        for clock in 0..=n {
+            v = self.eval(&self.data_at(clock, n), state);
+            for (p, t) in self.outputs.iter().zip(traces.iter_mut()) {
+                if p.trace {
+                    t.push(read(p, &v));
+                }
+            }
+            if clock < n {
+                for (i, c) in self.cells.iter().enumerate() {
+                    if let Kind::Reg { d, .. } = c.kind {
+                        state[i] = v[d];
+                    }
+                }
+            }
+        }
+        self.outputs
+            .iter()
+            .zip(traces)
+            .map(|(p, t)| if p.trace { stack(&t) } else { read(p, &v) })
+            .collect()
     }
 }
 
@@ -212,13 +293,19 @@ impl fmt::Display for Netlist {
                     let xs: Vec<String> = items.iter().map(|x| format!("n{x}")).collect();
                     format!("pick n{a} of {}", xs.join(" "))
                 }
+                Kind::Rom(table, a) => format!("rom n{a} of {} items", table.len()),
+                Kind::Cast(a) => format!("cast n{a}"),
                 Kind::Reg { d, init } => format!("reg d=n{d} init={init}"),
             };
             writeln!(f, "n{i} : {} = {body}", ty(c.elem))?;
         }
         for p in &self.outputs {
             let ws: Vec<String> = p.wires.iter().map(|w| format!("n{w}")).collect();
-            writeln!(f, "output {} : {} = {}", p.name, p.ty, ws.join(" "))?;
+            let kw = if p.trace { "trace" } else { "output" };
+            writeln!(f, "{kw} {} : {} = {}", p.name, p.ty, ws.join(" "))?;
+        }
+        if let Some(c) = self.clocks {
+            writeln!(f, "clocked: {c} clocks from reset")?;
         }
         if let Some(d) = self.done {
             writeln!(f, "done = n{d} after {} clocks", self.steps)?;

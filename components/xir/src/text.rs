@@ -1,4 +1,6 @@
-//! The text form: one node per line, `#` comments, outputs last.
+//! The text form: one node per line, `#` comments; then `next`
+//! bindings, an optional `clocks N`, and the outputs (`output` and
+//! `trace`) last.
 //!
 //! ```text
 //! %a = input i16[8] 1 2 3 4 100 -100 32767 30000
@@ -6,8 +8,19 @@
 //! %c = map add %a %b
 //! output %c
 //! ```
+//!
+//! A clocked program:
+//!
+//! ```text
+//! %x = stream i8 10 20 30
+//! %s = state i8 0
+//! %t = map add %s %x
+//! next %s %t
+//! output %s
+//! trace %s
+//! ```
 
-use crate::{Elem, Error, MapOp, Node, Op, Program, RedOp, Type};
+use crate::{Elem, Error, MapOp, Node, Op, Output, Program, RedOp, Type};
 
 /// Parse a type: `i16`, `i8[8]`, `bool[4]`, `i32[2,3]`.
 pub fn parse_type(s: &str) -> Option<Type> {
@@ -70,28 +83,50 @@ pub fn parse(src: &str) -> Result<Program, Error> {
             continue;
         }
         let toks: Vec<&str> = text.split_whitespace().collect();
-        if toks[0] == "output" {
-            if toks.len() < 2 {
-                return Err(Error::new(line, "output names one or more values"));
+        match toks[0] {
+            "output" | "trace" => {
+                if toks.len() < 2 {
+                    return Err(Error::new(
+                        line,
+                        format!("{} names one or more values", toks[0]),
+                    ));
+                }
+                for t in &toks[1..] {
+                    p.outputs.push(Output {
+                        name: var(t, line)?,
+                        trace: toks[0] == "trace",
+                    });
+                }
+                continue;
             }
-            for t in &toks[1..] {
-                p.outputs.push(var(t, line)?);
+            "next" => {
+                arity(&toks[1..], 2, line, "next")?;
+                p.nexts.push((var(toks[1], line)?, var(toks[2], line)?));
+                continue;
             }
-            continue;
+            "clocks" => {
+                arity(&toks[1..], 1, line, "clocks")?;
+                p.clocks = Some(number(toks.get(1), line, "a number of clocks")?);
+                continue;
+            }
+            _ => {}
         }
-        if !p.outputs.is_empty() {
-            return Err(Error::new(line, "outputs come after every node"));
+        if !p.outputs.is_empty() || !p.nexts.is_empty() || p.clocks.is_some() {
+            return Err(Error::new(
+                line,
+                "nodes come before next, clocks and the outputs",
+            ));
         }
         if toks.len() < 3 || toks[1] != "=" {
             return Err(Error::new(
                 line,
-                "expected `%name = op ...` or `output %name ...`",
+                "expected `%name = op ...`, `next`, `clocks`, `output` or `trace`",
             ));
         }
         let name = var(toks[0], line)?;
         let (op, args) = (toks[2], &toks[3..]);
         let op = match op {
-            "input" | "const" => {
+            "input" | "const" | "state" | "stream" => {
                 let ty = args
                     .first()
                     .and_then(|t| parse_type(t))
@@ -99,17 +134,17 @@ pub fn parse(src: &str) -> Result<Program, Error> {
                 let data: Result<Vec<i64>, _> =
                     args[1..].iter().map(|t| t.parse::<i64>()).collect();
                 let data = data.map_err(|_| Error::new(line, "data must be whole numbers"))?;
-                if op == "input" {
-                    Op::Input(ty, data)
-                } else {
-                    Op::Const(ty, data)
+                match op {
+                    "input" => Op::Input(ty, data),
+                    "const" => Op::Const(ty, data),
+                    "state" => Op::State(ty, data),
+                    _ => Op::Stream(ty, data),
                 }
             }
             "map" => {
-                let m = args
-                    .first()
-                    .and_then(|t| MapOp::from_name(t))
-                    .ok_or_else(|| Error::new(line, "map needs an operation: add sub mul min max and or xor eq ne lt le gt ge neg abs not"))?;
+                let m = args.first().and_then(|t| MapOp::from_name(t)).ok_or_else(|| {
+                    Error::new(line, "map needs an operation: add sub mul min max and or xor eq ne lt le gt ge neg abs not")
+                })?;
                 arity(&args[1..], m.arity(), line, m.name())?;
                 Op::Map(
                     m,
@@ -159,6 +194,27 @@ pub fn parse(src: &str) -> Result<Program, Error> {
                 arity(args, 2, line, "concat")?;
                 Op::Concat(var(args[0], line)?, var(args[1], line)?)
             }
+            "cast" => {
+                arity(args, 2, line, "cast")?;
+                let t = parse_type(args[0])
+                    .filter(|t| t.rank() == 0)
+                    .ok_or_else(|| {
+                        Error::new(line, "cast needs an element type such as i8 or bool")
+                    })?;
+                Op::Cast(t.elem, var(args[1], line)?)
+            }
+            "lookup" => {
+                arity(args, 2, line, "lookup")?;
+                Op::Lookup(var(args[0], line)?, var(args[1], line)?)
+            }
+            "put" => {
+                arity(args, 3, line, "put")?;
+                Op::Put(
+                    var(args[0], line)?,
+                    var(args[1], line)?,
+                    var(args[2], line)?,
+                )
+            }
             other => return Err(Error::new(line, format!("unknown operation `{other}`"))),
         };
         p.nodes.push(Node { name, op });
@@ -172,11 +228,12 @@ pub fn print(p: &Program) -> String {
     let mut out = String::new();
     for n in &p.nodes {
         let body = match &n.op {
-            Op::Input(t, d) | Op::Const(t, d) => {
-                let kw = if matches!(n.op, Op::Input(..)) {
-                    "input"
-                } else {
-                    "const"
+            Op::Input(t, d) | Op::Const(t, d) | Op::State(t, d) | Op::Stream(t, d) => {
+                let kw = match n.op {
+                    Op::Input(..) => "input",
+                    Op::Const(..) => "const",
+                    Op::State(..) => "state",
+                    _ => "stream",
                 };
                 let mut s = format!("{kw} {t}");
                 for v in d {
@@ -194,12 +251,32 @@ pub fn print(p: &Program) -> String {
             Op::Shr(x, k) => format!("shr %{x} {k}"),
             Op::Slice(x, s, l) => format!("slice %{x} {s} {l}"),
             Op::Concat(a, b) => format!("concat %{a} %{b}"),
+            Op::Lookup(t, i) => format!("lookup %{t} %{i}"),
+            Op::Cast(e, x) => format!("cast {} %{x}", Type::new(*e, vec![])),
+            Op::Put(v, i, x) => format!("put %{v} %{i} %{x}"),
         };
         out.push_str(&format!("%{} = {}\n", n.name, body));
     }
-    if !p.outputs.is_empty() {
-        let xs: Vec<String> = p.outputs.iter().map(|x| format!("%{x}")).collect();
-        out.push_str(&format!("output {}\n", xs.join(" ")));
+    for (s, v) in &p.nexts {
+        out.push_str(&format!("next %{s} %{v}\n"));
+    }
+    if let Some(c) = p.clocks {
+        out.push_str(&format!("clocks {c}\n"));
+    }
+    // Consecutive outputs of one kind share a line.
+    let mut i = 0;
+    while i < p.outputs.len() {
+        let trace = p.outputs[i].trace;
+        let mut names = Vec::new();
+        while i < p.outputs.len() && p.outputs[i].trace == trace {
+            names.push(format!("%{}", p.outputs[i].name));
+            i += 1;
+        }
+        out.push_str(&format!(
+            "{} {}\n",
+            if trace { "trace" } else { "output" },
+            names.join(" ")
+        ));
     }
     out
 }

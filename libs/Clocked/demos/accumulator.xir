@@ -1,0 +1,8 @@
+# accumulator.xtl hand-lowered: an 8-bit adder and register.
+# baseline: demo-accumulator 1-2
+%x = stream i8 10 20 30 40 50 -60 70
+%s = state i8 0
+%t = map add %s %x
+next %s %t
+output %s
+trace %s

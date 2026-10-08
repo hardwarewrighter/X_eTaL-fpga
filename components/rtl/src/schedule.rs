@@ -2,7 +2,7 @@
 
 use crate::netlist::{Kind, Netlist, Port};
 use std::collections::{HashMap, HashSet};
-use xetal_fpga_xir::{check, Elem, MapOp, Op, Program, RedOp, Type};
+use xetal_fpga_xir::{check, clocks, Elem, MapOp, Op, Program, RedOp, Type};
 
 /// A value while it is built: its cells (one per element, or one per
 /// lane in a temporal schedule) and whether it is a vector.
@@ -95,8 +95,13 @@ pub fn schedule(p: &Program, name: &str, lanes: Option<usize>) -> Result<Netlist
         lanes: lanes.min(longest),
         ..Netlist::default()
     };
+    n.clocks = clocks(p);
     if lanes >= longest {
         spatial(p, &types, &mut n)?;
+    } else if n.clocks.is_some() {
+        return Err(format!(
+            "the temporal schedule (--lanes {lanes}) cannot take a clocked program (one with state); use the spatial schedule"
+        ));
     } else {
         temporal(p, &types, &mut n, lanes, longest)?;
     }
@@ -109,8 +114,10 @@ fn input(n: &mut Netlist, name: &str, ty: &Type, data: &[i64]) -> Sig {
         name: name.to_string(),
         ty: ty.clone(),
         wires: vec![],
+        trace: false,
     });
     n.input_data.push(data.to_vec());
+    n.stream_data.push(None);
     let cells = (0..ty.count())
         .map(|index| n.add(Kind::In { port, index }, ty.elem))
         .collect();
@@ -139,8 +146,57 @@ fn elementwise(n: &mut Netlist, op: &Op, ty: &Type, env: &HashMap<String, Sig>) 
         }),
         Op::Shl(x, k) => each(&[&env[x]], |c| n.add(Kind::Shl(c[0], *k), e)),
         Op::Shr(x, k) => each(&[&env[x]], |c| n.add(Kind::Shr(c[0], *k), e)),
+        Op::Cast(_, x) => each(&[&env[x]], |c| n.add(Kind::Cast(c[0]), e)),
+        Op::Lookup(t, i) => {
+            let table = env[t].cells.clone();
+            let consts: Option<Vec<i64>> = table
+                .iter()
+                .map(|&c| {
+                    if let Kind::Const(v) = n.cells[c].kind {
+                        Some(v)
+                    } else {
+                        None
+                    }
+                })
+                .collect();
+            each(&[&env[i]], |c| match &consts {
+                Some(values) => n.add(Kind::Rom(values.clone(), c[0]), e),
+                None => n.add(Kind::Pick(table.clone(), c[0]), e),
+            })
+        }
+        Op::Put(v, i, x) => {
+            // A write port: each word takes the item when the index is
+            // its address (an index too narrow to name a word never does).
+            let (words, at, item) = (env[v].cells.clone(), env[i].cells[0], env[x].cells[0]);
+            let ie = n.cells[at].elem;
+            let cells = words
+                .iter()
+                .enumerate()
+                .map(|(k, &w)| {
+                    if !fits(ie, k) {
+                        return w;
+                    }
+                    let addr = n.konst(k as i64, ie);
+                    let hit = n.add(Kind::Map(MapOp::Eq, vec![at, addr]), Elem::Bool);
+                    n.add(Kind::Mux(hit, item, w), e)
+                })
+                .collect();
+            Sig {
+                cells,
+                vector: true,
+            }
+        }
         _ => return None,
     })
+}
+
+/// Whether an address fits an index of an element type.
+fn fits(e: Elem, k: usize) -> bool {
+    match e {
+        Elem::Int(w) if w < 64 => (k as u128) < (1u128 << (w - 1)),
+        Elem::Int(_) => true,
+        Elem::Bool => k < 2,
+    }
 }
 
 fn spatial(p: &Program, types: &HashMap<String, Type>, n: &mut Netlist) -> Result<(), String> {
@@ -149,6 +205,20 @@ fn spatial(p: &Program, types: &HashMap<String, Type>, n: &mut Netlist) -> Resul
         let ty = &types[&node.name];
         let sig = match &node.op {
             Op::Input(t, d) => input(n, &node.name, t, d),
+            Op::Stream(t, d) => {
+                let c = t.count().max(1);
+                let sig = input(n, &node.name, t, &d[..c]);
+                *n.stream_data.last_mut().expect("just pushed") = Some(d.clone());
+                sig
+            }
+            Op::State(t, d) => Sig {
+                // Registers, their d patched from `next` below.
+                cells: d
+                    .iter()
+                    .map(|&init| n.add(Kind::Reg { d: 0, init }, t.elem))
+                    .collect(),
+                vector: t.rank() > 0,
+            },
             Op::Const(t, d) => konst(n, t, d),
             Op::Reduce(r, x) => {
                 let cells = env[x].cells.clone();
@@ -169,11 +239,19 @@ fn spatial(p: &Program, types: &HashMap<String, Type>, n: &mut Netlist) -> Resul
         };
         env.insert(node.name.clone(), sig);
     }
+    for (s, v) in &p.nexts {
+        for (&r, &d) in env[s].cells.iter().zip(&env[v].cells) {
+            if let Kind::Reg { init, .. } = n.cells[r].kind {
+                n.cells[r].kind = Kind::Reg { d, init };
+            }
+        }
+    }
     for o in &p.outputs {
         n.outputs.push(Port {
-            name: o.clone(),
-            ty: types[o].clone(),
-            wires: env[o].cells.clone(),
+            name: o.name.clone(),
+            ty: types[&o.name].clone(),
+            wires: env[&o.name].cells.clone(),
+            trace: o.trace,
         });
     }
     Ok(())
@@ -322,8 +400,8 @@ fn temporal(
     // Vector outputs are collected: element i is lane i % lanes at
     // step i / lanes, held in a register.
     for o in &p.outputs {
-        let ty = types[o].clone();
-        let sig = env[o].clone();
+        let ty = types[&o.name].clone();
+        let sig = env[&o.name].clone();
         let wires = if sig.vector {
             (0..len)
                 .map(|i| {
@@ -339,9 +417,10 @@ fn temporal(
             sig.cells.clone()
         };
         n.outputs.push(Port {
-            name: o.clone(),
+            name: o.name.clone(),
             ty,
             wires,
+            trace: false,
         });
     }
     Ok(())

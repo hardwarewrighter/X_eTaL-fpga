@@ -102,3 +102,74 @@ fn testbench_expects_the_wrapped_answer() {
     assert!(tb.contains("128'hea60800000000000002c00210016000b"), "{tb}");
     assert!(tb.contains("vector_add dut ("));
 }
+
+const CLOCKED: [(&str, &str); 6] = [
+    ("Clocked", "counter"),
+    ("Clocked", "accumulator"),
+    ("Clocked", "shift"),
+    ("Clocked", "detect"),
+    ("Clocked", "ram"),
+    ("Fixed", "counter"),
+];
+
+fn clocked(lib: &str, name: &str) -> Program {
+    let path = format!(
+        "{}/../../libs/{lib}/demos/{name}.xir",
+        env!("CARGO_MANIFEST_DIR")
+    );
+    parse(&std::fs::read_to_string(path).unwrap()).unwrap()
+}
+
+/// Every clocked twin: the circuit, clocked from reset, gives the
+/// interpreter's outputs and traces, in as many clocks as its stream.
+#[test]
+fn clocked_circuits_equal_the_interpreter() {
+    for (lib, t) in CLOCKED {
+        let p = clocked(lib, t);
+        let n = schedule(&p, t, None).unwrap();
+        let (got, clocks) = n.simulate().unwrap();
+        assert_eq!(got, run(&p).unwrap(), "{lib}/{t}");
+        assert_eq!(Some(clocks), xetal_fpga_xir::clocks(&p), "{lib}/{t}");
+        assert!(n.is_sequential() && n.done.is_none());
+        // One lane is a temporal schedule only when there is a vector
+        // longer than one; a clocked program refuses it then.
+        match schedule(&p, t, Some(1)) {
+            Ok(one) => assert_eq!(one.simulate().unwrap().0, got, "{lib}/{t}"),
+            Err(e) => assert!(e.contains("cannot take a clocked program"), "{e}"),
+        }
+    }
+}
+
+#[test]
+fn a_constant_table_is_a_rom_and_a_put_is_a_write_port() {
+    let p = clocked("Clocked", "detect");
+    let n = schedule(&p, "detect", None).unwrap();
+    let e = explain(&n);
+    assert!(e.contains("clocked, 11 clock(s)"), "{e}");
+    assert!(e.contains("   1 x rom 8 x i8"), "{e}");
+    assert!(e.contains("registers: 1 (8 bits)"), "{e}");
+    let v = verilog(&n);
+    assert!(
+        v.contains("reg signed [7:0] rom14 [0:7];") && v.contains("rom14[6] = 8'sh3;"),
+        "{v}"
+    );
+    let p = clocked("Clocked", "ram");
+    let e = explain(&schedule(&p, "ram", None).unwrap());
+    assert!(e.contains("registers: 8 (64 bits)"), "{e}");
+    assert!(e.contains("   8 x eq i16"), "{e}");
+    // An index of 2 bits (0 and 1 as signed) addresses only words 0 and 1.
+    let p = parse("%m = state i8[4] 0 0 0 0\n%a = stream i2 1 0\n%x = const i8 7\n%w = put %m %a %x\nnext %m %w\noutput %m\n").unwrap();
+    let n = schedule(&p, "narrow", None).unwrap();
+    assert_eq!(n.simulate().unwrap().0[0].to_string(), "7 7 0 0");
+    assert!(explain(&n).contains("   2 x eq i2"));
+}
+
+#[test]
+fn a_clocked_testbench_feeds_one_item_per_clock() {
+    let p = clocked("Clocked", "accumulator");
+    let tb = testbench(&schedule(&p, "accumulator", None).unwrap()).unwrap();
+    assert!(tb.contains("    @(posedge clk); #1 rst = 0;\n    in_x = 8'h0a;\n    @(posedge clk); #1;\n    in_x = 8'h14;"), "{tb}");
+    // The trace's last value, -96, is what is checked: 0xa0.
+    assert!(tb.contains("if (out_s !== 8'ha0)"), "{tb}");
+    assert!(!tb.contains("done"));
+}

@@ -1,0 +1,14 @@
+# detect.xtl hand-lowered: the 1 0 1 detector, its next state looked up
+# in a table (a ROM) at state + 4 * bit; found is state = 3.
+# baseline: demo-detect 1-2
+%b = stream i8 1 0 1 0 1 1 0 1 0 0 1
+%table = const i8[8] 0 2 0 2 1 1 3 1
+%four = const i8 4
+%three = const i8 3
+%s = state i8 0
+%fb = map mul %b %four
+%i = map add %s %fb
+%t = lookup %table %i
+%found = map eq %s %three
+next %s %t
+trace %s %found
