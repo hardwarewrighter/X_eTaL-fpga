@@ -1,6 +1,6 @@
 name = "fpga-state"
 status = "active"
-current_step = 1
+current_step = 2
 created_at = "2026-10-07T13:57:47"
 plan_file = ".agentrail/plan.md"
 retroactive = false

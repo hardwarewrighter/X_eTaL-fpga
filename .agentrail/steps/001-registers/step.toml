@@ -1,8 +1,9 @@
 number = 1
 slug = "registers"
-status = "pending"
+status = "completed"
 description = "State in the provisional IR and in circuits. XIR: a state value with its init..."
 role = "production"
 context_files = []
 created_at = "2026-10-07T13:57:47"
-commits = []
+completed_at = "2026-10-07T17:14:54"
+commits = ["ef7c1fd1a6077d9664a512bda7fc735a2537ff75"]
