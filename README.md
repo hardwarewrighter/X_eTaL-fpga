@@ -80,9 +80,10 @@ as their specification (step 1); a UART, transmitter and receiver
 looped back, from X_eTaL to a clocked circuit (step 2); self-checking
 testbenches that check every clock and write waveforms, and Verilator
 lint, ready for the Arch machine (step 3). Saga 2 is done. Next,
-saga 3: a 4-bit calculator machine in the spirit of the TMS1000 (our
-own design, hexadecimal first), sized for a Tang Nano 1K, starting
-with its instruction set, decided with the user. See
+saga 3: HEX1000, a 4-bit calculator machine in the spirit of the
+TMS1000 (our own design, hexadecimal first), sized for a Tang Nano
+1K; its architecture is decided ([`docs/machine.md`](docs/machine.md)).
+See
 [`docs/plan.md`](docs/plan.md) for the roadmap and the architecture
 decisions.
 

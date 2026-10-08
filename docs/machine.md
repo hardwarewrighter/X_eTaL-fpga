@@ -1,9 +1,8 @@
-# The 4-bit machine: a proposal
+# HEX1000: the 4-bit machine
 
-**Status: proposed, 2026-10-07; nothing here is decided yet.** The
-decisions are the user's (the list at the end); once made, this page
-becomes the machine's definition, and saga 3's later steps build to
-it.
+**Status: decided with the user, 2026-10-07** (the decisions are at
+the end). This page is the machine's definition; saga 3's later steps
+build to it, and a change to it is a decision of its own.
 
 The machine is the first demo of saga 3 (`docs/plan.md`): a 4-bit
 machine in the spirit of the TI TMS1000, our own design of equivalent
@@ -14,7 +13,9 @@ TMS1000 below are from memory and are to be checked against TI's
 data manual before anything relies on them; they are here only to
 show what "in the spirit of" borrows.
 
-Working name in this page: **the machine**. Naming it is decision 1.
+Its name is **HEX1000** (decision 1): a hexadecimal calculator chip
+of the TMS1000's size. The X_eTaL library will be `Hex1000` and the
+Verilog module `hex1000`.
 
 ## What it borrows from the TMS1000, and what it does not
 
@@ -23,7 +24,7 @@ Working name in this page: **the machine**. Naming it is decision 1.
 | 4-bit accumulator A, 4-bit Y, 2-bit X | the same |
 | 64 by 4-bit RAM, a word chosen by X (file) and Y (word) | the same |
 | 1024 by 8-bit ROM: 16 pages of 64 instructions | the same size |
-| a 6-bit program counter that steps as a feedback shift register, not a binary counter | decision 2: a binary counter (simpler to read and assemble) or the shift register (authentic, a little smaller) |
+| a 6-bit program counter that steps as a feedback shift register, not a binary counter | a feedback shift register too (decision 2), our own rule, below |
 | a page address and a page buffer; a branch or call goes to the buffered page | the same |
 | one subroutine level: a return address register and a call latch | the same |
 | a status flag: set by compares and carries, and back to 1 after every other instruction; a branch is taken when it is 1 | the same (decision 6) |
@@ -39,7 +40,7 @@ Working name in this page: **the machine**. Naming it is decision 1.
 | `Y` | 4 | the RAM word index, also the R latch index |
 | `X` | 2 | the RAM file |
 | `S` | 1 | the status flag |
-| `PC` | 6 | the address within the page |
+| `PC` | 6 | the address within the page, stepped by the shift-register rule below |
 | `PA` | 4 | the page |
 | `PB` | 4 | the page buffer (set by `LDP`, taken by `BR` and `CALL`) |
 | `SR` | 6 | the return address |
@@ -51,9 +52,31 @@ Working name in this page: **the machine**. Naming it is decision 1.
 
 About 50 flip-flops of registers, plus the RAM's 256 bits.
 
-## The instruction set (proposed)
+## The program counter
 
-One byte per instruction. The top bits choose the group:
+PC does not count; it shifts. After each instruction that does not
+branch, with `b5` and `b4` its top two bits:
+
+```
+next PC = (2 PC mod 64) + f
+f       = 1 - (b5 xor b4), inverted when PC mod 32 = 31
+```
+
+From 0 this visits all 64 addresses and comes back to 0: 0, 1, 3, 7,
+15, 31, 63, 62, 61, 59, 55, 47, ... (checked when the rule was
+chosen; the machine library's tests check it again). The XNOR
+feedback alone would visit 63 and stick at 63; the inversion when the
+low five bits are all ones makes it visit all 64, so a page holds 64
+instructions as on the TMS1000. The hardware is a shift, an XNOR and
+a five-input AND, no adder; the assembler places a page's
+instructions in this order, so a program is written in reading order
+and never sees it. A branch or a call loads PC (and the page) from the
+instruction.
+
+## The instruction set
+
+As proposed and kept (decision 7). One byte per instruction. The top
+bits choose the group:
 
 | Pattern | Instructions |
 | ------- | ------------ |
@@ -112,16 +135,15 @@ a calculator needs.
 ## I/O on a board
 
 The machine's ports are K (4 bits in), R (latches out) and O (5 bits
-out); how a board presents them is decision 4. Proposed first: **a
-terminal over the UART of saga 2**. A key typed on the host becomes
+out); how a board presents them is decision 4: first **a terminal over the
+UART of saga 2**. A key typed on the host becomes
 the K value while it is held (a received byte held for some
 milliseconds, translated by a small table from characters to key
 codes); the display is sent to the host as text whenever the program
 writes it (`TDO` per digit, with R marking which digit). Physical
 keys and seven-segment digits (a Pmod or a breadboard) can come
-later on the same ports. To be checked: whether the Tang Nano 1K's
-USB bridge offers a serial port, or a USB-serial adapter on two pins
-is needed.
+later on the same ports. If the Tang Nano 1K's USB bridge offers no serial port, a USB-serial
+adapter on two pins is used (the user has them).
 
 ## Size against the Tang Nano 1K (an estimate)
 
@@ -152,22 +174,15 @@ digit loops with the carry in S; multiply is repeated addition by
 digits; divide is repeated subtraction (decision 5: whether to have
 divide at all at first).
 
-## Decisions for the user
+## Decided with the user (2026-10-07)
 
-1. **The name.** The machine needs one (and so do the library and the
-   Verilog module).
-2. **The program counter.** A binary counter (simpler to read and to
-   assemble for) or the TMS1000's feedback shift register (authentic,
-   slightly smaller, the assembler hides the order)?
-3. **Two clocks per instruction** (fetch, execute; the ROM in block
-   RAM), as proposed?
-4. **I/O first:** a terminal over the UART, as proposed, or physical
-   keys and LEDs on the board first?
-5. **Operations and digits:** eight digits; add, subtract, multiply;
-   divide later?
-6. **The status rule:** the TMS1000's (S back to 1 after every
-   instruction that does not set it, a branch taken when S is 1), as
-   proposed?
-7. **The instruction list:** as proposed above, or trimmed or
-   extended (for example a decimal-adjust instruction instead of
-   `ACC 6` in the program)?
+1. **The name: HEX1000.**
+2. **The program counter: a feedback shift register**, the rule above.
+3. **Two clocks per instruction**: fetch, then execute; the ROM in
+   block RAM.
+4. **I/O first: a terminal over the UART**; keys and LEDs later. A
+   USB-serial adapter if the board's bridge has no serial port.
+5. **Eight digits; add, subtract and multiply; divide later.**
+6. **The TMS1000's status rule**: S back to 1 after every instruction
+   that does not set it; a branch or call taken when S is 1.
+7. **The instruction list as proposed.**
