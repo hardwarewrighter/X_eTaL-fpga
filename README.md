@@ -77,17 +77,23 @@ their Verilog is pinned. Saga 2 (fpga-state) is under way: clocked
 programs (state, input streams, ROMs, a RAM's write port) in the IR,
 the netlist, the simulator and the Verilog, with the Clocked library
 as their specification (step 1); a UART, transmitter and receiver
-looped back, from X_eTaL to a clocked circuit (step 2). Next:
-testbenches;
-then saga 3, a 4-bit calculator machine in the spirit of the TMS1000
-(our own design, hexadecimal first), sized for a Tang Nano 1K. See
+looped back, from X_eTaL to a clocked circuit (step 2); self-checking
+testbenches that check every clock and write waveforms, and Verilator
+lint, ready for the Arch machine (step 3). Saga 2 is done. Next,
+saga 3: a 4-bit calculator machine in the spirit of the TMS1000 (our
+own design, hexadecimal first), sized for a Tang Nano 1K, starting
+with its instruction set, decided with the user. See
 [`docs/plan.md`](docs/plan.md) for the roadmap and the architecture
 decisions.
 
 Nothing here needs an FPGA or the FPGA tools yet. The Verilog is
 proven through the Rust simulator of the same netlist; the gate also
-runs it through iverilog (each module with its testbench) and Yosys
-(synthesis) when they are installed, and says so when it skips them.
+runs it through iverilog (each module with its self-checking
+testbench), Verilator (lint) and Yosys (synthesis) when they are
+installed, and says so when it skips them. None has been run yet:
+the tools go on the Arch machine with the boards (see the RTL
+component's verification status). `just wave FILE.xir` writes a
+waveform of one circuit for gtkwave.
 
 ## Build
 
@@ -97,9 +103,12 @@ Prerequisites:
   [`just`](https://github.com/casey/just)
   (`brew install just` or `cargo install just`)
 - optional, for the Verilog checks: `iverilog` (Icarus Verilog),
-  `yosys`, `verilator` (`brew install icarus-verilog yosys verilator`)
-- optional, for the board: nextpnr-himbaechel with Gowin support,
-  Apicula (`gowin_pack`) and openFPGALoader
+  `yosys`, `verilator`, and `gtkwave` to look at waveforms (macOS:
+  `brew install icarus-verilog yosys verilator`; Arch: `pacman -S
+  iverilog yosys verilator gtkwave`)
+- optional, for the board (on the Arch machine, where the boards
+  are): nextpnr with the Gowin target (`nextpnr-himbaechel`), Apicula
+  (`gowin_pack`) and openFPGALoader
 - for the gate (maintainers): `reg-rs` and `sw-markdown-checker`
 
 ```bash

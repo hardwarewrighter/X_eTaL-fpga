@@ -139,7 +139,7 @@ three-input unit is applied curried or with its operands as one
 vector (ask F9); the temporal schedule takes single-length,
 single-pass programs and says so for the rest.
 
-### Saga 2 -- fpga-state  [ACTIVE]
+### Saga 2 -- fpga-state  [DONE]
 
 Goal: sequential circuits from X_eTaL step functions: state, input
 streams, lookups, ROM and RAM in the IR, the netlist and the Verilog,
@@ -149,9 +149,20 @@ and a serial line. What the 4-bit machine of saga 3 is built from.
 | - | --------- | -------- |
 | 1 | registers (done) | XIR state (a state value with its init, the next-state binding), an input stream (one item per clock), `lookup` (a ROM when constant), `put` (a RAM's write port) and `cast`; the netlist's registers and memories; the simulator clocks them; Verilog; tests (a counter, an accumulator, a shift register, a small state machine) and a twin of Fixed's counter demo |
 | 2 | uart (done) | a UART receiver and transmitter as step functions (clock and baud rate as schedule data), simulated end to end with a loopback |
-| 3 | testbenches | self-checking Verilog testbenches for the sequential examples, iverilog and Verilator when present; a VCD per run |
+| 3 | testbenches (done; the tools themselves not yet run) | self-checking Verilog testbenches for the sequential examples, iverilog and Verilator when present; a VCD per run |
 
-### Saga 3 -- nibble-machine
+Done (2026-10-07). What it showed: clocked programs (state, streams,
+ROMs, a RAM, a UART) go from X_eTaL step functions to clocked circuits
+and match the evaluator clock for clock; reading and writing fields
+of a state vector at constant indexes must be wiring (the loopback
+fell from 112 comparators to 11 when the schedule learned that).
+Not yet shown: that any module passes iverilog, Verilator or Yosys
+(no tools on this Mac; the Arch machine). Learned about X_eTaL: a
+step with a parameter (the clocks per bit) is bound by applying it,
+`ua:t_x 3`, and a bound function's name needs an underline after a
+letter (`u:t_x`, not `u:l3_`).
+
+### Saga 3 -- nibble-machine  [ACTIVE]
 
 Goal: the first demo machine, decided with the user
 (`docs/calc-approaches.md`): a 4-bit machine in the spirit of the

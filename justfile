@@ -115,9 +115,13 @@ sim file lanes="":
 explain file lanes="":
     @cd components && cargo run -q -p xetal-fpga-cli -- explain "../$1" ${2:+--lanes "$2"}
 
-# The pinned Verilog of every twin, and iverilog and yosys on it when installed
+# The pinned Verilog of every twin, and iverilog, verilator and yosys on it when installed
 rtl:
     scripts/check-rtl.sh
+
+# A waveform of a twin's circuit under iverilog: work/rtl/NAME.vcd (just wave libs/Clocked/demos/detect.xir)
+wave file lanes="":
+    scripts/wave.sh "$1" ${2:+"$2"}
 
 # Rewrite the pinned Verilog from what xetal-fpga writes today (review the diff!)
 bless-rtl:

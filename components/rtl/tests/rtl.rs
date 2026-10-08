@@ -169,9 +169,24 @@ fn a_constant_table_is_a_rom_and_a_put_is_a_write_port() {
 fn a_clocked_testbench_feeds_one_item_per_clock() {
     let p = clocked("Clocked", "accumulator");
     let tb = testbench(&schedule(&p, "accumulator", None).unwrap()).unwrap();
-    assert!(tb.contains("    @(posedge clk); #1 rst = 0;\n    in_x = 8'h0a;\n    @(posedge clk); #1;\n    in_x = 8'h14;"), "{tb}");
-    // The trace's last value, -96, is what is checked: 0xa0.
-    assert!(tb.contains("if (out_s !== 8'ha0)"), "{tb}");
+    let reset = tb.find("    @(posedge clk); #1 rst = 0;\n").unwrap();
+    let first = tb
+        .find("    in_x = 8'h0a;\n    @(posedge clk); #1;\n")
+        .unwrap();
+    let second = tb
+        .find("    in_x = 8'h14;\n    @(posedge clk); #1;\n")
+        .unwrap();
+    assert!(reset < first && first < second, "{tb}");
+    // The trace is checked after reset (0) and after every clock, the
+    // last -96 (0xa0); the final output too (also -96).
+    assert!(tb.contains("FAIL: s after reset is"), "{tb}");
+    assert!(
+        tb.contains("if (out_s !== 8'h0a) begin $display(\"FAIL: s after clock 1 is"),
+        "{tb}"
+    );
+    assert!(tb.contains("FAIL: s after clock 7 is"), "{tb}");
+    assert_eq!(tb.matches("if (out_s !== 8'ha0)").count(), 2, "{tb}");
+    assert!(tb.contains("$dumpfile(\"accumulator.vcd\");"));
     assert!(!tb.contains("done"));
 }
 
