@@ -10,6 +10,10 @@ one, `docs` documentation, `plan` saga planning and reordering,
 `release` milestone release, `chore` agentrail bookkeeping (step
 complete, saga archive).
 
+## 2026-10-08
+
+- 07:39 `lib` Radix (saga nibble-machine, step 2): an eight-digit calculator in any radix, the specification HEX1000's ROM program must meet. Numbers wrap modulo r^8 (hex `5-7=` is FFFFFFFE); keys `0`-`9`, `A`-`F`, `+ - * =`, and `X` for clear (`C` is a hexadecimal digit, found when the first clear check failed); a digit not below the radix, or a ninth, is ignored; left-to-right operations, continuing after `=`, starting over on a digit; the screen blanks leading zeros. `d_igits`, `v_alue`, `w_rap`, `k_eys`, `a_lu`, `k_ey` (the step), `r_un`, `s_creen`, `c_alc`. Tests: basics; 23 Check laws in hex, octal and decimal; pinned types. Demos: a hex session, one sequence in three radixes. The reference page, README, plan.
+
 ## 2026-10-07
 
 - 21:27 `plan` HEX1000 decided with the user (saga nibble-machine, step 1): the name; a shift-register program counter (our own rule: XNOR of the top two bits, inverted when the low five are all ones, so all 64 addresses are visited from 0, checked); two clocks per instruction; a terminal over the UART first (a USB-serial adapter if needed); eight digits, add, subtract, multiply, divide later; the TMS1000's status rule; the instruction list as proposed. `docs/machine.md` is now the definition; plan and README updated.

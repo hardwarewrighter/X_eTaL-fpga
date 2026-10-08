@@ -33,6 +33,7 @@ array program to describe the hardware itself.
 | `libs/Fixed/` | fixed-width two's complement numbers (`"fx:" u_se< "Fixed"`): the width written in the program, the evaluator computing what a w-bit adder gives |
 | `libs/Clocked/` | clocked circuits as step functions (`ck:`): a counter, an accumulator, a shift register, a sequence detector, a RAM, and the harness that clocks them |
 | `libs/Uart/` | a serial port as step functions (`ua:`): a transmitter, a receiver, and the two looped back; the clocks per bit as schedule data |
+| `libs/Radix/` | an eight-digit calculator in any radix (`rx:`): the specification HEX1000's ROM program must meet, key for key |
 | `libs/Datapath/` | the vector examples at a stated width (`dp:`): add, saxpy, threshold, the reduction tree, the acceptance pipeline; its demos are the programs the circuits realize |
 | `components/xir/` | the provisional accelerator IR (typed values with widths and shapes, elementwise maps, select, reductions, later registers and state), its text form and a reference interpreter |
 | `components/rtl/` | the netlist, the lanes schedule and the reduction tree, the cycle simulator, the Verilog-2005 emitter and testbenches |
@@ -82,7 +83,8 @@ testbenches that check every clock and write waveforms, and Verilator
 lint, ready for the Arch machine (step 3). Saga 2 is done. Next,
 saga 3: HEX1000, a 4-bit calculator machine in the spirit of the
 TMS1000 (our own design, hexadecimal first), sized for a Tang Nano
-1K; its architecture is decided ([`docs/machine.md`](docs/machine.md)).
+1K; its architecture is decided ([`docs/machine.md`](docs/machine.md))
+and its calculator's specification written (the Radix library).
 See
 [`docs/plan.md`](docs/plan.md) for the roadmap and the architecture
 decisions.
@@ -147,6 +149,7 @@ just sim libs/Clocked/demos/detect.xir             # the same as a clocked circu
 just verilog libs/Clocked/demos/ram.xir            # a RAM of eight words as Verilog
 just demo-lib Uart loopback                        # "Hi" over a serial line: the line, the bytes received
 just explain libs/Uart/demos/loopback.xir          # the same as a circuit: fifteen registers
+just demo-lib Radix session                        # the hexadecimal screens HEX1000 must show
 ```
 
 ## Libraries and examples

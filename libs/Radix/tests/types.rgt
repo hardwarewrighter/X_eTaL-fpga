@@ -1,0 +1,2 @@
+command = "../../../scripts/xt type ../src/Radix.xtl"
+exit_code = 0

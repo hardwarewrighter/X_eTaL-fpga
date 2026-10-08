@@ -1,0 +1,12 @@
+#!/usr/bin/env xetal
+# A session at the hexadecimal calculator: each line a key sequence
+# and the eight-digit screen at its end. These are the screens
+# HEX1000's ROM program must show. Run with "just demo-lib Radix session".
+"rx:" u_se< "Radix"
+16 rx:c_alc "12+34="
+16 rx:c_alc "FF+1="
+16 rx:c_alc "A*B="
+16 rx:c_alc "C0DE+BEEF="
+16 rx:c_alc "5-7="
+16 rx:c_alc "FFFFFFFF+1="
+16 rx:c_alc "2*3+4="

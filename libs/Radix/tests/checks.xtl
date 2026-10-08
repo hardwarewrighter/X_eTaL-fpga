@@ -1,0 +1,31 @@
+#!/usr/bin/env xetal
+# Radix: calculations in hexadecimal, octal and decimal against their
+# answers, with the Check library; "ok" per check. Run with
+# "just run-lib Radix checks".
+"rx:" u_se< "Radix"
+"k:" u_se< "Check"
+k:r_eport (
+  ("hex 12 + 34 = 46" k:t_est "      46" k:i_s 16 rx:c_alc "12+34=")
+  k:a_nd ("hex FF + 1 = 100" k:t_est "     100" k:i_s 16 rx:c_alc "FF+1=")
+  k:a_nd ("hex A * B = 6E" k:t_est "      6E" k:i_s 16 rx:c_alc "A*B=")
+  k:a_nd ("hex wraps: FFFFFFFF + 1 = 0" k:t_est "       0" k:i_s 16 rx:c_alc "FFFFFFFF+1=")
+  k:a_nd ("hex below zero: 5 - 7 = FFFFFFFE" k:t_est "FFFFFFFE" k:i_s 16 rx:c_alc "5-7=")
+  k:a_nd ("hex multiply wraps: 10000 * 10000 = 0" k:t_est "       0" k:i_s 16 rx:c_alc "10000*10000=")
+  k:a_nd ("hex chained left to right: 2 * 3 + 4 = A" k:t_est "       A" k:i_s 16 rx:c_alc "2*3+4=")
+  k:a_nd ("a ninth digit is ignored" k:t_est "12345678" k:i_s 16 rx:c_alc "123456789")
+  k:a_nd ("octal 7 + 1 = 10" k:t_est "      10" k:i_s 8 rx:c_alc "7+1=")
+  k:a_nd ("octal ignores 8 and 9" k:t_est "       5" k:i_s 8 rx:c_alc "859")
+  k:a_nd ("octal 777 * 2 = 1776" k:t_est "    1776" k:i_s 8 rx:c_alc "777*2=")
+  k:a_nd ("decimal 123 - 27 = 96" k:t_est "      96" k:i_s 10 rx:c_alc "123-27=")
+  k:a_nd ("decimal ignores A to F" k:t_est "      12" k:i_s 10 rx:c_alc "1A2")
+  k:a_nd ("decimal 99999999 + 1 = 0" k:t_est "       0" k:i_s 10 rx:c_alc "99999999+1=")
+  k:a_nd ("the result continues: 12 + 34 = + 1 = is 47 (hex)" k:t_est "      47" k:i_s 16 rx:c_alc "12+34=+1=")
+  k:a_nd ("a digit after = starts over" k:t_est "       6" k:i_s 16 rx:c_alc "12+34=5+1=")
+  k:a_nd ("clear (X)" k:t_est "      34" k:i_s 16 rx:c_alc "12+X34=")
+  k:a_nd ("= with nothing pending shows the entry" k:t_est "      12" k:i_s 16 rx:c_alc "12=")
+  k:a_nd ("an operator first uses 0" k:t_est "       5" k:i_s 16 rx:c_alc "+5=")
+  k:a_nd ("a second operator replaces the first" k:t_est "       8" k:i_s 16 rx:c_alc "2+*4=")
+  k:a_nd ("the display shows the result at an operator" k:t_est "      46" k:i_s 16 rx:c_alc "12+34+")
+  k:a_nd ("digits are the display's, most significant first" k:t_est (0 0 0 0 0 0 4 6) k:i_s 16 rx:d_igits 70)
+  k:a_nd ("digits and value undo each other" k:t_est 305419896 k:i_s 16 rx:v_alue 16 rx:d_igits 305419896)
+)

@@ -1,0 +1,18 @@
+l:Width : Int
+l:m_odulus : Int -> Int
+l:d_igits : Int -> Int -> Int
+l:v_alue : Num a => a -> a -> a
+l:w_rap : Int -> Int -> Int
+l:KeyPlus : Int
+l:KeyMinus : Int
+l:KeyTimes : Int
+l:KeyEquals : Int
+l:KeyClear : Int
+l:k_eys : Char -> Int
+l:Reset : Int
+l:a_lu : Int -> Int -> Int
+l:k_ey : Int -> Int -> Int -> Int
+l:d_isplay : a -> a
+l:s_creen : Int -> Int -> Char
+l:c_alc : Int -> Char -> Char
+l:r_un : Int -> Int -> Int

@@ -1,0 +1,10 @@
+#!/usr/bin/env xetal
+# One key sequence in the three radixes: 777 * 2 = (octal 1776, hex
+# EEE, decimal 1554), and 10 - 1 = (7, F, 9). Run with "just demo-lib Radix radixes".
+"rx:" u_se< "Radix"
+8 rx:c_alc "777*2="
+16 rx:c_alc "777*2="
+10 rx:c_alc "777*2="
+8 rx:c_alc "10-1="
+16 rx:c_alc "10-1="
+10 rx:c_alc "10-1="

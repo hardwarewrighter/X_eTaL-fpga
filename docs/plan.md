@@ -177,7 +177,7 @@ Nano 1K. The machine is HEX1000 (`docs/machine.md`, decided with the user).
 | # | Step slug | Delivers |
 | - | --------- | -------- |
 | 1 | isa (done) | `docs/machine.md`: HEX1000, the registers, memories, instruction set and encoding, the shift-register program counter, I/O (a terminal over the UART), sized against the Tang Nano 1K; decided with the user |
-| 2 | radix-lib | the reference: a pure X_eTaL library of digit-serial arithmetic in a radix (digit vectors in and out, `+ - *`, perhaps `/`), hexadecimal, octal and decimal; the specification for the calculator program |
+| 2 | radix-lib (done) | the reference: a pure X_eTaL library of digit-serial arithmetic in a radix (digit vectors in and out, `+ - *`, perhaps `/`), hexadecimal, octal and decimal; the specification for the calculator program |
 | 3 | machine-lib | the machine in X_eTaL: the state vector (registers and RAM), the ROM as an Int vector, `s_tep` (one instruction, pure), a run harness; an assembler (instruction text to codes) |
 | 4 | hex-calc | the calculator program in the ROM, hexadecimal; every test key sequence's display equal to the reference's |
 | 5 | radixes | octal and decimal (a radix mode, the digit adjust as an instruction or in the program, an instruction-set decision made here); all three against the reference |

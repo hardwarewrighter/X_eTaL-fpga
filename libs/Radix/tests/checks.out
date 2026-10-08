@@ -1,0 +1,24 @@
+ok: hex 12 + 34 = 46
+ok: hex FF + 1 = 100
+ok: hex A * B = 6E
+ok: hex wraps: FFFFFFFF + 1 = 0
+ok: hex below zero: 5 - 7 = FFFFFFFE
+ok: hex multiply wraps: 10000 * 10000 = 0
+ok: hex chained left to right: 2 * 3 + 4 = A
+ok: a ninth digit is ignored
+ok: octal 7 + 1 = 10
+ok: octal ignores 8 and 9
+ok: octal 777 * 2 = 1776
+ok: decimal 123 - 27 = 96
+ok: decimal ignores A to F
+ok: decimal 99999999 + 1 = 0
+ok: the result continues: 12 + 34 = + 1 = is 47 (hex)
+ok: a digit after = starts over
+ok: clear (X)
+ok: = with nothing pending shows the entry
+ok: an operator first uses 0
+ok: a second operator replaces the first
+ok: the display shows the result at an operator
+ok: digits are the display's, most significant first
+ok: digits and value undo each other
+23 checks, all passed

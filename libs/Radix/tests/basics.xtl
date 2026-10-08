@@ -1,0 +1,22 @@
+#!/usr/bin/env xetal
+# Radix: digits, keys, the ALU, single keys and whole calculations.
+# Run with "just run-lib Radix basics".
+"rx:" u_se< "Radix"
+rx:m_odulus 16
+16 rx:d_igits 255
+8 rx:d_igits 8
+10 rx:d_igits -1
+16 rx:v_alue 0 0 0 0 0 0 15 0
+16 rx:w_rap 4294967297
+rx:k_eys "12+34="
+rx:k_eys "a=?"
+16 rx:a_lu 1 255 1
+16 rx:a_lu 2 5 7
+16 rx:a_lu 3 10 11
+u:k_ey := rx:k_ey 16
+rx:Reset u:k_ey 10
+(rx:Reset u:k_ey 1) u:k_ey 2
+16 rx:r_un rx:k_eys "12+34"
+16 rx:r_un rx:k_eys "12+34="
+16 rx:s_creen 0 0 0 0 46
+16 rx:c_alc "12+34="
