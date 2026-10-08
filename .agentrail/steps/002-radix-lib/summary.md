@@ -1,0 +1,1 @@
+libs/Radix: eight-digit calculator in any radix (odometer wrap, X as clear since C is a hex digit, digits outside the radix ignored, left-to-right ops), the spec for HEX1000's ROM program; 23 Check laws in hex/octal/decimal; two demos; reference page.
