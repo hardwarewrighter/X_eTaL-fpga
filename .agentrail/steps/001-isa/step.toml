@@ -1,8 +1,9 @@
 number = 1
 slug = "isa"
-status = "in-progress"
+status = "completed"
 description = "docs/machine.md: the 4-bit machine's architecture, proposed then decided with..."
 role = "production"
 context_files = []
 created_at = "2026-10-07T19:35:24"
-commits = []
+completed_at = "2026-10-07T21:28:13"
+commits = ["3de116ea8c6f651b692f7896dad1c23057cf7ae8"]
