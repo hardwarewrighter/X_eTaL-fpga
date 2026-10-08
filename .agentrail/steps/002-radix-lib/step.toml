@@ -1,0 +1,8 @@
+number = 2
+slug = "radix-lib"
+status = "pending"
+description = "The reference for the calculator: a pure X_eTaL library of digit-serial arith..."
+role = "production"
+context_files = []
+created_at = "2026-10-07T19:35:24"
+commits = []
