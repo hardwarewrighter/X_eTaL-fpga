@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # The pre-commit gate: the pinned X_eTaL and X_eTaL-libraries
 # (scripts/check-xetal.sh; it clones and builds on a fresh checkout),
-# the library tooling's self-test, every library's baselines, the
+# the library tooling's self-test, every library's baselines and doc
+# tests, the documentation site's build, the
 # Rust components (format, clippy, tests), the equivalence checks (the
 # evaluator against the XIR interpreter, the netlist simulator and,
 # when iverilog and yosys are installed, the generated Verilog), the
@@ -14,6 +15,9 @@ cd "$root"
 "$root/scripts/check-xetal.sh"
 "$root/scripts/selftest-libs.sh"
 "$root/scripts/test-libs.sh"
+"$root/scripts/doctest-libs.sh"
+# The documentation site builds (into work/, so pages/ is left alone).
+XETAL_DOC_OUT="$root/work/doc" "$root/scripts/doc-site.sh"
 if [ -f "$root/components/Cargo.toml" ]; then
   (cd "$root/components" && cargo fmt --all --check) || { echo "FAIL: cargo fmt (run: cd components && cargo fmt --all)"; exit 1; }
   (cd "$root/components" && cargo clippy -q --all-targets -- -D warnings) || { echo "FAIL: cargo clippy"; exit 1; }

@@ -19,7 +19,7 @@ expect() { # expect pass|fail DESCRIPTION
 }
 bless() { XETAL_BLESS=1 "$t" Probe >/dev/null 2>&1 || true; }
 "$root/scripts/new-lib.sh" Probe pr: "A probe & co" >/dev/null
-grep -q '^# Probe: A probe & co$' "$d/src/Probe.xtl"
+grep -q '^## Probe: A probe & co$' "$d/src/Probe.xtl"
 [ -f "$d/tests/basics.rgt" ] && [ -f "$d/tests/types.rgt" ] && [ -f "$d/tests/demo-example.rgt" ]
 expect pass "a fresh library"
 echo 56 > "$d/tests/basics.out"
@@ -44,7 +44,11 @@ bless; expect pass "a failed check the program says it shows"
 printf 'l:t_wice := { x -> x * 2 }\n' >> "$d/src/Probe.xtl"
 bless; expect fail "an undocumented export"
 printf '\n`pr:t_wice`\n' >> "$d/docs/README.md"
-expect pass "once documented"
+expect fail "an export documented on its page but with no ## >> example"
+printf '## >> "pr:" u_se< "Probe"\n## >> pr:t_wice 2\n## 4\nl:t_wice := { x -> x * 2 }\n' > "$d/twice.part"
+sed -i.bak '/^l:t_wice/d' "$d/src/Probe.xtl" && rm "$d/src/Probe.xtl.bak"
+cat "$d/twice.part" >> "$d/src/Probe.xtl" && rm "$d/twice.part"
+expect pass "once documented, with an example"
 mv "$d/demos/example.xtl" "$d/example.xtl.away"
 expect fail "no demo"
 mv "$d/example.xtl.away" "$d/demos/example.xtl"

@@ -349,7 +349,18 @@ Read before working:
    `.tdb*`; rebless (`just bless-lib`) only after reviewing the diff,
    and say so in the commit. Libraries follow X_eTaL's style guide
    (lang-choices 16): concise whole-array expressions, number
-   literals side by side, no walls of literals.
+   literals side by side, no walls of literals. Their comments are
+   X_eTaL doc comments: line 1 `## Name: summary` and a `##` file
+   block, `###` section headings, a `##` block directly above each
+   definition, and for every export a `## >>` example with its
+   expected `##` output (an example imports its library itself); the
+   gate runs them (`just doctest`) and fails an export without one.
+4a. The live site is built locally into `pages/` (`just pages`:
+   a landing page, `xetal doc`'s documentation of every library and
+   demo, the pinned Verilog), never tracked on `main`: `just publish`
+   makes it the only commit of the `gh-pages` branch (force-replaced,
+   no history, the X_eTaL-demos way; ask F11). Publish after a step
+   that changes what the site shows, then `just check-live`.
 5. Rust lives in one workspace, `components/` (crates `xetal-fpga-*`,
    one directory each with a README); the gate runs `cargo fmt
    --check`, `clippy -D warnings` and the tests. The IR
@@ -401,7 +412,9 @@ Read before working:
    unexpected).
 4. A detailed commit to `main`, including `.agentrail/`.
 5. `agentrail complete`, commit the `.agentrail/` change it makes,
-   push.
+   push; `just publish` when the step changed what the site shows
+   (a library, its doc comments, a demo, a circuit), then
+   `just check-live`.
 6. Report: what was pushed, what is demoable (the commands), what is
    blocked (and on which ask or tool), the next step(s) and choices,
    questions, and asks for the user or the other X_eTaL repos.
@@ -421,7 +434,10 @@ just run-lib NAME [PROG]  # a library's test programs
 just demo-lib NAME [PROG] # its demos (the example programs)
 just test-lib NAME        # its reg-rs baselines; just bless-lib NAME rebases them
 just build                # the xetal-fpga tool (components/cli), release
-just test                 # baselines, components, equivalence checks
+just test                 # baselines, doc tests, components, equivalence checks
+just doctest              # the libraries' ## >> examples (xetal doc --test)
+just pages / just serve-pages   # build the site into pages/; serve it at http://127.0.0.1:8417/
+just publish / just check-live  # publish pages/ as the gh-pages branch; check it answers
 agentrail status          # current saga state
 agentrail next            # current step + context
 agentrail plan            # the saga plan

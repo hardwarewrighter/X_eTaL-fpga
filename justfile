@@ -79,6 +79,7 @@ bless-lib name:
 # Test everything: every library's baselines, the Rust components, the equivalence checks, the pinned Verilog
 test:
     scripts/test-libs.sh
+    scripts/doctest-libs.sh
     @[ -f components/Cargo.toml ] && (cd components && cargo test -q) || true
     @[ -x scripts/check-equiv.sh ] && scripts/check-equiv.sh || true
     @[ -x scripts/check-rtl.sh ] && scripts/check-rtl.sh || true
@@ -126,6 +127,30 @@ wave file lanes="":
 # Rewrite the pinned Verilog from what xetal-fpga writes today (review the diff!)
 bless-rtl:
     XETAL_BLESS=1 scripts/check-rtl.sh
+
+# Run every library's doc tests: the ## >> examples in libs/*/src (xetal doc --test)
+doctest:
+    scripts/doctest-libs.sh
+
+# Build the documentation site into pages/doc (xetal doc --out: libraries, demos, built-ins)
+doc:
+    scripts/doc-site.sh
+
+# Build the live site into pages/ (not tracked): landing page, documentation, Verilog
+pages:
+    scripts/build-pages.sh
+
+# Publish the site: build pages/ from this commit and make it the gh-pages branch's only commit (needs a clean work tree)
+publish:
+    scripts/publish-pages.sh
+
+# Check the published site answers: landing page at the latest publish, every library's page, every module
+check-live:
+    scripts/check-live.sh
+
+# Serve the built pages/ locally: http://127.0.0.1:8417/ (8417 is this repository's port)
+serve-pages port="8417":
+    cd pages && python3 -m http.server "$1" --bind 127.0.0.1
 
 # Build the FPGA tool, xetal-fpga (components/cli), in release mode
 build:

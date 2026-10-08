@@ -1,54 +1,100 @@
-# Radix: an eight-digit calculator in any radix (hexadecimal, octal, decimal): the specification HEX1000's ROM program must meet
-# Import it with an alias of your choice: "rx:" u_se< "Radix".
-# Put libs/Radix/src on XETAL_PATH ("just path"); the reference is libs/Radix/docs.
-# Names with l: are exported; the others are private to this file.
-#
-# A number is eight digits in radix r (16, 8 or 10), as a calculator
-# chip keeps it: a whole number from 0 to r^8 - 1. Arithmetic wraps
-# like an odometer, modulo r^8: in hexadecimal FFFFFFFF + 1 is 0 and
-# 5 - 7 is FFFFFFFE (the r's complement a digit-serial subtract
-# leaves). The radix is the first argument of every function, bound
-# once by applying the function to it: u:k_ey := rx:k_ey 16.
+## Radix: an eight-digit calculator in any radix (hexadecimal, octal, decimal): the specification HEX1000's ROM program must meet
+## Import it with an alias of your choice: "rx:" u_se< "Radix".
+## Put libs/Radix/src on XETAL_PATH ("just path"); the reference is libs/Radix/docs.
+## Names with l: are exported; the others are private to this file.
+##
+## A number is eight digits in radix r (16, 8 or 10), as a calculator
+## chip keeps it: a whole number from 0 to r^8 - 1. Arithmetic wraps
+## like an odometer, modulo r^8: in hexadecimal FFFFFFFF + 1 is 0 and
+## 5 - 7 is FFFFFFFE (the r's complement a digit-serial subtract
+## leaves). The radix is the first argument of every function, bound
+## once by applying the function to it: u:k_ey := rx:k_ey 16.
 
 ### Numbers as digits
 
-# Width: the digits a number has (the display's).
+## Width: the digits a number has (the display's).
+## >> "rx:" u_se< "Radix"
+## >> rx:Width
+## 8
 l:Width := 8
 
-# m_odulus r: r^8, one more than the largest number.
+## m_odulus r: r^8, one more than the largest number.
+## >> "rx:" u_se< "Radix"
+## >> rx:m_odulus 16
+## 4294967296
 l:m_odulus := { r -> r ^ l:Width }
 
-# r d_igits n: the eight digits of n, most significant first (the
-# display's order); n is wrapped first.
+## r d_igits n: the eight digits of n, most significant first (the
+## display's order); n is wrapped first.
+## >> "rx:" u_se< "Radix"
+## >> 16 rx:d_igits 255
+## 0 0 0 0 0 0 15 15
 l:d_igits := { r n -> (l:Width r_eshape r) e_ncode n m_od l:m_odulus r }
 
-# r v_alue ds: the number eight digits (or any digits) stand for.
+## r v_alue ds: the number eight digits (or any digits) stand for.
+## >> "rx:" u_se< "Radix"
+## >> 16 rx:v_alue 1 0 0
+## 256
 l:v_alue := { r ds -> r d_ecode ds }
 
-# r w_rap n: n modulo r^8 (an odometer).
+## r w_rap n: n modulo r^8 (an odometer).
+## >> "rx:" u_se< "Radix"
+## >> 16 rx:w_rap -1
+## 4294967295
 l:w_rap := { r n -> n m_od l:m_odulus r }
 
 ### The keys
 
-# Key codes: the digits 0 to 15 are themselves, then + - * = and X
-# (clear: C is a hexadecimal digit); Keys is the text whose place,
-# less 1, is the code.
+## Key codes: the digits 0 to 15 are themselves, then + - * = and X
+## (clear: C is a hexadecimal digit); Keys is the text whose place,
+## less 1, is the code.
 Keys := "0123456789ABCDEF+-*=X"
+
+## KeyPlus: the code of +.
+## >> "rx:" u_se< "Radix"
+## >> rx:KeyPlus
+## 16
 l:KeyPlus := 16
+
+## KeyMinus: the code of -.
+## >> "rx:" u_se< "Radix"
+## >> rx:KeyMinus
+## 17
 l:KeyMinus := 17
+
+## KeyTimes: the code of *.
+## >> "rx:" u_se< "Radix"
+## >> rx:KeyTimes
+## 18
 l:KeyTimes := 18
+
+## KeyEquals: the code of =.
+## >> "rx:" u_se< "Radix"
+## >> rx:KeyEquals
+## 19
 l:KeyEquals := 19
+
+## KeyClear: the code of X, clear.
+## >> "rx:" u_se< "Radix"
+## >> rx:KeyClear
+## 20
 l:KeyClear := 20
 
-# k_eys text: the key codes of a text such as "12+34=" (spaces are
-# skipped; any other character gives 21, which k_ey ignores).
+## k_eys text: the key codes of a text such as "12+34=" (spaces are
+## skipped; any other character gives 21, which k_ey ignores).
+## >> "rx:" u_se< "Radix"
+## >> rx:k_eys "12+34="
+## 1 2 16 3 4 19
 l:k_eys := { t -> (Keys i_ndexOf (t != f_irst " ") r_eplicate t) - 1 }
 
 ### The calculator: a step per key
 
-# The state, five numbers: the accumulator, the entry, the pending
-# operation (0 none, 1 +, 2 -, 3 *), the phase (0 after an operator,
-# 1 entering digits, 2 after =) and the number displayed.
+## The state, five numbers: the accumulator, the entry, the pending
+## operation (0 none, 1 +, 2 -, 3 *), the phase (0 after an operator,
+## 1 entering digits, 2 after =) and the number displayed.
+## >> "rx:" u_se< "Radix"
+## >> rx:Reset
+## 0 0 0 0 0
 l:Reset := 0 0 0 0 0
 
 a_cc := { s -> 1 s_elect s }
@@ -56,9 +102,12 @@ e_ntry := { s -> 2 s_elect s }
 o_p := { s -> 3 s_elect s }
 p_hase := { s -> 4 s_elect s }
 
-# r a_lu ops: the operation ops[1] (1 +, 2 -, 3 *) of ops[2] and
-# ops[3], wrapped (the operands as one vector: a function has two
-# sides).
+## r a_lu ops: the operation ops[1] (1 +, 2 -, 3 *) of ops[2] and
+## ops[3], wrapped (the operands as one vector: a function has two
+## sides).
+## >> "rx:" u_se< "Radix"
+## >> 16 rx:a_lu 2 5 7
+## 4294967294
 l:a_lu := { r ops ->
   op := f_irst ops
   a := 2 s_elect ops
@@ -66,18 +115,22 @@ l:a_lu := { r ops ->
   r l:w_rap '+ r_/ (op = 1 2 3) * (a + b) c_at (a - b) c_at a * b
 }
 
-# The pending operation settled: the accumulator after it takes the
-# entry (the entry itself when nothing is pending; the accumulator
-# unchanged when no digit was entered since).
+## The pending operation settled: the accumulator after it takes the
+## entry (the entry itself when nothing is pending; the accumulator
+## unchanged when no digit was entered since).
 s_ettle := { r s ->
   1 != p_hase s ? a_cc s
   0 = o_p s ? e_ntry s
   r l:a_lu (o_p s) c_at (a_cc s) c_at e_ntry s
 }
 
-# r k_ey s k: the state after the key k (a step: the machine's ROM
-# program must leave the same display). A digit not below the radix,
-# or one that would make a ninth digit, is ignored.
+## r k_ey s k: the state after the key k (a step: the machine's ROM
+## program must leave the same display). A digit not below the radix,
+## or one that would make a ninth digit, is ignored.
+## >> "rx:" u_se< "Radix"
+## >> u:k_ey := rx:k_ey 16
+## >> rx:Reset u:k_ey 10
+## 0 10 0 1 10
 l:k_ey := { r s k ->
   k >= 21 ? s
   k = l:KeyClear ? l:Reset
@@ -91,26 +144,38 @@ l:k_ey := { r s k ->
   ((n_ot fresh) * a_cc s) c_at entry c_at ((n_ot fresh) * o_p s) c_at 1 c_at entry
 }
 
-# d_isplay s: the number displayed.
+## d_isplay s: the number displayed.
+## >> "rx:" u_se< "Radix"
+## >> rx:d_isplay 70 0 0 2 70
+## 70
 l:d_isplay := { s -> 5 s_elect s }
 
-# r s_creen s: the display as eight characters: the digits, leading
-# zeros blank (zero itself shows one 0).
+## r s_creen s: the display as eight characters: the digits, leading
+## zeros blank (zero itself shows one 0).
+## >> "rx:" u_se< "Radix"
+## >> 16 rx:s_creen 0 0 0 0 305419896
+## 12345678
 l:s_creen := { r s ->
   ds := r l:d_igits l:d_isplay s
   blank := ('& s_\ 0 = 7 t_ake ds) c_at 0
   (1 + (1 - blank) * 1 + ds) s_elect " " c_at 16 t_ake Keys
 }
 
-# r c_alc text: the screen after the keys of a text, from Reset:
-# 16 rx:c_alc "12+34=" is "      46".
+## r c_alc text: the screen after the keys of a text, from Reset:
+## 16 rx:c_alc "12+34=" is "      46".
+## >> "rx:" u_se< "Radix"
+## >> 16 rx:c_alc "5-7="
+## FFFFFFFE
 l:c_alc := { r t ->
   s := r l:r_un l:k_eys t
   r l:s_creen s
 }
 
-# r r_un keys: the state after every key, from Reset (the harness;
-# recursive, as Clocked's: ask F5).
+## r r_un keys: the state after every key, from Reset (the harness;
+## recursive, as Clocked's: ask F5).
+## >> "rx:" u_se< "Radix"
+## >> 16 rx:r_un rx:k_eys "12+34="
+## 70 0 0 2 70
 l:r_un := { r keys -> r r_unFrom l:Reset c_at keys }
 r_unFrom := { r sk ->
   s := 5 t_ake sk

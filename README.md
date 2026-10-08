@@ -169,7 +169,26 @@ example programs the circuits realize) and `docs/README.md` (the
 reference). `just path` prints the directories for `XETAL_PATH`,
 including the pinned libraries from X_eTaL-libraries.
 
-## Documentation
+## Documentation and the live site
+
+Every library documents itself in X_eTaL's doc comments: a `##` block
+above each definition, `###` section headings, and for every export a
+`## >>` example with its output, which `just doctest` runs.
+`xetal doc` turns them into a browsable site with a search, the
+built-ins and each source file:
+
+```bash
+just doc                  # the documentation into pages/doc
+just pages                # the whole site into pages/ (not tracked): landing page, documentation, Verilog
+just serve-pages          # look at it: http://127.0.0.1:8417/
+just publish              # make pages/ the gh-pages branch's only commit (maintainers)
+```
+
+The site is published at
+<https://hardwarewrighter.github.io/X_eTaL-fpga/> once GitHub Pages is
+enabled for the repository (it is private for now).
+
+## Documents
 
 - [`docs/plan.md`](docs/plan.md) -- architecture decisions, the
   subset, the roadmap

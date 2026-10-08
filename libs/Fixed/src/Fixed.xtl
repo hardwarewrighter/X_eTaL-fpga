@@ -1,68 +1,118 @@
-# Fixed: fixed-width two's complement numbers at a stated width, the arithmetic a w-bit circuit does
-# Import it with an alias of your choice: "fx:" u_se< "Fixed".
-# Put libs/Fixed/src on XETAL_PATH ("just path"); the reference is libs/Fixed/docs.
-# Names with l: are exported; the others are private to this file.
-#
-# X_eTaL's Int is 64 bits wide; hardware is 8, 16 or 32. Until X_eTaL
-# has sized integer types (ask F3 in docs/xetal-asks.md), the width is
-# written in the program: `16 fx:w_rap x + y` is what a 16-bit adder
-# gives, and the evaluator computes exactly that, so it is the
-# reference the circuit must match bit for bit. Every function takes
-# the width first (one number) and works on whole arrays of any
-# shape. A function of three arguments is used curried: bind the
-# width once, `u:a_dd := fx:a_dd 16`, then `x u:a_dd y`.
+## Fixed: fixed-width two's complement numbers at a stated width, the arithmetic a w-bit circuit does
+## Import it with an alias of your choice: "fx:" u_se< "Fixed".
+## Put libs/Fixed/src on XETAL_PATH ("just path"); the reference is libs/Fixed/docs.
+## Names with l: are exported; the others are private to this file.
+##
+## X_eTaL's Int is 64 bits wide; hardware is 8, 16 or 32. Until X_eTaL
+## has sized integer types (ask F3 in docs/xetal-asks.md), the width is
+## written in the program: `16 fx:w_rap x + y` is what a 16-bit adder
+## gives, and the evaluator computes exactly that, so it is the
+## reference the circuit must match bit for bit. Every function takes
+## the width first (one number) and works on whole arrays of any
+## shape. A function of three arguments is used curried: bind the
+## width once, `u:a_dd := fx:a_dd 16`, then `x u:a_dd y`.
 
 ### The ranges
 
-# l_owest w, h_ighest w: the signed range of w bits, -2^(w-1) to
-# 2^(w-1) - 1 (-128 to 127 at 8 bits).
+## l_owest w: the lowest signed value of w bits, -2^(w-1) (-128 at 8 bits).
+## >> "fx:" u_se< "Fixed"
+## >> fx:l_owest 8 16
+## -128 -32768
 l:l_owest := { w -> n_eg 2 ^ w - 1 }
+
+## h_ighest w: the highest signed value of w bits, 2^(w-1) - 1 (127 at 8 bits).
+## >> "fx:" u_se< "Fixed"
+## >> fx:h_ighest 8 16
+## 127 32767
 l:h_ighest := { w -> (2 ^ w - 1) - 1 }
 
 ### Wrapping
 
-# w u_wrap x: x reduced to the unsigned range of w bits, 0 to 2^w - 1:
-# the bit pattern a w-bit register holds, read unsigned.
+## w u_wrap x: x reduced to the unsigned range of w bits, 0 to 2^w - 1:
+## the bit pattern a w-bit register holds, read unsigned.
+## >> "fx:" u_se< "Fixed"
+## >> 8 fx:u_wrap 100 200 -1 256
+## 100 200 255 0
 l:u_wrap := { w x -> x m_od 2 ^ w }
 
-# w w_rap x: x reduced to the signed range of w bits: the same bits,
-# read as two's complement (a pattern at or above 2^(w-1) is negative).
+## w w_rap x: x reduced to the signed range of w bits: the same bits,
+## read as two's complement (a pattern at or above 2^(w-1) is negative).
+## >> "fx:" u_se< "Fixed"
+## >> 8 fx:w_rap 100 200 -1 -129
+## 100 -56 -1 127
 l:w_rap := { w x ->
   u := w l:u_wrap x
   u - (2 ^ w) * u >= 2 ^ w - 1
 }
 
-# w o_verflow? x: whether x does not fit in w signed bits, so a
-# w-bit unit holding it has wrapped.
+## w o_verflow? x: whether x does not fit in w signed bits, so a
+## w-bit unit holding it has wrapped.
+## >> "fx:" u_se< "Fixed"
+## >> 8 fx:o_verflow? 127 128
+## 0 1
 l:o_verflow? := { w x -> x != w l:w_rap x }
 
-# w s_at x: x clamped to the signed range (saturating arithmetic:
-# what a DSP does instead of wrapping).
+## w s_at x: x clamped to the signed range (saturating arithmetic:
+## what a DSP does instead of wrapping).
+## >> "fx:" u_se< "Fixed"
+## >> 8 fx:s_at 300 -300 5
+## 127 -128 5
 l:s_at := { w x -> (l:l_owest w) m_ax x m_in l:h_ighest w }
 
 ### Arithmetic, wrapped: what a w-bit adder, subtractor, multiplier gives
 
-# w a_dd x y, w s_ub x y, w m_ul x y: the exact result wrapped to w
-# bits, item by item, with scalar extension. Bind the width once:
-# u:a_dd := fx:a_dd 16, then x u:a_dd y.
+## w a_dd x y: the sum wrapped to w bits, item by item, with scalar
+## extension: what a w-bit adder gives. Bind the width once:
+## u:a_dd := fx:a_dd 16, then x u:a_dd y.
+## >> "fx:" u_se< "Fixed"
+## >> u:a_dd := fx:a_dd 8
+## >> 100 u:a_dd 100
+## -56
 l:a_dd := { w x y -> w l:w_rap x + y }
+
+## w s_ub x y: the difference wrapped to w bits (a w-bit subtractor).
+## >> "fx:" u_se< "Fixed"
+## >> u:s_ub := fx:s_ub 8
+## >> -100 u:s_ub 100
+## 56
 l:s_ub := { w x y -> w l:w_rap x - y }
+
+## w m_ul x y: the product wrapped to w bits (a w-bit multiplier keeps
+## the low w bits).
+## >> "fx:" u_se< "Fixed"
+## >> u:m_ul := fx:m_ul 8
+## >> 16 u:m_ul 16
+## 0
 l:m_ul := { w x y -> w l:w_rap x * y }
 
-# w n_eg x: the negation wrapped (the lowest value is its own negation).
+## w n_eg x: the negation wrapped (the lowest value is its own negation).
+## >> "fx:" u_se< "Fixed"
+## >> 8 fx:n_eg 5 -128
+## -5 -128
 l:n_eg := { w x -> w l:w_rap n_eg x }
 
 ### Bits
 
-# w b_its x: the two's complement bits of each number, most
-# significant first: a vector for one number, a row per number for a
-# vector (as Bits' b_its, which reads numbers unsigned).
+## w b_its x: the two's complement bits of each number, most
+## significant first: a vector for one number, a row per number for a
+## vector (as Bits' b_its, which reads numbers unsigned).
+## >> "fx:" u_se< "Fixed"
+## >> 8 fx:b_its 5 -1
+## 0 0 0 0 0 1 0 1
+## 1 1 1 1 1 1 1 1
 l:b_its := { w x -> o_\ (w r_eshape 2) e_ncode w l:u_wrap x }
 
-# v_alue bits: the signed number each row of bits (or the vector)
-# stands for, the inverse of b_its; the width is the row's length.
+## v_alue bits: the signed number each row of bits (or the vector)
+## stands for, the inverse of b_its; the width is the row's length.
+## >> "fx:" u_se< "Fixed"
+## >> fx:v_alue 1 1 1 1 1 0 1 1
+## -5
 l:v_alue := { bits -> (t_ally o_\ bits) l:w_rap 2 d_ecode o_\ bits }
 
-# w h_ex x: the bit pattern of each number as hexadecimal text, w/4
-# digits: text for one number, a row per number for a vector.
+## w h_ex x: the bit pattern of each number as hexadecimal text, w/4
+## digits: text for one number, a row per number for a vector.
+## >> "fx:" u_se< "Fixed"
+## >> 16 fx:h_ex -1 48879
+## FFFF
+## BEEF
 l:h_ex := { w x -> (1 + o_\ ((w d_iv 4) r_eshape 16) e_ncode w l:u_wrap x) s_elect "0123456789ABCDEF" }
