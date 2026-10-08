@@ -66,7 +66,7 @@ twins go when X_eTaL's lowering lands.
 ## Status
 
 Saga 1 (fpga-foundation) is done: the process and the pinned X_eTaL
-(75e6a5c) and X_eTaL-libraries (8adcd0d); the hardware models as
+(d284a8c) and X_eTaL-libraries (69bb369); the hardware models as
 tested X_eTaL libraries (Fixed, and Datapath with the example
 programs); the provisional IR with its
 interpreter; the netlist, the lanes schedule (spatial, or a counter

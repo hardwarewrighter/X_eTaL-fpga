@@ -5,7 +5,8 @@ that X_eTaL does not have yet, and bugs it uncovers. This repo does not
 change X_eTaL: each ask is filed here (and taken to X_eTaL), the work
 here uses the workaround noted below or waits, and the workaround is
 removed when the ask lands in the X_eTaL commit this repo pins
-(`XETAL_COMMIT`, now 75e6a5c, X_eTaL main of 2026-10-06).
+(`XETAL_COMMIT`, now d284a8c, X_eTaL main of 2026-10-08; every open
+ask below was re-run against it that day and still holds).
 
 Each entry: status (open, filed, landed, dropped), kind (feature, bug
 or speed), what here needs it, why, a minimal repro or example, and

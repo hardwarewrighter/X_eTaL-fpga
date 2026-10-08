@@ -97,10 +97,10 @@ l:k_eys := { t -> (Keys i_ndexOf (t != f_irst " ") r_eplicate t) - 1 }
 ## 0 0 0 0 0
 l:Reset := 0 0 0 0 0
 
-a_cc := { s -> 1 s_elect s }
-e_ntry := { s -> 2 s_elect s }
-o_p := { s -> 3 s_elect s }
-p_hase := { s -> 4 s_elect s }
+h:a_cc := { s -> 1 s_elect s }
+h:e_ntry := { s -> 2 s_elect s }
+h:o_p := { s -> 3 s_elect s }
+h:p_hase := { s -> 4 s_elect s }
 
 ## r a_lu ops: the operation ops[1] (1 +, 2 -, 3 *) of ops[2] and
 ## ops[3], wrapped (the operands as one vector: a function has two
@@ -118,10 +118,10 @@ l:a_lu := { r ops ->
 ## The pending operation settled: the accumulator after it takes the
 ## entry (the entry itself when nothing is pending; the accumulator
 ## unchanged when no digit was entered since).
-s_ettle := { r s ->
-  1 != p_hase s ? a_cc s
-  0 = o_p s ? e_ntry s
-  r l:a_lu (o_p s) c_at (a_cc s) c_at e_ntry s
+h:s_ettle := { r s ->
+  1 != h:p_hase s ? h:a_cc s
+  0 = h:o_p s ? h:e_ntry s
+  r l:a_lu (h:o_p s) c_at (h:a_cc s) c_at h:e_ntry s
 }
 
 ## r k_ey s k: the state after the key k (a step: the machine's ROM
@@ -134,14 +134,14 @@ s_ettle := { r s ->
 l:k_ey := { r s k ->
   k >= 21 ? s
   k = l:KeyClear ? l:Reset
-  k = l:KeyEquals ? (r s_ettle s) c_at 0 0 2 c_at r s_ettle s
-  k >= l:KeyPlus ? (r s_ettle s) c_at 0 c_at (k - 15) c_at 0 c_at r s_ettle s
+  k = l:KeyEquals ? (r h:s_ettle s) c_at 0 0 2 c_at r h:s_ettle s
+  k >= l:KeyPlus ? (r h:s_ettle s) c_at 0 c_at (k - 15) c_at 0 c_at r h:s_ettle s
   k >= r ? s
-  fresh := 2 = p_hase s
-  old := (n_ot fresh) * (1 = p_hase s) * e_ntry s
+  fresh := 2 = h:p_hase s
+  old := (n_ot fresh) * (1 = h:p_hase s) * h:e_ntry s
   old >= r ^ l:Width - 1 ? s
   entry := k + r * old
-  ((n_ot fresh) * a_cc s) c_at entry c_at ((n_ot fresh) * o_p s) c_at 1 c_at entry
+  ((n_ot fresh) * h:a_cc s) c_at entry c_at ((n_ot fresh) * h:o_p s) c_at 1 c_at entry
 }
 
 ## d_isplay s: the number displayed.
@@ -176,10 +176,10 @@ l:c_alc := { r t ->
 ## >> "rx:" u_se< "Radix"
 ## >> 16 rx:r_un rx:k_eys "12+34="
 ## 70 0 0 2 70
-l:r_un := { r keys -> r r_unFrom l:Reset c_at keys }
-r_unFrom := { r sk ->
+l:r_un := { r keys -> r h:r_unFrom l:Reset c_at keys }
+h:r_unFrom := { r sk ->
   s := 5 t_ake sk
   keys := 5 d_rop sk
   0 = t_ally keys ? s
-  r r_unFrom ((r l:k_ey s)_ f_irst keys) c_at 1 d_rop keys
+  r h:r_unFrom ((r l:k_ey s)_ f_irst keys) c_at 1 d_rop keys
 }

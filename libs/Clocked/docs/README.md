@@ -27,7 +27,7 @@ with one, `s0 'step ck:r_un xs` becomes a built-in fold. Numbers are
 
 | Function | Type | What | In hardware |
 | -------- | ---- | ---- | ----------- |
-| `s0 'step ck:r_un xs` | `(a -> b -> a) -> a -> b -> a` | the state after every input (an item, or a row of a matrix, per clock) | the testbench: reset, then one input per clock |
+| `s0 'step ck:r_un xs` | `Any a => (a -> b -> a) -> a -> b -> a` | the state after every input (an item, or a row of a matrix, per clock) | the testbench: reset, then one input per clock |
 | `s0 'step ck:t_race xs` | `(a -> b -> a) -> a -> b -> a` | every state from `s0` on, a row per clock (a vector for a scalar state) | the registers after reset and after each clock |
 | `s ck:t_ick e` | `Int -> Int -> Int` | an 8-bit counter that counts when its enable `e` is 1 | an adder and a register |
 | `s ck:a_ccumulate x` | `Int -> Int -> Int` | an 8-bit accumulator | an adder and a register |

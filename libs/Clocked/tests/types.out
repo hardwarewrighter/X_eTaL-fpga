@@ -1,4 +1,4 @@
-l:r_un : (a -> b -> a) -> a -> b -> a
+l:r_un : Any a => (a -> b -> a) -> a -> b -> a
 l:t_race : (a -> b -> a) -> a -> b -> a
 l:t_ick : Int -> Int -> Int
 l:a_ccumulate : Int -> Int -> Int
