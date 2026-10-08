@@ -1,0 +1,1 @@
+Testbenches check traced outputs after reset and every clock with named failures, write VCD waveforms; check-rtl runs vvp in work/rtl and Verilator lint when installed; wave.sh and just wave; no Verilog tool installed here, so the 17 modules are listed as unverified in the RTL README with Arch install commands. Saga fpga-state done.

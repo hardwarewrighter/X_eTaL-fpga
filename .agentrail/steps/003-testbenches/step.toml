@@ -1,8 +1,9 @@
 number = 3
 slug = "testbenches"
-status = "pending"
+status = "completed"
 description = "Self-checking Verilog testbenches for the sequential examples (streams fed pe..."
 role = "production"
 context_files = []
 created_at = "2026-10-07T13:57:47"
-commits = []
+completed_at = "2026-10-07T19:34:38"
+commits = ["085370640999ed249464b5282faadf287faea790"]

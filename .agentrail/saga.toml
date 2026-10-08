@@ -1,5 +1,5 @@
 name = "fpga-state"
-status = "active"
+status = "completed"
 current_step = 3
 created_at = "2026-10-07T13:57:47"
 plan_file = ".agentrail/plan.md"
