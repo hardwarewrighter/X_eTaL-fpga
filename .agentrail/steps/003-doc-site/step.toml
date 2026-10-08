@@ -1,8 +1,9 @@
 number = 3
 slug = "doc-site"
-status = "in-progress"
+status = "completed"
 description = "Library documentation and a live site, the X_eTaL-demos way (decided with the..."
 role = "production"
 context_files = []
 created_at = "2026-10-08T07:56:57"
-commits = []
+completed_at = "2026-10-08T12:56:19"
+commits = ["3e05c58e2ef0fa36ef00c677baf7be3f89d6061b"]
