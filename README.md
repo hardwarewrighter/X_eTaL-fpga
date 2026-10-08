@@ -192,6 +192,8 @@ enabled for the repository (it is private for now).
 
 - [`docs/plan.md`](docs/plan.md) -- architecture decisions, the
   subset, the roadmap
+- [`docs/tuple-plan.md`](docs/tuple-plan.md) -- where tuples are used,
+  how they map to registers, the gaps and who fixes them
 - [`docs/xetal-asks.md`](docs/xetal-asks.md) -- what this repo needs
   from X_eTaL; the blockers first
 - `docs/research7.txt` -- the planning conversation (archival, not
