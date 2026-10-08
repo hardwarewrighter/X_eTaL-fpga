@@ -148,7 +148,7 @@ and a serial line. What the 4-bit machine of saga 3 is built from.
 | # | Step slug | Delivers |
 | - | --------- | -------- |
 | 1 | registers (done) | XIR state (a state value with its init, the next-state binding), an input stream (one item per clock), `lookup` (a ROM when constant), `put` (a RAM's write port) and `cast`; the netlist's registers and memories; the simulator clocks them; Verilog; tests (a counter, an accumulator, a shift register, a small state machine) and a twin of Fixed's counter demo |
-| 2 | uart | a UART receiver and transmitter as step functions (clock and baud rate as schedule data), simulated end to end with a loopback |
+| 2 | uart (done) | a UART receiver and transmitter as step functions (clock and baud rate as schedule data), simulated end to end with a loopback |
 | 3 | testbenches | self-checking Verilog testbenches for the sequential examples, iverilog and Verilator when present; a VCD per run |
 
 ### Saga 3 -- nibble-machine

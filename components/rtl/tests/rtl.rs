@@ -103,13 +103,14 @@ fn testbench_expects_the_wrapped_answer() {
     assert!(tb.contains("vector_add dut ("));
 }
 
-const CLOCKED: [(&str, &str); 6] = [
+const CLOCKED: [(&str, &str); 7] = [
     ("Clocked", "counter"),
     ("Clocked", "accumulator"),
     ("Clocked", "shift"),
     ("Clocked", "detect"),
     ("Clocked", "ram"),
     ("Fixed", "counter"),
+    ("Uart", "loopback"),
 ];
 
 fn clocked(lib: &str, name: &str) -> Program {
@@ -172,4 +173,16 @@ fn a_clocked_testbench_feeds_one_item_per_clock() {
     // The trace's last value, -96, is what is checked: 0xa0.
     assert!(tb.contains("if (out_s !== 8'ha0)"), "{tb}");
     assert!(!tb.contains("done"));
+}
+
+#[test]
+fn a_constant_index_is_wiring() {
+    let p = parse("%v = input i8[4] 5 6 7 8\n%i = const i8 2\n%r = lookup %v %i\n%x = const i8 9\n%w = put %v %i %x\n%o = const i8 7\n%z = lookup %v %o\noutput %r %w %z\n").unwrap();
+    let n = schedule(&p, "wires", None).unwrap();
+    assert_eq!(n.simulate().unwrap().0, run(&p).unwrap());
+    let e = explain(&n);
+    assert!(
+        !e.contains("select") && !e.contains("eq") && !e.contains("mux"),
+        "{e}"
+    );
 }

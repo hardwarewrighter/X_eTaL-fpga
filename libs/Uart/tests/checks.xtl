@@ -1,0 +1,23 @@
+#!/usr/bin/env xetal
+# Uart: bytes sent through the looped-back pair come back, at several
+# clock rates, with the Check library; "ok" per check. Run with
+# "just run-lib Uart checks".
+"ua:" u_se< "Uart"
+"ck:" u_se< "Clocked"
+"k:" u_se< "Check"
+u:t_hree := ua:l_oopback 3
+u:f_our := ua:l_oopback 4
+u:e_ight := ua:l_oopback 8
+u:t_x := ua:t_x 4
+bytes := 0 255 85 170
+u:s_ent := { b -> ua:l_og ua:LoopIdle 'u:t_hree ck:r_un 3 ua:c_ommands b }
+frame := ua:l_ines ua:TxIdle 'u:t_x ck:t_race 4 ua:c_ommands 77
+k:r_eport (
+  ("four bytes at 3 clocks per bit" k:t_est bytes k:i_s u:s_ent bytes)
+  k:a_nd ("at 4 clocks per bit" k:t_est bytes k:i_s ua:l_og ua:LoopIdle 'u:f_our ck:r_un 4 ua:c_ommands bytes)
+  k:a_nd ("at 8 clocks per bit" k:t_est (2 t_ake bytes) k:i_s ua:l_og ua:LoopIdle 'u:e_ight ck:r_un 8 ua:c_ommands 2 t_ake bytes)
+  k:a_nd ("the line idles at 1" k:t_est (10 r_eshape 1) k:i_s ua:l_ines ua:TxIdle 'u:t_x ck:t_race 9 r_eshape -1)
+  k:a_nd ("the frame is start, data low bit first, stop, 4 clocks each" k:t_est (4 r_eplicate 0 1 0 1 1 0 0 1 0 1) k:i_s 40 t_ake 1 d_rop frame)
+  k:a_nd ("a command while busy is ignored" k:t_est (ua:TxIdle 'u:t_x ck:r_un 77 -1) k:i_s ua:TxIdle 'u:t_x ck:r_un 77 99)
+  k:a_nd ("valid lasts one clock per byte" k:t_est 1 k:i_s '+ r_/ 10 s_elect_2 ua:LoopIdle 'u:t_hree ck:t_race 3 ua:c_ommands 65)
+)

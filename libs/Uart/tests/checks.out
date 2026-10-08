@@ -1,0 +1,8 @@
+ok: four bytes at 3 clocks per bit
+ok: at 4 clocks per bit
+ok: at 8 clocks per bit
+ok: the line idles at 1
+ok: the frame is start, data low bit first, stop, 4 clocks each
+ok: a command while busy is ignored
+ok: valid lasts one clock per byte
+7 checks, all passed

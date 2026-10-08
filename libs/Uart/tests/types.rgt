@@ -1,0 +1,2 @@
+command = "../../../scripts/xt type ../src/Uart.xtl"
+exit_code = 0

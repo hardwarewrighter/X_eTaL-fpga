@@ -32,7 +32,10 @@ vector is refused): each `state` is a register per element with its
 reset value, each `next` that register's input, each `stream` an
 input port the testbench drives with one item per clock, a constant
 `lookup` table a ROM, a `put` a write port (an address compare and a
-mux per word; an index too narrow to name a word never writes it).
+mux per word; an index too narrow to name a word never writes it). A
+constant index is wiring: a `lookup` at a constant is the item
+itself, a `put` at a constant replaces that word, so reading and
+writing the fields of a state vector costs no logic.
 The simulator resets, runs the stream's clocks, and gives the outputs
 after the last clock and the traces after reset and every clock.
 

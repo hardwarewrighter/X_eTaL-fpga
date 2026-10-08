@@ -1,0 +1,13 @@
+#!/usr/bin/env xetal
+# "Hi" (72 105) through a transmitter wired to a receiver, at 3 clocks
+# per bit: the line clock by clock (1 idle; each byte a start bit, its
+# eight data bits low first, a stop bit), then the bytes the receiver
+# logged and how many. Run with "just demo-lib Uart loopback".
+"ua:" u_se< "Uart"
+"ck:" u_se< "Clocked"
+u:l_oop := ua:l_oopback 3
+trace := ua:LoopIdle 'u:l_oop ck:t_race 3 ua:c_ommands 72 105
+ua:l_ines trace
+s := f_irst -1 t_ake trace
+4 t_ake 10 d_rop s
+15 s_elect s

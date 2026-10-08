@@ -159,9 +159,16 @@ fn elementwise(n: &mut Netlist, op: &Op, ty: &Type, env: &HashMap<String, Sig>) 
                     }
                 })
                 .collect();
-            each(&[&env[i]], |c| match &consts {
-                Some(values) => n.add(Kind::Rom(values.clone(), c[0]), e),
-                None => n.add(Kind::Pick(table.clone(), c[0]), e),
+            // A constant index is wiring: the item itself (or 0 out of range).
+            each(&[&env[i]], |c| {
+                match (n.cells[c[0]].kind.clone(), &consts) {
+                    (Kind::Const(k), _) if k >= 0 && (k as usize) < table.len() => {
+                        table[k as usize]
+                    }
+                    (Kind::Const(_), _) => n.konst(0, e),
+                    (_, Some(values)) => n.add(Kind::Rom(values.clone(), c[0]), e),
+                    (_, None) => n.add(Kind::Pick(table.clone(), c[0]), e),
+                }
             })
         }
         Op::Put(v, i, x) => {
@@ -169,6 +176,17 @@ fn elementwise(n: &mut Netlist, op: &Op, ty: &Type, env: &HashMap<String, Sig>) 
             // its address (an index too narrow to name a word never does).
             let (words, at, item) = (env[v].cells.clone(), env[i].cells[0], env[x].cells[0]);
             let ie = n.cells[at].elem;
+            if let Kind::Const(k) = n.cells[at].kind {
+                // A constant address is wiring: that word is the item.
+                let mut cells = words;
+                if k >= 0 && (k as usize) < cells.len() {
+                    cells[k as usize] = item;
+                }
+                return Some(Sig {
+                    cells,
+                    vector: true,
+                });
+            }
             let cells = words
                 .iter()
                 .enumerate()

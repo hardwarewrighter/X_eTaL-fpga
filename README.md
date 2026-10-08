@@ -32,6 +32,7 @@ array program to describe the hardware itself.
 | ---- | ------------- |
 | `libs/Fixed/` | fixed-width two's complement numbers (`"fx:" u_se< "Fixed"`): the width written in the program, the evaluator computing what a w-bit adder gives |
 | `libs/Clocked/` | clocked circuits as step functions (`ck:`): a counter, an accumulator, a shift register, a sequence detector, a RAM, and the harness that clocks them |
+| `libs/Uart/` | a serial port as step functions (`ua:`): a transmitter, a receiver, and the two looped back; the clocks per bit as schedule data |
 | `libs/Datapath/` | the vector examples at a stated width (`dp:`): add, saxpy, threshold, the reduction tree, the acceptance pipeline; its demos are the programs the circuits realize |
 | `components/xir/` | the provisional accelerator IR (typed values with widths and shapes, elementwise maps, select, reductions, later registers and state), its text form and a reference interpreter |
 | `components/rtl/` | the netlist, the lanes schedule and the reduction tree, the cycle simulator, the Verilog-2005 emitter and testbenches |
@@ -75,7 +76,9 @@ interpreter and by its circuits simulated at several lane counts, and
 their Verilog is pinned. Saga 2 (fpga-state) is under way: clocked
 programs (state, input streams, ROMs, a RAM's write port) in the IR,
 the netlist, the simulator and the Verilog, with the Clocked library
-as their specification (step 1). Next: a UART, then testbenches;
+as their specification (step 1); a UART, transmitter and receiver
+looped back, from X_eTaL to a clocked circuit (step 2). Next:
+testbenches;
 then saga 3, a 4-bit calculator machine in the spirit of the TMS1000
 (our own design, hexadecimal first), sized for a Tang Nano 1K. See
 [`docs/plan.md`](docs/plan.md) for the roadmap and the architecture
@@ -132,6 +135,8 @@ just sim libs/Datapath/demos/pipeline.xir 3        # the pipeline circuit with t
 just demo-lib Clocked detect                       # a 1 0 1 detector in X_eTaL: states and where it fires
 just sim libs/Clocked/demos/detect.xir             # the same as a clocked circuit: a ROM and a register
 just verilog libs/Clocked/demos/ram.xir            # a RAM of eight words as Verilog
+just demo-lib Uart loopback                        # "Hi" over a serial line: the line, the bytes received
+just explain libs/Uart/demos/loopback.xir          # the same as a circuit: fifteen registers
 ```
 
 ## Libraries and examples

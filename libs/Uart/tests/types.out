@@ -1,0 +1,12 @@
+l:TxIdle : Int
+l:t_x : Int -> Int -> Int -> Int
+l:l_ine : Int -> Int
+l:RxIdle : Int
+l:r_x : Int -> Int -> Int -> Int
+l:r_eceived : a -> a
+l:v_alid? : (Num a, Truthy b) => a -> b
+l:LoopIdle : Int
+l:l_oopback : Int -> Int -> Int -> Int
+l:l_ines : Int -> Int
+l:l_og : Int -> Int
+l:c_ommands : (Num a, Truthy a) => Int -> a -> a
