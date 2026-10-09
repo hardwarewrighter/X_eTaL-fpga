@@ -115,4 +115,4 @@ l:v_alue := { bits -> (t_ally o_\ bits) l:w_rap 2 d_ecode o_\ bits }
 ## >> 16 fx:h_ex -1 48879
 ## FFFF
 ## BEEF
-l:h_ex := { w x -> (1 + o_\ ((w d_iv 4) r_eshape 16) e_ncode w l:u_wrap x) s_elect "0123456789ABCDEF" }
+l:h_ex := { w x -> (1 + o_\ ((w d_iv 4) r_eshape 16) e_ncode w l:u_wrap x) s_elect []D c_at 6 t_ake []A }

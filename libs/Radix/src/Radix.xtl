@@ -48,7 +48,7 @@ l:w_rap := { r n -> n m_od l:m_odulus r }
 ## Key codes: the digits 0 to 15 are themselves, then + - * = and X
 ## (clear: C is a hexadecimal digit); Keys is the text whose place,
 ## less 1, is the code.
-Keys := "0123456789ABCDEF+-*=X"
+Keys := []D c_at (6 t_ake []A) c_at "+-*=X"
 
 ## KeyPlus: the code of +.
 ## >> "rx:" u_se< "Radix"
