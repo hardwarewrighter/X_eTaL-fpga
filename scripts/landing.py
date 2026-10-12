@@ -75,7 +75,7 @@ footer {{ color: var(--muted); font-size: .9rem; margin-top: 3rem; }}
 <main>
 <h1>X_eTaL-fpga</h1>
 <p class="lede">X_eTaL programs as hardware: a typed array program becomes a circuit, simulated and checked bit for bit against the X_eTaL evaluator, and on its way to a Tang Nano.</p>
-<p><code>c := a + b</code> on eight 16-bit numbers is eight adders; <code>'+ r_/ v</code> is a tree of adders; a step function over a state vector is registers and the logic between them. Every example here is an X_eTaL program first. Its output is the reference, and the intermediate form, the simulated circuit and the generated Verilog must all reproduce it. The first machine, HEX1000, is a 4-bit calculator in the spirit of the TI TMS1000, sized for a Tang Nano 1K.</p>
+<p><code>c := a + b</code> on eight 16-bit numbers is eight adders; <code>'+ r_/ v</code> is a tree of adders; a step function over a state vector is registers and the logic between them. Every example here is an X_eTaL program first. Its output is the reference, and the intermediate form, the simulated circuit and the generated Verilog must all reproduce it. The first machine, HEX1000, is a 4-bit calculator in the spirit of the TI TMS1000, sized for a Tang Nano 1K; larger machines go to the Tang Nano 9K and 20K and the Tang Primer boards.</p>
 <pre>
             X_eTaL program (.xtl)
                     |

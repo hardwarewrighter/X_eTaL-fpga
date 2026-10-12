@@ -24,4 +24,4 @@ just xir-run libs/Datapath/demos/vector-add.xir  # 11 22 33 44 0 0 -32768 -5536
 ```
 
 Later: `synth`, `pnr`, `pack` and `flash` over the open Gowin flow
-for the Tang Nano 4K.
+for Sipeed's Tang boards, one constraints file per board.

@@ -16,7 +16,8 @@ becomes registers, a decoder and an ALU. A small accelerator IR, a
 netlist with a cycle simulator, a Verilog-2005 emitter, a schedule
 that decides how much of the computation is space and how much is
 time (lanes), and the open Gowin flow (Yosys, nextpnr, Apicula,
-openFPGALoader) to a small Tang Nano (1K first, or 4K).
+openFPGALoader) to Sipeed's Tang FPGA boards, from the Tang Nano 1K
+up (see [Boards](#boards)).
 
 The goal is the concept, one typed array program realized as
 sequential time, parallel threads or physical space with the same
@@ -98,6 +99,28 @@ the tools go on the Arch machine with the boards (see the RTL
 component's verification status). `just wave FILE.xir` writes a
 waveform of one circuit for gtkwave.
 
+## Boards
+
+The target is Sipeed's family of Gowin FPGA boards, all of which the
+user has. The board is schedule data (a constraints file per board:
+its clock, pins, serial lines), never part of a program, so a design
+stays buildable for several boards and goes to the smallest that
+holds it. [`docs/boards.md`](docs/boards.md) has each board's family,
+resources, processors and the software it needs, with sources.
+
+| Board | Family | LUT4 | Processor besides the fabric | Open flow | Used for |
+| ----- | ------ | ---- | ---------------------------- | --------- | -------- |
+| Tang Nano 1K | GW1N (GW1NZ) | 1,152 | none | yes | HEX1000 first |
+| Tang Nano 4K | GW1N (GW1NSR) | 4,608 | a hard ARM Cortex-M3 in the FPGA | yes (the fabric) | HEX1000 if needed; lane counts |
+| Tang Nano 9K | GW1N (GW1NR) | 8,640 | none | yes | the CDP1802; the neural layer |
+| Tang Nano 20K | GW2A (GW2AR) | 20,736 | a BL616 microcontroller as programmer | yes | the IBM 1130, larger designs |
+| Tang Primer 20K | GW2A | 20,736 | a BL702 on its Dock, as programmer | yes | as the 20K, with DDR3 |
+| Tang Primer 25K | GW5A | 23,040 | a BL616 as programmer | not yet: Gowin IDE V1.9.9 Beta-4 or newer | the largest; Gowin IDE only for now |
+
+A larger board is never spent on a design a smaller one holds (HEX1000:
+the 1K first, the 4K if needed, nothing larger). Which other Tang
+Primer boards the user has is still to record.
+
 ## Build
 
 Prerequisites:
@@ -109,9 +132,10 @@ Prerequisites:
   `yosys`, `verilator`, and `gtkwave` to look at waveforms (macOS:
   `brew install icarus-verilog yosys verilator`; Arch: `pacman -S
   iverilog yosys verilator gtkwave`)
-- optional, for the board (on the Arch machine, where the boards
+- optional, for the boards (on the Arch machine, where the boards
   are): nextpnr with the Gowin target (`nextpnr-himbaechel`), Apicula
-  (`gowin_pack`) and openFPGALoader
+  (`gowin_pack`) and openFPGALoader; see [Boards](#boards) for which
+  board does what
 - for the gate (maintainers): `reg-rs` and `sw-markdown-checker`
 
 ```bash

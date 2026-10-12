@@ -4,7 +4,8 @@ X_eTaL programs as hardware: the RTL generator, the schedule and the
 synthesis flow that take a computation written in X_eTaL (the
 eXperimental Extensible Typed Array Language, developed in
 `../../softwarewrighter/X_eTaL`) to Verilog, to simulation, and to a
-real FPGA (a Tang Nano 1K or 4K, through the open Gowin flow).
+real FPGA (Sipeed's Tang boards, from the Tang Nano 1K up, through
+the open Gowin flow).
 The goal is to demonstrate the concept, that one typed array program
 runs unchanged as sequential software, as massively parallel software
 (the sibling project, X_eTaL-gpu) and as spatial hardware, not to be
@@ -85,7 +86,7 @@ parallelism?").
 | A9 | **One tool, `xetal-fpga`** (`components/cli`): `check FILE.xir` (parse, types, widths, shapes), `run FILE.xir` (interpret; prints as `xetal` prints), `netlist FILE.xir [--lanes N]` (the scheduled netlist), `verilog FILE.xir [--lanes N]` (the Verilog), `sim FILE.xir [--lanes N]` (the netlist simulated: results and cycles), `explain FILE.xir` (what became what: adders, muxes, registers, cycles, for each schedule), later `synth`, `pnr`, `pack`, `flash` as thin wrappers over the Gowin flow. | One command per question; `explain` is the seed of research7's "visual hardware explanation" (H3). |
 | A10 | **External tools are optional and loud**: the gate runs the Verilog through iverilog and the synthesis through Yosys when they are on `PATH` and prints that it skipped them when they are not; nothing in the gate requires a board. Installing them is the user's call (`brew install icarus-verilog yosys verilator`; nextpnr-himbaechel with Gowin, apycula and openFPGALoader on the Arch machine). | The same tests must pass on this Mac, on the Arch machine with the board, and in CI without either. |
 | A11 | **Rust components in one workspace**, `components/` (`xir`, `rtl`, `cli`; crates `xetal-fpga-*`), each small, with its README, unit tests, `cargo fmt` and `clippy -D warnings` in the gate; `.cargo/config.toml` points every workspace at one `target/`. | The same component discipline as X_eTaL and X_eTaL-gpu. |
-| A12 | **The boards are the small Tang Nanos, the board is schedule data**: the first machine (a 4-bit calculator machine in the spirit of the TMS1000) targets the **Tang Nano 1K** (GW1NZ-LV1), with the choice of 1K or 4K (GW1NSR-LV4C) made when it is ready to program; both stay buildable (a constraints file per board). The flow is Yosys, nextpnr-himbaechel (Gowin), gowin_pack, openFPGALoader, on the Arch machine where the boards are. The first physical program is a blinky, the second the machine over a serial line or the board's buttons and LEDs. Larger boards (9K, 20K) are for the larger machines (the RCA CDP1802, the IBM 1130), never for the first design. | The smallest project on the smallest board; the user has more 4K boards than 1K ones but wants the 1K used first (decided 2026-10-07, `docs/calc-approaches.md`). |
+| A12 | **The boards are Sipeed's Tang family, the board is schedule data**: the user has the Tang Nano 1K, 4K, 9K and 20K, the Tang Primer 25K and other Tang Primer boards (README, Boards). A design is built for a board through a constraints file per board (clock, pins, LEDs, serial lines), so it stays buildable for several and the smallest that holds it is chosen when it is ready to program; a larger board is never spent on a design a smaller one holds. HEX1000 targets the **Tang Nano 1K** first (GW1NZ-1), the 4K if needed, nothing larger (decided with the user). The larger machines (the RCA CDP1802, the IBM 1130), the neural layer and the lane measurements go to the 9K, 20K, 25K and Primers. The flow is Yosys, nextpnr-himbaechel (Gowin), gowin_pack, openFPGALoader, on the Arch machine where the boards are; each board's support in the open flow is checked when a design first goes to it (`docs/boards.md`: the GW1N and GW2A boards are supported; the Tang Primer 25K's GW5A is not yet, so it needs Gowin's IDE, V1.9.9 Beta-4 or newer). | The smallest project on the smallest board, every board in reach for the larger ones (decided 2026-10-07, widened to the whole family 2026-10-12). |
 | A13 | **Process as the siblings'**: `just` is the entry point (recipes call `scripts/*.sh`); `CHANGES.md` gets a line per commit; American spellings only (`scripts/check-spelling.py` in the gate); docs are ASCII-only markdown (`sw-markdown-checker`); a missing X_eTaL feature or bug goes in `docs/xetal-asks.md` and is not fixed or hidden here; work goes to `main` and is pushed. `.xtlm` macro libraries exist at the pinned X_eTaL (v0.1.0) but nothing in this plan needs one: widths are values, schedules are command-line data (A8). | Same process, same reviewers, same tools. |
 
 ## The subset, in X_eTaL, in XIR and in hardware
@@ -204,7 +205,7 @@ layer the GPU repo schedules as kernels.
 | - | --------- | -------- |
 | 1 | neuron-lib | `libs/Neuron` (`nr:`): `y = relu(W x + b)` at i8 with an i32 accumulator, quantization as explicit wraps, X_eTaL-ML's weight layout; tests against X_eTaL-ML's NN at the same weights |
 | 2 | matvec | XIR `matvec`; MAC lanes, weights in a ROM, an accumulator; the schedule's lanes and cycles; the layer simulated |
-| 3 | layer-board | the layer on a Tang Nano (the smallest that holds it); one input, the same decision on the evaluator, the GPU (X_eTaL-gpu) and the board |
+| 3 | layer-board | the layer on a Tang board (the smallest that holds it, likely the 9K); one input, the same decision on the evaluator, the GPU (X_eTaL-gpu) and the board |
 
 ### Saga 6 -- xetal-lowering (deferred: asks F1, F2, F3)
 
@@ -221,5 +222,6 @@ once X_eTaL has the accelerator IR and the lowering.
 
 Higher priority than other calculators, decided with the user: the
 RCA CDP1802 (COSMAC) and the IBM 1130, each larger and more complex
-than the 4-bit machine, on a Tang Nano 9K, 20K or larger. Planned
-after the 4-bit machine has run on a board.
+than the 4-bit machine, on the Tang Nano 9K or 20K, the Tang Primer
+25K or another Tang Primer, whichever is the smallest that holds it.
+Planned after the 4-bit machine has run on a board.

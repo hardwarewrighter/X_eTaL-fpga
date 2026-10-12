@@ -10,6 +10,11 @@ one, `docs` documentation, `plan` saga planning and reordering,
 `release` milestone release, `chore` agentrail bookkeeping (step
 complete, saga archive).
 
+## 2026-10-12
+
+- 10:40 `docs` `docs/boards.md` (the user asked for families, capabilities, processors and software): the three Gowin families (GW1N LittleBee: the Tang Nano 1K, 4K, 9K; GW2A Arora: the Tang Nano 20K, Tang Primer 20K; GW5A Arora V: the Tang Primer 25K), each board's FPGA, LUTs, flip-flops, block SRAM, multipliers, memory, clock and programmer from Sipeed's pages; the processors (the 4K's hard Cortex-M3 in the FPGA, the BL616 and BL702 RISC-V microcontrollers that program the 20K, 25K and 4K and bridge serial); the software (the open flow supports the GW1N and GW2A boards per Apicula; GW5A is in progress there, so the 25K needs Gowin IDE V1.9.9 Beta-4 or newer); the 1K has no USB serial port (an adapter); what each board is for; sources. The README's board table and plan A12 point to it.
+- 10:35 `docs` The boards are Sipeed's whole Tang family, not only the Tang Nano 1K and 4K (the user's correction): a Boards section in the README (the Tang Nano 1K, 4K, 9K and 20K, the Tang Primer 25K and other Primers; each one's FPGA as Sipeed names it, marked to check; what each is for; open-flow support checked per board when a design first goes to it); plan A12 widened (the board as schedule data, the smallest board that holds a design; HEX1000 still the 1K first, the 4K if needed, nothing larger); the later machines and the neural layer on the larger boards; CLAUDE.md, the CLI README and the landing page say the same.
+
 ## 2026-10-08
 
 - 17:53 `refactor` The hexadecimal digits are the system values, not literals (the user's request): `fx:h_ex` selects from `[]D c_at 6 t_ake []A`, and Radix's key text is `[]D c_at (6 t_ake []A) c_at "+-*=X"`. Both values already exist at the pinned X_eTaL (d284a8c). Every baseline and doc test unchanged.

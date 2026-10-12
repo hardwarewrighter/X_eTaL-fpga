@@ -288,8 +288,9 @@ a safety net for what is not yet committed.
 X_eTaL programs as hardware: the RTL generator, the schedule and the
 synthesis flow for X_eTaL (the eXperimental Extensible Typed Array
 Language, developed in `../../softwarewrighter/X_eTaL`): from an
-array program to Verilog, to a simulated circuit, and to a Tang Nano
-4K through the open Gowin flow. One typed array program, the same
+array program to Verilog, to a simulated circuit, and to Sipeed's
+Tang boards (Tang Nano 1K, 4K, 9K, 20K, Tang Primer 25K and others;
+README, Boards) through the open Gowin flow. One typed array program, the same
 answer from the evaluator, from this repo's IR interpreter, from the
 netlist simulator, from the Verilog, and from the board. Its process
 and scripts follow `../../softwarewrighter/X_eTaL-demos`,
