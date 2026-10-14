@@ -1,0 +1,1 @@
+No recursion in libs/: Clocked r_un/t_race, Radix r_un, Datapath s_um as p_ower loops over tuples; all baselines and types unchanged. Hex1000 demos readable: l_isting, t_able, RegNames; counter and keys demos print listings and headed tables; baselines re-blessed after review.

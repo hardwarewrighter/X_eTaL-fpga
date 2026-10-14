@@ -1,0 +1,9 @@
+number = 7
+slug = "sw-hex-calc"
+status = "completed"
+description = "The calculator program for the machine, hexadecimal: key scan, digit entry, t..."
+role = "production"
+context_files = []
+created_at = "2026-10-07T19:35:24"
+completed_at = "2026-10-14T09:21:22"
+commits = ["ebf77681dfec96f401edd6dfa425433e982e92a1"]

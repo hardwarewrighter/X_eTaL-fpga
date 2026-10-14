@@ -5,6 +5,17 @@ how it gets to a Tang board, and what can and cannot go wrong there.
 The boards themselves are in `docs/boards.md`; the plan's steps are in
 `docs/plan.md`.
 
+## Current board status (2026-10-14)
+
+On the attached Nano 9K, JTAG identification, SRAM load with CRC,
+542-byte exact UART loopback at 115200, LED blink and button reset
+are verified. Persistent flash programming also passed with CRC;
+after the user unplugged/replugged, LED/reset resumed and 541 UART
+bytes passed without a bitstream load. The USB rule is installed.
+The fixture proves the tools and board connection; X_eTaL board
+execution and HEX1000 hardware are still pending. The inserted SD
+card is not used. See [first-board setup](../boards/tangnano9k/README.md).
+
 ## Verilog first (and VHDL perhaps never)
 
 The emitter writes plain Verilog-2005 (plan A7), and that is the only

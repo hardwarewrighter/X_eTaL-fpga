@@ -76,3 +76,24 @@ The first milestone is a tested software machine plus a 9K blink
 and UART echo. The second is calculator traces matching across the
 evaluator, XIR, netlist and Verilog. The third is calculator UART
 results matching on the board. Only then optimize for the 1K.
+
+## Mac notes for Linux
+
+- 2026-10-14: `main` has the software HEX1000 and its calculator
+  program (`libs/Hex1000`, `rom/calc.asm`). The I/O contract is in
+  `libs/Hex1000/docs/calc.md` (R0 to R7 display strobes with O's bit
+  4 as show, R8 to R13 key columns with K the row, R15 a ready
+  handshake); the codes are `hx:Names` in order (`hx:k_ind`,
+  `docs/machine.md`). The board lane needs nothing from the Mac for
+  blink and the UART echo: `libs/Uart/rtl/loopback.v` and the other
+  pinned circuits are on `main`.
+- Shared-file additions from the Mac in this commit: `justfile`
+  recipes `calc`, `web`, `tape`; `scripts/test-libs.sh` reads an
+  optional `NAME.keys` as a program's typed input; `scripts/build-web.sh`.
+- Next on the Mac: machine-rtl (the machine as a circuit, memory cells,
+  the ROM image as a `$readmemh` file) ahead of the octal and decimal
+  modes, so the board lane gets the circuit sooner. Proposed for the
+  board's terminal glue, to agree before integration: 115200 baud, 8N1;
+  a received character is one key (Radix's characters, Enter as =);
+  the display sent as 8 characters and a carriage return whenever R7
+  to R0 have all been strobed.

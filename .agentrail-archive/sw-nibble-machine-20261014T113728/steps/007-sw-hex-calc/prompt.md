@@ -1,0 +1,1 @@
+The calculator program for the machine, hexadecimal: key scan, digit entry, the operations, equals, clear, the display; assembled into the ROM; every key sequence of the radix library's tests run on the machine in the evaluator gives the reference's display. Program listing documented. Gate; CHANGES; commit; push.

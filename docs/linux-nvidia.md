@@ -7,6 +7,17 @@ install the open FPGA flow, and reach the Tang boards over USB. Written
 names them to my knowledge, so confirm each with `pacman -Ss NAME`
 the first time, and fix this page where it is wrong.
 
+## Current board status (2026-10-14)
+
+On the attached Nano 9K, JTAG identification, SRAM load with CRC,
+542-byte exact UART loopback at 115200, LED blink and button reset
+are verified. Persistent flash programming also passed with CRC;
+after the user unplugged/replugged, LED/reset resumed and 541 UART
+bytes passed without a bitstream load. The USB rule is installed.
+The fixture proves the tools and board connection; X_eTaL board
+execution and HEX1000 hardware are still pending. The inserted SD
+card is not used. See [first-board setup](../boards/tangnano9k/README.md).
+
 ## The GPU is not needed here
 
 Nothing in this repository uses the GPU: the simulators run on the

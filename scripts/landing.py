@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """The live site's landing page (scripts/build-pages.sh): what this
-repository is, its libraries (each linked to its documentation page),
+repository is, HEX1000 (its calculator's screens, from running the
+calc demo at build time), its libraries (each linked to its documentation page),
 the circuits (each pinned Verilog module), the project documents (on
 GitHub), and the commits it was built from. Printed to stdout."""
 import html
@@ -31,9 +32,28 @@ def circuits():
         yield lib, v.name, sched.group(0)[3:] if sched else ""
 
 
+def sessions():
+    """The calc demo's key sequences and the screens HEX1000 shows for
+    them, run now with the pinned xetal (so the page shows the
+    machine's real output), and the two costs it ends with."""
+    demo = ROOT / "libs/Hex1000/demos/calc.xtl"
+    keys = re.findall(r'^hx:c_alc "([^"]*)"', demo.read_text(), re.M)
+    out = subprocess.run([str(ROOT / "scripts/xt"), "run", str(demo)], cwd=ROOT,
+                         capture_output=True, text=True, check=True).stdout.splitlines()
+    return list(zip(keys, out)), out[len(keys):]
+
+
 head = git("rev-parse", "--short", "HEAD")
 xetal = (ROOT / "XETAL_COMMIT").read_text().strip()[:7]
 e = html.escape
+screens, costs = sessions()
+try_web = ('<strong><a href="calc/">Try HEX1000 in your browser</a></strong>: the same program, X_eTaL running in the page. '
+           if (ROOT / "pages/calc/index.html").exists() else "")
+# The terminal recording, when scripts/build-pages.sh copied one in.
+tape = ('<p><img src="media/hex1000-calc.gif" alt="HEX1000 at a terminal: 12+34= shows 46, C0DE+BEEF= shows 17FCD, A*B= shows 6E, FFFFFFFF*FFFFFFFF= shows 1" '
+        'style="max-width:100%;height:auto;border-radius:6px"></p>'
+        if (ROOT / "pages/media/hex1000-calc.gif").exists() else "")
+rows_calc = "\n".join(f"<tr><td><code>{e(k)}</code></td><td><pre class=\"lcd\">{e(v)}</pre></td></tr>" for k, v in screens)
 rows_libs = "\n".join(
     f'<tr><td><a href="doc/libs-{e(n)}-src-{e(n)}.xtl.html">{e(n)}</a></td><td><code>{e(a)}</code></td><td>{e(s)}</td></tr>'
     for n, a, s in libs())
@@ -42,6 +62,9 @@ rows_rtl = "\n".join(
     for lib, name, s in circuits())
 docs = [("docs/plan.md", "the plan: architecture decisions and the roadmap"),
         ("docs/machine.md", "HEX1000, the 4-bit machine"),
+        ("libs/Hex1000/docs/calc.md", "HEX1000's calculator program: its ports, RAM, pages and costs"),
+        ("docs/hardware.md", "Verilog, the checks from the evaluator to the bitstream, testing on a board"),
+        ("docs/boards.md", "the Tang boards: families, resources, software"),
         ("docs/calc-approaches.md", "calculators, state and data: the discussion and its decisions"),
         ("docs/xetal-asks.md", "what this repository needs from X_eTaL"),
         ("CHANGES.md", "every commit")]
@@ -68,6 +91,7 @@ code {{ background: var(--code); padding: 0 .25em; border-radius: 3px; }}
 table {{ border-collapse: collapse; width: 100%; display: block; overflow-x: auto; }}
 th, td {{ text-align: left; padding: .35rem .75rem .35rem 0; border-bottom: 1px solid var(--rule); vertical-align: top; }}
 pre {{ background: var(--code); padding: .75rem; overflow-x: auto; }}
+pre.lcd {{ margin: 0; padding: .2rem .6rem; display: inline-block; background: #20301f; color: #9cf59a; font-size: 1.15rem; letter-spacing: .08em; border-radius: 4px; }}
 footer {{ color: var(--muted); font-size: .9rem; margin-top: 3rem; }}
 </style>
 </head>
@@ -88,6 +112,15 @@ evaluator    intermediate form   simulated circuit, Verilog
              the same answers
 </pre>
 
+<h2>HEX1000</h2>
+<p>A 4-bit machine of our own design in the spirit of the TMS1000: a 4-bit accumulator, 64 words of 4-bit RAM, a ROM of 1024 instructions, a program counter that steps as a shift register (<a href="{REPO}/blob/main/docs/machine.md">docs/machine.md</a>). It is written in X_eTaL (<a href="doc/libs-Hex1000-src-Hex1000.xtl.html">the Hex1000 library</a>: one instruction is a pure step function of the machine's state), and its ROM holds a program in its own instructions (<a href="{REPO}/blob/main/libs/Hex1000/rom/calc.asm">rom/calc.asm</a>, about 330 of them) that makes it an eight-digit hexadecimal calculator. Keys go in through its key matrix and the digits come out on its output latches, nothing else computing; every screen is checked against the specification, the <a href="doc/libs-Radix-src-Radix.xtl.html">Radix</a> library. The screens below were made by running it while this page was built:</p>
+{tape}
+<table>
+<tr><th>Keys typed</th><th>Screen</th></tr>
+{rows_calc}
+</table>
+<p>12+34= takes the machine {e(costs[0])} instructions, FFFFFFFF*FFFFFFFF= {e(costs[1])}: on a Tang Nano at 13.5 million instructions a second, about a millisecond. {try_web}Or at a terminal: clone the repository and run <code>just calc</code> (keys 0-9 A-F + - * = X, q to quit); <code>just demo-lib Hex1000 listing</code> shows its ROM, page by page. Next: the machine as a circuit, then on a Tang Nano 1K.</p>
+
 <h2>Libraries</h2>
 <p>Each links to its documentation, generated by <code>xetal doc</code> from the <code>##</code> comments in its source; every <code>## &gt;&gt;</code> example there is run as a test. The <a href="doc/index.html">documentation index</a> also has the demo programs, a search, the built-ins, and each source file.</p>
 <table>
@@ -96,7 +129,7 @@ evaluator    intermediate form   simulated circuit, Verilog
 </table>
 
 <h2>Circuits</h2>
-<p>The Verilog-2005 of every example circuit, as pinned in the repository. Each is checked by a simulator of the same netlist against the X_eTaL evaluator. iverilog, Verilator and Yosys runs are pending (no Verilog tools on the development machine yet).</p>
+<p>The Verilog-2005 of every example circuit, as pinned in the repository. Each is checked by a simulator of the same netlist against the X_eTaL evaluator, and every module passes its self-checking testbench under iverilog, Verilator's lint and Yosys's synthesis.</p>
 <table>
 <tr><th>Library</th><th>Module</th><th>Schedule</th></tr>
 {rows_rtl}

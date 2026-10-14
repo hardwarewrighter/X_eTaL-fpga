@@ -1,0 +1,9 @@
+number = 8
+slug = "sw-parallel-handoff"
+status = "completed"
+description = "Document and push the shared Linux acknowledgment of Mac parallel lane plan. ..."
+role = "meta"
+context_files = []
+created_at = "2026-10-14T10:06:27"
+completed_at = "2026-10-14T10:09:36"
+commits = ["717e9fe27f94c7a63b712ad5920d328be294d3a2"]

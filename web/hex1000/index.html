@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HEX1000</title>
+  <link data-trunk rel="rust" data-bin="hex1000-web" />
+  <link data-trunk rel="css" href="hex1000.css" />
+</head>
+<body>
+<main>
+  <h1>HEX1000</h1>
+  <p class="lede">A 4-bit machine in the spirit of the TMS1000, computing in X_eTaL in your browser: each key goes through its key matrix into the machine running its ROM program, and the display shows the digits the program strobed out. Nothing else computes. Type on your keyboard, or use the keys below.</p>
+  <pre id="screen" aria-live="polite">starting X_eTaL ...</pre>
+  <div id="keys"></div>
+  <p id="status"></p>
+  <p class="foot">The program: <a href="https://github.com/hardwarewrighter/X_eTaL-fpga/blob/main/libs/Hex1000/demos/terminal.xtl">terminal.xtl</a>; the machine: <a href="https://github.com/hardwarewrighter/X_eTaL-fpga/blob/main/libs/Hex1000/src/Hex1000.xtl">Hex1000.xtl</a>; its ROM program: <a href="https://github.com/hardwarewrighter/X_eTaL-fpga/blob/main/libs/Hex1000/rom/calc.asm">calc.asm</a>. The X_eTaL evaluator interprets the machine, which interprets its ROM, so a multiply takes a moment here; on a Tang Nano it takes about a millisecond. <a href="../">X_eTaL-fpga</a></p>
+</main>
+</body>
+</html>

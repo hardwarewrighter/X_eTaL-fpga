@@ -1,0 +1,9 @@
+number = 9
+slug = "sw-live-demo"
+status = "completed"
+description = "A HEX1000 the user can try in software (asked 2026-10-14): (1) an interactive..."
+role = "production"
+context_files = []
+created_at = "2026-10-14T08:38:56"
+completed_at = "2026-10-14T11:18:07"
+commits = ["7eb91761b097d9f40666c6d8b0c4249db2b0f57f"]

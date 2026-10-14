@@ -1,0 +1,1 @@
+Octal and decimal: a radix mode (a key or a RAM word), the digit adjust in the program or as an instruction (an instruction-set decision made here with the user, recorded in docs/machine.md); all three radixes against the reference. Gate; CHANGES; commit; push.

@@ -1,0 +1,360 @@
+[2J[H  HEX1000, a 4-bit machine, computing in X_eTaL
+
+  +----------+
+  |        0 |
+  +----------+
+
+  key reset: 135 instructions, 10 microseconds on a Tang Nano
+  keys: 0-9 A-F  + - * =  Enter (=)  X (clear)  q (quit)
+[2J[H  HEX1000, a 4-bit machine, computing in X_eTaL
+
+  +----------+
+  |        1 |
+  +----------+
+
+  key 1: 265 instructions, 19 microseconds on a Tang Nano
+  keys: 0-9 A-F  + - * =  Enter (=)  X (clear)  q (quit)
+[2J[H  HEX1000, a 4-bit machine, computing in X_eTaL
+
+  +----------+
+  |       12 |
+  +----------+
+
+  key 2: 237 instructions, 17 microseconds on a Tang Nano
+  keys: 0-9 A-F  + - * =  Enter (=)  X (clear)  q (quit)
+[2J[H  HEX1000, a 4-bit machine, computing in X_eTaL
+
+  +----------+
+  |       12 |
+  +----------+
+
+  key +: 291 instructions, 21 microseconds on a Tang Nano
+  keys: 0-9 A-F  + - * =  Enter (=)  X (clear)  q (quit)
+[2J[H  HEX1000, a 4-bit machine, computing in X_eTaL
+
+  +----------+
+  |        3 |
+  +----------+
+
+  key 3: 269 instructions, 19 microseconds on a Tang Nano
+  keys: 0-9 A-F  + - * =  Enter (=)  X (clear)  q (quit)
+[2J[H  HEX1000, a 4-bit machine, computing in X_eTaL
+
+  +----------+
+  |       34 |
+  +----------+
+
+  key 4: 243 instructions, 18 microseconds on a Tang Nano
+  keys: 0-9 A-F  + - * =  Enter (=)  X (clear)  q (quit)
+[2J[H  HEX1000, a 4-bit machine, computing in X_eTaL
+
+  +----------+
+  |       46 |
+  +----------+
+
+  key =: 312 instructions, 23 microseconds on a Tang Nano
+  keys: 0-9 A-F  + - * =  Enter (=)  X (clear)  q (quit)
+[2J[H  HEX1000, a 4-bit machine, computing in X_eTaL
+
+  +----------+
+  |       46 |
+  +----------+
+
+  key =: 234 instructions, 17 microseconds on a Tang Nano
+  keys: 0-9 A-F  + - * =  Enter (=)  X (clear)  q (quit)
+[2J[H  HEX1000, a 4-bit machine, computing in X_eTaL
+
+  +----------+
+  |        0 |
+  +----------+
+
+  key X: 260 instructions, 19 microseconds on a Tang Nano
+  keys: 0-9 A-F  + - * =  Enter (=)  X (clear)  q (quit)
+[2J[H  HEX1000, a 4-bit machine, computing in X_eTaL
+
+  +----------+
+  |        A |
+  +----------+
+
+  key A: 292 instructions, 21 microseconds on a Tang Nano
+  keys: 0-9 A-F  + - * =  Enter (=)  X (clear)  q (quit)
+[2J[H  HEX1000, a 4-bit machine, computing in X_eTaL
+
+  +----------+
+  |        A |
+  +----------+
+
+  key *: 302 instructions, 22 microseconds on a Tang Nano
+  keys: 0-9 A-F  + - * =  Enter (=)  X (clear)  q (quit)
+[2J[H  HEX1000, a 4-bit machine, computing in X_eTaL
+
+  +----------+
+  |        B |
+  +----------+
+
+  key B: 293 instructions, 21 microseconds on a Tang Nano
+  keys: 0-9 A-F  + - * =  Enter (=)  X (clear)  q (quit)
+[2J[H  HEX1000, a 4-bit machine, computing in X_eTaL
+
+  +----------+
+  |       6E |
+  +----------+
+
+  key =: 1730 instructions, 128 microseconds on a Tang Nano
+  keys: 0-9 A-F  + - * =  Enter (=)  X (clear)  q (quit)
+[2J[H  HEX1000, a 4-bit machine, computing in X_eTaL
+
+  +----------+
+  |        C |
+  +----------+
+
+  key C: 327 instructions, 24 microseconds on a Tang Nano
+  keys: 0-9 A-F  + - * =  Enter (=)  X (clear)  q (quit)
+[2J[H  HEX1000, a 4-bit machine, computing in X_eTaL
+
+  +----------+
+  |       C0 |
+  +----------+
+
+  key 0: 231 instructions, 17 microseconds on a Tang Nano
+  keys: 0-9 A-F  + - * =  Enter (=)  X (clear)  q (quit)
+[2J[H  HEX1000, a 4-bit machine, computing in X_eTaL
+
+  +----------+
+  |      C0D |
+  +----------+
+
+  key D: 265 instructions, 19 microseconds on a Tang Nano
+  keys: 0-9 A-F  + - * =  Enter (=)  X (clear)  q (quit)
+[2J[H  HEX1000, a 4-bit machine, computing in X_eTaL
+
+  +----------+
+  |     C0DE |
+  +----------+
+
+  key E: 263 instructions, 19 microseconds on a Tang Nano
+  keys: 0-9 A-F  + - * =  Enter (=)  X (clear)  q (quit)
+[2J[H  HEX1000, a 4-bit machine, computing in X_eTaL
+
+  +----------+
+  |     C0DE |
+  +----------+
+
+  key +: 281 instructions, 20 microseconds on a Tang Nano
+  keys: 0-9 A-F  + - * =  Enter (=)  X (clear)  q (quit)
+[2J[H  HEX1000, a 4-bit machine, computing in X_eTaL
+
+  +----------+
+  |        B |
+  +----------+
+
+  key B: 293 instructions, 21 microseconds on a Tang Nano
+  keys: 0-9 A-F  + - * =  Enter (=)  X (clear)  q (quit)
+[2J[H  HEX1000, a 4-bit machine, computing in X_eTaL
+
+  +----------+
+  |       BE |
+  +----------+
+
+  key E: 273 instructions, 20 microseconds on a Tang Nano
+  keys: 0-9 A-F  + - * =  Enter (=)  X (clear)  q (quit)
+[2J[H  HEX1000, a 4-bit machine, computing in X_eTaL
+
+  +----------+
+  |      BEE |
+  +----------+
+
+  key E: 268 instructions, 19 microseconds on a Tang Nano
+  keys: 0-9 A-F  + - * =  Enter (=)  X (clear)  q (quit)
+[2J[H  HEX1000, a 4-bit machine, computing in X_eTaL
+
+  +----------+
+  |     BEEF |
+  +----------+
+
+  key F: 264 instructions, 19 microseconds on a Tang Nano
+  keys: 0-9 A-F  + - * =  Enter (=)  X (clear)  q (quit)
+[2J[H  HEX1000, a 4-bit machine, computing in X_eTaL
+
+  +----------+
+  |    17FCD |
+  +----------+
+
+  key =: 303 instructions, 22 microseconds on a Tang Nano
+  keys: 0-9 A-F  + - * =  Enter (=)  X (clear)  q (quit)
+[2J[H  HEX1000, a 4-bit machine, computing in X_eTaL
+
+  +----------+
+  |        5 |
+  +----------+
+
+  key 5: 306 instructions, 22 microseconds on a Tang Nano
+  keys: 0-9 A-F  + - * =  Enter (=)  X (clear)  q (quit)
+[2J[H  HEX1000, a 4-bit machine, computing in X_eTaL
+
+  +----------+
+  |        5 |
+  +----------+
+
+  key -: 299 instructions, 22 microseconds on a Tang Nano
+  keys: 0-9 A-F  + - * =  Enter (=)  X (clear)  q (quit)
+[2J[H  HEX1000, a 4-bit machine, computing in X_eTaL
+
+  +----------+
+  |        7 |
+  +----------+
+
+  key 7: 281 instructions, 20 microseconds on a Tang Nano
+  keys: 0-9 A-F  + - * =  Enter (=)  X (clear)  q (quit)
+[2J[H  HEX1000, a 4-bit machine, computing in X_eTaL
+
+  +----------+
+  | FFFFFFFE |
+  +----------+
+
+  key =: 298 instructions, 22 microseconds on a Tang Nano
+  keys: 0-9 A-F  + - * =  Enter (=)  X (clear)  q (quit)
+[2J[H  HEX1000, a 4-bit machine, computing in X_eTaL
+
+  +----------+
+  |        F |
+  +----------+
+
+  key F: 334 instructions, 24 microseconds on a Tang Nano
+  keys: 0-9 A-F  + - * =  Enter (=)  X (clear)  q (quit)
+[2J[H  HEX1000, a 4-bit machine, computing in X_eTaL
+
+  +----------+
+  |       FF |
+  +----------+
+
+  key F: 274 instructions, 20 microseconds on a Tang Nano
+  keys: 0-9 A-F  + - * =  Enter (=)  X (clear)  q (quit)
+[2J[H  HEX1000, a 4-bit machine, computing in X_eTaL
+
+  +----------+
+  |      FFF |
+  +----------+
+
+  key F: 269 instructions, 19 microseconds on a Tang Nano
+  keys: 0-9 A-F  + - * =  Enter (=)  X (clear)  q (quit)
+[2J[H  HEX1000, a 4-bit machine, computing in X_eTaL
+
+  +----------+
+  |     FFFF |
+  +----------+
+
+  key F: 264 instructions, 19 microseconds on a Tang Nano
+  keys: 0-9 A-F  + - * =  Enter (=)  X (clear)  q (quit)
+[2J[H  HEX1000, a 4-bit machine, computing in X_eTaL
+
+  +----------+
+  |    FFFFF |
+  +----------+
+
+  key F: 259 instructions, 19 microseconds on a Tang Nano
+  keys: 0-9 A-F  + - * =  Enter (=)  X (clear)  q (quit)
+[2J[H  HEX1000, a 4-bit machine, computing in X_eTaL
+
+  +----------+
+  |   FFFFFF |
+  +----------+
+
+  key F: 254 instructions, 18 microseconds on a Tang Nano
+  keys: 0-9 A-F  + - * =  Enter (=)  X (clear)  q (quit)
+[2J[H  HEX1000, a 4-bit machine, computing in X_eTaL
+
+  +----------+
+  |  FFFFFFF |
+  +----------+
+
+  key F: 249 instructions, 18 microseconds on a Tang Nano
+  keys: 0-9 A-F  + - * =  Enter (=)  X (clear)  q (quit)
+[2J[H  HEX1000, a 4-bit machine, computing in X_eTaL
+
+  +----------+
+  | FFFFFFFF |
+  +----------+
+
+  key F: 244 instructions, 18 microseconds on a Tang Nano
+  keys: 0-9 A-F  + - * =  Enter (=)  X (clear)  q (quit)
+[2J[H  HEX1000, a 4-bit machine, computing in X_eTaL
+
+  +----------+
+  | FFFFFFFF |
+  +----------+
+
+  key *: 267 instructions, 19 microseconds on a Tang Nano
+  keys: 0-9 A-F  + - * =  Enter (=)  X (clear)  q (quit)
+[2J[H  HEX1000, a 4-bit machine, computing in X_eTaL
+
+  +----------+
+  |        F |
+  +----------+
+
+  key F: 305 instructions, 22 microseconds on a Tang Nano
+  keys: 0-9 A-F  + - * =  Enter (=)  X (clear)  q (quit)
+[2J[H  HEX1000, a 4-bit machine, computing in X_eTaL
+
+  +----------+
+  |       FF |
+  +----------+
+
+  key F: 274 instructions, 20 microseconds on a Tang Nano
+  keys: 0-9 A-F  + - * =  Enter (=)  X (clear)  q (quit)
+[2J[H  HEX1000, a 4-bit machine, computing in X_eTaL
+
+  +----------+
+  |      FFF |
+  +----------+
+
+  key F: 269 instructions, 19 microseconds on a Tang Nano
+  keys: 0-9 A-F  + - * =  Enter (=)  X (clear)  q (quit)
+[2J[H  HEX1000, a 4-bit machine, computing in X_eTaL
+
+  +----------+
+  |     FFFF |
+  +----------+
+
+  key F: 264 instructions, 19 microseconds on a Tang Nano
+  keys: 0-9 A-F  + - * =  Enter (=)  X (clear)  q (quit)
+[2J[H  HEX1000, a 4-bit machine, computing in X_eTaL
+
+  +----------+
+  |    FFFFF |
+  +----------+
+
+  key F: 259 instructions, 19 microseconds on a Tang Nano
+  keys: 0-9 A-F  + - * =  Enter (=)  X (clear)  q (quit)
+[2J[H  HEX1000, a 4-bit machine, computing in X_eTaL
+
+  +----------+
+  |   FFFFFF |
+  +----------+
+
+  key F: 254 instructions, 18 microseconds on a Tang Nano
+  keys: 0-9 A-F  + - * =  Enter (=)  X (clear)  q (quit)
+[2J[H  HEX1000, a 4-bit machine, computing in X_eTaL
+
+  +----------+
+  |  FFFFFFF |
+  +----------+
+
+  key F: 249 instructions, 18 microseconds on a Tang Nano
+  keys: 0-9 A-F  + - * =  Enter (=)  X (clear)  q (quit)
+[2J[H  HEX1000, a 4-bit machine, computing in X_eTaL
+
+  +----------+
+  | FFFFFFFF |
+  +----------+
+
+  key F: 244 instructions, 18 microseconds on a Tang Nano
+  keys: 0-9 A-F  + - * =  Enter (=)  X (clear)  q (quit)
+[2J[H  HEX1000, a 4-bit machine, computing in X_eTaL
+
+  +----------+
+  |        1 |
+  +----------+
+
+  key =: 11768 instructions, 871 microseconds on a Tang Nano
+  keys: 0-9 A-F  + - * =  Enter (=)  X (clear)  q (quit)

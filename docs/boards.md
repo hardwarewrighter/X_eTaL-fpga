@@ -8,6 +8,17 @@ sources are listed at the end). Where a figure was not on those pages
 it is marked "to check"; check a board's own page before relying on
 a number for a design.
 
+## Current board status (2026-10-14)
+
+On the attached Nano 9K, JTAG identification, SRAM load with CRC,
+542-byte exact UART loopback at 115200, LED blink and button reset
+are verified. Persistent flash programming also passed with CRC;
+after the user unplugged/replugged, LED/reset resumed and 541 UART
+bytes passed without a bitstream load. The USB rule is installed.
+The fixture proves the tools and board connection; X_eTaL board
+execution and HEX1000 hardware are still pending. The inserted SD
+card is not used. See [first-board setup](../boards/tangnano9k/README.md).
+
 ## Families
 
 Gowin's FPGAs come in families, and the family decides both the

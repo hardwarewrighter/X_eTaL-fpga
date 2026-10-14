@@ -67,45 +67,31 @@ twins go when X_eTaL's lowering lands.
 
 ## Status
 
-Saga 1 (fpga-foundation) is done: the process and the pinned X_eTaL
-(d284a8c) and X_eTaL-libraries (69bb369); the hardware models as
-tested X_eTaL libraries (Fixed, and Datapath with the example
-programs); the provisional IR with its
-interpreter; the netlist, the lanes schedule (spatial, or a counter
-with any number of lanes), the cycle simulator and the Verilog-2005
-emitter with self-checking testbenches. Every Datapath example's
-answer from the evaluator is reproduced, bit for bit, by the IR
-interpreter and by its circuits simulated at several lane counts, and
-their Verilog is pinned. Saga 2 (fpga-state) is under way: clocked
-programs (state, input streams, ROMs, a RAM's write port) in the IR,
-the netlist, the simulator and the Verilog, with the Clocked library
-as their specification (step 1); a UART, transmitter and receiver
-looped back, from X_eTaL to a clocked circuit (step 2); self-checking
-testbenches that check every clock and write waveforms, and Verilator
-lint, ready for the Arch machine (step 3). Saga 2 is done. Next,
-saga 3: HEX1000, a 4-bit calculator machine in the spirit of the
-TMS1000 (our own design, hexadecimal first), sized for a Tang Nano
-1K; its architecture is decided ([`docs/machine.md`](docs/machine.md)),
-its calculator's specification written (the Radix library), and the
-machine itself runs in X_eTaL (the Hex1000 library: every
-instruction, an assembler, programs traced) and calculates: its ROM
-program, in its own instructions, gives Radix's screen for every key
-sequence tested, typed through the machine's ports alone. Next: a
-HEX1000 to try interactively.
-See
-[`docs/plan.md`](docs/plan.md) for the roadmap and the architecture
-decisions.
+The X_eTaL evaluator, XIR interpreter and netlist simulator agree on
+all existing circuit examples. All 17 pinned Verilog circuits pass
+Icarus simulation, Verilator lint and Yosys synthesis. HEX1000 runs
+in software; its machine RTL and board integration are still pending.
 
-Nothing here needs an FPGA or the FPGA tools yet. The Verilog is
-proven through the Rust simulator of the same netlist; the gate also
-runs it through iverilog (each module with its self-checking
-testbench), Verilator (lint) and Yosys (synthesis) when they are
-installed, and says so when it skips them. All 17 pinned modules pass
-all three. `just fit` reports what each takes on a Gowin GW1N (Yosys's
-Gowin synthesis) against the Tang Nano 1K. `just wave FILE.xir`
-writes a waveform of one circuit for GTKWave. How the checks go from
-the evaluator to the bitstream, and how a board is tested safely:
-[`docs/hardware.md`](docs/hardware.md).
+### Actual Nano 9K results (2026-10-14)
+
+| Check | Result on the attached board |
+| ----- | ---------------------------- |
+| USB/JTAG | passed; Gowin 9C identified as 0x0100481b |
+| Synthesis, placement/routing, packing | passed with the Linux OSS CAD Suite |
+| SRAM programming | passed; loader CRC check succeeded |
+| USB-UART | 542 bytes returned exactly at 115200 8N1, including every byte value |
+| Clock and LED | blinking observed by the user |
+| Button reset | holding a button pauses the blink, confirmed by the user |
+| Persistent flash programming | passed; flash write completed with CRC success |
+| Boot after power loss | passed; user unplugged/replugged, LED/reset resumed, 541 UART bytes passed without loading a bitstream |
+| X_eTaL program running on the board | not tested yet; the current LED/UART fixture is a toolchain test |
+| HEX1000 on the board | waiting for machine RTL and board integration |
+
+Repeat the initial checks with `just board-prepare`, `just board-check`
+and `just board-test`. The fixture does not use the inserted SD card.
+[First-board instructions](boards/tangnano9k/README.md) and
+[hardware verification](docs/hardware.md) describe the tests. The
+initial target is Nano 9K; Nano 1K sizing is deferred.
 
 ## Boards
 
@@ -118,15 +104,15 @@ resources, processors and the software it needs, with sources.
 
 | Board | Family | LUT4 | Processor besides the fabric | Open flow | Used for |
 | ----- | ------ | ---- | ---------------------------- | --------- | -------- |
-| Tang Nano 1K | GW1N (GW1NZ) | 1,152 | none | yes | HEX1000 first |
+| Tang Nano 1K | GW1N (GW1NZ) | 1,152 | none | yes | HEX1000 later sizing target |
 | Tang Nano 4K | GW1N (GW1NSR) | 4,608 | a hard ARM Cortex-M3 in the FPGA | yes (the fabric) | HEX1000 if needed; lane counts |
-| Tang Nano 9K | GW1N (GW1NR) | 8,640 | none | yes | the CDP1802; the neural layer |
+| Tang Nano 9K | GW1N (GW1NR) | 8,640 | none | yes | initial bring-up; HEX1000; the CDP1802; the neural layer |
 | Tang Nano 20K | GW2A (GW2AR) | 20,736 | a BL616 microcontroller as programmer | yes | the IBM 1130, larger designs |
 | Tang Primer 20K | GW2A | 20,736 | a BL702 on its Dock, as programmer | yes | as the 20K, with DDR3 |
 | Tang Primer 25K | GW5A | 23,040 | a BL616 as programmer | not yet: Gowin IDE V1.9.9 Beta-4 or newer | the largest; Gowin IDE only for now |
 
-A larger board is never spent on a design a smaller one holds (HEX1000:
-the 1K first, the 4K if needed, nothing larger). Which other Tang
+Initial bring-up uses Nano 9K for onboard programming and UART;
+Nano 1K sizing is deferred. Which other Tang
 Primer boards the user has is still to record.
 
 ## Build

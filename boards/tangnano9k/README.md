@@ -106,3 +106,15 @@ write FPGA flash. Persistent configuration is a later explicit test.
 First hardware run on 2026-10-14 passed JTAG identification, SRAM
 load/CRC and all 542 UART bytes. The user confirmed LED blinking
 and the button pausing it while held. Power-cycle recovery is unchecked.
+
+
+## Persistent configuration verified
+
+On 2026-10-14 the user authorized a persistent flash test. The verified
+fixture was written with openFPGALoader -f; writing completed with
+CRC success. The user unplugged and replugged the board and confirmed
+LED blinking and button reset resumed. A 541-byte UART test, including
+every byte value, passed afterward without any bitstream load.
+This proves the fixture boots from flash after power loss. The SD
+card was not used. Raw evidence is in work/board/first-flash.log and
+work/board/power-cycle.json; the durable result is recorded here.

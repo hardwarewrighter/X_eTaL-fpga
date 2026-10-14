@@ -1,0 +1,41 @@
+#!/usr/bin/env xetal
+# HEX1000 at a terminal: type at the calculator and watch its display.
+# Every key goes through the machine's key matrix into HEX1000 running
+# its ROM program (rom/calc.asm), and the eight digits shown are the
+# ones the program strobed out on R0 to R7: nothing else computes. Keys:
+# 0-9 A-F (either case), + - * =, Enter (=), X (clear); q or Escape
+# quits, as does the end of the input. Run it in a terminal with
+# "scripts/xt run libs/Hex1000/demos/terminal.xtl" (or "just calc"), or
+# script it: printf '12+34=' | scripts/xt run ...
+# A session is at most 10000 keys (a bounded loop: ask F14).
+"hx:" u_se< "Hex1000"
+"rx:" u_se< "Radix"
+"s:" u_se< "Strings"
+# The next key; the end of the input reads as Escape.
+u:k_ey := { u -> '{ v -> []K_EY v } []T_RAP '{ e -> []R_ECOVER []K_NAMED 6 } }
+# A key's code (Radix's): Enter is =, anything else not a key is 21.
+u:c_ode := { k ->
+  k = []K_NAMED 5 ? 19
+  f_irst (rx:k_eys s:u_pper []K_CHAR k) c_at 21
+}
+# The screen: the display as the machine left it, and what the key cost.
+u:d_raw := { (digits, key, took) ->
+  face := "  +----------+\n  | " c_at (hx:s_creen r_ev digits) c_at " |\n  +----------+"
+  cost := "  key " c_at key c_at ": " c_at (f_ormat took) c_at " instructions, " c_at (f_ormat (2 * took) d_iv 27) c_at " microseconds on a Tang Nano"
+  help := "  keys: 0-9 A-F  + - * =  Enter (=)  X (clear)  q (quit)"
+  p_rint! ([]C_LS @) c_at "  HEX1000, a 4-bit machine, computing in X_eTaL\n\n" c_at face c_at "\n\n" c_at cost c_at "\n" c_at help
+}
+# One key: run the machine until it is ready for the next, then draw.
+u:p_ress := { (t, digits, quit) ->
+  quit ? (t, digits, quit)
+  k := u:k_ey @
+  (k = []K_NAMED 6) | "q" m_atch []K_CHAR k ? (t, digits, 1 = 1)
+  c := u:c_ode k
+  c = 21 ? (t, digits, quit)
+  (t1, d1, done, took) := hx:CalcRom hx:t_ypeOn (t, digits, 1 r_eshape c, 1500 + 15000 * c >= 16)
+  shown := u:d_raw (d1, d_isclose (1 + c) s_elect s:w_ords "0 1 2 3 4 5 6 7 8 9 A B C D E F + - * = X", took)
+  (t1, d1, quit)
+}
+(t0, d0, done, took) := hx:CalcRom hx:t_ype (hx:Reset, 0 r_eshape 0, 2000)
+shown := u:d_raw (d0, "reset", took)
+(t, digits, quit) := 10000 'u:p_ress p_ower (t0, d0, 0 = 1)
