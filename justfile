@@ -240,3 +240,32 @@ status:
 # Open the saga plan
 plan:
     @cat docs/plan.md
+
+# HEX1000 board adapter: reference and full serial simulation, no hardware load
+board-calc-check:
+    python3 scripts/board-hex1000.py check
+
+# Build the complete Nano 9K calculator, with divided-clock timing constraints
+board-calc-build:
+    python3 scripts/board-hex1000.py build
+
+# Open UART, load calculator into SRAM, and verify three calculations
+board-calc-test:
+    python3 scripts/board-hex1000.py test
+
+# Short hardware demonstration; same single-session SRAM test
+board-calc-demo:
+    python3 scripts/board-hex1000.py demo
+
+# Explicit persistent calculator programming and serial verification
+board-calc-flash:
+    python3 scripts/board-hex1000.py flash
+
+# Test existing configuration (reset board after opening serial if needed)
+board-calc-uart:
+    python3 scripts/board-hex1000.py uart
+
+# Record the real hardware calculator terminal session
+board-calc-video:
+    @mkdir -p work/tapes
+    vhs boards/tangnano9k/hex1000.tape

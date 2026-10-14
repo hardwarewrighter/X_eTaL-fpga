@@ -15,7 +15,8 @@ bytes passed without a bitstream load. The USB rule is installed.
 The first fixture proves tools and board connection. The emitted
 X_eTaL counter/UART now also passes 512 evaluator-matched counter
 queries and 255 echo bytes in SRAM and after explicit flash writing.
-HEX1000 board integration remains pending. The inserted SD
+HEX1000 now passes three calculator sequences on actual 9K SRAM over UART.
+See [hardware demo and known issues](hex1000-hardware.md). The inserted SD
 card is not used. See [first-board setup](../boards/tangnano9k/README.md).
 
 ## Verilog first (and VHDL perhaps never)
@@ -252,7 +253,6 @@ new X_eTaL image's power-cycle semantic test is separately pending.
 Logs and per-stage reports are in work/board/probe. No host arithmetic
 implements the FPGA counter; host calculations only check responses.
 
-HEX1000's landed core synthesizes here to about 2256 LUTs and 379
-flip-flops, comfortably within Nano 9K resources before board glue.
-The next integration is the agreed UART key/display adapter; timing
-of the complete design and real calculator sequences remain to test.
+The complete HEX1000 adapter now passes timing and three physical
+calculator sequences on Nano 9K SRAM. See
+[hardware handoff](hex1000-hardware.md) for evidence, commands and limits.

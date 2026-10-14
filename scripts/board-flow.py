@@ -113,12 +113,15 @@ def main(argv=None):
     parser.add_argument("--top")
     parser.add_argument("--cst")
     parser.add_argument("--out")
+    parser.add_argument("--sdc", help="timing constraints for pnr, including divided clocks")
     parser.add_argument("--flash", action="store_true", help="load persistently instead of SRAM")
     parser.add_argument("--dry-run", action="store_true", help="validate and print without running tools")
     args = parser.parse_args(argv)
     board = board_config(args.board)
     if args.flash and args.stage != "load":
         raise ValueError("--flash applies only to load")
+    if args.sdc and (args.stage != "pnr" or not Path(args.sdc).is_file()):
+        raise ValueError("--sdc requires an existing timing file and pnr stage")
     if args.stage != "detect" and (not args.file or not Path(args.file).is_file()):
         raise ValueError("an existing input file is required")
     if args.stage in ("synth", "pnr", "pack") and not args.out:
@@ -137,6 +140,8 @@ def main(argv=None):
         command = ["nextpnr-himbaechel", "--device", board["device"], "--vopt",
                    f"family={board['family']}", "--vopt", f"cst={Path(args.cst).resolve()}",
                    "--json", args.file, "--write", args.out, "--freq", str(board["clock_mhz"])]
+        if args.sdc:
+            command += ["--sdc", args.sdc]
     elif args.stage == "pack":
         command = ["gowin_pack", "-d", board["family"], "-o", args.out, args.file]
     else:

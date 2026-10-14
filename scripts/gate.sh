@@ -32,6 +32,7 @@ if [ -f "$root/components/Cargo.toml" ]; then
   echo "ok: components (fmt, clippy, tests)"
 fi
 python3 "$root/scripts/board-probe.py" check
+python3 "$root/scripts/board-hex1000.py" check
 [ -x "$root/scripts/check-equiv.sh" ] && "$root/scripts/check-equiv.sh"
 [ -x "$root/scripts/check-rtl.sh" ] && "$root/scripts/check-rtl.sh"
 # Gowin utilization (an estimate; fails only if a module will not synthesize).

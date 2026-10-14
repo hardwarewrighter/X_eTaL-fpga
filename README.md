@@ -70,7 +70,7 @@ twins go when X_eTaL's lowering lands.
 The X_eTaL evaluator, XIR interpreter and netlist simulator agree on
 all existing circuit examples. All 18 pinned Verilog circuits pass
 Icarus simulation, Verilator lint and Yosys synthesis. HEX1000 runs
-in software; its machine RTL has landed and board integration is next.
+in software and on the attached Tang Nano 9K over USB UART.
 
 ### Actual Nano 9K results (2026-10-14)
 
@@ -85,13 +85,16 @@ in software; its machine RTL has landed and board integration is next.
 | Persistent flash programming | passed; flash write completed with CRC success |
 | Boot after power loss | passed; user unplugged/replugged, LED/reset resumed, 541 UART bytes passed without loading a bitstream |
 | X_eTaL on the board | passed; 512 counter queries match the evaluator through two full wraps, plus 255 exact UART echoes |
-| HEX1000 on the board | core synthesizes at about 2256 LUTs and 379 flip-flops; UART glue and board validation are next |
+| HEX1000 on the board | passed in SRAM over UART: 12+34= gives 46, A*B= gives 6E, C0DE+BEEF= gives 17FCD |
 
 Repeat the initial checks with `just board-prepare`, `just board-check`
 and `just board-test`. The fixture does not use the inserted SD card.
 [First-board instructions](boards/tangnano9k/README.md) and
 [hardware verification](docs/hardware.md) describe the tests. The
 initial target is Nano 9K; Nano 1K sizing is deferred.
+
+Actual calculator results, repeatable commands, recording and known limits:
+[HEX1000 hardware handoff](docs/hex1000-hardware.md).
 
 ## HEX1000
 
@@ -131,15 +134,15 @@ resources, processors and the software it needs, with sources.
 
 | Board | Family | LUT4 | Processor besides the fabric | Open flow | Used for |
 | ----- | ------ | ---- | ---------------------------- | --------- | -------- |
-| Tang Nano 1K | GW1N (GW1NZ) | 1,152 | none | yes | HEX1000 first |
-| Tang Nano 4K | GW1N (GW1NSR) | 4,608 | a hard ARM Cortex-M3 in the FPGA | yes (the fabric) | HEX1000 if needed; lane counts |
-| Tang Nano 9K | GW1N (GW1NR) | 8,640 | none | yes | the CDP1802; the neural layer |
+| Tang Nano 1K | GW1N (GW1NZ) | 1,152 | none | yes | HEX1000 optimization later |
+| Tang Nano 4K | GW1N (GW1NSR) | 4,608 | a hard ARM Cortex-M3 in the FPGA | yes (the fabric) | HEX1000 alternative; lane counts |
+| Tang Nano 9K | GW1N (GW1NR) | 8,640 | none | yes | HEX1000 now; the CDP1802; the neural layer |
 | Tang Nano 20K | GW2A (GW2AR) | 20,736 | a BL616 microcontroller as programmer | yes | the IBM 1130, larger designs |
 | Tang Primer 20K | GW2A | 20,736 | a BL702 on its Dock, as programmer | yes | as the 20K, with DDR3 |
 | Tang Primer 25K | GW5A | 23,040 | a BL616 as programmer | not yet: Gowin IDE V1.9.9 Beta-4 or newer | the largest; Gowin IDE only for now |
 
-A larger board is never spent on a design a smaller one holds (HEX1000:
-the 1K first, the 4K if needed, nothing larger). Which other Tang
+HEX1000 currently runs on the 9K; optimization for the 1K is later.
+Which other Tang
 Primer boards the user has is still to record.
 
 ## Build

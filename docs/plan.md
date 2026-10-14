@@ -298,3 +298,11 @@ the query/echo phase transition. Next board-hex1000 consumes the
 landed core and implements the R15/matrix and digit-strobe contract;
 then board-demo-video records the real calculator session. A separate
 counter/UART VHS tape records the current hardware proof.
+
+
+Board-hex1000: complete adapter passes 27 MHz UART and 27/28 MHz
+calculator timing, SRAM CRC and three physical calculations (46,
+6E, 17FCD). Hardware video recorded and copied to the blog agent.
+See docs/hex1000-hardware.md. Reconnect reset/reload workaround,
+32-key queue, coalesced display frames and unverified calculator
+flash boot are explicit remaining work.

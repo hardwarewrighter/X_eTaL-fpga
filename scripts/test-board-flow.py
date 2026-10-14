@@ -68,6 +68,21 @@ class BoardFlowTests(unittest.TestCase):
             flow.main(common + ["--flash"])
             self.assertIn("-f", execute.call_args.args[0])
 
+    def test_divided_clock_constraints_require_pnr_and_existing_file(self):
+        with self.assertRaisesRegex(ValueError, "--sdc requires"):
+            flow.main(["detect", "--sdc", "missing.sdc"])
+        netlist = self.directory / "clocked.json"
+        pins = flow.constraints(ROOT / "boards/tangnano9k/led.cst", self.board)
+        ports = {name: {"direction": self.board["ports"][name]["direction"], "bits": [i]}
+                 for i, name in enumerate(pins)}
+        netlist.write_text(json.dumps({"modules": {"top": {"attributes": {"top": "1"}, "ports": ports}}}))
+        sdc = self.directory / "clock.sdc"
+        sdc.write_text("create_clock -period 37 [get_ports clk]\n")
+        with patch.object(flow, "execute") as execute:
+            flow.main(["pnr", str(netlist), "--cst", str(ROOT / "boards/tangnano9k/led.cst"),
+                       "--out", str(self.directory / "pnr.json"), "--sdc", str(sdc)])
+            self.assertEqual(execute.call_args.args[0][-2:], ["--sdc", str(sdc)])
+
     def test_dry_run_never_invokes_tool(self):
         with patch.object(flow.subprocess, "run") as run, contextlib.redirect_stdout(io.StringIO()):
             flow.execute(["absent-tool"], True)

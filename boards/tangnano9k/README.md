@@ -132,5 +132,6 @@ it. Reset before UART-only tests so the counter starts at 120.
 The startup, synchronization and registered TX pin are board glue.
 Counter and UART behavior come from X_eTaL library functions and
 checked hand-lowered twins. [Proof source and recording](../examples/README.md).
-HEX1000's core has landed and fits the 9K's resource budget; the
-calculator's R15 key handshake and digit-strobe UART adapter are next.
+HEX1000 now runs on this board in SRAM. `just board-calc-demo` loads
+the calculator and verifies 12+34=, A*B= and C0DE+BEEF= over UART.
+[Calculator results, recording and known issues](../../docs/hex1000-hardware.md).

@@ -141,3 +141,19 @@ Register the UART TX pin: the mapped-cell simulation found glitches
 on the combinational line. Keep serial query/echo phases in one raw
 connection. The landed HEX1000 core synthesizes here at about 2256
 LUTs and 379 flip-flops; its board adapter is the next Linux step.
+
+
+## Linux calculator handoff (2026-10-14)
+
+HEX1000 is verified on actual Nano 9K SRAM over USB UART: 12+34=
+gives 46, A*B= gives 6E, C0DE+BEEF= gives 17FCD. The user copied
+the 8.12-second MP4 to the blog agent. Mac can publish these results
+now. [Hardware handoff](hex1000-hardware.md) lists commands, evidence
+and limitations. Linux retains reconnect, key-queue flow control,
+interactive terminal and calculator flash/power-cycle work; Mac
+retains library/core, browser/site and blog work.
+
+The user now requests both agents work on main. Linux board work is
+pushed directly to main; fetch/pull main for this handoff. Continue
+the file ownership above to avoid conflicts, and preserve both saga
+histories when reconciling metadata.

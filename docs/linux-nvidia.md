@@ -17,7 +17,8 @@ bytes passed without a bitstream load. The USB rule is installed.
 The first fixture proves tools and board connection. The emitted
 X_eTaL counter/UART now also passes 512 evaluator-matched counter
 queries and 255 echo bytes in SRAM and after explicit flash writing.
-HEX1000 board integration remains pending. The inserted SD
+HEX1000 now passes three calculator sequences on actual 9K SRAM over UART.
+See [hardware demo and known issues](hex1000-hardware.md). The inserted SD
 card is not used. See [first-board setup](../boards/tangnano9k/README.md).
 
 ## The GPU is not needed here

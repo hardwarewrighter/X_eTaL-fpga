@@ -1,6 +1,6 @@
 number = 4
 slug = "board-hex1000"
-status = "pending"
+status = "in-progress"
 description = "Integrate the landed Mac HEX1000 core and ROM into Nano 9K board top. Reuse v..."
 role = "production"
 context_files = []
