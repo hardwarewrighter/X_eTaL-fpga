@@ -84,14 +84,14 @@ looped back, from X_eTaL to a clocked circuit (step 2); self-checking
 testbenches that check every clock and write waveforms, and Verilator
 lint, ready for the Arch machine (step 3). Saga 2 is done. Next,
 saga 3: HEX1000, a 4-bit calculator machine in the spirit of the
-TMS1000 (our own design, hexadecimal first), sized for a Tang Nano
-1K; its architecture is decided ([`docs/machine.md`](docs/machine.md)),
-its calculator's specification written (the Radix library), and the
-machine itself runs in X_eTaL (the Hex1000 library: every
-instruction, an assembler, programs traced) and calculates: its ROM
-program, in its own instructions, gives Radix's screen for every key
-sequence tested, typed through the machine's ports alone. Next: a
-HEX1000 to try interactively.
+TMS1000 (our own design, hexadecimal first), for a Tang Nano 4K or
+9K (the goals: [`docs/goals.md`](docs/goals.md)). It runs in X_eTaL and
+calculates, its ROM program giving the specification's screen for
+every key sequence tested; it can be typed at in a terminal or a
+browser; and it is a circuit whose Verilog reproduces the X_eTaL
+machine clock for clock. Next: on a Tang Nano 9K (the board lane),
+and the browser demo made faster. The files are in
+[HEX1000](#hex1000) below.
 See
 [`docs/plan.md`](docs/plan.md) for the roadmap and the architecture
 decisions.
@@ -106,6 +106,32 @@ Gowin synthesis) against the Tang Nano 1K. `just wave FILE.xir`
 writes a waveform of one circuit for GTKWave. How the checks go from
 the evaluator to the bitstream, and how a board is tested safely:
 [`docs/hardware.md`](docs/hardware.md).
+
+## HEX1000
+
+The 4-bit calculator machine, from its definition to the Verilog a
+board runs. Each later file is checked against the earlier ones.
+
+| File | What |
+| ---- | ---- |
+| [`docs/machine.md`](docs/machine.md) | the machine's definition: registers, memories, instruction set, timing, I/O |
+| [`libs/Hex1000/src/Hex1000.xtl`](libs/Hex1000/src/Hex1000.xtl) | the machine in X_eTaL, the executable specification: one instruction as a pure step, the assembler, the run harness ([reference](libs/Hex1000/docs/README.md)) |
+| [`libs/Hex1000/rom/calc.asm`](libs/Hex1000/rom/calc.asm) | the calculator program in HEX1000's instructions ([how it works](libs/Hex1000/docs/calc.md)) |
+| [`libs/Hex1000/rom/calc.hex`](libs/Hex1000/rom/calc.hex) | that program assembled: the 1024-byte ROM image, for `$readmemh` (`scripts/rom-hex.sh`) |
+| [`libs/Radix/src/Radix.xtl`](libs/Radix/src/Radix.xtl) | the calculator's specification: the screens the program must show ([`libs/Hex1000/tests/calc.xtl`](libs/Hex1000/tests/calc.xtl) checks 33 key sequences) |
+| [`libs/Hex1000/demos/circuit.xtl`](libs/Hex1000/demos/circuit.xtl) | the machine at its ports: K, O and the R latches at every clock of a calculation, what the circuit must reproduce |
+| [`scripts/gen-hex1000-xir.py`](scripts/gen-hex1000-xir.py) | the hand lowering: one rule per instruction |
+| [`libs/Hex1000/demos/hex1000.xir`](libs/Hex1000/demos/hex1000.xir) | the circuit in the intermediate form (generated; the gate checks it is current) |
+| [`libs/Hex1000/rtl/hex1000.v`](libs/Hex1000/rtl/hex1000.v) | the circuit in Verilog-2005, module `hex1000`: the core a board top wraps (generated and pinned; iverilog, Verilator and Yosys in the gate) |
+| [`libs/Hex1000/demos/terminal.xtl`](libs/Hex1000/demos/terminal.xtl) | the calculator at a terminal (`just calc`); [`web/hex1000`](web/hex1000) the same in a browser ([live](https://hardwarewrighter.github.io/X_eTaL-fpga/calc/)) |
+| [`docs/parallel-work.md`](docs/parallel-work.md) | the core's ports and the UART glue a board needs |
+
+```bash
+just demo-lib Hex1000 calc        # calculations typed at the machine in X_eTaL
+just equiv                        # the IR and the simulated circuit against X_eTaL
+just rtl                          # the Verilog under iverilog, Verilator, Yosys
+just fit hex1000                  # its size on a Gowin GW1N (Yosys)
+```
 
 ## Boards
 
