@@ -2,6 +2,19 @@
 
 X_eTaL programs as hardware.
 
+- **Live site:** <https://hardwarewrighter.github.io/X_eTaL-fpga/>
+  (the libraries' documentation, the circuits, the pinned Verilog)
+- **HEX1000 in your browser:**
+  <https://hardwarewrighter.github.io/X_eTaL-fpga/calc/>, the 4-bit
+  calculator machine computing in X_eTaL (the same design runs on a
+  Tang Nano 9K: [hardware results](docs/hex1000-hardware.md))
+
+[![HEX1000 running in the browser: the display and its key matrix](docs/images/hex1000-browser.png)](https://hardwarewrighter.github.io/X_eTaL-fpga/calc/)
+
+At a terminal (`just calc`):
+
+![HEX1000 at a terminal: 12+34= shows 46, C0DE+BEEF= shows 17FCD](https://hardwarewrighter.github.io/X_eTaL-fpga/media/hex1000-calc.gif)
+
 [X_eTaL](https://github.com/softwarewrighter/X_eTaL), the eXperimental
 Extensible Typed Array Language, states a computation as whole-array
 operations: `c := a + b`, `'+ r_/ c`. Those operations already expose

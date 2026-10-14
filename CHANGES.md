@@ -12,6 +12,8 @@ complete, saga archive).
 
 ## 2026-10-14
 
+- 14:08 `docs` README: the live site, the browser HEX1000 (with a screenshot) and the terminal recording linked at the top.
+
 - 13:19 `chore` Record verified Nano 9K HEX1000 integration completion; retain hardware video publication and remaining board checks in the handoff.
 
 - 13:15 `feat` HEX1000 running on actual Nano 9K SRAM: emitted UART and calculator with key-matrix/display adapter, divided-clock timing constraints, reproducible calculator build/test/demo/video recipes and full serial simulation. Three FPGA answers verified (46, 6E, 17FCD); 8.12-second hardware MP4 copied to blog agent. Document serial reconnect workaround, bounded queue, display coalescing and pending calculator flash boot.
