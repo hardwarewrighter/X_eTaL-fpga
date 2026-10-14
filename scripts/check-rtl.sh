@@ -61,9 +61,9 @@ for twin in "$root"/libs/*/demos/*.xir; do
       top="$(sed -n 's/^module \([A-Za-z0-9_]*\) (.*/\1/p' "$pinned")"
       if verilator --lint-only -Wall -Wno-fatal -Wno-DECLFILENAME --top-module "$top" "$pinned" >"$scratch/verilator.log" 2>&1; then
         lints=$((lints + 1))
-        grep -q '%Warning' "$scratch/verilator.log" && { echo "check-rtl: $rel: verilator warnings:"; grep '%Warning' "$scratch/verilator.log" | head -5; }
+        grep -q '%Warning' "$scratch/verilator.log" && { echo "check-rtl: $rel: verilator warnings:"; awk '/%Warning/ && n++ < 5' "$scratch/verilator.log"; }
       else
-        echo "FAIL: $rel: verilator lint"; grep '%Error' "$scratch/verilator.log" | head -5; fail=1
+        echo "FAIL: $rel: verilator lint"; awk '/%Error/ && n++ < 5' "$scratch/verilator.log"; fail=1
       fi
     fi
     if have yosys; then

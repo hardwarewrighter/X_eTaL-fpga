@@ -31,6 +31,31 @@ board-check *args:
 board-test *args:
     python3 scripts/board-first.py test {{args}}
 
+# Check board-local X_eTaL programs against IR, netlist and Verilog
+board-probe-check:
+    python3 scripts/board-probe.py check
+
+# Build the Nano 9K X_eTaL blink/UART/counter image; no hardware access
+board-probe-build:
+    python3 scripts/board-probe.py build
+
+# Load the X_eTaL probe in SRAM and compare physical results with the evaluator
+board-probe-test:
+    python3 scripts/board-probe.py test
+
+# Explicitly flash the verified X_eTaL probe and test it
+board-probe-flash:
+    python3 scripts/board-probe.py flash
+
+# After power-cycle or button reset, test the X_eTaL probe without loading anything
+board-probe-uart:
+    python3 scripts/board-probe.py uart
+
+# Record a real Nano 9K SRAM counter/UART proof as MP4 and GIF (needs VHS)
+board-proof-video:
+    mkdir -p work/tapes
+    vhs boards/tangnano9k/proof.tape
+
 # Read the Nano 9K JTAG ID (no SRAM or flash write)
 board-detect board="tangnano9k": build
     target/release/xetal-fpga detect --board "$1"

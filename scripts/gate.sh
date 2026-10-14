@@ -17,6 +17,7 @@ cd "$root"
 python3 "$root/scripts/test-board-flow.py"
 if [ "$(uname -s)" = Linux ]; then
   python3 "$root/scripts/test-board-first.py"
+  python3 "$root/scripts/test-board-probe.py"
 else
   echo "board-first: SKIPPED Linux USB/serial setup tests on $(uname -s)"
 fi
@@ -30,6 +31,7 @@ if [ -f "$root/components/Cargo.toml" ]; then
   (cd "$root/components" && cargo test -q >/dev/null 2>&1) || { (cd "$root/components" && cargo test); echo "FAIL: cargo test"; exit 1; }
   echo "ok: components (fmt, clippy, tests)"
 fi
+python3 "$root/scripts/board-probe.py" check
 [ -x "$root/scripts/check-equiv.sh" ] && "$root/scripts/check-equiv.sh"
 [ -x "$root/scripts/check-rtl.sh" ] && "$root/scripts/check-rtl.sh"
 # Gowin utilization (an estimate; fails only if a module will not synthesize).

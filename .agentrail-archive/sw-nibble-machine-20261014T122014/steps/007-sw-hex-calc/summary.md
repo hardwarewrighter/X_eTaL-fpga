@@ -1,0 +1,1 @@
+HEX1000 calculates: rom/calc.asm (7 pages, ~330 instructions), key matrix R8-R13/K, display strobed R0-R7 with O bit 4 blank, R15 handshake; harness t_ype/c_alc/c_ost through ports only; 33 sequences equal to Radix; found and fixed Radix's 64-bit multiply overflow; calc.md, demos calc and listing.

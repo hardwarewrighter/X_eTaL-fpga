@@ -64,6 +64,10 @@ class DiscoveryTests(unittest.TestCase):
 
 
 class SerialTests(unittest.TestCase):
+    def test_inconsistent_response_length_is_rejected(self):
+        with self.assertRaises(ValueError):
+            first.loopback("unused", b"??", expected=b"x", block_size=1)
+
     def setUp(self):
         self.master, self.slave = pty.openpty()
         self.addCleanup(os.close, self.master)
@@ -97,6 +101,12 @@ class SerialTests(unittest.TestCase):
         self.emulator(corrupt=True)
         with self.assertRaisesRegex(ValueError, "mismatch"):
             first.loopback(self.port, b"hello", timeout=1)
+
+    def test_per_byte_transformed_response_in_one_session(self):
+        self.emulator(corrupt=True)
+        data = bytes(range(256))
+        expected = bytes(value ^ 1 for value in data)
+        self.assertEqual(first.loopback(self.port, data, expected=expected, block_size=1), expected)
 
     def test_local_echo_does_not_make_disconnected_loop_pass(self):
         attrs = termios.tcgetattr(self.slave)

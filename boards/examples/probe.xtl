@@ -1,0 +1,29 @@
+## Probe: UART echo and a query of an 8-bit X_eTaL counter
+## Every received byte advances Clocked's fixed-width counter. A ?
+## returns the counter byte; other bytes echo. d is clocks per UART bit.
+"ua:" u_se< "Uart"
+"ck:" u_se< "Clocked"
+
+## Choose the response to a received byte.
+h:r_esponse := { count byte -> byte = 63 ? count m_od 256; byte }
+
+## One clock: receive, advance the 8-bit counter and start a response.
+h:s_tep := { d s line ->
+  tx := 4 t_ake s
+  rx := 6 t_ake 4 d_rop s
+  rx2 := (d ua:r_x rx)_ line
+  v := ua:v_alid? rx2
+  count2 := (11 s_elect s) ck:t_ick v
+  response := count2 h:r_esponse ua:r_eceived rx2
+  command := (v * (1 + response)) - 1
+  ((d ua:t_x tx)_ command) c_at rx2 c_at count2
+}
+
+## Input waveforms and expected output traces at three clocks per bit.
+h:t_x := ua:t_x 3
+input := ua:l_ines ua:TxIdle 'h:t_x ck:t_race 3 ua:c_ommands 0 255 85 170 63 63 63 63
+h:p_robe := h:s_tep 3
+trace := (ua:TxIdle c_at ua:RxIdle c_at 120) 'h:p_robe ck:t_race input c_at 40 r_eshape 1
+input c_at 40 r_eshape 1
+ua:l_ines trace
+11 s_elect_2 trace

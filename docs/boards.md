@@ -15,8 +15,10 @@ On the attached Nano 9K, JTAG identification, SRAM load with CRC,
 are verified. Persistent flash programming also passed with CRC;
 after the user unplugged/replugged, LED/reset resumed and 541 UART
 bytes passed without a bitstream load. The USB rule is installed.
-The fixture proves the tools and board connection; X_eTaL board
-execution and HEX1000 hardware are still pending. The inserted SD
+The first fixture proves tools and board connection. The emitted
+X_eTaL counter/UART now also passes 512 evaluator-matched counter
+queries and 255 echo bytes in SRAM and after explicit flash writing.
+HEX1000 board integration remains pending. The inserted SD
 card is not used. See [first-board setup](../boards/tangnano9k/README.md).
 
 ## Families

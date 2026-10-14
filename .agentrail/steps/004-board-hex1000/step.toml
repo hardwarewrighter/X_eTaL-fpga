@@ -1,0 +1,8 @@
+number = 4
+slug = "board-hex1000"
+status = "pending"
+description = "Integrate the landed Mac HEX1000 core and ROM into Nano 9K board top. Reuse v..."
+role = "production"
+context_files = []
+created_at = "2026-10-14T12:22:42"
+commits = []

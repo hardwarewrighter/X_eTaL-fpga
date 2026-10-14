@@ -69,8 +69,11 @@ def uart_ports(ports, tty_root=Path("/sys/class/tty")):
                    for parent in (tty_root / Path(port).name / "device").resolve().parents)]
 
 
-def loopback(port, payload, timeout=3.0):
+def loopback(port, payload, timeout=3.0, expected=None, block_size=64):
     """Raw 115200 8N1, no local echo; exact bytes, bounded read/write waits."""
+    expected = payload if expected is None else expected
+    if len(expected) != len(payload) or block_size < 1:
+        raise ValueError("expected bytes must match request length; block_size must be positive")
     fd = os.open(port, os.O_RDWR | os.O_NOCTTY | os.O_NONBLOCK)
     old = None
     try:
@@ -83,8 +86,8 @@ def loopback(port, payload, timeout=3.0):
         termios.tcsetattr(fd, termios.TCSANOW, attrs)
         termios.tcflush(fd, termios.TCIOFLUSH)
         received = bytearray()
-        for start in range(0, len(payload), 64):
-            block = payload[start:start + 64]
+        for start in range(0, len(payload), block_size):
+            block = payload[start:start + block_size]
             deadline = time.monotonic() + timeout
             sent = 0
             result = bytearray()
@@ -101,8 +104,9 @@ def loopback(port, payload, timeout=3.0):
                     if not data:
                         raise ValueError("UART disconnected during test")
                     result.extend(data)
-            if bytes(result) != block:
-                raise ValueError(f"UART byte mismatch at block starting {start}")
+            if bytes(result) != expected[start:start + len(block)]:
+                raise ValueError(f"UART byte mismatch at block starting {start}: "
+                                 f"got {bytes(result).hex()}, expected {expected[start:start + len(block)].hex()}")
             received.extend(result)
         if select.select([fd], [], [], 0.1)[0] and os.read(fd, 4096):
             raise ValueError("unexpected extra UART bytes")

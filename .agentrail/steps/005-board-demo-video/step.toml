@@ -1,0 +1,8 @@
+number = 5
+slug = "board-demo-video"
+status = "pending"
+description = "Record a real Nano 9K HEX1000 UART session using VHS, produce MP4 and GIF for..."
+role = "production"
+context_files = []
+created_at = "2026-10-14T12:22:42"
+commits = []

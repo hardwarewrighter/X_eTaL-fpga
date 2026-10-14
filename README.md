@@ -68,9 +68,9 @@ twins go when X_eTaL's lowering lands.
 ## Status
 
 The X_eTaL evaluator, XIR interpreter and netlist simulator agree on
-all existing circuit examples. All 17 pinned Verilog circuits pass
+all existing circuit examples. All 18 pinned Verilog circuits pass
 Icarus simulation, Verilator lint and Yosys synthesis. HEX1000 runs
-in software; its machine RTL and board integration are still pending.
+in software; its machine RTL has landed and board integration is next.
 
 ### Actual Nano 9K results (2026-10-14)
 
@@ -84,14 +84,41 @@ in software; its machine RTL and board integration are still pending.
 | Button reset | holding a button pauses the blink, confirmed by the user |
 | Persistent flash programming | passed; flash write completed with CRC success |
 | Boot after power loss | passed; user unplugged/replugged, LED/reset resumed, 541 UART bytes passed without loading a bitstream |
-| X_eTaL program running on the board | not tested yet; the current LED/UART fixture is a toolchain test |
-| HEX1000 on the board | waiting for machine RTL and board integration |
+| X_eTaL on the board | passed; 512 counter queries match the evaluator through two full wraps, plus 255 exact UART echoes |
+| HEX1000 on the board | core synthesizes at about 2256 LUTs and 379 flip-flops; UART glue and board validation are next |
 
 Repeat the initial checks with `just board-prepare`, `just board-check`
 and `just board-test`. The fixture does not use the inserted SD card.
 [First-board instructions](boards/tangnano9k/README.md) and
 [hardware verification](docs/hardware.md) describe the tests. The
 initial target is Nano 9K; Nano 1K sizing is deferred.
+
+## HEX1000
+
+The machine, ROM and emitted core, with each stage checked against
+the earlier one. See [project goals](docs/goals.md).
+
+| File | What |
+| ---- | ---- |
+| [`docs/machine.md`](docs/machine.md) | the machine's definition: registers, memories, instruction set, timing, I/O |
+| [`libs/Hex1000/src/Hex1000.xtl`](libs/Hex1000/src/Hex1000.xtl) | the machine in X_eTaL, the executable specification: one instruction as a pure step, the assembler, the run harness ([reference](libs/Hex1000/docs/README.md)) |
+| [`libs/Hex1000/rom/calc.asm`](libs/Hex1000/rom/calc.asm) | the calculator program in HEX1000's instructions ([how it works](libs/Hex1000/docs/calc.md)) |
+| [`libs/Hex1000/rom/calc.hex`](libs/Hex1000/rom/calc.hex) | that program assembled: the 1024-byte ROM image, for `$readmemh` (`scripts/rom-hex.sh`) |
+| [`libs/Radix/src/Radix.xtl`](libs/Radix/src/Radix.xtl) | the calculator's specification: the screens the program must show ([`libs/Hex1000/tests/calc.xtl`](libs/Hex1000/tests/calc.xtl) checks 33 key sequences) |
+| [`libs/Hex1000/demos/circuit.xtl`](libs/Hex1000/demos/circuit.xtl) | the machine at its ports: K, O and the R latches at every clock of a calculation, what the circuit must reproduce |
+| [`scripts/gen-hex1000-xir.py`](scripts/gen-hex1000-xir.py) | the hand lowering: one rule per instruction |
+| [`libs/Hex1000/demos/hex1000.xir`](libs/Hex1000/demos/hex1000.xir) | the circuit in the intermediate form (generated; the gate checks it is current) |
+| [`libs/Hex1000/rtl/hex1000.v`](libs/Hex1000/rtl/hex1000.v) | the circuit in Verilog-2005, module `hex1000`: the core a board top wraps (generated and pinned; iverilog, Verilator and Yosys in the gate) |
+| [`libs/Hex1000/demos/terminal.xtl`](libs/Hex1000/demos/terminal.xtl) | the calculator at a terminal (`just calc`); [`web/hex1000`](web/hex1000) the same in a browser ([live](https://hardwarewrighter.github.io/X_eTaL-fpga/calc/)) |
+| [`docs/parallel-work.md`](docs/parallel-work.md) | the core's ports and the UART glue a board needs |
+
+```bash
+just demo-lib Hex1000 calc        # calculations typed at the machine in X_eTaL
+just equiv                        # the IR and the simulated circuit against X_eTaL
+just rtl                          # the Verilog under iverilog, Verilator, Yosys
+just fit hex1000                  # its size on a Gowin GW1N (Yosys)
+```
+
 
 ## Boards
 
@@ -104,15 +131,15 @@ resources, processors and the software it needs, with sources.
 
 | Board | Family | LUT4 | Processor besides the fabric | Open flow | Used for |
 | ----- | ------ | ---- | ---------------------------- | --------- | -------- |
-| Tang Nano 1K | GW1N (GW1NZ) | 1,152 | none | yes | HEX1000 later sizing target |
+| Tang Nano 1K | GW1N (GW1NZ) | 1,152 | none | yes | HEX1000 first |
 | Tang Nano 4K | GW1N (GW1NSR) | 4,608 | a hard ARM Cortex-M3 in the FPGA | yes (the fabric) | HEX1000 if needed; lane counts |
-| Tang Nano 9K | GW1N (GW1NR) | 8,640 | none | yes | initial bring-up; HEX1000; the CDP1802; the neural layer |
+| Tang Nano 9K | GW1N (GW1NR) | 8,640 | none | yes | the CDP1802; the neural layer |
 | Tang Nano 20K | GW2A (GW2AR) | 20,736 | a BL616 microcontroller as programmer | yes | the IBM 1130, larger designs |
 | Tang Primer 20K | GW2A | 20,736 | a BL702 on its Dock, as programmer | yes | as the 20K, with DDR3 |
 | Tang Primer 25K | GW5A | 23,040 | a BL616 as programmer | not yet: Gowin IDE V1.9.9 Beta-4 or newer | the largest; Gowin IDE only for now |
 
-Initial bring-up uses Nano 9K for onboard programming and UART;
-Nano 1K sizing is deferred. Which other Tang
+A larger board is never spent on a design a smaller one holds (HEX1000:
+the 1K first, the 4K if needed, nothing larger). Which other Tang
 Primer boards the user has is still to record.
 
 ## Build
@@ -270,13 +297,7 @@ Hardware bring-up starts on the Nano 9K with onboard USB-JTAG and
 USB-UART; Nano 1K sizing comes later. Development ownership is in
 [parallel work](docs/parallel-work.md).
 
-Linux board tools now provide synth/pnr/pack/load/detect for Nano 9K
-with checked pin constraints and SRAM loading by default. See
-[board commands](boards/tangnano9k/README.md). A toolchain fixture
-builds to a bitstream; physical tests and X_eTaL board tops are pending.
-
-First Nano 9K hardware connection verified: JTAG identification,
-SRAM programming with CRC success and 542 exact UART loopback bytes.
-Use `just board-prepare`, `just board-check`, then `just board-test`;
-see [first connection](boards/tangnano9k/README.md). The fixture
-checks tools and pins; X_eTaL board blink/echo remains next.
+The X_eTaL hardware proof uses `just board-probe-build` and
+`just board-probe-test`; `just board-probe-flash` explicitly writes
+flash. Its UART and counter are emitted from checked XIR twins of
+ordinary X_eTaL programs. [Proof and recording](boards/examples/README.md).

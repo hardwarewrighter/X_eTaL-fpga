@@ -12,6 +12,10 @@
 #   scripts/check-equiv.sh
 set -euo pipefail
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+# Generated inputs are current: HEX1000's IR (scripts/gen-hex1000-xir.py)
+# and its ROM image (scripts/rom-hex.sh).
+"$root/scripts/gen-hex1000-xir.py" --check
+"$root/scripts/rom-hex.sh" --check
 (cd "$root/components" && cargo build -q -p xetal-fpga-cli)
 tool="$root/target/debug/xetal-fpga"
 n=0; fail=0

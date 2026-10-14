@@ -12,8 +12,10 @@ On the attached Nano 9K, JTAG identification, SRAM load with CRC,
 are verified. Persistent flash programming also passed with CRC;
 after the user unplugged/replugged, LED/reset resumed and 541 UART
 bytes passed without a bitstream load. The USB rule is installed.
-The fixture proves the tools and board connection; X_eTaL board
-execution and HEX1000 hardware are still pending. The inserted SD
+The first fixture proves tools and board connection. The emitted
+X_eTaL counter/UART now also passes 512 evaluator-matched counter
+queries and 255 echo bytes in SRAM and after explicit flash writing.
+HEX1000 board integration remains pending. The inserted SD
 card is not used. See [first-board setup](../boards/tangnano9k/README.md).
 
 ## Verilog first (and VHDL perhaps never)
@@ -225,3 +227,32 @@ an X_eTaL program. The user confirmed LED blinking and the button pausing it whi
 Power-cycle recovery remains unchecked. Neither FPGA flash nor the inserted SD card
 was used. Commands: `just board-prepare`, `just board-check`,
 `just board-test`; [first connection](../boards/tangnano9k/README.md).
+
+
+## X_eTaL arithmetic and UART on Nano 9K
+
+The emitted counter/UART probe now passes on the actual board:
+512 query results match the pinned evaluator, including two complete
+8-bit wraps; all 255 non-query bytes echo exactly at 115200 baud.
+The LED heartbeat instantiates the emitted Clocked counter. Its
+programs, twins and reviewed baselines are in boards/examples.
+
+The check compares full traces in the evaluator, XIR interpreter,
+netlist simulator and emitted Verilog. The build additionally
+simulates the board top at 27 MHz/115200 and Yosys's mapped Gowin
+cells. Those deeper tests exposed brief extra UART frames when a
+combinational output drove TX directly; registering TX at the pin
+removes them. Keeping query/echo phases in one raw serial session
+also avoids a failure introduced by reconfiguring the bridge between
+phases. Both fixes are covered by simulation/serial tests.
+
+The corrected image passed physical SRAM and explicit flash tests.
+Power-cycle boot was already verified for the initial fixture; the
+new X_eTaL image's power-cycle semantic test is separately pending.
+Logs and per-stage reports are in work/board/probe. No host arithmetic
+implements the FPGA counter; host calculations only check responses.
+
+HEX1000's landed core synthesizes here to about 2256 LUTs and 379
+flip-flops, comfortably within Nano 9K resources before board glue.
+The next integration is the agreed UART key/display adapter; timing
+of the complete design and real calculator sequences remain to test.

@@ -118,3 +118,19 @@ every byte value, passed afterward without any bitstream load.
 This proves the fixture boots from flash after power loss. The SD
 card was not used. Raw evidence is in work/board/first-flash.log and
 work/board/power-cycle.json; the durable result is recorded here.
+
+
+## Emitted X_eTaL hardware
+
+The next image replaces the hand-written fixture with emitted counter
+and UART cores: `just board-probe-build`, `just board-probe-test`,
+and explicit `just board-probe-flash`. All 512 evaluator-derived
+counter responses and 255 echo bytes pass on the connected board.
+A ? queries the counter; other bytes echo. Each received byte advances
+it. Reset before UART-only tests so the counter starts at 120.
+
+The startup, synchronization and registered TX pin are board glue.
+Counter and UART behavior come from X_eTaL library functions and
+checked hand-lowered twins. [Proof source and recording](../examples/README.md).
+HEX1000's core has landed and fits the 9K's resource budget; the
+calculator's R15 key handshake and digit-strobe UART adapter are next.

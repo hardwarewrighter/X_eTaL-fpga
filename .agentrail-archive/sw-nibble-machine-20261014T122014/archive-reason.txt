@@ -1,0 +1,1 @@
+Mac main f7d1e87, including completed machine RTL, preserved during Linux board evaluation. Main software lane continues independently.

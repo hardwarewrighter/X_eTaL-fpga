@@ -1,0 +1,1 @@
+Record a real Nano 9K HEX1000 UART session using VHS, produce MP4 and GIF for demo/blog, verify known calculations against reference and document commands/artifacts. Coordinate site assets/publication with Mac; do not label software or simulation footage as hardware.

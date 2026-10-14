@@ -404,6 +404,29 @@ l:t_ypeOn := { rom (st, digits, keys, n) ->
   (t, d, ph = 3, took)
 }
 
+## rom r_ecord (st, keys, n): t_ype's first n instructions as the
+## circuit sees them at its ports: per instruction, the K value given,
+## and O and the R latches after it, (ks, os, rs) (rs a row per
+## instruction). n is t_ype's count for the keys, so nothing is idle.
+## >> "hx:" u_se< "Hex1000"
+## >> (ks, os, rs) := hx:CalcRom hx:r_ecord (hx:Reset, 0 r_eshape 0, 3)
+## >> ks
+## 0 0 0
+l:r_ecord := { rom (st, keys, n) ->
+  start := ((st, 8 r_eshape 0, l:l_atches st, 0, 1, 0), 0 r_eshape 0, 0 r_eshape 0, 0 16 r_eshape 0)
+  (v, ks, os, rs) := n '{ (v, ks, os, rs) -> h:r_ec (rom, keys, v, ks, os, rs) } p_ower start
+  (ks, os, rs)
+}
+
+## One recorded instruction: t_ick, and what crossed the ports.
+h:r_ec := { (rom, keys, (t, digits, r, ph, i, took), ks, os, rs) ->
+  c := (i s_elect keys c_at 0) * ph = 1
+  k := (ph = 1) * l:m_atrix (c, r)
+  v1 := (rom, keys) h:t_ick (t, digits, r, ph, i, took)
+  (t1, d1, r1, ph1, i1, took1) := v1
+  (v1, ks c_at k, os c_at f_irst (n_eg 1) t_ake l:r_egs t1, rs c_at r1)
+}
+
 ## One instruction of t_ype: phase 0 waits for R15, 1 holds key i, 3
 ## is done.
 h:t_ick := { (rom, keys) (t, digits, r, ph, i, took) ->

@@ -1,0 +1,6 @@
+# counter.xtl hand-lowered: the harness supplies 512 enables for checking.
+%e = stream i8 1
+%s = state i8 120
+%t = map add %s %e
+next %s %t
+trace %s

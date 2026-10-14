@@ -3,6 +3,7 @@
   "family": "GW1N-9C",
   "loader": "tangnano9k",
   "clock_mhz": 27,
+  "uart_baud": 115200,
   "ports": {
     "clk": {"pin": 52, "direction": "input"},
     "rst_n": {"pin": 3, "direction": "input"},

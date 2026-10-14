@@ -1,0 +1,4 @@
+## Counter: 512 enabled ticks of Clocked's 8-bit counter, including wrap
+## The board test compares each query byte with this evaluator trace.
+"ck:" u_se< "Clocked"
+120 'ck:t_ick ck:t_race 512 r_eshape 1
