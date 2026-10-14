@@ -11,9 +11,25 @@ default:
 test-board-flow:
     python3 scripts/test-board-flow.py
 
+# Test first-board discovery and serial I/O without a board (Linux)
+test-board-first:
+    python3 scripts/test-board-first.py
+
 # Build a Nano 9K toolchain fixture without touching hardware
 board-toolcheck: build
     bash scripts/board-toolcheck.sh
+
+# Build the first Nano 9K test fixture; no USB access or programming
+board-prepare:
+    python3 scripts/board-first.py prepare
+
+# Check Nano 9K USB permissions, JTAG detection and serial ports; read-only
+board-check *args:
+    python3 scripts/board-first.py check {{args}}
+
+# Load the prepared Nano 9K SRAM fixture and verify UART byte loopback
+board-test *args:
+    python3 scripts/board-first.py test {{args}}
 
 # Read the Nano 9K JTAG ID (no SRAM or flash write)
 board-detect board="tangnano9k": build

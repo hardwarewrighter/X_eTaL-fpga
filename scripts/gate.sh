@@ -15,6 +15,11 @@ cd "$root"
 "$root/scripts/check-xetal.sh"
 "$root/scripts/selftest-libs.sh"
 python3 "$root/scripts/test-board-flow.py"
+if [ "$(uname -s)" = Linux ]; then
+  python3 "$root/scripts/test-board-first.py"
+else
+  echo "board-first: SKIPPED Linux USB/serial setup tests on $(uname -s)"
+fi
 "$root/scripts/test-libs.sh"
 "$root/scripts/doctest-libs.sh"
 # The documentation site builds (into work/, so pages/ is left alone).
@@ -34,6 +39,6 @@ echo "fit: $(head -c 200 "$root/work/rtl/fit.txt" | grep -q SKIPPED && cat "$roo
 "$root/scripts/check-spelling.py" --self-test
 "$root/scripts/check-spelling.py"
 md=(README.md CHANGES.md docs/*.md)
-for f in libs/*/README.md libs/*/docs/README.md components/*/README.md; do [ -e "$f" ] && md+=("$f"); done
+for f in libs/*/README.md libs/*/docs/README.md components/*/README.md boards/*/README.md; do [ -e "$f" ] && md+=("$f"); done
 for f in "${md[@]}"; do sw-markdown-checker -f "$f" >/dev/null || { sw-markdown-checker -f "$f"; exit 1; }; done
 echo "gate: ok"

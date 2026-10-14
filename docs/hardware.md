@@ -201,3 +201,16 @@ flow on Linux. This is a toolchain check. Board-ready X_eTaL tops,
 physical blink/echo and calculator deployment remain pending. Mac
 owns the machine RTL; Linux owns board integration. No board has
 been detected or loaded yet.
+
+
+### First Nano 9K physical test (2026-10-14)
+
+USB permissions, JTAG identification, SRAM programming and a direct
+UART pin loopback are now verified on the attached 9K. Programming
+reported a successful CRC; 542 host bytes returned exactly at 115200
+baud. This fixture tests the board connection and tools independently
+of HEX1000. It does not prove a clocked UART receiver/transmitter or
+an X_eTaL program. The user confirmed LED blinking and the button pausing it while held.
+Power-cycle recovery remains unchecked. Neither FPGA flash nor the inserted SD card
+was used. Commands: `just board-prepare`, `just board-check`,
+`just board-test`; [first connection](../boards/tangnano9k/README.md).

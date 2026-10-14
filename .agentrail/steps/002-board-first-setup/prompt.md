@@ -1,0 +1,1 @@
+Prepare first-board Nano 9K diagnostics, permission setup instructions, fixture simulation/build, SRAM-only load and automated serial loopback with meaningful no-hardware tests. No board connected yet: report pending physical checks. Gate, commit and push Linux branch.

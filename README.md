@@ -288,3 +288,9 @@ Linux board tools now provide synth/pnr/pack/load/detect for Nano 9K
 with checked pin constraints and SRAM loading by default. See
 [board commands](boards/tangnano9k/README.md). A toolchain fixture
 builds to a bitstream; physical tests and X_eTaL board tops are pending.
+
+First Nano 9K hardware connection verified: JTAG identification,
+SRAM programming with CRC success and 542 exact UART loopback bytes.
+Use `just board-prepare`, `just board-check`, then `just board-test`;
+see [first connection](boards/tangnano9k/README.md). The fixture
+checks tools and pins; X_eTaL board blink/echo remains next.

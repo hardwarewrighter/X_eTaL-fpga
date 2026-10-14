@@ -63,3 +63,46 @@ explicitly program SRAM; power cycling restores the previous flash
 design. After physical checks pass, an explicit `load --flash` can
 verify persistent configuration. No flash write is part of the
 toolcheck recipe.
+
+## First connection on Linux
+
+```bash
+export PATH="/disk1/tmp/oss-cad-suite/bin:$PATH"  # this machine's installation
+just board-prepare                           # simulate and build; does not use USB
+just board-check                             # read-only JTAG detection and serial listing
+just board-test                              # load SRAM and compare UART bytes
+```
+
+The diagnostic selects one FT2232-compatible USB probe and the UART
+on interface B. With multiple probes, use `--busdev BUS:DEV`; an
+explicit `--port /dev/serial/by-id/...` must belong to that probe.
+Close terminals using that serial port before the automated test.
+It sends 542 bytes at 115200 8N1, including every possible byte value,
+with terminal echo and newline conversion disabled. It fails on
+missing, changed or extra bytes. Python's standard library handles
+serial I/O; no pyserial package is needed.
+
+Results are written to `work/board/first-board.json`: USB identity,
+JTAG/load output, serial port and exact-byte result.
+The last result for each stage is also saved as `first-board-test.json`,
+`first-board-check.json` or `first-board-prepare.json` so a later
+read-only check does not replace the test evidence. Observe the
+LED and button yourself; those checks are never marked passed by
+software. An inserted SD card is not used by the fixture.
+
+If USB access is denied, the Arch rule supplied here grants access
+to the existing uucp group:
+
+```bash
+sudo install -m 0644 boards/tangnano9k/70-xetal-tang9k.rules /etc/udev/rules.d/
+sudo udevadm control --reload-rules
+```
+
+Unplug and replug the board, then rerun `just board-check`. If your
+account is not in uucp, run `sudo usermod -aG uucp "$USER"` and log
+out and back in. The setup does not update debugger firmware or
+write FPGA flash. Persistent configuration is a later explicit test.
+
+First hardware run on 2026-10-14 passed JTAG identification, SRAM
+load/CRC and all 542 UART bytes. The user confirmed LED blinking
+and the button pausing it while held. Power-cycle recovery is unchecked.

@@ -1,0 +1,2 @@
+# Nano 9K debugger in FT2232-compatible mode; Arch serial group.
+SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ATTR{idVendor}=="0403", ATTR{idProduct}=="6010", MODE="0660", GROUP="uucp", TAG+="uaccess"

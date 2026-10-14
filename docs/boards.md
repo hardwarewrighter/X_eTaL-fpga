@@ -84,3 +84,13 @@ The user deferred 1K sizing and selected Nano 9K bring-up first for
 onboard USB programming and UART. The Linux toolchain has built a
 counter fixture to a bitstream; physical testing is pending. Board
 configuration and commands are in [Nano 9K](../boards/tangnano9k/README.md).
+
+
+The first connected 9K now passes JTAG detection (0x0100481b), SRAM
+loading with CRC success and an exact 542-byte USB-UART loopback at
+115200 baud. The user installed the supplied USB rule. The SD card
+is not used by this fixture; flash configuration is unchanged.
+
+The user also confirmed LED blinking and the button pausing it while
+held. This verifies clock/LED/reset alongside the programming and UART
+checks. Power-cycle recovery remains unchecked.

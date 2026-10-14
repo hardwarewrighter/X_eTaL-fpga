@@ -267,3 +267,11 @@ The branch-local archive of the inherited sw saga is an incomplete
 copy, not completion of Mac's live software lane. During integration,
 preserve main's live sw saga and merge the board history into its
 archive; never replace the software cursor with the board cursor.
+
+
+Board-first-setup was inserted before X_eTaL blink/echo at the user's
+request. The fixture is simulated before synthesis; Linux USB probe
+selection and raw serial handling have six no-hardware tests. The
+attached Nano 9K now passes JTAG, SRAM load/CRC and 542-byte UART
+loopback after the user installed the USB rule. The user confirmed LED blinking and button reset. Power-cycle
+recovery is unchecked; X_eTaL tops remain next.

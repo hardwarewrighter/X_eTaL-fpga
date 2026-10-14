@@ -1,6 +1,6 @@
-number = 2
+number = 3
 slug = "board-blink-echo"
-status = "pending"
+status = "in-progress"
 description = "Create board tops for X_eTaL blink and clocked UART echo without modifying Ma..."
 role = "production"
 context_files = []

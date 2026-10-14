@@ -182,5 +182,28 @@ See [Nano 9K commands](../boards/tangnano9k/README.md). Board tops
 for X_eTaL blink and UART echo are the next hardware deliverable.
 
 USB scan succeeds outside the execution sandbox but finds no FPGA
-programmer. The account is not yet in uucp. Serial group membership
-and board-specific udev access must be checked when the 9K is attached.
+programmer. The initial sandbox reported incomplete group membership; outside
+the sandbox, the account is already in uucp. Board-specific USB
+access still needs the rule below.
+
+
+## First attached Nano 9K (2026-10-14)
+
+The user connected a Nano 9K with an SD card inserted. The debugger
+appears as 0403:6010, SIPEED JTAG Debugger, with interface A and B
+serial ports. Existing uaccess rules did not grant this session USB
+write access. The user installed boards/tangnano9k/70-xetal-tang9k.rules
+and reloaded/triggered udev; the current uucp membership was sufficient.
+
+`just board-check` reads ID 0x0100481b, Gowin GW1N(R)-9C. The first
+`just board-test` loaded the simulated fixture into SRAM with a
+successful CRC and returned exactly 542 bytes at 115200 8N1 on the
+interface-B UART, /dev/ttyUSB1. Every possible byte value was tested.
+Flash and the SD card were not used. The user confirmed LED blinking and the button pausing it while held.
+Power-cycle recovery remains unchecked.
+
+`just board-prepare` simulates and builds the fixture. `just board-check`
+is read-only. `just board-test` selects a matching USB probe, loads
+SRAM, matches its UART and checks exact bytes with local echo disabled.
+Diagnostics are saved to work/board/first-board.json. No pyserial or
+other Python dependency is needed.

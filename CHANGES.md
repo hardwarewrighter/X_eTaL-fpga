@@ -12,6 +12,9 @@ complete, saga archive).
 
 ## 2026-10-14
 
+- 11:27 `build` First Nano 9K setup/test: simulate fixture clock/reset/LED/UART before building; board-prepare/check/test recipes, USB probe selection, interface-B UART, raw exact-byte test and JSON report; supplied Arch USB rule. Six no-hardware tests cover FPGA identity, discovery, serial corruption, timeout/local echo and restored settings. User installed the rule; attached 9K passes JTAG ID 0x0100481b, SRAM load with CRC success and 542 bytes at 115200 8N1. No flash or SD access; user confirms LED blink and button reset; power-cycle recovery unchecked.
+- 11:27 `chore` Record first-board setup completion and retain X_eTaL blink/echo as the next board step.
+
 - 10:48 `chore` Record completion of board-flow-tools; queue X_eTaL board blink and echo. Branch is published for review; hardware validation remains pending.
 - 10:44 `build` Board lane: CLI synth/pnr/pack/load/detect through an embedded Python wrapper, guarded Nano 9K constraints and synthesized port directions; SRAM default and explicit flash. Seven tests cover pin guards, failures and load modes; just board-toolcheck reproducibly builds an LED counter and direct UART loopback without loading it. OSS CAD Suite counter fixture passes synthesis, placement/routing and packing; physical testing pending. Archive the inherited software saga copy to isolate board work; preserve main software cursor at integration.
 - 10:08 `chore` Record the shared parallel handoff completion in dc2d9ce; Mac can continue live-demo from main.
