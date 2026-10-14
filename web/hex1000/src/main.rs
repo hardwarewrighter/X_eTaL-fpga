@@ -47,7 +47,19 @@ impl Write for Out {
     }
 }
 
+/// Instrumentation (logged to the console per key): the engine's
+/// slices, the time inside it, and the wall time since the key.
+#[derive(Default)]
+struct Stats {
+    label: String,
+    slices: usize,
+    engine_ms: f64,
+    since: f64,
+    frames: usize,
+}
+
 struct App {
+    stats: Stats,
     run: Option<Interactive>,
     out: Out,
     keys: VecDeque<String>,
@@ -76,20 +88,32 @@ impl App {
     fn tick(&mut self) {
         let Some(run) = self.run.as_mut() else { return };
         let start = js_sys::Date::now();
+        self.stats.frames += 1;
         while js_sys::Date::now() - start < FRAME_MS {
             if self.waiting {
                 match self.keys.pop_front() {
                     Some(k) => {
+                        self.stats = Stats { label: k.clone(), since: js_sys::Date::now(), ..Stats::default() };
                         run.feed(k);
                         self.waiting = false;
                     }
                     None => break,
                 }
             }
-            match run.step(SLICE) {
+            let t = js_sys::Date::now();
+            let step = run.step(SLICE);
+            self.stats.engine_ms += js_sys::Date::now() - t;
+            self.stats.slices += 1;
+            match step {
                 Step::Running => {}
                 Step::WaitingKey | Step::Waiting | Step::WaitingEvent => {
                     self.waiting = true;
+                    let s = &self.stats;
+                    let wall = js_sys::Date::now() - s.since;
+                    web_sys::console::log_1(&format!(
+                        "hex1000: key {}: {} slices (about {} transitions), engine {:.0} ms, wall {:.0} ms over {} frames, {:.0} transitions/ms",
+                        s.label, s.slices, s.slices * SLICE, s.engine_ms, wall, s.frames, (s.slices * SLICE) as f64 / s.engine_ms.max(1.0)
+                    ).into());
                 }
                 Step::Done(r) => {
                     self.done = true;
@@ -120,6 +144,7 @@ fn main() {
         keys: VecDeque::new(),
         waiting: false,
         done: false,
+        stats: Stats { label: "reset".into(), since: js_sys::Date::now(), ..Stats::default() },
     }));
     match Interactive::start(PROGRAM, 1, Box::new(out)) {
         Ok(run) => app.borrow_mut().run = Some(run),
