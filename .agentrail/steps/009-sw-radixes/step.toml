@@ -1,5 +1,5 @@
 number = 9
-slug = "radixes"
+slug = "sw-radixes"
 status = "pending"
 description = "Octal and decimal: a radix mode (a key or a RAM word), the digit adjust in th..."
 role = "production"

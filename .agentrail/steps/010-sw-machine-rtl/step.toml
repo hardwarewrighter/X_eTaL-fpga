@@ -1,5 +1,5 @@
 number = 10
-slug = "machine-rtl"
+slug = "sw-machine-rtl"
 status = "pending"
 description = "The machine as a circuit: s_tep hand-lowered to XIR (registers, the RAM as a ..."
 role = "production"

@@ -1,5 +1,5 @@
 number = 1
-slug = "isa"
+slug = "sw-isa"
 status = "completed"
 description = "docs/machine.md: the 4-bit machine's architecture, proposed then decided with..."
 role = "production"

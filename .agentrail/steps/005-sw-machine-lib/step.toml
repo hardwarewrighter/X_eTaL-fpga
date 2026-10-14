@@ -1,5 +1,5 @@
 number = 5
-slug = "machine-lib"
+slug = "sw-machine-lib"
 status = "completed"
 description = "The machine in X_eTaL, as decided in docs/machine.md: the state vector (regis..."
 role = "production"

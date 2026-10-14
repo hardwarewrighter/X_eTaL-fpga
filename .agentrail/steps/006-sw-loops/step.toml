@@ -1,5 +1,5 @@
 number = 6
-slug = "loops"
+slug = "sw-loops"
 status = "completed"
 description = "No recursion in the run harnesses (the user asked why recursion was needed; i..."
 role = "production"

@@ -1,5 +1,5 @@
 number = 2
-slug = "radix-lib"
+slug = "sw-radix-lib"
 status = "completed"
 description = "The reference for the calculator: a pure X_eTaL library of digit-serial arith..."
 role = "production"

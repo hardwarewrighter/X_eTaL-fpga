@@ -1,5 +1,5 @@
 number = 4
-slug = "verilog-tools"
+slug = "sw-verilog-tools"
 status = "completed"
 description = "The Verilog tools are installed on the Mac (brew: icarus-verilog, verilator, ..."
 role = "production"

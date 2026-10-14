@@ -105,6 +105,25 @@ parallelism?").
 | `n s_elect table`, a lookup | `lookup %t %i` | a `case` ROM or `$readmemh` | 2 |
 | `x '+ '* i_nner w`, `nr:d_ense` (an i8 dense layer, X0) | `matvec` | MAC lanes, weights in a ROM, an accumulator | 4 |
 
+## Parallel lanes (from 2026-10-14)
+
+Two agents work this repository at once, as CLAUDE.md's "Working a
+branch in parallel" describes: each lane's saga and step directories
+carry its prefix, so `.agentrail/` merges without collisions.
+
+| Lane | Where | Owns | Saga |
+| ---- | ----- | ---- | ---- |
+| `sw` | the Mac, on `main` | the X_eTaL libraries (`libs/`), the software HEX1000 and its live demo, the site (`scripts/*pages*`, `landing.py`), the IR and emitter (`components/xir`, `components/rtl`): the circuit of the machine | `sw-nibble-machine`: live-demo, radixes, machine-rtl |
+| `board` | the Arch Linux machine with the boards, on a `board/...` branch merged to `main` | the open FPGA flow on real boards: `xetal-fpga synth`, `pnr`, `pack`, `load` (`components/cli`), constraints files per board, `scripts/board-*.sh`, `docs/linux-nvidia.md`, `docs/boards.md`, the board half of `docs/hardware.md`; blink, the UART echo, the pinned circuits placed and routed | `board-fpga-board` (saga 4: flow, cell-sim, machine-board, round-trip, lanes-board) |
+
+Shared files take a line each, never a rewrite: `CHANGES.md` (both
+lanes add lines; a merge keeps both), `README.md` (each lane edits its
+own section), this plan (each lane its own saga's section). A change
+one lane needs in the other's files is asked for in its commit message
+or a note here, not made. When the board lane needs the machine's
+circuit (machine-board), it takes it from `main` once machine-rtl has
+landed. Each lane pulls (rebasing its own commits) before it pushes.
+
 ## Roadmap
 
 Implementable work first (the hardware side, against hand-lowered

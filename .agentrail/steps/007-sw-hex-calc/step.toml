@@ -1,5 +1,5 @@
 number = 7
-slug = "hex-calc"
+slug = "sw-hex-calc"
 status = "completed"
 description = "The calculator program for the machine, hexadecimal: key scan, digit entry, t..."
 role = "production"
