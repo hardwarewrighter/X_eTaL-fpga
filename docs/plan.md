@@ -250,3 +250,7 @@ RCA CDP1802 (COSMAC) and the IBM 1130, each larger and more complex
 than the 4-bit machine, on the Tang Nano 9K or 20K, the Tang Primer
 25K or another Tang Primer, whichever is the smallest that holds it.
 Planned after the 4-bit machine has run on a board.
+
+Linux acknowledgment: [parallel work](parallel-work.md) records file
+ownership and integration. Start hardware bring-up on Nano 9K; defer
+Nano 1K sizing. Linux owns board flow; Mac owns memory cells and machine RTL.

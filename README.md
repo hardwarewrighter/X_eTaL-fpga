@@ -279,3 +279,7 @@ Copyright (c) 2026 Michael A Wright
 ## License
 
 MIT. See [`LICENSE`](LICENSE) and [`COPYRIGHT`](COPYRIGHT).
+
+Hardware bring-up starts on the Nano 9K with onboard USB-JTAG and
+USB-UART; Nano 1K sizing comes later. Development ownership is in
+[parallel work](docs/parallel-work.md).
