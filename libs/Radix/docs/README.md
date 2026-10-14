@@ -54,7 +54,7 @@ itself one `0`.
 | `rx:k_eys text` | `Char -> Int` | the key codes of a text (spaces skipped, other characters 21) |
 | `rx:KeyPlus`, `rx:KeyMinus`, `rx:KeyTimes`, `rx:KeyEquals`, `rx:KeyClear` | `Int` | the codes 16 to 20 |
 | `rx:Reset` | `Int` | the state at power on: accumulator, entry, pending operation, phase, display, all 0 |
-| `r rx:a_lu ops` | `Int -> Int -> Int` | the operation `ops[1]` (1 +, 2 -, 3 *) of `ops[2]` and `ops[3]`, wrapped (the operands as one vector) |
+| `r rx:a_lu ops` | `Int -> Int -> Int` | the operation `ops[1]` (1 +, 2 -, 3 *) of `ops[2]` and `ops[3]`, wrapped (the operands as one vector); a product is formed in two halves, so FFFFFFFF times FFFFFFFF does not overflow a 64-bit Int |
 | `r rx:k_ey s k` | `Int -> Int -> Int -> Int` | the state after one key: the calculator's step |
 | `rx:d_isplay s` | `a -> a` | the number displayed |
 | `r rx:s_creen s` | `Int -> Int -> Char` | the display as eight characters |

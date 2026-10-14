@@ -81,6 +81,13 @@ program with `error[panic]` and the line.
 | `p hx:l_isting rom` | `Int -> Int -> Char` | page `p` in the order it runs, to its last instruction: PC, code, instruction |
 | `names hx:t_able m` | `Char -> Int -> Char` | rows of numbers (or one vector) under column names, five characters a column |
 | `hx:RegNames` | `Char` | `A Y X S PC PA PB SR CL O`, `hx:r_egs`'s columns |
+| `hx:Calc` | `Char` | the calculator program's source, `rom/calc.asm` |
+| `hx:CalcRom` | `Int` | the calculator program assembled |
+| `hx:m_atrix (c, r)` | | the K inputs with key `c` held and latches `r`: column `c / 4` selected by R8 to R13, row `c mod 4` a K bit |
+| `rom hx:t_ype (st, keys, n)` | | the machine typed at as a terminal would (each key held from R15 up to R15 down), the display latched from O on R0 to R7 rising: (state, digit latches, done, instructions) |
+| `hx:s_creen digits` | `Int -> Char` | latched digits as text, blank where O's bit 4 was clear |
+| `hx:c_alc text` | `Char -> Char` | the screen after typing a text at the calculator from reset: the machine's `16 rx:c_alc text` |
+| `hx:c_ost text` | `Char -> Int` | the instructions that took |
 
 `just types Hex1000` prints the full types; `tests/types.rgt` pins them. The run harness
 loops with `p_ower` over a tuple state; nothing recurses.
@@ -104,24 +111,43 @@ loops with `p_ower` over a tuple state; nothing recurses.
    3  128  BR 0
 ```
 
+## The calculator
+
+The ROM program [`rom/calc.asm`](../rom/calc.asm) makes HEX1000 an
+eight-digit hexadecimal calculator that behaves as the Radix library,
+key for key; how it works, its RAM, its pages and its cost are in
+[`calc.md`](calc.md).
+
+```
+      hx:c_alc "C0DE+BEEF="
+   17FCD
+```
+
 ## Tests and demos
 
 - [`tests/instructions.xtl`](../tests/instructions.xtl): every
   instruction against its definition (58 checks).
 - [`tests/programs.xtl`](../tests/programs.xtl): a counter, two digits
   added with the carry, keys scanned.
+- [`tests/calc.xtl`](../tests/calc.xtl): the calculator against
+  Radix on 33 key sequences (every hexadecimal one of Radix's tests and
+  more: borrows through all eight digits, FFFFFFFF times FFFFFFFF,
+  operators in a row, ignored keys).
 - [`tests/errors.xtl`](../tests/errors.xtl): the assembler stopping at
   a mistake.
 - [`demos/counter.xtl`](../demos/counter.xtl): the machine counting on
   its outputs: its listing, then every register under a header,
   after reset and after each instruction.
+- [`demos/calc.xtl`](../demos/calc.xtl): calculations typed at the
+  machine, their screens and costs.
+- [`demos/listing.xtl`](../demos/listing.xtl): the calculator's ROM,
+  page by page.
 - [`demos/keys.xtl`](../demos/keys.xtl): keys read from K and stored:
   the listing, the presses, the registers and RAM at the end.
 
 ## Not yet
 
-The calculator program (hexadecimal, then octal and decimal), the key
-matrix it reads through the R latches, and the circuit.
+Octal and decimal (a radix mode in the program), and the circuit.
 
 ## Provenance
 

@@ -88,8 +88,10 @@ TMS1000 (our own design, hexadecimal first), sized for a Tang Nano
 1K; its architecture is decided ([`docs/machine.md`](docs/machine.md)),
 its calculator's specification written (the Radix library), and the
 machine itself runs in X_eTaL (the Hex1000 library: every
-instruction, an assembler, programs traced). Next: the calculator
-program in its ROM, then a HEX1000 to try interactively.
+instruction, an assembler, programs traced) and calculates: its ROM
+program, in its own instructions, gives Radix's screen for every key
+sequence tested, typed through the machine's ports alone. Next: a
+HEX1000 to try interactively.
 See
 [`docs/plan.md`](docs/plan.md) for the roadmap and the architecture
 decisions.
@@ -182,6 +184,8 @@ just explain libs/Uart/demos/loopback.xir          # the same as a circuit: fift
 just demo-lib Radix session                        # the hexadecimal screens HEX1000 must show
 just demo-lib Hex1000 counter                      # HEX1000 counting on its outputs, every register traced
 just demo-lib Hex1000 keys                         # HEX1000 reading keys and storing them in RAM
+just demo-lib Hex1000 calc                         # HEX1000 calculating: screens, and instructions taken
+just demo-lib Hex1000 listing                      # its calculator program, page by page in the ROM
 ```
 
 ## Libraries and examples

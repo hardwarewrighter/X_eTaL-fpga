@@ -112,7 +112,17 @@ l:a_lu := { r ops ->
   op := f_irst ops
   a := 2 s_elect ops
   b := 3 s_elect ops
-  r l:w_rap '+ r_/ (op = 1 2 3) * (a + b) c_at (a - b) c_at a * b
+  r l:w_rap '+ r_/ (op = 1 2 3) * (a + b) c_at (a - b) c_at r h:t_imes a c_at b
+}
+
+## r t_imes a b: a * b wrapped, without overflow: b split at r^4, so no
+## partial product reaches r^12 (FFFFFFFF * FFFFFFFF itself is past a
+## 64-bit Int).
+h:t_imes := { r ab ->
+  a := f_irst ab
+  b := f_irst 1 d_rop ab
+  half := r ^ 4
+  r l:w_rap (half * r l:w_rap a * b d_iv half) + a * b m_od half
 }
 
 ## The pending operation settled: the accumulator after it takes the

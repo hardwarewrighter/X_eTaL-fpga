@@ -14,6 +14,7 @@
 ## two clocks. The run harness and the assembler are the testbench's,
 ## never lowered.
 "s:" u_se< "Strings"
+"rx:" u_se< "Radix"
 
 ### The program counter
 
@@ -311,7 +312,8 @@ h:l_abel := { lines (i, page, slot, names, places) ->
   ws := h:w_ords d_isclose i s_elect lines
   rest := h:r_est ws
   named := 0 + h:l_abel? ws
-  nn := names c_at named t_ake 1 r_eshape e_nclose (n_eg 1) d_rop d_isclose f_irst (0 < t_ally ws) r_eplicate ws c_at e_nclose " "
+  name := (n_eg 1) d_rop d_isclose f_irst ws c_at e_nclose " "
+  nn := names c_at named t_ake 1 r_eshape e_nclose name
   np := places c_at named t_ake 1 r_eshape slot + 64 * page
   0 = t_ally rest ? (i + 1, page, slot, nn, np)
   "PAGE" m_atch d_isclose f_irst rest ? (i + 1, h:n_umber 1 d_rop rest, 0, nn, np)
@@ -350,3 +352,103 @@ h:o_perand := { (names, places) (where, kind, ws) ->
 
 ## A decimal number, the first word.
 h:n_umber := { ws -> 10 d_ecode ([]D i_ndexOf d_isclose f_irst ws) - 1 }
+
+### The calculator
+
+## Calc: the calculator program's source (rom/calc.asm): an
+## eight-digit hexadecimal calculator, Radix's behavior key for key.
+## >> "hx:" u_se< "Hex1000"
+## >> 5 t_ake hx:Calc
+## ; HEX
+l:Calc := @ i_nclude< "../rom/calc.asm"
+
+## CalcRom: the calculator program assembled, 1024 bytes.
+## >> "hx:" u_se< "Hex1000"
+## >> hx:d_isasm 4 s_elect hx:CalcRom
+## CALL 0
+l:CalcRom := l:a_ssemble l:Calc
+
+## m_atrix (c, r): the K inputs the keyboard gives with key c held
+## and the latches r: the keys are a matrix of 6 columns, selected by
+## R8 to R13, of 4 rows, one K bit each; key c is in column c / 4 and
+## row c mod 4 (the codes are Radix's, rx:k_eys).
+## >> "hx:" u_se< "Hex1000"
+## >> hx:m_atrix (18, (12 r_eshape 0) c_at 1 0 0 0)
+## 4
+l:m_atrix := { (c, r) -> ((9 + c d_iv 4) s_elect r) * 2 ^ c m_od 4 }
+
+## rom t_ype (st, keys, n): the machine typed at, as a terminal does:
+## each key is held from when R15 says the program is ready until it
+## says busy, and the display latches each digit's O when its latch
+## R0 to R7 rises. Gives (the state, the eight digit latches, digit 0
+## first, whether every key was taken and the program is ready again,
+## the instructions it took) after at most n instructions; once done
+## it stops.
+## >> "hx:" u_se< "Hex1000"
+## >> (st, digits, done, took) := hx:CalcRom hx:t_ype (hx:Reset, 1 2, 2000)
+## >> hx:s_creen r_ev digits
+##       12
+l:t_ype := { rom (st, keys, n) ->
+  start := (st, 8 r_eshape 0, l:l_atches st, 0, 1, 0)
+  (t, digits, r, ph, i, took) := n '{ v -> (rom, keys) h:t_ick v } p_ower start
+  (t, digits, ph = 3, took)
+}
+
+## One instruction of t_ype: phase 0 waits for R15, 1 holds key i, 3
+## is done.
+h:t_ick := { (rom, keys) (t, digits, r, ph, i, took) ->
+  ph = 3 ? (t, digits, r, ph, i, took)
+  c := (i s_elect keys c_at 0) * ph = 1
+  k := (ph = 1) * l:m_atrix (c, r)
+  t1 := (rom l:s_tep t)_ k
+  r1 := l:l_atches t1
+  rose := (8 t_ake r1) > 8 t_ake r
+  o := f_irst (n_eg 1) t_ake l:r_egs t1
+  d1 := digits + rose * o - digits
+  ready := 1 = 16 s_elect r1
+  (ph = 0) & ready ? (t1, d1, r1, 1 + 2 * i > t_ally keys, i, took + 1)
+  (ph = 1) & n_ot ready ? (t1, d1, r1, 0, i + 1, took + 1)
+  (t1, d1, r1, ph, i, took + 1)
+}
+
+## s_creen digits: latched digits as text, in the order given (the
+## display's is digit 7 first: hx:s_creen r_ev digits); a digit latched
+## with O's bit 4 clear is blank.
+## >> "hx:" u_se< "Hex1000"
+## >> hx:s_creen 0 0 0 0 0 31 17 2
+##      F1 
+l:s_creen := { d -> (1 + (d >= 16) * 1 + d m_od 16) s_elect " " c_at []D c_at 6 t_ake []A }
+
+## c_alc text: the screen after the keys of a text such as "12+34=",
+## typed from reset at HEX1000 running CalcRom: the machine's answer to
+## Radix's 16 rx:c_alc text. Characters that are not keys are skipped.
+## The run is given 2000 instructions and 1500 a key, and 12000 more
+## for each *; it stops with an error if the program is not ready
+## again by then.
+## >> "hx:" u_se< "Hex1000"
+## >> hx:c_alc "12+34="
+##       46
+
+## c_ost text: how many instructions the calculator takes for the keys
+## of a text, from reset until it is ready after the last key (at
+## 13.5 million instructions a second on a board, two clocks each at
+## 27 MHz).
+## >> "hx:" u_se< "Hex1000"
+## >> hx:c_ost "12+34="
+## 1752
+l:c_alc := { text ->
+  codes := rx:k_eys text
+  keys := (codes < 21) r_eplicate codes
+  n := 2000 + (1500 * t_ally keys) + 12000 * '+ r_/ text = f_irst "*"
+  (st, digits, done, took) := l:CalcRom l:t_ype (l:Reset, keys, n)
+  n_ot done ? []P_ANIC "hx:c_alc: the program did not finish " c_at text c_at " in " c_at f_ormat n
+  l:s_creen r_ev digits
+}
+
+l:c_ost := { text ->
+  codes := rx:k_eys text
+  keys := (codes < 21) r_eplicate codes
+  n := 2000 + (1500 * t_ally keys) + 12000 * '+ r_/ text = f_irst "*"
+  (st, digits, done, took) := l:CalcRom l:t_ype (l:Reset, keys, n)
+  took
+}

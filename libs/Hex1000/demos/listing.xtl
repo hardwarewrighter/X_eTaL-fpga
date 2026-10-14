@@ -1,0 +1,16 @@
+#!/usr/bin/env xetal
+# The calculator's ROM, page by page, in the order each page runs:
+# every instruction's PC (its address in the page), its code and the
+# instruction (BR and CALL show the PC they go to, in the page LDP set
+# before them). The source, with labels and comments, is rom/calc.asm;
+# the pages are: 0 reset, the key scan and what kind of key; 1 a digit;
+# 2 an operator or =; 3 multiply and clear; 4 to 6 the subroutines.
+# Run with "just demo-lib Hex1000 listing".
+"hx:" u_se< "Hex1000"
+0 hx:l_isting hx:CalcRom
+1 hx:l_isting hx:CalcRom
+2 hx:l_isting hx:CalcRom
+3 hx:l_isting hx:CalcRom
+4 hx:l_isting hx:CalcRom
+5 hx:l_isting hx:CalcRom
+6 hx:l_isting hx:CalcRom

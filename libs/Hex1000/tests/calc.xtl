@@ -1,0 +1,45 @@
+#!/usr/bin/env xetal
+# Hex1000: the calculator program (rom/calc.asm) running on the machine
+# against the specification, key sequence by key sequence: the screen
+# HEX1000 shows after typing a text from reset (hx:c_alc) must be the
+# Radix library's (16 rx:c_alc). "ok" per sequence. Run with
+# "just run-lib Hex1000 calc".
+"hx:" u_se< "Hex1000"
+"rx:" u_se< "Radix"
+"k:" u_se< "Check"
+u:s_ame := { text -> text k:t_est (16 rx:c_alc text) k:i_s hx:c_alc text }
+k:r_eport (
+  (u:s_ame "")
+  k:a_nd (u:s_ame "0")
+  k:a_nd (u:s_ame "7")
+  k:a_nd (u:s_ame "12+34=")
+  k:a_nd (u:s_ame "FF+1=")
+  k:a_nd (u:s_ame "A*B=")
+  k:a_nd (u:s_ame "C0DE+BEEF=")
+  k:a_nd (u:s_ame "5-7=")
+  k:a_nd (u:s_ame "0-1=")
+  k:a_nd (u:s_ame "1-1=")
+  k:a_nd (u:s_ame "100-1=")
+  k:a_nd (u:s_ame "12345678-87654321=")
+  k:a_nd (u:s_ame "FFFFFFFF+1=")
+  k:a_nd (u:s_ame "10000*10000=")
+  k:a_nd (u:s_ame "FFFFFFFF*FFFFFFFF=")
+  k:a_nd (u:s_ame "ABCDEF01*2=")
+  k:a_nd (u:s_ame "2*3+4=")
+  k:a_nd (u:s_ame "7-3*2=")
+  k:a_nd (u:s_ame "123456789")
+  k:a_nd (u:s_ame "12345678+1")
+  k:a_nd (u:s_ame "12+34=+1=")
+  k:a_nd (u:s_ame "12+34=5+1=")
+  k:a_nd (u:s_ame "12+X34=")
+  k:a_nd (u:s_ame "12=")
+  k:a_nd (u:s_ame "=")
+  k:a_nd (u:s_ame "+")
+  k:a_nd (u:s_ame "5++3=")
+  k:a_nd (u:s_ame "5+-3=")
+  k:a_nd (u:s_ame "3*=")
+  k:a_nd (u:s_ame "1=2=")
+  k:a_nd (u:s_ame "X")
+  k:a_nd (u:s_ame "00012")
+  k:a_nd (u:s_ame "2 + 2 = ? 1")
+)

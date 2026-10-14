@@ -1,0 +1,18 @@
+#!/usr/bin/env xetal
+# HEX1000 as a calculator: each line types a key sequence from reset at
+# the machine running its ROM program (rom/calc.asm) and shows the
+# eight-digit screen it ends with, then how many instructions it took
+# (a board runs 13.5 million a second). The screens are the Radix
+# library's, key for key (just demo-lib Radix session; tests/calc.xtl
+# checks 33 sequences). Run with "just demo-lib Hex1000 calc".
+"hx:" u_se< "Hex1000"
+hx:c_alc "12+34="
+hx:c_alc "FF+1="
+hx:c_alc "A*B="
+hx:c_alc "C0DE+BEEF="
+hx:c_alc "5-7="
+hx:c_alc "FFFFFFFF+1="
+hx:c_alc "2*3+4="
+hx:c_alc "FFFFFFFF*FFFFFFFF="
+hx:c_ost "12+34="
+hx:c_ost "FFFFFFFF*FFFFFFFF="

@@ -1,6 +1,6 @@
 number = 7
 slug = "hex-calc"
-status = "pending"
+status = "in-progress"
 description = "The calculator program for the machine, hexadecimal: key scan, digit entry, t..."
 role = "production"
 context_files = []

@@ -1,0 +1,2 @@
+command = "../../../scripts/xt run calc.xtl"
+exit_code = 0

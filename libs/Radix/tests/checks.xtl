@@ -11,6 +11,8 @@ k:r_eport (
   k:a_nd ("hex wraps: FFFFFFFF + 1 = 0" k:t_est "       0" k:i_s 16 rx:c_alc "FFFFFFFF+1=")
   k:a_nd ("hex below zero: 5 - 7 = FFFFFFFE" k:t_est "FFFFFFFE" k:i_s 16 rx:c_alc "5-7=")
   k:a_nd ("hex multiply wraps: 10000 * 10000 = 0" k:t_est "       0" k:i_s 16 rx:c_alc "10000*10000=")
+  k:a_nd ("hex multiply past 64 bits: FFFFFFFF * FFFFFFFF = 1" k:t_est "       1" k:i_s 16 rx:c_alc "FFFFFFFF*FFFFFFFF=")
+  k:a_nd ("decimal 99999999 * 99999999 = 1" k:t_est "       1" k:i_s 10 rx:c_alc "99999999*99999999=")
   k:a_nd ("hex chained left to right: 2 * 3 + 4 = A" k:t_est "       A" k:i_s 16 rx:c_alc "2*3+4=")
   k:a_nd ("a ninth digit is ignored" k:t_est "12345678" k:i_s 16 rx:c_alc "123456789")
   k:a_nd ("octal 7 + 1 = 10" k:t_est "      10" k:i_s 8 rx:c_alc "7+1=")

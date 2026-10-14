@@ -1,0 +1,335 @@
+  PC code  instruction
+   0   45  LDX 1
+   1   52  LDP 4
+   3  192  CALL 0
+   7   72  TCY 8
+  15   23  SETR
+  31   21  KNEZ
+  63  150  BR 22
+  62   24  RSTR
+  61   15  IYC
+  59  110  YNEC 14
+  55  143  BR 15
+  47   79  TCY 15
+  30   23  SETR
+  60   72  TCY 8
+  57   23  SETR
+  51   21  KNEZ
+  39  152  BR 24
+  14   24  RSTR
+  29   15  IYC
+  58  110  YNEC 14
+  53  185  BR 57
+  43  188  BR 60
+  22   24  RSTR
+  44  135  BR 7
+  24   22  TKA
+  48   24  RSTR
+  33   47  LDX 3
+   2    4  TAM
+   5    2  TYA
+  11   64  TCY 0
+  23    4  TAM
+  46   79  TCY 15
+  28   24  RSTR
+  56   64  TCY 0
+  49    6  TMY
+  35    3  CLA
+   6   40  TBIT 0
+  13  164  BR 36
+  27   14  IA
+  54   41  TBIT 1
+  45  164  BR 36
+  26   14  IA
+  52   42  TBIT 2
+  41  164  BR 36
+  18   14  IA
+  36  108  YNEC 12
+   8  132  BR 4
+  17   50  LDP 2
+  34  128  BR 0
+   4  109  YNEC 13
+   9  178  BR 50
+  19  127  ACC 15
+  38  135  BR 7
+  12   51  LDP 3
+  25  156  BR 28
+  50  104  YNEC 8
+  37  170  BR 42
+  10   49  LDP 1
+  21  128  BR 0
+  42  116  ACC 4
+  20   16  DYN
+  40  178  BR 50
+  PC code  instruction
+   0   47  LDX 3
+   1   67  TCY 3
+   3    4  TAM
+   7   66  TCY 2
+  15    5  TMA
+  31  126  ACC 14
+  63  185  BR 57
+  62    5  TMA
+  61  127  ACC 15
+  59  152  BR 24
+  55   45  LDX 1
+  47   52  LDP 4
+  30  248  CALL 56
+  60  133  BR 5
+  57   44  LDX 0
+  51   52  LDP 4
+  39  248  CALL 56
+  14   45  LDX 1
+  29   52  LDP 4
+  58  248  CALL 56
+  53   47  LDX 3
+  43   65  TCY 1
+  22   80  TCMIY 0
+  44  133  BR 5
+  24   45  LDX 1
+  48   71  TCY 7
+  33   19  MNEZ
+   2  164  BR 36
+   5   45  LDX 1
+  11   52  LDP 4
+  23  236  CALL 44
+  46   47  LDX 3
+  28   67  TCY 3
+  56    5  TMA
+  49   45  LDX 1
+  35   64  TCY 0
+   6    4  TAM
+  13   47  LDX 3
+  27   66  TCY 2
+  54   81  TCMIY 1
+  45   45  LDX 1
+  26   52  LDP 4
+  52  192  CALL 0
+  41   48  LDP 0
+  18  135  BR 7
+  36   48  LDP 0
+   8  135  BR 7
+  PC code  instruction
+   0   47  LDX 3
+   1   68  TCY 4
+   3    4  TAM
+   7   66  TCY 2
+  15    5  TMA
+  31  126  ACC 14
+  63  151  BR 23
+  62    5  TMA
+  61  127  ACC 15
+  59  175  BR 47
+  55  151  BR 23
+  47   65  TCY 1
+  30    5  TMA
+  60  127  ACC 15
+  57  157  BR 29
+  51   54  LDP 6
+  39  192  CALL 0
+  14  151  BR 23
+  29  127  ACC 15
+  58  172  BR 44
+  53   53  LDP 5
+  43  192  CALL 0
+  22  151  BR 23
+  44  127  ACC 15
+  24  133  BR 5
+  48   53  LDP 5
+  33  194  CALL 2
+   2  151  BR 23
+   5   51  LDP 3
+  11  128  BR 0
+  23   47  LDX 3
+  46   68  TCY 4
+  28    5  TMA
+  56  125  ACC 13
+  49  180  BR 52
+  35    5  TMA
+   6   14  IA
+  13   65  TCY 1
+  27    4  TAM
+  54   66  TCY 2
+  45   80  TCMIY 0
+  26  164  BR 36
+  52   65  TCY 1
+  41   80  TCMIY 0
+  18   82  TCMIY 2
+  36   45  LDX 1
+   8   52  LDP 4
+  17  248  CALL 56
+  34   44  LDX 0
+   4   52  LDP 4
+   9  192  CALL 0
+  19   48  LDP 0
+  38  135  BR 7
+  PC code  instruction
+   0   54  LDP 6
+   1  253  CALL 61
+   3   54  LDP 6
+   7  231  CALL 39
+  15   44  LDX 0
+  31   52  LDP 4
+  63  248  CALL 56
+  62   47  LDX 3
+  61   69  TCY 5
+  59   87  TCMIY 7
+  55   44  LDX 0
+  47   52  LDP 4
+  30  236  CALL 44
+  60   47  LDX 3
+  57   69  TCY 5
+  51    6  TMY
+  39   46  LDX 2
+  14   19  MNEZ
+  29  130  BR 2
+  58   47  LDX 3
+  53   69  TCY 5
+  43   13  DMAN
+  22  176  BR 48
+  44   50  LDP 2
+  24  151  BR 23
+  48    4  TAM
+  33  183  BR 55
+   2   13  DMAN
+   5    4  TAM
+  11   53  LDP 5
+  23  192  CALL 0
+  46  188  BR 60
+  28   44  LDX 0
+  56   52  LDP 4
+  49  248  CALL 56
+  35   45  LDX 1
+   6   52  LDP 4
+  13  248  CALL 56
+  27   47  LDX 3
+  54   65  TCY 1
+  45   80  TCMIY 0
+  26   80  TCMIY 0
+  52   45  LDX 1
+  41   52  LDP 4
+  18  192  CALL 0
+  36   48  LDP 0
+   8  135  BR 7
+  PC code  instruction
+   0   71  TCY 7
+   1    5  TMA
+   3   19  MNEZ
+   7  167  BR 39
+  15   96  YNEC 0
+  31  183  BR 55
+  63   25  TDO
+  62   23  SETR
+  61   24  RSTR
+  59   28  RETN
+  55   19  MNEZ
+  47   25  TDO
+  30   23  SETR
+  60   24  RSTR
+  57   16  DYN
+  51  129  BR 1
+  39    5  TMA
+  14   25  TDO
+  29   23  SETR
+  58   24  RSTR
+  53   16  DYN
+  43  167  BR 39
+  22   28  RETN
+  44   70  TCY 6
+  24    5  TMA
+  48   15  IYC
+  33    4  TAM
+   2   16  DYN
+   5   16  DYN
+  11  152  BR 24
+  23   64  TCY 0
+  46   80  TCMIY 0
+  28   28  RETN
+  56   64  TCY 0
+  49   80  TCMIY 0
+  35  104  YNEC 8
+   6  177  BR 49
+  13   28  RETN
+  PC code  instruction
+   0   64  TCY 0
+   1   45  LDX 1
+   3    5  TMA
+   7   44  LDX 0
+  15   10  AMAAC
+  31  183  BR 55
+  63    7  TAMIY
+  62  104  YNEC 8
+  61  129  BR 1
+  59   28  RETN
+  55    7  TAMIY
+  47  104  YNEC 8
+  30  185  BR 57
+  60   28  RETN
+  57   45  LDX 1
+  51    5  TMA
+  39   44  LDX 0
+  14   10  AMAAC
+  29  176  BR 48
+  58  113  ACC 1
+  53  183  BR 55
+  43    7  TAMIY
+  22  104  YNEC 8
+  44  129  BR 1
+  24   28  RETN
+  48   14  IA
+  33  183  BR 55
+   2   64  TCY 0
+   5   45  LDX 1
+  11    5  TMA
+  23   44  LDX 0
+  46   11  SAMAN
+  28  141  BR 13
+  56    7  TAMIY
+  49  104  YNEC 8
+  35  154  BR 26
+   6   28  RETN
+  13    7  TAMIY
+  27  104  YNEC 8
+  54  133  BR 5
+  45   28  RETN
+  26   45  LDX 1
+  52    5  TMA
+  41   44  LDX 0
+  18   11  SAMAN
+  36  147  BR 19
+   8  127  ACC 15
+  17    7  TAMIY
+  34  104  YNEC 8
+   4  154  BR 26
+   9   28  RETN
+  19  127  ACC 15
+  38  141  BR 13
+  12    7  TAMIY
+  25  104  YNEC 8
+  50  154  BR 26
+  37   28  RETN
+  PC code  instruction
+   0   64  TCY 0
+   1   45  LDX 1
+   3    5  TMA
+   7   44  LDX 0
+  15    7  TAMIY
+  31  104  YNEC 8
+  63  129  BR 1
+  62   28  RETN
+  61   64  TCY 0
+  59   45  LDX 1
+  55    5  TMA
+  47   46  LDX 2
+  30    7  TAMIY
+  60  104  YNEC 8
+  57  187  BR 59
+  51   28  RETN
+  39   64  TCY 0
+  14   44  LDX 0
+  29    5  TMA
+  58   45  LDX 1
+  53    7  TAMIY
+  43  104  YNEC 8
+  22  142  BR 14
+  44   28  RETN

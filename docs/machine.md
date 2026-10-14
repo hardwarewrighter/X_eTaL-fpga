@@ -196,14 +196,15 @@ the TMS1000 where it was known and are ours otherwise:
   subroutine changes where `RETN` goes).
 - **O.** `TDO` puts A in O's low four bits and S, as it was before
   `TDO`, in bit 4.
-- **Keys (open, for step hex-calc).** K is 4 bits and K 0 means no
-  key, so a key cannot have the code 0, and 15 codes are too few for
-  the calculator's 21 keys. The TMS1000's answer is a key matrix:
-  the program sets one R latch to select a column of keys and reads
-  which row's K bit is set (`KNEZ`, `TKA`); 6 columns of 4 rows hold
-  21 keys. Recommended: the same, with the terminal's glue presenting
-  a typed character as the matrix would (the harness models the
-  matrix from the R latches). Decided in step hex-calc.
+- **Keys and display (decided with the user, 2026-10-14).** K 0
+  means no key and 4 bits are 15 codes for 21 keys, so the keyboard is
+  a matrix, as the TMS1000's: R8 to R13 select a column of keys, and
+  the key with code c (Radix's codes) drives K's bit c mod 4 while
+  column c / 4 is selected. R0 to R7 strobe the display: digit p takes
+  O when R p rises, O's bit 4 set shows the digit, clear blanks it.
+  R15 is 1 while the program waits for a key: the handshake a
+  terminal's glue (or the test harness) uses to type the next key.
+  The calculator program and its protocol: `libs/Hex1000/docs/calc.md`.
 
 ## Decided with the user (2026-10-07)
 
