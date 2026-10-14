@@ -18,9 +18,10 @@ on the left, one clock's input on the right, the next state out. That
 function is what becomes hardware: registers for the state, the
 function as the logic between them. The harness, `ck:r_un` and
 `ck:t_race`, applies it once per input, as a clock would; it is the
-testbench, never lowered. It recurses, because X_eTaL has no left fold
-yet (ask F5 in [`docs/xetal-asks.md`](../../../docs/xetal-asks.md));
-with one, `s0 'step ck:r_un xs` becomes a built-in fold. Numbers are
+testbench, never lowered. It is a loop, `p_ower` over a tuple of the
+clock count and the state, because X_eTaL has no left fold yet (ask F5
+in [`docs/xetal-asks.md`](../../../docs/xetal-asks.md)); with one,
+`s0 'step ck:r_un xs` becomes a built-in fold. Numbers are
 8-bit two's complement ([Fixed](../../Fixed/docs/README.md)).
 
 ## Functions

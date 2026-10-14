@@ -58,7 +58,7 @@ itself one `0`.
 | `r rx:k_ey s k` | `Int -> Int -> Int -> Int` | the state after one key: the calculator's step |
 | `rx:d_isplay s` | `a -> a` | the number displayed |
 | `r rx:s_creen s` | `Int -> Int -> Char` | the display as eight characters |
-| `r rx:r_un keys` | `Int -> Int -> Int` | the state after the keys, from Reset (the harness; recursive, ask F5) |
+| `r rx:r_un keys` | `Int -> Int -> Int` | the state after the keys, from Reset (the harness, a loop over the keys) |
 | `r rx:c_alc text` | `Int -> Char -> Char` | the screen after the keys of a text, from Reset |
 
 ## Examples

@@ -1,16 +1,17 @@
 #!/usr/bin/env xetal
 # HEX1000 reading keys: a program that waits for a key on K, stores it
 # in the next RAM word, and waits for the key to be released. The keys
-# C, A, F, E are pressed in turn (each held for 8 instructions, with 9
-# instructions of no key between), and RAM file 0 holds 12 10 15 14.
-# K 0 means no key, so a key whose code is 0 cannot be read this way;
-# the calculator's keyboard is a matrix scanned through the R latches
-# (docs/machine.md, Keys).
+# C, A, F, E (K 12, 10, 15, 14) are pressed in turn, each held for 8
+# instructions with 9 instructions of no key (K 0) between, and RAM
+# file 0 ends up holding 12 10 15 14. K 0 means no key, so a key whose
+# code is 0 cannot be read this way; the calculator's keyboard is a
+# matrix scanned through the R latches (docs/machine.md, Keys).
 # Run with "just demo-lib Hex1000 keys".
 "hx:" u_se< "Hex1000"
-scan := hx:a_ssemble "wait: KNEZ\nBR got\nBR wait\ngot: TKA\nTAMIY\nup: KNEZ\nBR up\nBR wait"
+scan := hx:a_ssemble "wait: KNEZ   ; S: a key is down\nBR got\nBR wait\ngot: TKA    ; the key into A\nTAMIY        ; into RAM, Y + 1\nup: KNEZ     ; wait for the release\nBR up\nBR wait"
+0 hx:l_isting scan
 presses := 8 2 r_eshape 12 8 0 9 10 8 0 9 15 8 0 9 14 8 0 9
-presses
+"K held" hx:t_able presses
 after := scan hx:r_unKeys (hx:Reset, presses)
-hx:r_egs after
-8 t_ake f_irst hx:r_am after
+hx:RegNames hx:t_able hx:r_egs after
+"w0 w1 w2 w3 w4 w5 w6 w7" hx:t_able 8 t_ake f_irst hx:r_am after

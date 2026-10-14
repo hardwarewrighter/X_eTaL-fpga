@@ -1,1 +1,1 @@
-error[panic]: line 2: unknown instruction FOO at ../src/Hex1000.xtl:278:28
+error[panic]: line 2: unknown instruction FOO at ../src/Hex1000.xtl:330:28

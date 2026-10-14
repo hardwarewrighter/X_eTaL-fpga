@@ -220,6 +220,58 @@ h:n_ext := { (rom, t, m, k) ->
   (t1, m c_at l:r_egs t1)
 }
 
+### Showing it
+
+## RegNames: the names of r_egs's columns, for t_able.
+## >> "hx:" u_se< "Hex1000"
+## >> hx:RegNames
+## A Y X S PC PA PB SR CL O
+l:RegNames := "A Y X S PC PA PB SR CL O"
+
+## names t_able m: the rows of a matrix of numbers (or one vector) as
+## text under column names, each column five characters wide.
+## >> "hx:" u_se< "Hex1000"
+## >> "K held" hx:t_able 2 2 r_eshape 12 8 0 9
+##     K held
+##    12    8
+##     0    9
+l:t_able := { names m ->
+  rows := h:m_atrix m
+  ws := s:w_ords names
+  head := '{ j -> 5 s:p_adLeft d_isclose j s_elect ws } h:j_oin t_ally ws
+  head c_at '{ i -> "\n" c_at h:r_ow i s_elect rows } h:j_oin t_ally rows
+}
+
+## A vector as a matrix of one row.
+h:m_atrix := { m ->
+  1 = t_ally s_hape m ? (1 c_at t_ally m) r_eshape m
+  m
+}
+
+## One row of numbers, five characters each.
+h:r_ow := { row -> '{ j -> 5 s:p_adLeft f_ormat j s_elect row } h:j_oin t_ally row }
+
+## 'f j_oin n: the texts f 1, f 2, ... f n, one after another (a loop).
+h:j_oin := { f_ n ->
+  (j, t) := n '{ (j, t) -> (j + 1, t c_at f_ j) } p_ower (1, "")
+  t
+}
+
+## p l_isting rom: page p of a ROM in the order it runs, up to its last
+## instruction that is not NOP: each instruction's PC, code and text.
+## >> "hx:" u_se< "Hex1000"
+## >> 0 hx:l_isting hx:a_ssemble "loop: TDO\nIA\nBR loop"
+##   PC code  instruction
+##    0   25  TDO
+##    1   14  IA
+##    3  128  BR 0
+l:l_isting := { p rom ->
+  codes := (1 + (64 * p) + l:Order) s_elect rom
+  n := 'm_ax r_/ (codes != 0) * 1 + o_ffsets 64
+  l_ine := { j -> "\n" c_at (4 s:p_adLeft f_ormat j s_elect l:Order) c_at (5 s:p_adLeft f_ormat j s_elect codes) c_at "  " c_at l:d_isasm j s_elect codes }
+  "  PC code  instruction" c_at 'l_ine h:j_oin n
+}
+
 ### The assembler
 
 ## a_ssemble text: the 1024-byte ROM of a program. A line is an

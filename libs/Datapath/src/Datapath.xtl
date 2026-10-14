@@ -57,18 +57,24 @@ l:k_eep := { m x -> x * m }
 
 ## w s_um x: the sum of a vector as a balanced tree of w-bit adders:
 ## the first half added to the second half, item by item, then that
-## vector likewise, down to one number (log2 n levels; an odd length
-## is padded with a 0). Wrapping at every adder gives the same bits as
-## wrapping the exact sum once (checked in tests/checks.xtl).
+## vector likewise, down to one number (a loop over the log2 n levels
+## of the tree; an odd length is padded with a 0). Wrapping at every
+## adder gives the same bits as wrapping the exact sum once (checked in
+## tests/checks.xtl).
 ## >> "dp:" u_se< "Datapath"
 ## >> 16 dp:s_um 20000 20000 20000 20000
 ## 14464
 l:s_um := { w x ->
-  n := t_ally x
-  n = 1 ? f_irst x
-  1 = n m_od 2 ? w l:s_um x c_at 0
-  h := n d_iv 2
-  w l:s_um w fx:w_rap (h t_ake x) + h d_rop x
+  levels := '+ r_/ (2 ^ o_ffsets 63) < t_ally x
+  f_irst levels '{ v -> w h:h_alve v } p_ower x
+}
+
+## One level of the tree: the first half added to the second (after a
+## 0 pads an odd length).
+h:h_alve := { w v ->
+  e := v c_at ((t_ally v) m_od 2) r_eshape 0
+  h := (t_ally e) d_iv 2
+  w fx:w_rap (h t_ake e) + h d_rop e
 }
 
 ## l_argest x: the largest item (a tree of comparators and muxes).

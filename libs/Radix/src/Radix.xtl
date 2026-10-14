@@ -171,15 +171,12 @@ l:c_alc := { r t ->
   r l:s_creen s
 }
 
-## r r_un keys: the state after every key, from Reset (the harness;
-## recursive, as Clocked's: ask F5).
+## r r_un keys: the state after every key, from Reset (the harness: a
+## loop over the keys, as Clocked's).
 ## >> "rx:" u_se< "Radix"
 ## >> 16 rx:r_un rx:k_eys "12+34="
 ## 70 0 0 2 70
-l:r_un := { r keys -> r h:r_unFrom l:Reset c_at keys }
-h:r_unFrom := { r sk ->
-  s := 5 t_ake sk
-  keys := 5 d_rop sk
-  0 = t_ally keys ? s
-  r h:r_unFrom ((r l:k_ey s)_ f_irst keys) c_at 1 d_rop keys
+l:r_un := { r keys ->
+  (n, s) := (t_ally keys) '{ (i, s) -> (i + 1, (r l:k_ey s)_ i s_elect keys) } p_ower (1, l:Reset)
+  s
 }

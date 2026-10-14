@@ -11,4 +11,7 @@ l:s_tep : (Num a, Truthy a) => Int -> (Int, Int, Int, Int, Int, Int, Int, Int, I
 l:r_un : (Num a, Truthy a) => Int -> ((Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, a, Int), Int, Int) -> (Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, a, Int)
 l:r_unKeys : (Num a, Truthy a) => Int -> ((Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, a, Int), Int) -> (Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, a, Int)
 l:t_race : (Num a, Truthy a) => Int -> ((Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, a, Int), Int, Int) -> Int
+l:RegNames : Char
+l:t_able : Char -> a -> Char
+l:l_isting : Int -> Int -> Char
 l:a_ssemble : Char -> Int

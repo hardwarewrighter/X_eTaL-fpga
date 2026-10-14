@@ -8,9 +8,9 @@
 ## on the left, one clock's input on the right, the next state out. That
 ## function is what becomes hardware: registers for the state, the
 ## function as the logic between them. The harness, r_un and t_race,
-## applies it once per input, as a clock would; it recurses because
-## X_eTaL has no left fold yet (ask F5), and it is the testbench, never
-## lowered. Numbers are 8-bit two's complement (Fixed).
+## applies it once per input, as a clock would: a loop, p_ower over a
+## tuple of the clock count and the state (X_eTaL has no left fold yet,
+## ask F5). It is the testbench, never lowered. Numbers are 8-bit two's complement (Fixed).
 "fx:" u_se< "Fixed"
 
 ### The harness: one input per clock
@@ -20,7 +20,10 @@
 ## >> "ck:" u_se< "Clocked"
 ## >> 0 'ck:a_ccumulate ck:r_un 1 2 3 4
 ## 10
-l:r_un := { f_ s xs -> 0 = t_ally xs ? s; (s f_ f_irst xs) 'f_ l:r_un 1 d_rop xs }
+l:r_un := { f_ s xs ->
+  (n, last) := (t_ally xs) '{ (i, t) -> (i + 1, t f_ i s_elect xs) } p_ower (1, s)
+  last
+}
 
 ## s0 'step t_race xs: every state from s0 on, one per row (a vector
 ## for a scalar state): what the registers hold after reset and after
@@ -32,8 +35,9 @@ l:r_un := { f_ s xs -> 0 = t_ally xs ? s; (s f_ f_irst xs) 'f_ l:r_un 1 d_rop xs
 ## 0 1 1
 ## 1 1 0
 l:t_race := { f_ s xs ->
-  0 = t_ally xs ? (1 c_at s_hape s) r_eshape s
-  s c_at (s f_ f_irst xs) 'f_ l:t_race 1 d_rop xs
+  first := (1 c_at s_hape s) r_eshape s
+  (n, last, rows) := (t_ally xs) '{ (i, t, m) -> t1 := t f_ i s_elect xs; (i + 1, t1, m c_at t1) } p_ower (1, s, first)
+  rows
 }
 
 ### Counters and accumulators

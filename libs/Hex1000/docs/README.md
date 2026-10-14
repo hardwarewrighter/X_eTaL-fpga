@@ -78,6 +78,9 @@ program with `error[panic]` and the line.
 | `rom hx:r_unKeys (st, ks)` | | the state after a run of presses, a row of `ks` each: K and how many instructions |
 | `rom hx:t_race (st, k, n)` | | `hx:r_egs` after reset and after each of `n` instructions, a row each |
 | `hx:a_ssemble text` | `Char -> Int` | the 1024-byte ROM of a program |
+| `p hx:l_isting rom` | `Int -> Int -> Char` | page `p` in the order it runs, to its last instruction: PC, code, instruction |
+| `names hx:t_able m` | `Char -> Int -> Char` | rows of numbers (or one vector) under column names, five characters a column |
+| `hx:RegNames` | `Char` | `A Y X S PC PA PB SR CL O`, `hx:r_egs`'s columns |
 
 `just types Hex1000` prints the full types; `tests/types.rgt` pins them. The run harness
 loops with `p_ower` over a tuple state; nothing recurses.
@@ -94,6 +97,11 @@ loops with `p_ower` over a tuple state; nothing recurses.
 0 3 0 1 1 0 0 0 0 0
 0 2 0 1 3 0 0 0 0 0
 0 2 0 1 1 0 0 0 0 0
+      0 hx:l_isting hx:a_ssemble "loop: TDO\nIA\nBR loop"
+  PC code  instruction
+   0   25  TDO
+   1   14  IA
+   3  128  BR 0
 ```
 
 ## Tests and demos
@@ -105,8 +113,10 @@ loops with `p_ower` over a tuple state; nothing recurses.
 - [`tests/errors.xtl`](../tests/errors.xtl): the assembler stopping at
   a mistake.
 - [`demos/counter.xtl`](../demos/counter.xtl): the machine counting on
-  its outputs, traced.
-- [`demos/keys.xtl`](../demos/keys.xtl): keys read from K and stored.
+  its outputs: its listing, then every register under a header,
+  after reset and after each instruction.
+- [`demos/keys.xtl`](../demos/keys.xtl): keys read from K and stored:
+  the listing, the presses, the registers and RAM at the end.
 
 ## Not yet
 
