@@ -14,6 +14,7 @@ root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$root"
 "$root/scripts/check-xetal.sh"
 "$root/scripts/selftest-libs.sh"
+python3 "$root/scripts/test-board-flow.py"
 "$root/scripts/test-libs.sh"
 "$root/scripts/doctest-libs.sh"
 # The documentation site builds (into work/, so pages/ is left alone).

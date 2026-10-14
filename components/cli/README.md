@@ -23,5 +23,10 @@ just build                                       # target/release/xetal-fpga
 just xir-run libs/Datapath/demos/vector-add.xir  # 11 22 33 44 0 0 -32768 -5536
 ```
 
-Later: `synth`, `pnr`, `pack` and `flash` over the open Gowin flow
-for Sipeed's Tang boards, one constraints file per board.
+`synth`, `pnr`, `pack`, `load` and `detect` now run the open Gowin
+tools through an embedded Python 3 wrapper. The first board is Nano
+9K; see [board commands](../../boards/tangnano9k/README.md). These
+commands require a board top with explicit clock/reset/peripheral
+ports and reviewed constraints. SRAM is the load default;
+`load --flash` writes persistent flash. Each command accepts
+`--help` and `--dry-run`. Tool errors fail the command.

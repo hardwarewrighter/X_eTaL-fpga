@@ -152,3 +152,35 @@ When the gate passes here and `--detect` finds a board, the board
 flow (saga fpga-board, step flow) can start: the `xetal-fpga synth`,
 `pnr`, `pack` and `load` wrappers, a constraints file per board, a
 blink, then the UART echo.
+
+## Linux validation (2026-10-14)
+
+The installed stable Rust was 1.88, which cannot compile the pinned
+X_eTaL's if-let guards. `rustup update stable` upgraded this machine
+to 1.99. No dependency pins or vendored source were changed.
+
+The OSS CAD Suite 20261014 linux-x64 archive is extracted at
+`/disk1/tmp/oss-cad-suite`. Activate it for this shell:
+
+```bash
+export PATH="/disk1/tmp/oss-cad-suite/bin:$PATH"
+```
+
+This path is local machine setup, not a portable repository default.
+Yosys reports 0.70+16 and openFPGALoader 1.1.1. A temporary 24-bit
+counter fixture passed synthesis, placement/routing and packing for
+Nano 9K. The tool family is `GW1N-9C`, although the FPGA device
+name starts with GW1NR. No board was connected and no bitstream
+was loaded. The fixture proves tool operation, not X_eTaL equivalence.
+
+The suite's nextpnr launcher writes font configuration under the
+user's home directory; running it in a filesystem sandbox can require
+permission to write there. The suite's Python packer reports missing
+optional acceleration modules; packing still succeeds.
+
+See [Nano 9K commands](../boards/tangnano9k/README.md). Board tops
+for X_eTaL blink and UART echo are the next hardware deliverable.
+
+USB scan succeeds outside the execution sandbox but finds no FPGA
+programmer. The account is not yet in uucp. Serial group membership
+and board-specific udev access must be checked when the 9K is attached.

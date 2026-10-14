@@ -1,0 +1,13 @@
+{
+  "device": "GW1NR-LV9QN88PC6/I5",
+  "family": "GW1N-9C",
+  "loader": "tangnano9k",
+  "clock_mhz": 27,
+  "ports": {
+    "clk": {"pin": 52, "direction": "input"},
+    "rst_n": {"pin": 3, "direction": "input"},
+    "uart_rx": {"pin": 18, "direction": "input"},
+    "uart_tx": {"pin": 17, "direction": "output"},
+    "led": {"pin": 10, "direction": "output"}
+  }
+}

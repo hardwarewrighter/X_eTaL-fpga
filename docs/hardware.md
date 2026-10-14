@@ -185,3 +185,19 @@ The Tang boards are hard to brick.
   loading by default, the JTAG-pin guard, blink and echo.
 - fpga-board, cell-sim: the cell-level simulator over Yosys's JSON.
 - fpga-board, bitstream round trip: unpack and simulate the `.fs`.
+
+## Nano 9K bring-up status (2026-10-14)
+
+The user selected Nano 9K for initial bring-up; 1K sizing is deferred.
+Its onboard USB debugger supplies programming and UART. The CLI now
+has `synth`, `pnr`, `pack`, `load` and read-only `detect`; see
+[board commands](../boards/tangnano9k/README.md). Commands validate
+constraints against approved pin assignments and the synthesized
+ports before place-and-route. The load default is SRAM; persistent
+flash requires `--flash`.
+
+A temporary Verilog counter passed the complete build-to-bitstream
+flow on Linux. This is a toolchain check. Board-ready X_eTaL tops,
+physical blink/echo and calculator deployment remain pending. Mac
+owns the machine RTL; Linux owns board integration. No board has
+been detected or loaded yet.

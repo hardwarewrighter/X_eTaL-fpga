@@ -254,3 +254,16 @@ Planned after the 4-bit machine has run on a board.
 Linux acknowledgment: [parallel work](parallel-work.md) records file
 ownership and integration. Start hardware bring-up on Nano 9K; defer
 Nano 1K sizing. Linux owns board flow; Mac owns memory cells and machine RTL.
+
+
+### Board lane progress (2026-10-14)
+
+`board/flow` owns CLI board tools and Nano 9K constraints. Commands
+synth/pnr/pack/load/detect are implemented with pin and port guards.
+The OSS CAD Suite built a counter fixture to a bitstream. Next:
+board adapters for X_eTaL blink/echo and physical SRAM tests; consume
+Mac's machine RTL when it lands. Hardware validation is pending.
+The branch-local archive of the inherited sw saga is an incomplete
+copy, not completion of Mac's live software lane. During integration,
+preserve main's live sw saga and merge the board history into its
+archive; never replace the software cursor with the board cursor.

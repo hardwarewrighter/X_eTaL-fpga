@@ -283,3 +283,8 @@ MIT. See [`LICENSE`](LICENSE) and [`COPYRIGHT`](COPYRIGHT).
 Hardware bring-up starts on the Nano 9K with onboard USB-JTAG and
 USB-UART; Nano 1K sizing comes later. Development ownership is in
 [parallel work](docs/parallel-work.md).
+
+Linux board tools now provide synth/pnr/pack/load/detect for Nano 9K
+with checked pin constraints and SRAM loading by default. See
+[board commands](boards/tangnano9k/README.md). A toolchain fixture
+builds to a bitstream; physical tests and X_eTaL board tops are pending.

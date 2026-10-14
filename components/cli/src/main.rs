@@ -18,7 +18,8 @@ use xetal_fpga_rtl::{explain, schedule, testbench, verilog};
 use xetal_fpga_xir::{check, parse, run};
 
 const USAGE: &str =
-    "usage: xetal-fpga check|run|netlist|verilog|testbench|sim|explain FILE.xir [--lanes N]";
+    "usage: xetal-fpga check|run|netlist|verilog|testbench|sim|explain FILE.xir [--lanes N]\n\
+     board: xetal-fpga synth|pnr|pack|load|detect [FILE] [--board NAME] [--help]";
 
 fn main() -> ExitCode {
     let args: Vec<String> = std::env::args().skip(1).collect();
@@ -32,6 +33,22 @@ fn main() -> ExitCode {
 }
 
 fn go(args: &[String]) -> Result<(), String> {
+    if matches!(
+        args.first().map(String::as_str),
+        Some("synth" | "pnr" | "pack" | "load" | "detect")
+    ) {
+        let status = std::process::Command::new("python3")
+            .arg("-c")
+            .arg(include_str!("../../../scripts/board-flow.py"))
+            .args(args)
+            .status()
+            .map_err(|e| format!("board flow requires python3: {e}"))?;
+        return if status.success() {
+            Ok(())
+        } else {
+            Err("board tool failed".to_string())
+        };
+    }
     if matches!(args.first().map(String::as_str), Some("--help" | "-h")) {
         println!("{USAGE}");
         return Ok(());

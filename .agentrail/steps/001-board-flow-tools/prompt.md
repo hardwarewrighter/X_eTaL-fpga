@@ -1,0 +1,1 @@
+Verify OSS CAD Suite on Linux; implement synth/pnr/pack/load board wrappers, Nano 9K configuration with guarded constraints, default SRAM loading, recipes and meaningful tests. Gate, commit, push branch; report disconnected board as pending validation.

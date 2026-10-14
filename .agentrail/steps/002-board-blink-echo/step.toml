@@ -1,0 +1,8 @@
+number = 2
+slug = "board-blink-echo"
+status = "pending"
+description = "Create board tops for X_eTaL blink and clocked UART echo without modifying Ma..."
+role = "production"
+context_files = []
+created_at = "2026-10-14T11:13:33"
+commits = []

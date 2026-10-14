@@ -1,0 +1,1 @@
+Create board tops for X_eTaL blink and clocked UART echo without modifying Mac-owned libraries/IR/emitter. Compare evaluator and simulated emitted core, build Nano 9K bitstreams, detect connected board and physically test SRAM behavior if attached; otherwise record physical validation pending. Coordinate external port needs with Mac.

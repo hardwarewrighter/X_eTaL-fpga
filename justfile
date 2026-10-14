@@ -7,6 +7,22 @@ set positional-arguments
 default:
     @just --list
 
+# Check the board pin guards and command behavior without hardware
+test-board-flow:
+    python3 scripts/test-board-flow.py
+
+# Build a Nano 9K toolchain fixture without touching hardware
+board-toolcheck: build
+    bash scripts/board-toolcheck.sh
+
+# Read the Nano 9K JTAG ID (no SRAM or flash write)
+board-detect board="tangnano9k": build
+    target/release/xetal-fpga detect --board "$1"
+
+# Board tools: just board-flow synth FILE.v --top NAME --cst FILE.cst --out FILE.json
+board-flow +args: build
+    target/release/xetal-fpga {{args}}
+
 # Get and build xetal at the known-good commit in XETAL_COMMIT (clone in work/xetal, binary bin/xetal)
 xetal:
     @scripts/xetal.sh

@@ -1,0 +1,8 @@
+number = 1
+slug = "board-flow-tools"
+status = "in-progress"
+description = "Verify OSS CAD Suite on Linux; implement synth/pnr/pack/load board wrappers, ..."
+role = "production"
+context_files = []
+created_at = "2026-10-14T10:09:55"
+commits = []

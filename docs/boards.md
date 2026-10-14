@@ -77,3 +77,10 @@ to it, with the result recorded in this page.
 - Sipeed, Tang Primer 25K: https://en.wiki.sipeed.com/hardware/en/tang/tang-primer-25k/primer-25k.html
 - CNX Software on the Tang Nano 9K, 20K and Primer 25K: https://www.cnx-software.com/2022/01/17/tang-nano-9k-fpga-board-can-emulate-picorv32-risc-v-soft-core-with-all-peripherals/, https://www.cnx-software.com/2024/01/03/sipeed-tang-primer-25k-board-23040-logic-cells-fpga-prototyping-development/
 - Project Apicula (supported boards; GW5A issues and releases): https://github.com/YosysHQ/apicula
+
+## Initial hardware target (2026-10-14)
+
+The user deferred 1K sizing and selected Nano 9K bring-up first for
+onboard USB programming and UART. The Linux toolchain has built a
+counter fixture to a bitstream; physical testing is pending. Board
+configuration and commands are in [Nano 9K](../boards/tangnano9k/README.md).

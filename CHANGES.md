@@ -12,6 +12,10 @@ complete, saga archive).
 
 ## 2026-10-14
 
+- 10:48 `chore` Record completion of board-flow-tools; queue X_eTaL board blink and echo. Branch is published for review; hardware validation remains pending.
+- 10:44 `build` Board lane: CLI synth/pnr/pack/load/detect through an embedded Python wrapper, guarded Nano 9K constraints and synthesized port directions; SRAM default and explicit flash. Seven tests cover pin guards, failures and load modes; just board-toolcheck reproducibly builds an LED counter and direct UART loopback without loading it. OSS CAD Suite counter fixture passes synthesis, placement/routing and packing; physical testing pending. Archive the inherited software saga copy to isolate board work; preserve main software cursor at integration.
+- 10:08 `chore` Record the shared parallel handoff completion in dc2d9ce; Mac can continue live-demo from main.
+
 - 10:00 `plan` Linux acknowledges the Mac sw/board lanes; documents file ownership, shared contracts and integration in docs/parallel-work.md. Initial hardware target is Nano 9K; 1K sizing deferred. Linux stable Rust updated from 1.88 to 1.99 to build the pinned evaluator.
 
 - 10:07 `plan` Two lanes from now on (asked by the user): `sw` on the Mac (libraries, the software HEX1000, the site, the IR and emitter; saga renamed `sw-nibble-machine`) and `board` on the Arch Linux machine (the open FPGA flow on real boards, saga 4 as `board-fpga-board` on a `board/...` branch); who owns which files, and how shared files are edited: docs/plan.md, Parallel lanes.
