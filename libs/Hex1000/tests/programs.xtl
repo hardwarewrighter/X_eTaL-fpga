@@ -1,0 +1,25 @@
+#!/usr/bin/env xetal
+# Hex1000: small programs, assembled and run from reset: a counter on
+# the outputs, two digits added with the carry, a key scanned and
+# stored. Run with "just run-lib Hex1000 programs".
+"hx:" u_se< "Hex1000"
+"k:" u_se< "Check"
+# A counter: TDO shows A on O, IA counts, BR loops (S is 1 after IA,
+# so the branch is always taken); O is A with S as its bit 4, and S
+# is 1 at TDO, so O counts 16, 17, 18. The registers A Y X S PC PA PB SR CL
+# O after reset and after each of 9 instructions.
+count := hx:a_ssemble "loop: TDO\nIA\nBR loop"
+count hx:t_race (hx:Reset, 0, 9)
+# Two digits added: 9 in file 0 and 8 in file 1, the sum into file 0,
+# least significant word first, with the carry into the next word:
+# 9 + 8 = 17 = hex 11.
+add := hx:a_ssemble "TCMIY 9\nLDX 1\nTCY 0\nTCMIY 8\nTCY 0\nTMA\nLDX 0\nAMAAC\nBR carry\nTAM\nBR done\ncarry: TAM\nIYC\nTCMIY 1\ndone: BR done"
+# Scanning a key: wait until K is not 0, then store it and wait again
+# for the key to be released.
+scan := hx:a_ssemble "wait: KNEZ\nBR got\nBR wait\ngot: TKA\nTAMIY\nup: KNEZ\nBR up\nBR wait"
+k:r_eport (
+  ("the counter's O after 9 instructions: A 2, and S 1 in bit 4" k:t_est 18 k:i_s f_irst (n_eg 1) t_ake hx:r_egs count hx:r_un (hx:Reset, 0, 9))
+  k:a_nd ("9 + 8 is hex 11" k:t_est 1 1 0 0 k:i_s 4 t_ake f_irst hx:r_am add hx:r_un (hx:Reset, 0, 20))
+  k:a_nd ("3 + 4 has no carry" k:t_est 7 0 0 0 k:i_s 4 t_ake f_irst hx:r_am (hx:a_ssemble "TCMIY 3\nLDX 1\nTCY 0\nTCMIY 4\nTCY 0\nTMA\nLDX 0\nAMAAC\nBR carry\nTAM\nBR done\ncarry: TAM\nIYC\nTCMIY 1\ndone: BR done") hx:r_un (hx:Reset, 0, 20))
+  k:a_nd ("two keys scanned, 12 then 5, with no key between" k:t_est 12 5 0 0 k:i_s 4 t_ake f_irst hx:r_am scan hx:r_unKeys (hx:Reset, 5 2 r_eshape 0 10 12 8 0 9 5 8 0 9))
+)

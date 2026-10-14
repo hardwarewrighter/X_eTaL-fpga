@@ -1,0 +1,15 @@
+0 0 0 1 0 0 0 0 0  0
+0 0 0 1 1 0 0 0 0 16
+1 0 0 1 3 0 0 0 0 16
+1 0 0 1 0 0 0 0 0 16
+1 0 0 1 1 0 0 0 0 17
+2 0 0 1 3 0 0 0 0 17
+2 0 0 1 0 0 0 0 0 17
+2 0 0 1 1 0 0 0 0 18
+3 0 0 1 3 0 0 0 0 18
+3 0 0 1 0 0 0 0 0 18
+ok: the counter's O after 9 instructions: A 2, and S 1 in bit 4
+ok: 9 + 8 is hex 11
+ok: 3 + 4 has no carry
+ok: two keys scanned, 12 then 5, with no key between
+4 checks, all passed

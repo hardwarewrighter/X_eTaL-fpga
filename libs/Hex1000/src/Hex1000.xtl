@@ -1,0 +1,300 @@
+## Hex1000: HEX1000, a 4-bit machine in the spirit of the TMS1000: its state, one instruction as a pure step, a run harness, an assembler
+## Import it with an alias of your choice: "hx:" u_se< "Hex1000".
+## Put libs/Hex1000/src on XETAL_PATH ("just path"); the reference is libs/Hex1000/docs.
+## Names with l: are exported; the others are private to this file.
+##
+## The machine is docs/machine.md's: a 4-bit accumulator A, a RAM
+## index Y, a RAM file X, a status flag S, a 6-bit program counter PC
+## that steps as a shift register, a page PA and a page buffer PB, one
+## return address SR with its call latch CL, the output register O, 16
+## output latches R and 64 words of RAM; the program is a ROM of 1024
+## bytes, 16 pages of 64. Its state is a tuple of those twelve parts
+## (docs/tuple-plan.md): in hardware a register per part, each its own
+## width. s_tep is one instruction, pure: what the circuit does in its
+## two clocks. The run harness and the assembler are the testbench's,
+## never lowered.
+"s:" u_se< "Strings"
+
+### The program counter
+
+## n_extPc pc: the address after pc, the shift register's rule: shifted
+## left, the new low bit the XNOR of the two top bits, inverted when
+## the low five bits are all 1 (so all 64 addresses are visited).
+## >> "hx:" u_se< "Hex1000"
+## >> hx:n_extPc 0 1 3 31 63 62
+## 1 3 7 63 62 61
+l:n_extPc := { pc ->
+  f := 1 - a_bs (pc d_iv 32) - (pc d_iv 16) m_od 2
+  (2 * pc m_od 32) + a_bs f - 31 = pc m_od 32
+}
+
+## Order: the 64 addresses in the order the program counter visits
+## them from 0. The assembler puts a page's n-th instruction at
+## address n s_elect Order, so a program is written in reading order.
+## >> "hx:" u_se< "Hex1000"
+## >> 12 t_ake hx:Order
+## 0 1 3 7 15 31 63 62 61 59 55 47
+l:Order := 63 '{ v -> v c_at l:n_extPc f_irst (n_eg 1) t_ake v } p_ower 1 r_eshape 0
+
+### The instructions
+
+## Names: the mnemonics, in the order of their kinds: the 29 fixed
+## instructions (code = kind), then the bit group, LDP, TCY, TCMIY,
+## YNEC, ACC, BR and CALL, which take an operand.
+## >> "hx:" u_se< "Hex1000"
+## >> t_ally hx:Names
+## 40
+l:Names := s:w_ords "NOP TAY TYA CLA TAM TMA TMY TAMIY TAMZA XMA AMAAC SAMAN IMAC DMAN IA IYC DYN CPAIZ ALEM MNEZ YNEA KNEZ TKA SETR RSTR TDO CLO COMX RETN SBIT RBIT TBIT LDX LDP TCY TCMIY YNEC ACC BR CALL"
+
+## Base: each kind's first code; an instruction's code is its base
+## plus its operand.
+Base := (o_ffsets 29) c_at 32 36 40 44 48 64 80 96 112 128 192
+
+## Top: each kind's largest operand (0: none).
+Top := (29 r_eshape 0) c_at 3 3 3 3 15 15 15 15 15 63 63
+
+## k_ind op: the kind of an instruction code, its place in Names from
+## 0 (the unused fixed codes 29 to 31 are NOP).
+## >> "hx:" u_se< "Hex1000"
+## >> hx:k_ind 0 1 28 31 32 47 48 127 128 255
+## 0 1 28 0 29 32 33 37 38 39
+l:k_ind := { op ->
+  fixed := op * op < 29
+  bits := (op >= 32) * (op < 48) * 29 + (op - 32) d_iv 4
+  imm := (op >= 48) * (op < 128) * 30 + op d_iv 16
+  jump := (op >= 128) * 38 + op >= 192
+  fixed + bits + imm + jump
+}
+
+## d_isasm op: an instruction code as text (BR and CALL show the
+## address they go to, as PC holds it).
+## >> "hx:" u_se< "Hex1000"
+## >> hx:d_isasm 113
+## ACC 1
+l:d_isasm := { op ->
+  i := l:k_ind op
+  name := d_isclose (1 + i) s_elect l:Names
+  0 = (1 + i) s_elect Top ? name
+  name c_at " " c_at f_ormat op - (1 + i) s_elect Base
+}
+
+### The state
+
+## Reset: the state after reset, the tuple (A, Y, X, S, PC, PA, PB, SR,
+## CL, O, R, RAM): everything 0 but S, which is 1.
+## >> "hx:" u_se< "Hex1000"
+## >> hx:r_egs hx:Reset
+## 0 0 0 1 0 0 0 0 0 0
+l:Reset := (0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 16 r_eshape 0, 64 r_eshape 0)
+
+## r_egs st: the registers as numbers, A Y X S PC PA PB SR CL O (the
+## view a trace shows).
+## >> "hx:" u_se< "Hex1000"
+## >> hx:r_egs (1, 2, 3, 0, 4, 5, 6, 7, 1, 8, 16 r_eshape 0, 64 r_eshape 0)
+## 1 2 3 0 4 5 6 7 1 8
+l:r_egs := { (a, y, x, s, pc, pa, pb, sr, cl, o, r, ram) ->
+  a c_at y c_at x c_at s c_at pc c_at pa c_at pb c_at sr c_at cl c_at o
+}
+
+## r_am st: the RAM as four files of 16 words, a row per file.
+## >> "hx:" u_se< "Hex1000"
+## >> s_hape hx:r_am hx:Reset
+## 4 16
+l:r_am := { (a, y, x, s, pc, pa, pb, sr, cl, o, r, ram) -> 4 16 r_eshape ram }
+
+## l_atches st: the 16 output latches R, R0 first.
+## >> "hx:" u_se< "Hex1000"
+## >> hx:l_atches hx:Reset
+## 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+l:l_atches := { (a, y, x, s, pc, pa, pb, sr, cl, o, r, ram) -> r }
+
+### One instruction
+
+## rom s_tep st k: the state after one instruction, with k (0 to 15)
+## on the K inputs: the instruction at 64 PA + PC is fetched and
+## executed (two clocks in the circuit). S goes back to 1 after every
+## instruction that does not set it; BR and CALL go when S is 1 and
+## otherwise only set S to 1. A word of RAM is 16 X + Y. Bind the ROM
+## once: u:s_tep := rom hx:s_tep, then st u:s_tep k.
+## >> "hx:" u_se< "Hex1000"
+## >> rom := hx:a_ssemble "TCY 9\nTYA\nIA"
+## >> hx:r_egs (rom hx:s_tep hx:Reset)_ 0
+## 0 9 0 1 1 0 0 0 0 0
+l:s_tep := { rom (a, y, x, s, pc, pa, pb, sr, cl, o, r, ram) k ->
+  op := (1 + pc + 64 * pa) s_elect rom
+  i := l:k_ind op
+  n := op m_od 16
+  at := y + 16 * x
+  m := (1 + at) s_elect ram
+  bit := 2 ^ op m_od 4
+  set := 1 = (m d_iv bit) m_od 2
+  go := op m_od 64
+  p1 := l:n_extPc pc
+  y1 := (y + 1) m_od 16
+  w_r := { v -> ram + (v - m) * at = o_ffsets 64 }
+  i = 1 ? (a, a, x, 1, p1, pa, pb, sr, cl, o, r, ram)                          # TAY
+  i = 2 ? (y, y, x, 1, p1, pa, pb, sr, cl, o, r, ram)                          # TYA
+  i = 3 ? (0, y, x, 1, p1, pa, pb, sr, cl, o, r, ram)                          # CLA
+  i = 4 ? (a, y, x, 1, p1, pa, pb, sr, cl, o, r, w_r a)                        # TAM
+  i = 5 ? (m, y, x, 1, p1, pa, pb, sr, cl, o, r, ram)                          # TMA
+  i = 6 ? (a, m, x, 1, p1, pa, pb, sr, cl, o, r, ram)                          # TMY
+  i = 7 ? (a, y1, x, 1, p1, pa, pb, sr, cl, o, r, w_r a)                       # TAMIY
+  i = 8 ? (0, y, x, 1, p1, pa, pb, sr, cl, o, r, w_r a)                        # TAMZA
+  i = 9 ? (m, y, x, 1, p1, pa, pb, sr, cl, o, r, w_r a)                        # XMA
+  i = 10 ? ((a + m) m_od 16, y, x, 0 + (a + m) > 15, p1, pa, pb, sr, cl, o, r, ram)   # AMAAC
+  i = 11 ? ((m - a) m_od 16, y, x, 0 + m >= a, p1, pa, pb, sr, cl, o, r, ram)       # SAMAN
+  i = 12 ? ((m + 1) m_od 16, y, x, 0 + m = 15, p1, pa, pb, sr, cl, o, r, ram)       # IMAC
+  i = 13 ? ((m - 1) m_od 16, y, x, 0 + m > 0, p1, pa, pb, sr, cl, o, r, ram)        # DMAN
+  i = 14 ? ((a + 1) m_od 16, y, x, 1, p1, pa, pb, sr, cl, o, r, ram)                # IA
+  i = 15 ? (a, y1, x, 0 + y = 15, p1, pa, pb, sr, cl, o, r, ram)                    # IYC
+  i = 16 ? (a, (y - 1) m_od 16, x, 0 + y > 0, p1, pa, pb, sr, cl, o, r, ram)        # DYN
+  i = 17 ? ((16 - a) m_od 16, y, x, 0 + a = 0, p1, pa, pb, sr, cl, o, r, ram)       # CPAIZ
+  i = 18 ? (a, y, x, 0 + a <= m, p1, pa, pb, sr, cl, o, r, ram)                # ALEM
+  i = 19 ? (a, y, x, 0 + m != 0, p1, pa, pb, sr, cl, o, r, ram)                # MNEZ
+  i = 20 ? (a, y, x, 0 + y != a, p1, pa, pb, sr, cl, o, r, ram)                # YNEA
+  i = 21 ? (a, y, x, 0 + k != 0, p1, pa, pb, sr, cl, o, r, ram)                # KNEZ
+  i = 22 ? (k, y, x, 1, p1, pa, pb, sr, cl, o, r, ram)                         # TKA
+  i = 23 ? (a, y, x, 1, p1, pa, pb, sr, cl, o, r m_ax 0 + y = o_ffsets 16, ram)    # SETR
+  i = 24 ? (a, y, x, 1, p1, pa, pb, sr, cl, o, r * y != o_ffsets 16, ram)      # RSTR
+  i = 25 ? (a, y, x, 1, p1, pa, pb, sr, cl, a + 16 * s, r, ram)                # TDO
+  i = 26 ? (a, y, x, 1, p1, pa, pb, sr, cl, 0, r, ram)                         # CLO
+  i = 27 ? (a, y, 3 - x, 1, p1, pa, pb, sr, cl, o, r, ram)                     # COMX
+  (i = 28) & cl = 1 ? (a, y, x, 1, sr, pb, pb, sr, 0, o, r, ram)               # RETN
+  i = 29 ? (a, y, x, 1, p1, pa, pb, sr, cl, o, r, w_r m + bit * n_ot set)     # SBIT
+  i = 30 ? (a, y, x, 1, p1, pa, pb, sr, cl, o, r, w_r m - bit * set)           # RBIT
+  i = 31 ? (a, y, x, 0 + set, p1, pa, pb, sr, cl, o, r, ram)                   # TBIT
+  i = 32 ? (a, y, op m_od 4, 1, p1, pa, pb, sr, cl, o, r, ram)                 # LDX
+  i = 33 ? (a, y, x, 1, p1, pa, n, sr, cl, o, r, ram)                          # LDP
+  i = 34 ? (a, n, x, 1, p1, pa, pb, sr, cl, o, r, ram)                         # TCY
+  i = 35 ? (a, y1, x, 1, p1, pa, pb, sr, cl, o, r, w_r n)                      # TCMIY
+  i = 36 ? (a, y, x, 0 + y != n, p1, pa, pb, sr, cl, o, r, ram)                # YNEC
+  i = 37 ? ((a + n) m_od 16, y, x, 0 + (a + n) > 15, p1, pa, pb, sr, cl, o, r, ram)   # ACC
+  (i = 38) & s = 1 ? (a, y, x, 1, go, pa + (1 - cl) * pb - pa, pb, sr, cl, o, r, ram)   # BR
+  (i = 39) & (s = 1) & cl = 0 ? (a, y, x, 1, go, pb, pa, p1, 1, o, r, ram)     # CALL
+  (i = 39) & s = 1 ? (a, y, x, 1, go, pa, pb, sr, cl, o, r, ram)               # CALL in a subroutine: a branch in the page
+  (a, y, x, 1, p1, pa, pb, sr, cl, o, r, ram)                                  # NOP, and BR or CALL with S 0
+}
+
+### Running a program
+
+## rom r_un (st, k, n): the state after n instructions with k held on
+## the K inputs.
+## >> "hx:" u_se< "Hex1000"
+## >> rom := hx:a_ssemble "loop: IA\nBR loop"
+## >> f_irst hx:r_egs rom hx:r_un (hx:Reset, 0, 9)
+## 5
+l:r_un := { rom (st, k, n) -> n '{ t -> (rom l:s_tep t)_ k } p_ower st }
+
+## rom r_unKeys (st, ks): the state after a run of key presses: ks is a
+## matrix with a row per press, the K value and how many instructions
+## it is held (K 0 for no key).
+## >> "hx:" u_se< "Hex1000"
+## >> rom := hx:a_ssemble "loop: TKA\nTAMIY\nBR loop"
+## >> 8 t_ake f_irst hx:r_am rom hx:r_unKeys (hx:Reset, 2 2 r_eshape 7 3 5 3)
+## 7 5 0 0 0 0 0 0
+l:r_unKeys := { rom (st, ks) ->
+  (i, last) := (t_ally ks) '{ (j, t) -> (j + 1, rom h:p_ress (t, j s_elect ks)) } p_ower (1, st)
+  last
+}
+
+## One press: a row of ks, the K value and how many instructions.
+h:p_ress := { rom (t, row) -> rom l:r_un (t, f_irst row, f_irst 1 d_rop row) }
+
+## rom t_race (st, k, n): the registers (r_egs) after reset and after
+## each of n instructions, a row each, with k on the K inputs.
+## >> "hx:" u_se< "Hex1000"
+## >> rom := hx:a_ssemble "TCY 3\nDYN\nBR 1"
+## >> rom hx:t_race (hx:Reset, 0, 3)
+## 0 0 0 1 0 0 0 0 0 0
+## 0 3 0 1 1 0 0 0 0 0
+## 0 2 0 1 3 0 0 0 0 0
+## 0 2 0 1 1 0 0 0 0 0
+l:t_race := { rom (st, k, n) ->
+  (last, rows) := n '{ (t, m) -> h:n_ext (rom, t, m, k) } p_ower (st, 1 10 r_eshape l:r_egs st)
+  rows
+}
+
+## One more instruction, its registers added as a row.
+h:n_ext := { (rom, t, m, k) ->
+  t1 := (rom l:s_tep t)_ k
+  (t1, m c_at l:r_egs t1)
+}
+
+### The assembler
+
+## a_ssemble text: the 1024-byte ROM of a program. A line is an
+## optional label ending in ":", then an instruction and its operand
+## (a number, or a label: BR and CALL go to it, LDP takes its page),
+## then an optional comment after ";". "PAGE n" starts page n (from 0);
+## a page's instructions are placed in the program counter's order
+## (Order), so they run in the order they are written. Unused bytes
+## are 0, NOP. A mistake stops the program with the line it is on.
+## >> "hx:" u_se< "Hex1000"
+## >> 8 t_ake hx:a_ssemble "CLA\nTCY 5\nloop: IA\nBR loop"
+## 3 69 0 14 0 0 0 131
+l:a_ssemble := { text ->
+  lines := s:l_ines text
+  n := t_ally lines
+  (i, page, slot, names, places) := n '{ t -> lines h:l_abel t } p_ower (1, 0, 0, 0 r_eshape e_nclose "", 0 r_eshape 0)
+  (j, pg, sl, addrs, codes) := n '{ t -> (lines, names, places) h:p_lace t } p_ower (1, 0, 0, 0 r_eshape 0, 0 r_eshape 0)
+  (addrs i_ndexOf o_ffsets 1024) s_elect codes c_at 0
+}
+
+## The words of a line, its comment dropped.
+h:w_ords := { t -> s:w_ords ('& s_\ t != f_irst ";") r_eplicate t }
+
+## Whether a line's first word is a label.
+h:l_abel? := { ws ->
+  0 = t_ally ws ? 0 = 1
+  (f_irst ":") = f_irst (n_eg 1) t_ake d_isclose f_irst ws
+}
+
+## Where the instruction words start, past a label.
+h:r_est := { ws -> (0 + h:l_abel? ws) d_rop ws }
+
+## The first pass, one line: a label's name and place (64 page +
+## slot) recorded; the slot advanced past an instruction; PAGE n starts
+## page n.
+h:l_abel := { lines (i, page, slot, names, places) ->
+  ws := h:w_ords d_isclose i s_elect lines
+  rest := h:r_est ws
+  named := 0 + h:l_abel? ws
+  nn := names c_at named t_ake 1 r_eshape e_nclose (n_eg 1) d_rop d_isclose f_irst (0 < t_ally ws) r_eplicate ws c_at e_nclose " "
+  np := places c_at named t_ake 1 r_eshape slot + 64 * page
+  0 = t_ally rest ? (i + 1, page, slot, nn, np)
+  "PAGE" m_atch d_isclose f_irst rest ? (i + 1, h:n_umber 1 d_rop rest, 0, nn, np)
+  (i + 1, page, slot + 1, nn, np)
+}
+
+## The second pass, one line: the instruction's address and code.
+h:p_lace := { (lines, names, places) (i, page, slot, addrs, codes) ->
+  rest := h:r_est h:w_ords d_isclose i s_elect lines
+  0 = t_ally rest ? (i + 1, page, slot, addrs, codes)
+  word := d_isclose f_irst rest
+  "PAGE" m_atch word ? (i + 1, h:n_umber 1 d_rop rest, 0, addrs, codes)
+  where := "line " c_at (f_ormat i) c_at ": "
+  slot > 63 ? []P_ANIC where c_at "page " c_at (f_ormat page) c_at " is full"
+  kind := (l:Names i_ndexOf e_nclose word) - 1
+  kind >= t_ally l:Names ? []P_ANIC where c_at "unknown instruction " c_at word
+  v := (names, places) h:o_perand (where, kind, 1 d_rop rest)
+  (v < 0) | v > (1 + kind) s_elect Top ? []P_ANIC where c_at "operand out of range for " c_at word
+  addr := (64 * page) + (1 + slot) s_elect l:Order
+  (i + 1, page, slot + 1, addrs c_at addr, codes c_at v + (1 + kind) s_elect Base)
+}
+
+## An operand: a number, or a label (BR and CALL: its address as PC
+## holds it; LDP: its page); none is 0.
+h:o_perand := { (names, places) (where, kind, ws) ->
+  0 = t_ally ws ? 0
+  w := d_isclose f_irst ws
+  '& r_/ w m_ember? []D ? h:n_umber ws
+  j := names i_ndexOf e_nclose w
+  j > t_ally names ? []P_ANIC where c_at "unknown label " c_at w
+  place := j s_elect places
+  kind = 33 ? place d_iv 64
+  kind >= 38 ? (1 + place m_od 64) s_elect l:Order
+  []P_ANIC where c_at "a label is an operand only of BR, CALL and LDP"
+}
+
+## A decimal number, the first word.
+h:n_umber := { ws -> 10 d_ecode ([]D i_ndexOf d_isclose f_irst ws) - 1 }

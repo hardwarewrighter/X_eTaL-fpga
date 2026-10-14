@@ -1,0 +1,14 @@
+l:n_extPc : Int -> Int
+l:Order : Int
+l:Names : Box Char
+l:k_ind : Int -> Int
+l:d_isasm : Int -> Char
+l:Reset : (Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int)
+l:r_egs : (Any b, Any c) => (a, a, a, a, a, a, a, a, a, a, b, c) -> a
+l:r_am : (Any a, Any b, Any c, Any d, Any e, Any f, Any g, Any h, Any i, Any j, Any k) => (a, b, c, d, e, f, g, h, i, j, k, l) -> l
+l:l_atches : (Any a, Any b, Any c, Any d, Any e, Any f, Any g, Any h, Any i, Any j, Any k, Any l) => (a, b, c, d, e, f, g, h, i, j, k, l) -> k
+l:s_tep : (Num a, Truthy a) => Int -> (Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, a, Int) -> Int -> (Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, a, Int)
+l:r_un : (Num a, Truthy a) => Int -> ((Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, a, Int), Int, Int) -> (Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, a, Int)
+l:r_unKeys : (Num a, Truthy a) => Int -> ((Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, a, Int), Int) -> (Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, a, Int)
+l:t_race : (Num a, Truthy a) => Int -> ((Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, a, Int), Int, Int) -> Int
+l:a_ssemble : Char -> Int

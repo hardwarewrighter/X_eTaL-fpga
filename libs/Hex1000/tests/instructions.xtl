@@ -1,0 +1,72 @@
+#!/usr/bin/env xetal
+# Hex1000: every instruction against its definition in docs/machine.md,
+# from reset, with the Check library; "ok" per check. The registers are
+# A Y X S PC PA PB SR CL O (hx:r_egs). A page's n-th instruction is at
+# PC n s_elect hx:Order: 0 1 3 7 15 31 ... Run with
+# "just run-lib Hex1000 instructions".
+"hx:" u_se< "Hex1000"
+"k:" u_se< "Check"
+# The registers after n instructions of a program with k on K.
+u:r_egs := { (text, k, n) -> hx:r_egs (hx:a_ssemble text) hx:r_un (hx:Reset, k, n) }
+# The first eight words of RAM file f after n instructions.
+u:w_ords := { f (text, n) -> 8 t_ake (1 + f) s_elect hx:r_am (hx:a_ssemble text) hx:r_un (hx:Reset, 0, n) }
+k:r_eport (
+  ("TAY" k:t_est 5 5 0 1 3 0 0 0 0 0 k:i_s u:r_egs ("ACC 5\nTAY", 0, 2))
+  k:a_nd ("TYA" k:t_est 9 9 0 1 3 0 0 0 0 0 k:i_s u:r_egs ("TCY 9\nTYA", 0, 2))
+  k:a_nd ("CLA" k:t_est 0 0 0 1 3 0 0 0 0 0 k:i_s u:r_egs ("ACC 7\nCLA", 0, 2))
+  k:a_nd ("TAM, CLA, TMA" k:t_est 6 0 0 1 15 0 0 0 0 0 k:i_s u:r_egs ("ACC 6\nTAM\nCLA\nTMA", 0, 4))
+  k:a_nd ("TAM writes the word" k:t_est 6 0 0 0 0 0 0 0 k:i_s 0 u:w_ords ("ACC 6\nTAM", 2))
+  k:a_nd ("TMY" k:t_est 0 11 0 1 7 0 0 0 0 0 k:i_s u:r_egs ("TCMIY 11\nTCY 0\nTMY", 0, 3))
+  k:a_nd ("TAMIY twice" k:t_est 3 3 0 0 0 0 0 0 k:i_s 0 u:w_ords ("ACC 3\nTAMIY\nTAMIY", 3))
+  k:a_nd ("TAMIY steps Y" k:t_est 3 2 0 1 7 0 0 0 0 0 k:i_s u:r_egs ("ACC 3\nTAMIY\nTAMIY", 0, 3))
+  k:a_nd ("TAMZA" k:t_est 0 0 0 1 3 0 0 0 0 0 k:i_s u:r_egs ("ACC 4\nTAMZA", 0, 2))
+  k:a_nd ("TAMZA writes A" k:t_est 4 0 0 0 0 0 0 0 k:i_s 0 u:w_ords ("ACC 4\nTAMZA", 2))
+  k:a_nd ("XMA" k:t_est 9 0 0 1 15 0 0 0 0 0 k:i_s u:r_egs ("TCMIY 9\nTCY 0\nACC 2\nXMA", 0, 4))
+  k:a_nd ("XMA writes A" k:t_est 2 0 0 0 0 0 0 0 k:i_s 0 u:w_ords ("TCMIY 9\nTCY 0\nACC 2\nXMA", 4))
+  k:a_nd ("AMAAC with a carry" k:t_est 1 0 0 1 15 0 0 0 0 0 k:i_s u:r_egs ("TCMIY 9\nTCY 0\nACC 8\nAMAAC", 0, 4))
+  k:a_nd ("AMAAC without" k:t_est 12 0 0 0 15 0 0 0 0 0 k:i_s u:r_egs ("TCMIY 9\nTCY 0\nACC 3\nAMAAC", 0, 4))
+  k:a_nd ("SAMAN, no borrow" k:t_est 6 0 0 1 15 0 0 0 0 0 k:i_s u:r_egs ("TCMIY 9\nTCY 0\nACC 3\nSAMAN", 0, 4))
+  k:a_nd ("SAMAN, a borrow" k:t_est 15 0 0 0 15 0 0 0 0 0 k:i_s u:r_egs ("TCMIY 2\nTCY 0\nACC 3\nSAMAN", 0, 4))
+  k:a_nd ("IMAC, a carry" k:t_est 0 0 0 1 7 0 0 0 0 0 k:i_s u:r_egs ("TCMIY 15\nTCY 0\nIMAC", 0, 3))
+  k:a_nd ("IMAC" k:t_est 5 0 0 0 7 0 0 0 0 0 k:i_s u:r_egs ("TCMIY 4\nTCY 0\nIMAC", 0, 3))
+  k:a_nd ("DMAN, a borrow" k:t_est 15 0 0 0 3 0 0 0 0 0 k:i_s u:r_egs ("TCY 0\nDMAN", 0, 2))
+  k:a_nd ("DMAN" k:t_est 3 0 0 1 7 0 0 0 0 0 k:i_s u:r_egs ("TCMIY 4\nTCY 0\nDMAN", 0, 3))
+  k:a_nd ("IA wraps, S stays 1" k:t_est 0 0 0 1 3 0 0 0 0 0 k:i_s u:r_egs ("ACC 15\nIA", 0, 2))
+  k:a_nd ("IYC, a carry" k:t_est 0 0 0 1 3 0 0 0 0 0 k:i_s u:r_egs ("TCY 15\nIYC", 0, 2))
+  k:a_nd ("IYC" k:t_est 0 4 0 0 3 0 0 0 0 0 k:i_s u:r_egs ("TCY 3\nIYC", 0, 2))
+  k:a_nd ("DYN, a borrow" k:t_est 0 15 0 0 1 0 0 0 0 0 k:i_s u:r_egs ("DYN", 0, 1))
+  k:a_nd ("DYN" k:t_est 0 2 0 1 3 0 0 0 0 0 k:i_s u:r_egs ("TCY 3\nDYN", 0, 2))
+  k:a_nd ("CPAIZ of 0" k:t_est 0 0 0 1 1 0 0 0 0 0 k:i_s u:r_egs ("CPAIZ", 0, 1))
+  k:a_nd ("CPAIZ of 3" k:t_est 13 0 0 0 3 0 0 0 0 0 k:i_s u:r_egs ("ACC 3\nCPAIZ", 0, 2))
+  k:a_nd ("ALEM, equal" k:t_est 3 0 0 1 15 0 0 0 0 0 k:i_s u:r_egs ("TCMIY 3\nTCY 0\nACC 3\nALEM", 0, 4))
+  k:a_nd ("ALEM, larger" k:t_est 4 0 0 0 15 0 0 0 0 0 k:i_s u:r_egs ("TCMIY 3\nTCY 0\nACC 4\nALEM", 0, 4))
+  k:a_nd ("MNEZ of 0" k:t_est 0 0 0 0 1 0 0 0 0 0 k:i_s u:r_egs ("MNEZ", 0, 1))
+  k:a_nd ("YNEA, equal" k:t_est 2 2 0 0 7 0 0 0 0 0 k:i_s u:r_egs ("TCY 2\nACC 2\nYNEA", 0, 3))
+  k:a_nd ("KNEZ, no key" k:t_est 0 0 0 0 1 0 0 0 0 0 k:i_s u:r_egs ("KNEZ", 0, 1))
+  k:a_nd ("KNEZ, a key" k:t_est 0 0 0 1 1 0 0 0 0 0 k:i_s u:r_egs ("KNEZ", 5, 1))
+  k:a_nd ("TKA" k:t_est 5 0 0 1 1 0 0 0 0 0 k:i_s u:r_egs ("TKA", 5, 1))
+  k:a_nd ("SETR, RSTR" k:t_est 0 0 0 0 0 1 0 0 k:i_s 8 t_ake hx:l_atches (hx:a_ssemble "TCY 3\nSETR\nTCY 5\nSETR\nTCY 3\nRSTR") hx:r_un (hx:Reset, 0, 6))
+  k:a_nd ("TDO, S 0" k:t_est 9 0 0 1 3 0 0 0 0 9 k:i_s u:r_egs ("ACC 9\nTDO", 0, 2))
+  k:a_nd ("TDO, S 1" k:t_est 0 0 0 1 7 0 0 0 0 16 k:i_s u:r_egs ("ACC 15\nACC 1\nTDO", 0, 3))
+  k:a_nd ("CLO" k:t_est 9 0 0 1 7 0 0 0 0 0 k:i_s u:r_egs ("ACC 9\nTDO\nCLO", 0, 3))
+  k:a_nd ("LDX, COMX" k:t_est 0 0 2 1 3 0 0 0 0 0 k:i_s u:r_egs ("LDX 1\nCOMX", 0, 2))
+  k:a_nd ("LDX picks the file" k:t_est 0 7 0 0 0 0 0 0 k:i_s 2 u:w_ords ("LDX 2\nTCY 1\nTCMIY 7", 3))
+  k:a_nd ("SBIT, RBIT" k:t_est 8 0 0 0 0 0 0 0 k:i_s 0 u:w_ords ("SBIT 0\nSBIT 3\nRBIT 0", 3))
+  k:a_nd ("TBIT, set" k:t_est 0 0 0 1 3 0 0 0 0 0 k:i_s u:r_egs ("SBIT 2\nTBIT 2", 0, 2))
+  k:a_nd ("TBIT, clear" k:t_est 0 0 0 0 3 0 0 0 0 0 k:i_s u:r_egs ("SBIT 2\nTBIT 1", 0, 2))
+  k:a_nd ("LDP" k:t_est 0 0 0 1 1 0 9 0 0 0 k:i_s u:r_egs ("LDP 9", 0, 1))
+  k:a_nd ("TCY, YNEC equal" k:t_est 0 3 0 0 3 0 0 0 0 0 k:i_s u:r_egs ("TCY 3\nYNEC 3", 0, 2))
+  k:a_nd ("YNEC not equal" k:t_est 0 3 0 1 3 0 0 0 0 0 k:i_s u:r_egs ("TCY 3\nYNEC 4", 0, 2))
+  k:a_nd ("ACC, a carry" k:t_est 1 0 0 1 3 0 0 0 0 0 k:i_s u:r_egs ("ACC 9\nACC 8", 0, 2))
+  k:a_nd ("BR, S 1: taken" k:t_est 0 0 0 1 5 0 0 0 0 0 k:i_s u:r_egs ("BR 5", 0, 1))
+  k:a_nd ("BR, S 0: not taken, S back to 1" k:t_est 1 0 0 1 3 0 0 0 0 0 k:i_s u:r_egs ("ACC 1\nBR 5", 0, 2))
+  k:a_nd ("BR to the buffered page" k:t_est 0 0 0 1 5 2 2 0 0 0 k:i_s u:r_egs ("LDP 2\nBR 5", 0, 2))
+  k:a_nd ("CALL: SR, the pages swapped, CL" k:t_est 0 7 0 1 1 1 0 3 1 0 k:i_s u:r_egs ("LDP 1\nCALL sub\nACC 1\nPAGE 1\nsub: TCY 7\nRETN", 0, 3))
+  k:a_nd ("RETN, then on" k:t_est 1 7 0 0 7 0 0 3 0 0 k:i_s u:r_egs ("LDP 1\nCALL sub\nACC 1\nPAGE 1\nsub: TCY 7\nRETN", 0, 5))
+  k:a_nd ("RETN outside a call is a NOP" k:t_est 0 0 0 1 1 0 0 0 0 0 k:i_s u:r_egs ("RETN", 0, 1))
+  k:a_nd ("CALL in a subroutine branches in its page" k:t_est 0 0 0 1 1 1 0 3 1 0 k:i_s u:r_egs ("LDP 1\nCALL sub\nPAGE 1\nsub: NOP\nthere: CALL there", 0, 4))
+  k:a_nd ("unused codes are NOP" k:t_est 0 0 0 1 3 0 0 0 0 0 k:i_s hx:r_egs (31 c_at 30 c_at 1022 r_eshape 0) hx:r_un (hx:Reset, 0, 2))
+  k:a_nd ("a page of NOPs comes back to 0 in its own page" k:t_est 0 0 0 1 0 0 0 0 0 0 k:i_s hx:r_egs (1024 r_eshape 0) hx:r_un (hx:Reset, 0, 64))
+  k:a_nd ("Order visits all 64" k:t_est (o_ffsets 64) k:i_s s_ort hx:Order)
+  k:a_nd ("the assembler places page 1 at 64: CLA at 64, IA at 65" k:t_est 0 3 14 0 k:i_s 64 65 66 67 s_elect hx:a_ssemble "PAGE 1\nCLA\nIA")
+)

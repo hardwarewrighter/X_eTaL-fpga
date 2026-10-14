@@ -1,0 +1,8 @@
+number = 8
+slug = "live-demo"
+status = "pending"
+description = "A HEX1000 the user can try in software (asked 2026-10-14): (1) an interactive..."
+role = "production"
+context_files = []
+created_at = "2026-10-14T08:38:56"
+commits = []

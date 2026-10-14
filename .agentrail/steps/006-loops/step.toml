@@ -1,0 +1,8 @@
+number = 6
+slug = "loops"
+status = "pending"
+description = "No recursion in the run harnesses (the user asked why recursion was needed; i..."
+role = "production"
+context_files = []
+created_at = "2026-10-14T08:38:56"
+commits = []

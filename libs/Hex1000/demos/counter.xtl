@@ -1,0 +1,10 @@
+#!/usr/bin/env xetal
+# HEX1000 counting on its outputs: three instructions in a loop, run
+# for 12 instructions. Each row is the registers after reset and after
+# each instruction: A Y X S PC PA PB SR CL O. PC steps 0, 1, 3 (the
+# shift register's order) and BR brings it back to 0; O is A with S
+# as its bit 4. Run with "just demo-lib Hex1000 counter".
+"hx:" u_se< "Hex1000"
+rom := hx:a_ssemble "loop: TDO   ; A and S to the outputs\nIA          ; count\nBR loop     ; S is 1: always taken"
+8 t_ake rom
+rom hx:t_race (hx:Reset, 0, 12)

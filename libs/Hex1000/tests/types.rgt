@@ -1,0 +1,2 @@
+command = "../../../scripts/xt type ../src/Hex1000.xtl"
+exit_code = 0

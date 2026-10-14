@@ -1,0 +1,16 @@
+#!/usr/bin/env xetal
+# HEX1000 reading keys: a program that waits for a key on K, stores it
+# in the next RAM word, and waits for the key to be released. The keys
+# C, A, F, E are pressed in turn (each held for 8 instructions, with 9
+# instructions of no key between), and RAM file 0 holds 12 10 15 14.
+# K 0 means no key, so a key whose code is 0 cannot be read this way;
+# the calculator's keyboard is a matrix scanned through the R latches
+# (docs/machine.md, Keys).
+# Run with "just demo-lib Hex1000 keys".
+"hx:" u_se< "Hex1000"
+scan := hx:a_ssemble "wait: KNEZ\nBR got\nBR wait\ngot: TKA\nTAMIY\nup: KNEZ\nBR up\nBR wait"
+presses := 8 2 r_eshape 12 8 0 9 10 8 0 9 15 8 0 9 14 8 0 9
+presses
+after := scan hx:r_unKeys (hx:Reset, presses)
+hx:r_egs after
+8 t_ake f_irst hx:r_am after

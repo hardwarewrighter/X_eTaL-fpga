@@ -1,0 +1,6 @@
+#!/usr/bin/env xetal
+# Hex1000: the assembler stops at a mistake, naming its line. Run with
+# "just run-lib Hex1000 errors".
+"hx:" u_se< "Hex1000"
+t_ally hx:a_ssemble "CLA\nloop: IA\nBR loop"
+t_ally hx:a_ssemble "CLA\nFOO 3"

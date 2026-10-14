@@ -90,7 +90,7 @@ bits choose the group:
 | `0010 ffbb` | the bit group: `SBIT b`, `RBIT b`, `TBIT b` (S is bit b of the RAM word) and `LDX x` (x into X) |
 | `000f ffff` | 32 fixed instructions, below |
 
-The fixed instructions (32 places, 30 used):
+The fixed instructions (32 places, 29 used; coded 0 to 28 in the order of `hx:Names`, `NOP` first, so an empty ROM runs NOPs; 29 to 31 act as `NOP`):
 
 | Instruction | What | S |
 | ----------- | ---- | - |
@@ -173,6 +173,37 @@ the new one; `=` settles; clear zeroes the files. Add and subtract are
 digit loops with the carry in S; multiply is repeated addition by
 digits; divide is repeated subtraction (decision 5: whether to have
 divide at all at first).
+
+## Details settled in the machine library (2026-10-14)
+
+The library `libs/Hex1000` (step machine-lib) makes this page
+executable; writing it settled what the page left open. These follow
+the TMS1000 where it was known and are ours otherwise:
+
+- **Codes.** `NOP` is 0; the fixed instructions are 0 to 28 in the
+  order of the table above, beginning with `NOP` (`hx:Names`); 29 to
+  31 are unused and act as `NOP`. `SBIT`, `RBIT`, `TBIT`, `LDX` are
+  32, 36, 40, 44 plus the operand.
+- **Pages.** PC stays in its page: a page of NOPs runs its 64
+  addresses and comes back to address 0 of the same page, never the
+  next; only `BR`, `CALL` and `RETN` change the page.
+- **CALL and RETN** (one level, as the TMS1000). A taken `CALL` from
+  outside a subroutine saves the next address in SR, exchanges PA and
+  PB (so PB holds the return page), and sets CL. `RETN` with CL set
+  goes to SR in page PB and clears CL; without CL it is a `NOP`.
+  Inside a subroutine `BR` stays in the current page and `CALL` is a
+  branch in the page (PB holds the return page there, so an `LDP` in a
+  subroutine changes where `RETN` goes).
+- **O.** `TDO` puts A in O's low four bits and S, as it was before
+  `TDO`, in bit 4.
+- **Keys (open, for step hex-calc).** K is 4 bits and K 0 means no
+  key, so a key cannot have the code 0, and 15 codes are too few for
+  the calculator's 21 keys. The TMS1000's answer is a key matrix:
+  the program sets one R latch to select a column of keys and reads
+  which row's K bit is set (`KNEZ`, `TKA`); 6 columns of 4 rows hold
+  21 keys. Recommended: the same, with the terminal's glue presenting
+  a typed character as the matrix would (the harness models the
+  matrix from the R latches). Decided in step hex-calc.
 
 ## Decided with the user (2026-10-07)
 

@@ -1,0 +1,59 @@
+ok: TAY
+ok: TYA
+ok: CLA
+ok: TAM, CLA, TMA
+ok: TAM writes the word
+ok: TMY
+ok: TAMIY twice
+ok: TAMIY steps Y
+ok: TAMZA
+ok: TAMZA writes A
+ok: XMA
+ok: XMA writes A
+ok: AMAAC with a carry
+ok: AMAAC without
+ok: SAMAN, no borrow
+ok: SAMAN, a borrow
+ok: IMAC, a carry
+ok: IMAC
+ok: DMAN, a borrow
+ok: DMAN
+ok: IA wraps, S stays 1
+ok: IYC, a carry
+ok: IYC
+ok: DYN, a borrow
+ok: DYN
+ok: CPAIZ of 0
+ok: CPAIZ of 3
+ok: ALEM, equal
+ok: ALEM, larger
+ok: MNEZ of 0
+ok: YNEA, equal
+ok: KNEZ, no key
+ok: KNEZ, a key
+ok: TKA
+ok: SETR, RSTR
+ok: TDO, S 0
+ok: TDO, S 1
+ok: CLO
+ok: LDX, COMX
+ok: LDX picks the file
+ok: SBIT, RBIT
+ok: TBIT, set
+ok: TBIT, clear
+ok: LDP
+ok: TCY, YNEC equal
+ok: YNEC not equal
+ok: ACC, a carry
+ok: BR, S 1: taken
+ok: BR, S 0: not taken, S back to 1
+ok: BR to the buffered page
+ok: CALL: SR, the pages swapped, CL
+ok: RETN, then on
+ok: RETN outside a call is a NOP
+ok: CALL in a subroutine branches in its page
+ok: unused codes are NOP
+ok: a page of NOPs comes back to 0 in its own page
+ok: Order visits all 64
+ok: the assembler places page 1 at 64: CLA at 64, IA at 65
+58 checks, all passed
