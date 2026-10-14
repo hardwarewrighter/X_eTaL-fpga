@@ -97,3 +97,28 @@ results matching on the board. Only then optimize for the 1K.
   a received character is one key (Radix's characters, Enter as =);
   the display sent as 8 characters and a carriage return whenever R7
   to R0 have all been strobed.
+
+- 2026-10-14, for the board top and glue (the core lands next, from
+  `libs/Hex1000/demos/hex1000.xir` as `libs/Hex1000/rtl/hex1000.v`):
+  - The ROM image: `libs/Hex1000/rom/calc.hex`, 1024 lines of one
+    hexadecimal byte, address 64 PA + PC, for `$readmemh`
+    (`scripts/rom-hex.sh`; the gate checks it matches `hx:CalcRom`).
+    The first core has the ROM inside it as a constant table.
+  - The core, module `hex1000`: `input clk`, `input rst` (synchronous,
+    high: the reset state), `input [4:0] in_k` (K in bits 3 to 0, bit 4
+    tied 0), `output [5:0] out_o` (O: the digit in bits 3 to 0, bit 4
+    set to show it, clear to blank; bit 5 always 0), `output [15:0]
+    out_r` (the R latches, R0 in bit 0). One instruction per clock;
+    no enable yet, so drive `clk` from a divided clock if timing at
+    27 MHz fails (the calculator needs only thousands of instructions
+    a second). The ports are a bit wider than the values because the
+    provisional IR has only signed integers (unsigned types come with
+    the 1K sizing).
+  - The glue around it (board data, not the core), as the X_eTaL harness
+    `hx:t_ype` models it: the key with code c (0 to 9, A to F as 10 to
+    15, + 16, - 17, * 18, = 19, X 20; Enter as =) is held as K bit
+    `c mod 4` while R(8 + c / 4) is 1; present the next key only
+    while R15 is 1 and release it when R15 drops. Digit p (R p, 0 the
+    rightmost) takes `out_o` when R p rises; after R0 rises the
+    display is complete: send the 8 characters (digit or space) and a
+    carriage return at 115200 8N1.
