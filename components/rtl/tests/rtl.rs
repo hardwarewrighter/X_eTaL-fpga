@@ -201,3 +201,31 @@ fn a_constant_index_is_wiring() {
         "{e}"
     );
 }
+
+#[test]
+fn an_output_also_traced_is_one_port() {
+    // Caught by iverilog: `output %s` and `trace %s` once declared out_s twice.
+    let p = clocked("Clocked", "accumulator");
+    let n = schedule(&p, "accumulator", None).unwrap();
+    let v = verilog(&n);
+    assert_eq!(v.matches("output wire [7:0] out_s").count(), 1);
+    assert_eq!(v.matches("assign out_s").count(), 1);
+    let tb = testbench(&n).unwrap();
+    assert_eq!(tb.matches("wire [7:0] out_s;").count(), 1);
+    assert!(tb.contains("after clock 7"));
+}
+
+#[test]
+fn casts_change_width_explicitly() {
+    let src = "%x = input i16 300
+%b = input bool 1
+%n = cast i8 %x
+%w = cast i32 %x
+%e = cast i16 %b
+output %n %w %e
+";
+    let v = verilog(&schedule(&parse(src).unwrap(), "casts", None).unwrap());
+    assert!(v.contains("[7:0];"), "{v}");
+    assert!(v.contains("{{16{n0[15]}}, n0}"), "{v}");
+    assert!(v.contains("{{15{1'b0}}, n1}"), "{v}");
+}

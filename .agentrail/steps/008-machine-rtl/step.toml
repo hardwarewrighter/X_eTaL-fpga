@@ -1,4 +1,4 @@
-number = 7
+number = 8
 slug = "machine-rtl"
 status = "pending"
 description = "The machine as a circuit: s_tep hand-lowered to XIR (registers, the RAM as a ..."

@@ -4,7 +4,6 @@ module ram (
   input  wire clk,
   input  wire rst,
   input  wire [47:0] in_c,
-  output wire [63:0] out_mem,
   output wire [63:0] out_mem
 );
   reg signed [7:0] n3;
@@ -21,7 +20,7 @@ module ram (
   wire signed [15:0] n11 = 16'sh0;
   wire signed [15:0] n12 = 16'sh1;
   wire signed [15:0] n13 = 16'sh2;
-  wire signed [7:0] n14 = n2;
+  wire signed [7:0] n14 = n2[7:0];
   wire n15 = n0 != n11;
   wire signed [15:0] n16 = 16'sh0;
   wire n17 = n1 == n16;
@@ -76,6 +75,5 @@ module ram (
       n10 <= n47;
     end
   end
-  assign out_mem = {n10, n9, n8, n7, n6, n5, n4, n3};
   assign out_mem = {n10, n9, n8, n7, n6, n5, n4, n3};
 endmodule

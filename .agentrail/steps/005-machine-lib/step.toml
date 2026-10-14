@@ -1,4 +1,4 @@
-number = 4
+number = 5
 slug = "machine-lib"
 status = "pending"
 description = "The machine in X_eTaL, as decided in docs/machine.md: the state vector (regis..."

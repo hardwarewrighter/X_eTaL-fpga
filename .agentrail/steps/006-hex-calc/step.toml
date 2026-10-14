@@ -1,7 +1,7 @@
 number = 6
-slug = "radixes"
+slug = "hex-calc"
 status = "pending"
-description = "Octal and decimal: a radix mode (a key or a RAM word), the digit adjust in th..."
+description = "The calculator program for the machine, hexadecimal: key scan, digit entry, t..."
 role = "production"
 context_files = []
 created_at = "2026-10-07T19:35:24"

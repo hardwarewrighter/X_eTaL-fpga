@@ -6,7 +6,6 @@ module threshold (
   input  wire [127:0] in_x,
   output wire [7:0] out_m,
   output wire [127:0] out_kept,
-  output wire [127:0] out_kept,
   output wire [127:0] out_relu,
   output wire done
 );
@@ -236,7 +235,6 @@ module threshold (
   end
   assign out_m = {n55, n51, n47, n43, n39, n35, n31, n27};
   assign out_kept = {n87, n83, n79, n75, n71, n67, n63, n59};
-  assign out_kept = {n119, n115, n111, n107, n103, n99, n95, n91};
   assign out_relu = {n151, n147, n143, n139, n135, n131, n127, n123};
   assign done = n6;
 endmodule

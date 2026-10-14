@@ -120,6 +120,10 @@ explain file lanes="":
 rtl:
     scripts/check-rtl.sh
 
+# What each pinned circuit takes on a Gowin GW1N (yosys synth_gowin), against the Tang Nano 1K: just fit [NAME...]
+fit *names:
+    scripts/fit.sh {{names}}
+
 # A waveform of a twin's circuit under iverilog: work/rtl/NAME.vcd (just wave libs/Clocked/demos/detect.xir)
 wave file lanes="":
     scripts/wave.sh "$1" ${2:+"$2"}

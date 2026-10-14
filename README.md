@@ -94,10 +94,12 @@ Nothing here needs an FPGA or the FPGA tools yet. The Verilog is
 proven through the Rust simulator of the same netlist; the gate also
 runs it through iverilog (each module with its self-checking
 testbench), Verilator (lint) and Yosys (synthesis) when they are
-installed, and says so when it skips them. None has been run yet:
-the tools go on the Arch machine with the boards (see the RTL
-component's verification status). `just wave FILE.xir` writes a
-waveform of one circuit for gtkwave.
+installed, and says so when it skips them. All 17 pinned modules pass
+all three. `just fit` reports what each takes on a Gowin GW1N (Yosys's
+Gowin synthesis) against the Tang Nano 1K. `just wave FILE.xir`
+writes a waveform of one circuit for GTKWave. How the checks go from
+the evaluator to the bitstream, and how a board is tested safely:
+[`docs/hardware.md`](docs/hardware.md).
 
 ## Boards
 
@@ -216,6 +218,11 @@ enabled for the repository (it is private for now).
 
 - [`docs/plan.md`](docs/plan.md) -- architecture decisions, the
   subset, the roadmap
+- [`docs/hardware.md`](docs/hardware.md) -- Verilog first, the
+  checks from the evaluator to the bitstream, testing on a board,
+  bricking risks
+- [`docs/boards.md`](docs/boards.md) -- the Tang boards: families,
+  resources, processors, software
 - [`docs/tuple-plan.md`](docs/tuple-plan.md) -- where tuples are used,
   how they map to registers, the gaps and who fixes them
 - [`docs/xetal-asks.md`](docs/xetal-asks.md) -- what this repo needs

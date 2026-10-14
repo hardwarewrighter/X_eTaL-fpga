@@ -64,8 +64,8 @@ module loopback (
   wire signed [15:0] n53 = n4 >>> 1;
   wire n54 = ~n47;
   wire n55 = n46 | n54;
-  wire signed [15:0] n56 = n55;
-  wire signed [15:0] n57 = n45;
+  wire signed [15:0] n56 = {{15{1'b0}}, n55};
+  wire signed [15:0] n57 = {{15{1'b0}}, n45};
   wire signed [15:0] n58 = n42 ? n57 : n56;
   wire signed [15:0] n59 = n45 ? n24 : n16;
   wire signed [15:0] n60 = n47 ? n16 : n24;
@@ -90,7 +90,7 @@ module loopback (
   wire signed [15:0] n79 = n77 + n78;
   wire signed [15:0] n80 = n17 - n43;
   wire signed [15:0] n81 = n18 * n80;
-  wire signed [15:0] n82 = n73;
+  wire signed [15:0] n82 = {{15{1'b0}}, n73};
   wire signed [15:0] n83 = n76 ? n18 : n17;
   wire signed [15:0] n84 = n75 ? n17 : n83;
   wire signed [15:0] n85 = n74 ? n81 : n84;
@@ -115,7 +115,7 @@ module loopback (
   wire n104 = ~n75;
   wire n105 = n103 & n104;
   wire n106 = n105 & n76;
-  wire signed [15:0] n107 = n106;
+  wire signed [15:0] n107 = {{15{1'b0}}, n106};
   wire signed [15:0] n108 = n106 ? n79 : n9;
   wire signed [15:0] n109 = 16'sh0;
   wire n110 = n15 == n109;

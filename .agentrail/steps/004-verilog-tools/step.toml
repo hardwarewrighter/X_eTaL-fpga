@@ -1,0 +1,8 @@
+number = 4
+slug = "verilog-tools"
+status = "in-progress"
+description = "The Verilog tools are installed on the Mac (brew: icarus-verilog, verilator, ..."
+role = "production"
+context_files = []
+created_at = "2026-10-14T07:56:16"
+commits = []

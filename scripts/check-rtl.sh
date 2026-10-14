@@ -11,7 +11,8 @@
 #              checked after reset and every clock; the waveform,
 #              work/rtl/NAME.vcd, is left for inspection (gtkwave);
 #   verilator: each pinned module must lint without errors (-Wall;
-#              warnings are printed, not fatal);
+#              warnings are printed, not fatal; a file is named
+#              after its demo, so DECLFILENAME is off);
 #   yosys:     each pinned module must synthesize (synth, generic).
 # A missing tool is reported as skipped, never as passed.
 #   scripts/check-rtl.sh
@@ -58,7 +59,7 @@ for twin in "$root"/libs/*/demos/*.xir; do
     fi
     if have verilator; then
       top="$(sed -n 's/^module \([A-Za-z0-9_]*\) (.*/\1/p' "$pinned")"
-      if verilator --lint-only -Wall -Wno-fatal --top-module "$top" "$pinned" >"$scratch/verilator.log" 2>&1; then
+      if verilator --lint-only -Wall -Wno-fatal -Wno-DECLFILENAME --top-module "$top" "$pinned" >"$scratch/verilator.log" 2>&1; then
         lints=$((lints + 1))
         grep -q '%Warning' "$scratch/verilator.log" && { echo "check-rtl: $rel: verilator warnings:"; grep '%Warning' "$scratch/verilator.log" | head -5; }
       else

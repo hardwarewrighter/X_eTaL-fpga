@@ -26,6 +26,9 @@ if [ -f "$root/components/Cargo.toml" ]; then
 fi
 [ -x "$root/scripts/check-equiv.sh" ] && "$root/scripts/check-equiv.sh"
 [ -x "$root/scripts/check-rtl.sh" ] && "$root/scripts/check-rtl.sh"
+# Gowin utilization (an estimate; fails only if a module will not synthesize).
+"$root/scripts/fit.sh" > "$root/work/rtl/fit.txt" || { cat "$root/work/rtl/fit.txt"; exit 1; }
+echo "fit: $(head -c 200 "$root/work/rtl/fit.txt" | grep -q SKIPPED && cat "$root/work/rtl/fit.txt" || echo "$(($(wc -l < "$root/work/rtl/fit.txt") - 2)) circuit(s) synthesized for GW1N (just fit; table in work/rtl/fit.txt)")"
 # American spellings only (the checker checks itself first).
 "$root/scripts/check-spelling.py" --self-test
 "$root/scripts/check-spelling.py"

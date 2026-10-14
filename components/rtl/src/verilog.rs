@@ -4,7 +4,7 @@
 //! are `signed` wires of their width, so the arithmetic wraps as the
 //! program's does; a Bool is a 1-bit wire.
 
-use crate::netlist::{Kind, Netlist};
+use crate::netlist::{Kind, Netlist, Port};
 use xetal_fpga_xir::{wrap, Elem, MapOp};
 
 fn decl(e: Elem) -> String {
@@ -56,6 +56,20 @@ fn bus_lit(e: Elem, data: &[i64]) -> String {
         hex.push(std::char::from_digit(d, 16).unwrap());
     }
     format!("{total}'h{hex}")
+}
+
+/// The output ports, each name once: an output that is also traced
+/// (`output %s` and `trace %s`) is one port, checked both ways.
+fn output_ports(n: &Netlist) -> Vec<&Port> {
+    let mut seen = Vec::new();
+    n.outputs
+        .iter()
+        .filter(|p| {
+            let new = !seen.contains(&&p.name);
+            seen.push(&p.name);
+            new
+        })
+        .collect()
 }
 
 fn bus_width(e: Elem, count: usize) -> usize {
@@ -115,9 +129,17 @@ fn expr(n: &Netlist, i: usize) -> String {
             table.len(),
             lit(c.elem, 0)
         ),
-        Kind::Cast(a) => match c.elem {
-            Elem::Bool => format!("n{a} != 0"),
-            Elem::Int(_) => format!("n{a}"),
+        // Widths change explicitly: an Int is cut to its low bits or
+        // sign-extended, a Bool zero-extended.
+        Kind::Cast(a) => match (n.cells[*a].elem, c.elem) {
+            (_, Elem::Bool) => format!("n{a} != 0"),
+            (Elem::Bool, Elem::Int(1)) => format!("n{a}"),
+            (Elem::Bool, Elem::Int(w)) => format!("{{{{{}{{1'b0}}}}, n{a}}}", w - 1),
+            (Elem::Int(f), Elem::Int(w)) if w < f => format!("n{a}[{}:0]", w - 1),
+            (Elem::Int(f), Elem::Int(w)) if w > f => {
+                format!("{{{{{}{{n{a}[{}]}}}}, n{a}}}", w - f, f - 1)
+            }
+            _ => format!("n{a}"),
         },
         Kind::Reg { .. } => unreachable!("registers are declared as reg"),
     }
@@ -155,7 +177,7 @@ pub fn verilog(n: &Netlist) -> String {
             p.name
         ));
     }
-    for p in &n.outputs {
+    for p in output_ports(n) {
         ports.push(format!(
             "  output wire [{}:0] out_{}",
             bus_width(p.ty.elem, p.ty.count()) - 1,
@@ -224,7 +246,7 @@ pub fn verilog(n: &Netlist) -> String {
         }
         v.push_str("    end\n  end\n");
     }
-    for p in &n.outputs {
+    for p in output_ports(n) {
         let ws: Vec<String> = p.wires.iter().rev().map(|w| format!("n{w}")).collect();
         v.push_str(&format!(
             "  assign out_{} = {{{}}};\n",
@@ -279,7 +301,7 @@ pub fn testbench(n: &Netlist) -> Result<String, String> {
         ));
         conns.push(format!(".in_{0}(in_{0})", p.name));
     }
-    for p in &n.outputs {
+    for p in output_ports(n) {
         let w = bus_width(p.ty.elem, p.ty.count());
         v.push_str(&format!("  wire [{}:0] out_{};\n", w - 1, p.name));
         conns.push(format!(".out_{0}(out_{0})", p.name));

@@ -4,7 +4,6 @@ module threshold (
   input  wire [127:0] in_x,
   output wire [7:0] out_m,
   output wire [127:0] out_kept,
-  output wire [127:0] out_kept,
   output wire [127:0] out_relu
 );
   wire signed [15:0] n0 = in_x[15:0];
@@ -42,7 +41,6 @@ module threshold (
   wire signed [15:0] n32 = (n6 > n9) ? n6 : n9;
   wire signed [15:0] n33 = (n7 > n9) ? n7 : n9;
   assign out_m = {n17, n16, n15, n14, n13, n12, n11, n10};
-  assign out_kept = {n25, n24, n23, n22, n21, n20, n19, n18};
   assign out_kept = {n25, n24, n23, n22, n21, n20, n19, n18};
   assign out_relu = {n33, n32, n31, n30, n29, n28, n27, n26};
 endmodule

@@ -69,12 +69,15 @@ checks every output (a traced one at its last value).
 
 ## Verification status
 
-Every pinned module is proven only by the Rust simulator of the same
-netlist, which the tests and `just equiv` check against the X_eTaL
-evaluator. As of 2026-10-07 none has been through a Verilog tool:
-iverilog, Verilator and Yosys are not installed on the development
-Mac, and the gate says so on every run. The seventeen modules waiting
-for them:
+As of 2026-10-14 every pinned module passes iverilog (its
+self-checking testbench, after reset and after every clock), Verilator
+(`--lint-only -Wall`; the warnings left are unused cells and an index
+wider than its table) and Yosys (generic and Gowin synthesis). Their
+first run found one bug the netlist simulator could not: an output
+also traced was declared as two ports of the same name (fixed; a test
+pins it). Casts now change width explicitly (cut to the low bits,
+sign-extended, or a Bool zero-extended) rather than by Verilog's
+implicit assignment rules.
 
 | Library | Modules in `libs/<Lib>/rtl/` |
 | ------- | ---------------------------- |
@@ -83,11 +86,10 @@ for them:
 | Fixed | `counter` (one) |
 | Uart | `loopback` (one) |
 
-On the Arch machine with the tools installed, `just rtl` runs each
-module's self-checking testbench under iverilog (checked after reset
-and after every clock, a waveform per run in `work/rtl/`), lints it
-with Verilator and synthesizes it with Yosys; what they find is fixed
-in the emitter, and this table becomes a record of what passed.
+`just fit` gives each module's LUTs, flip-flops, ALUs, block RAM and
+multipliers on a Gowin GW1N against the Tang Nano 1K. The deeper
+checks (Gowin cells simulated, the bitstream round trip) are planned:
+`docs/hardware.md`.
 
 ## Use
 
@@ -97,6 +99,7 @@ just explain libs/Datapath/demos/pipeline.xir 2    # two lanes, four clocks
 just sim libs/Datapath/demos/pipeline.xir 3        # three lanes: the outputs, clocks: 3
 just verilog libs/Datapath/demos/vector-add.xir    # eight adders as Verilog
 just rtl                                           # the pinned Verilog; iverilog, verilator and yosys when installed
+just fit                                           # each module on a Gowin GW1N against the Tang Nano 1K (yosys)
 just wave libs/Clocked/demos/detect.xir            # a waveform of one circuit, work/rtl/detect.vcd (iverilog)
 ```
 
@@ -109,5 +112,5 @@ it; when they are not, it says so.
 
 ## Not yet
 
-A UART (saga 2), the 4-bit machine (saga 3), the board's pins and
-clock (saga 4).
+Memory cells for block RAM (a computed-address RAM, the ROM with a
+registered read), the board's pins and clock.

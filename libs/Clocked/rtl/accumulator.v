@@ -4,7 +4,6 @@ module accumulator (
   input  wire clk,
   input  wire rst,
   input  wire [7:0] in_x,
-  output wire [7:0] out_s,
   output wire [7:0] out_s
 );
   reg signed [7:0] n1;
@@ -17,6 +16,5 @@ module accumulator (
       n1 <= n2;
     end
   end
-  assign out_s = {n1};
   assign out_s = {n1};
 endmodule
