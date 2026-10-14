@@ -12,6 +12,7 @@ complete, saga archive).
 
 ## 2026-10-14
 
+- 10:48 `feat` HEX1000 to try (step live-demo, in progress): `libs/Hex1000/demos/terminal.xtl`, the calculator at a terminal (`just calc`; raw keys through the key matrix, the display as the program strobed it, each key's cost), a bounded loop that stops at q, Escape or the end of input; its scripted session pinned (`terminal.keys`: a demo or test may have NAME.keys as its typed input, scripts/test-libs.sh); `hx:t_ypeOn`. In the browser: `web/hex1000`, a page around X_eTaL's engine (xetal-play) with the libraries and ROM program compiled in (`just web`, trunk; not in the components workspace). A VHS tape (`just tape`, docs/tapes/hex1000-calc.tape). The landing page has a HEX1000 section: the machine's screens from running the calc demo at build time, the recording and the browser link when built. Ask F14 (no tail calls; no loop until a condition), measured.
 - 10:00 `plan` Linux acknowledges the Mac sw/board lanes; documents file ownership, shared contracts and integration in docs/parallel-work.md. Initial hardware target is Nano 9K; 1K sizing deferred. Linux stable Rust updated from 1.88 to 1.99 to build the pinned evaluator.
 
 - 10:07 `plan` Two lanes from now on (asked by the user): `sw` on the Mac (libraries, the software HEX1000, the site, the IR and emitter; saga renamed `sw-nibble-machine`) and `board` on the Arch Linux machine (the open FPGA flow on real boards, saga 4 as `board-fpga-board` on a `board/...` branch); who owns which files, and how shared files are edited: docs/plan.md, Parallel lanes.

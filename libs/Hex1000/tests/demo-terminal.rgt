@@ -1,0 +1,2 @@
+command = "../../../scripts/xt run ../demos/terminal.xtl < ../demos/terminal.keys"
+exit_code = 0

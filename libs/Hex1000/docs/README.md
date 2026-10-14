@@ -85,6 +85,7 @@ program with `error[panic]` and the line.
 | `hx:CalcRom` | `Int` | the calculator program assembled |
 | `hx:m_atrix (c, r)` | | the K inputs with key `c` held and latches `r`: column `c / 4` selected by R8 to R13, row `c mod 4` a K bit |
 | `rom hx:t_ype (st, keys, n)` | | the machine typed at as a terminal would (each key held from R15 up to R15 down), the display latched from O on R0 to R7 rising: (state, digit latches, done, instructions) |
+| `rom hx:t_ypeOn (st, digits, keys, n)` | | `t_ype` from a display already showing `digits` (a terminal keeps its screen: an ignored key changes nothing) |
 | `hx:s_creen digits` | `Int -> Char` | latched digits as text, blank where O's bit 4 was clear |
 | `hx:c_alc text` | `Char -> Char` | the screen after typing a text at the calculator from reset: the machine's `16 rx:c_alc text` |
 | `hx:c_ost text` | `Char -> Int` | the instructions that took |
@@ -138,6 +139,9 @@ key for key; how it works, its RAM, its pages and its cost are in
 - [`demos/counter.xtl`](../demos/counter.xtl): the machine counting on
   its outputs: its listing, then every register under a header,
   after reset and after each instruction.
+- [`demos/terminal.xtl`](../demos/terminal.xtl): the calculator at a
+  terminal (`just calc`), a key at a time; its scripted session is
+  `terminal.keys`.
 - [`demos/calc.xtl`](../demos/calc.xtl): calculations typed at the
   machine, their screens and costs.
 - [`demos/listing.xtl`](../demos/listing.xtl): the calculator's ROM,

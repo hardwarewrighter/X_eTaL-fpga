@@ -1,0 +1,13 @@
+:root { --bg: #fbfaf7; --fg: #1d1d1b; --muted: #5d5b55; --link: #0b5cad; --key: #e9e5da; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #171716; --fg: #e8e6e1; --muted: #a8a49b; --link: #7fb3ec; --key: #2c2b27; }
+}
+body { background: var(--bg); color: var(--fg); font: 16px/1.5 system-ui, sans-serif; margin: 0; }
+main { max-width: 44rem; margin: 0 auto; padding: 1.5rem 16px 3rem; }
+h1 { margin: 0 0 .25rem; }
+.lede, .foot, #status { color: var(--muted); }
+a { color: var(--link); }
+#screen { background: #20301f; color: #9cf59a; padding: .75rem 1rem; border-radius: 6px; font-size: 1rem; line-height: 1.35; overflow-x: auto; min-height: 9rem; white-space: pre; }
+#keys { display: grid; grid-template-columns: repeat(6, 1fr); gap: .4rem; margin: 1rem 0; max-width: 26rem; }
+#keys button { font: 600 1.1rem ui-monospace, monospace; padding: .6rem 0; border: 0; border-radius: 6px; background: var(--key); color: var(--fg); cursor: pointer; }
+#keys button:active { filter: brightness(1.2); }

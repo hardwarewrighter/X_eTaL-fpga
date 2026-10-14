@@ -388,10 +388,20 @@ l:m_atrix := { (c, r) -> ((9 + c d_iv 4) s_elect r) * 2 ^ c m_od 4 }
 ## >> (st, digits, done, took) := hx:CalcRom hx:t_ype (hx:Reset, 1 2, 2000)
 ## >> hx:s_creen r_ev digits
 ##       12
-l:t_ype := { rom (st, keys, n) ->
-  start := (st, 8 r_eshape 0, l:l_atches st, 0, 1, 0)
-  (t, digits, r, ph, i, took) := n '{ v -> (rom, keys) h:t_ick v } p_ower start
-  (t, digits, ph = 3, took)
+l:t_ype := { rom (st, keys, n) -> rom l:t_ypeOn (st, 8 r_eshape 0, keys, n) }
+
+## rom t_ypeOn (st, digits, keys, n): t_ype from a display already
+## showing digits (a terminal keeps its screen between keys: a key the
+## program ignores changes nothing on it).
+## >> "hx:" u_se< "Hex1000"
+## >> (st, digits, done, took) := hx:CalcRom hx:t_ype (hx:Reset, 1 2, 2000)
+## >> (st2, digits2, done2, took2) := hx:CalcRom hx:t_ypeOn (st, digits, 21 r_eshape 0, 0)
+## >> hx:s_creen r_ev digits2
+##       12
+l:t_ypeOn := { rom (st, digits, keys, n) ->
+  start := (st, digits, l:l_atches st, 0, 1, 0)
+  (t, d, r, ph, i, took) := n '{ v -> (rom, keys) h:t_ick v } p_ower start
+  (t, d, ph = 3, took)
 }
 
 ## One instruction of t_ype: phase 0 waits for R15, 1 holds key i, 3

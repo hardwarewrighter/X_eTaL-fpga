@@ -60,6 +60,18 @@ run-lib name prog="":
 demo-lib name prog="":
     @scripts/run-lib.sh --demos "$1" ${2:+"$2"}
 
+# HEX1000 at the terminal: type at the calculator (q quits); the machine computes every digit
+calc:
+    @scripts/xt run libs/Hex1000/demos/terminal.xtl
+
+# Build the live site's interactive HEX1000 (trunk): work/web/calc, copied into the site by just pages
+web:
+    scripts/build-web.sh
+
+# Record HEX1000 at the terminal with vhs: work/tapes/hex1000-calc.gif (shown by the live site)
+tape:
+    @mkdir -p work/tapes && vhs docs/tapes/hex1000-calc.tape
+
 # A library's demo as a notebook, each statement then its output
 show-lib name prog="":
     @scripts/run-lib.sh --echo --demos "$1" ${2:+"$2"}

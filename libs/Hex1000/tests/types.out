@@ -19,6 +19,7 @@ l:Calc : Char
 l:CalcRom : Int
 l:m_atrix : (Int, Int) -> Int
 l:t_ype : (Truthy a, Num b) => Int -> ((Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int), Int, Int) -> ((Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int), Int, a, b)
+l:t_ypeOn : (Truthy a, Num b) => Int -> ((Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int), Int, Int, Int) -> ((Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int), Int, a, b)
 l:s_creen : Int -> Char
 l:c_alc : Char -> Char
 l:c_ost : Num a => Char -> a

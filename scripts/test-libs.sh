@@ -5,6 +5,8 @@
 #   - types.rgt: scripts/xt type ../src/<Name>.xtl (the exports' types);
 #   - NAME.rgt for each tests/NAME.xtl: scripts/xt run NAME.xtl;
 #   - demo-D.rgt for each demos/D.xtl: scripts/xt run ../demos/D.xtl;
+#   - a program with a NAME.keys beside it (an interactive one) gets
+#     that file as its typed input: ... run NAME.xtl < NAME.keys;
 #   - for a macro library (src/<Name>.xtlm): expand-NAME.rgt and
 #     expand-demo-D.rgt, scripts/xt expand of each of those programs;
 # (scripts/xt: the pinned xetal, every libs/*/src on XETAL_PATH,
@@ -35,8 +37,10 @@ for name in ${names[@]+"${names[@]}"}; do
   src="$name.xtl"; [ -f "$d/src/$src" ] || src="$name.xtlm"
   # Every baseline this library should have: test name, command, program.
   wanted=("types|$xt type ../src/$src|")
-  for p in "$d"/tests/*.xtl; do [ -e "$p" ] && wanted+=("$(basename "$p" .xtl)|$xt run $(basename "$p")|$p"); done
-  for p in "$d"/demos/*.xtl; do [ -e "$p" ] && wanted+=("demo-$(basename "$p" .xtl)|$xt run ../demos/$(basename "$p")|$p"); done
+  # Typed input for an interactive program: NAME.keys beside NAME.xtl.
+  keys() { [ -f "${1%.xtl}.keys" ] && printf ' < %s' "$2${1##*/}" | sed 's/\.xtl$/.keys/'; true; }
+  for p in "$d"/tests/*.xtl; do [ -e "$p" ] && wanted+=("$(basename "$p" .xtl)|$xt run $(basename "$p")$(keys "$p" "")|$p"); done
+  for p in "$d"/demos/*.xtl; do [ -e "$p" ] && wanted+=("demo-$(basename "$p" .xtl)|$xt run ../demos/$(basename "$p")$(keys "$p" ../demos/)|$p"); done
   # A macro library: what each test and demo program becomes (xetal
   # expand) is pinned too, so a changed expansion fails.
   if [ -f "$d/src/$name.xtlm" ]; then

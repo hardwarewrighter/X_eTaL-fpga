@@ -1,0 +1,19 @@
+[package]
+name = "hex1000-web"
+description = "HEX1000 in the browser: the terminal calculator (libs/Hex1000/demos/terminal.xtl) run by X_eTaL's engine, the machine computing every digit"
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+publish = false
+
+[dependencies]
+# X_eTaL's in-browser engine and the store a run reads its libraries
+# from, from the pinned checkout (just xetal).
+xetal-play = { path = "../../work/xetal/components/web/crates/xetal-play" }
+xetal-store = { path = "../../work/xetal/components/base/crates/xetal-store" }
+wasm-bindgen = "0.2"
+js-sys = "0.3"
+web-sys = { version = "0.3", features = ["Document", "Element", "HtmlElement", "KeyboardEvent", "MouseEvent", "Window", "EventTarget"] }
+
+# Not a member of components/: built only for the site, by trunk.
+[workspace]
