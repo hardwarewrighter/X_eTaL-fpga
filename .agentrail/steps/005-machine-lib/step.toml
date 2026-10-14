@@ -1,6 +1,6 @@
 number = 5
 slug = "machine-lib"
-status = "pending"
+status = "in-progress"
 description = "The machine in X_eTaL, as decided in docs/machine.md: the state vector (regis..."
 role = "production"
 context_files = []

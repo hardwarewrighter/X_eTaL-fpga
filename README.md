@@ -221,6 +221,9 @@ enabled for the repository (it is private for now).
 - [`docs/hardware.md`](docs/hardware.md) -- Verilog first, the
   checks from the evaluator to the bitstream, testing on a board,
   bricking risks
+- [`docs/linux-nvidia.md`](docs/linux-nvidia.md) -- setting up on
+  the Arch Linux machine: the tools, USB access to the boards, the
+  rebuild
 - [`docs/boards.md`](docs/boards.md) -- the Tang boards: families,
   resources, processors, software
 - [`docs/tuple-plan.md`](docs/tuple-plan.md) -- where tuples are used,
