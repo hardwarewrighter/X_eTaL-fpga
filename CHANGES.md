@@ -12,6 +12,8 @@ complete, saga archive).
 
 ## 2026-10-14
 
+- 13:19 `chore` Record verified Nano 9K HEX1000 integration completion; retain hardware video publication and remaining board checks in the handoff.
+
 - 13:15 `feat` HEX1000 running on actual Nano 9K SRAM: emitted UART and calculator with key-matrix/display adapter, divided-clock timing constraints, reproducible calculator build/test/demo/video recipes and full serial simulation. Three FPGA answers verified (46, 6E, 17FCD); 8.12-second hardware MP4 copied to blog agent. Document serial reconnect workaround, bounded queue, display coalescing and pending calculator flash boot.
 
 - 12:24 `feat` Checked X_eTaL counter/UART board proof: programs/twins and reviewed baselines, interpreter/netlist/Verilog checks, real-timing board-top and mapped-Gowin simulation; registered TX fixes pin glitches, one raw serial session fixes the query/echo transition. Nano 9K SRAM and flash tests return all 512 evaluator-derived counter bytes and 255 echoes. New probe/video recipes and VHS tape; evaluate landed HEX1000 core at about 2256 LUTs/379 flip-flops, queue calculator adapter and video.

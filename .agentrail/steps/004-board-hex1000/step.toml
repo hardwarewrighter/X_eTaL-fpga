@@ -1,8 +1,9 @@
 number = 4
 slug = "board-hex1000"
-status = "in-progress"
+status = "completed"
 description = "Integrate the landed Mac HEX1000 core and ROM into Nano 9K board top. Reuse v..."
 role = "production"
 context_files = []
 created_at = "2026-10-14T12:22:42"
-commits = []
+completed_at = "2026-10-14T13:18:18"
+commits = ["27ddce85196ac4a8b960e2d2ab205916c013de1a"]
