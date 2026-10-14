@@ -28,8 +28,8 @@ hardware language this repo produces. Reasons:
   itself; VHDL needs a separate front end (GHDL and its Yosys plugin).
 - The simulators used here, Icarus Verilog (iverilog) and Verilator,
   are Verilog simulators.
-- The Gowin IDE, needed for the Tang Primer 25K until the open flow
-  covers the GW5A (`docs/boards.md`), reads Verilog as well as VHDL.
+- Every tool in the open Gowin flow reads Verilog. (The Gowin IDE is
+  not used here: the open flow only, decided with the user.)
 
 The emitter prints the netlist (`components/rtl`), not X_eTaL, so a
 VHDL printer would be a second small printer over the same netlist,
@@ -48,8 +48,8 @@ one before, all of it without a board:
 | 3. Netlist | the scheduled cells | our netlist simulator (`components/rtl`) | `just equiv` |
 | 4. Verilog | the emitted, pinned `.v` | iverilog with the self-checking testbench; Verilator lint; Yosys generic synthesis | `just rtl` |
 | 5. Gowin cells | what Yosys maps to LUTs, flip-flops, ALUs, block RAM | `yosys synth_gowin` | `just fit` |
-| 6. Gowin cells, simulated | the mapped netlist | iverilog with Yosys's Gowin cell models, or our own cell simulator | planned (saga fpga-board) |
-| 7. Bitstream | the placed, routed and packed `.fs` | Apicula's unpacker back to Verilog, then simulated | planned; to confirm |
+| 6. Gowin cells, simulated | the mapped netlist | iverilog with Yosys's Gowin cell models | done for the board tops (the UART probe, `scripts/board-probe.py`); not yet run per circuit in the gate |
+| 7. Bitstream | the placed, routed and packed `.fs` | Apicula's unpacker back to Verilog, then simulated | not done, optional: the board itself now runs the bitstream and agrees ([results](hex1000-hardware.md)) |
 
 The testbench checks every output bit for bit against the evaluator's
 answer (for a clocked circuit after reset and after every clock) and
@@ -146,7 +146,10 @@ The commands become `xetal-fpga synth`, `pnr`, `pack` and `load`
 the serial lines) is the board's schedule data (plan A8), one per
 board.
 
-The order, each one a check of the one before:
+The order, each one a check of the one before (status on the Tang
+Nano 9K, 2026-10-14: 1, 2 and 4 passed on the board, through the 9K's
+own USB serial port, no adapter; 3 was skipped as the calculator
+came first; [results](hex1000-hardware.md)):
 
 1. **Blink**: an X_eTaL counter on an LED. Proves the flow and the
    clock.
@@ -160,8 +163,8 @@ The order, each one a check of the one before:
    with the reference.
 
 When it misbehaves, a small USB logic analyzer with sigrok/PulseView
-shows the pins. Gowin's built-in analyzer (GAO) works only in the
-Gowin IDE.
+shows the pins. (Gowin's built-in analyzer, GAO, needs the Gowin IDE,
+which is not used here.)
 
 ## Bricking: the risks and the recovery
 
@@ -174,7 +177,7 @@ The Tang boards are hard to brick.
 - **Writing the flash** survives power-off, but the JTAG port still
   configures the FPGA, so a bad design is replaced or erased the same
   way.
-- **JTAG pins turned into ordinary I/O** (an option in the Gowin IDE)
+- **JTAG pins turned into ordinary I/O** (a vendor-IDE option)
   is the one way a design can lock the programmer out; recovery then
   takes extra steps. The open flow does not do this unless told to,
   and the board flow will refuse a constraints file that assigns a

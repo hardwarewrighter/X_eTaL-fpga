@@ -152,9 +152,10 @@ resources, processors and the software it needs, with sources.
 | Tang Nano 9K | GW1N (GW1NR) | 8,640 | none | yes | HEX1000 now; the CDP1802; the neural layer |
 | Tang Nano 20K | GW2A (GW2AR) | 20,736 | a BL616 microcontroller as programmer | yes | the IBM 1130, larger designs |
 | Tang Primer 20K | GW2A | 20,736 | a BL702 on its Dock, as programmer | yes | as the 20K, with DDR3 |
-| Tang Primer 25K | GW5A | 23,040 | a BL616 as programmer | not yet: Gowin IDE V1.9.9 Beta-4 or newer | the largest; Gowin IDE only for now |
+| Tang Primer 25K | GW5A | 23,040 | a BL616 as programmer | not yet (GW5A support in progress) | later, once the open flow supports it |
 
 HEX1000 currently runs on the 9K; optimization for the 1K is later.
+Everything is built with the open flow; the Gowin IDE is not used.
 Which other Tang
 Primer boards the user has is still to record.
 

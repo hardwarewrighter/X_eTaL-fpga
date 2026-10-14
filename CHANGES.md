@@ -12,6 +12,8 @@ complete, saga archive).
 
 ## 2026-10-14
 
+- 14:20 `docs` No stale "planned" rows: the mapped-cell simulation is marked done for the board tops, the bitstream check optional, the board test order marked with what passed on the 9K. Open flow only, never the Gowin IDE (the user's decision): the Tang Primer 25K waits for GW5A support in the open flow (README, docs/boards.md, docs/hardware.md, plan A12).
+
 - 14:08 `docs` README: the live site, the browser HEX1000 (with a screenshot) and the terminal recording linked at the top.
 
 - 13:19 `chore` Record verified Nano 9K HEX1000 integration completion; retain hardware video publication and remaining board checks in the handoff.

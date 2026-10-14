@@ -26,16 +26,17 @@ card is not used. See [first-board setup](../boards/tangnano9k/README.md).
 Gowin's FPGAs come in families, and the family decides both the
 resources and the software:
 
-| Family | Gowin's name | Boards here | Open flow (Yosys, nextpnr-himbaechel, Apicula) | Gowin IDE |
-| ------ | ------------ | ----------- | ---------------------------------------------- | --------- |
+| Family | Gowin's name | Boards here | Open flow (Yosys, nextpnr-himbaechel, Apicula) | Gowin IDE (not used here) |
+| ------ | ------------ | ----------- | ---------------------------------------------- | ------------------------- |
 | GW1N (GW1NZ, GW1NSR, GW1NR) | LittleBee | Tang Nano 1K, 4K, 9K | supported: Apicula lists all three boards | any current version |
 | GW2A (GW2AR, GW2A) | Arora | Tang Nano 20K, Tang Primer 20K | supported: Apicula lists both; the device needs nextpnr's `--vopt family` and the family name for `gowin_pack` | any current version |
 | GW5A | Arora V | Tang Primer 25K (and the Tang Mega boards, not here) | **in progress, not supported yet**: Apicula's README does not list any GW5A board; its "GW5A family support" issue has been open since 2023-10, a GW5A-25 PLL issue since 2025-12, and the first GW5A flags were merged 2026-10-08 (Apicula 0.34, 2026-10-02, is the latest release) | **V1.9.9 Beta-4 or newer** is required for the 25K (Sipeed) |
 
-So the GW1N and GW2A boards can be built entirely with the open
-tools this repository plans to drive (plan A12); the Tang Primer 25K
-needs Gowin's own IDE until the open flow covers the GW5A, and is
-re-checked when a design first goes to it.
+So the GW1N and GW2A boards are built entirely with the open tools
+this repository drives (plan A12). This repository uses the open flow
+only, never the Gowin IDE (decided with the user, 2026-10-14): the
+Tang Primer 25K waits until the open flow supports the GW5A, and its
+support is re-checked when a design first wants it.
 
 ## The boards
 
@@ -75,7 +76,7 @@ and as later options.
 | Tang Nano 9K | the RCA CDP1802; the tiny neural layer; its USB-UART needs no adapter |
 | Tang Nano 20K | the IBM 1130 and other larger designs in the open flow |
 | Tang Primer 20K | as the Nano 20K, with DDR3 when a design needs large memory |
-| Tang Primer 25K | the largest here, but **Gowin IDE only** until the open flow supports the GW5A |
+| Tang Primer 25K | the largest here; **not used until the open flow supports the GW5A** (no Gowin IDE) |
 
 A design goes to the smallest board that holds it (plan A12), and a
 board's support in the open flow is checked when a design first goes
