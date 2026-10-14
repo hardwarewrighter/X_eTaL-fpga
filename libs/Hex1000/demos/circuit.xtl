@@ -1,0 +1,14 @@
+#!/usr/bin/env xetal
+# HEX1000 at its ports, the specification its circuit
+# (demos/hex1000.xir, rtl/hex1000.v) must reproduce clock for clock:
+# the keys 12+34= typed from reset at the calculator program, one
+# instruction per clock. Line 1: the K inputs at each clock; line 2: O
+# after reset and after each clock; then the 16 R latches, a row after
+# reset and after each clock. Run with "just demo-lib Hex1000 circuit".
+"hx:" u_se< "Hex1000"
+keys := 1 2 16 3 4 19
+(st, digits, done, took) := hx:CalcRom hx:t_ype (hx:Reset, keys, 9000)
+(ks, os, rs) := hx:CalcRom hx:r_ecord (hx:Reset, keys, took)
+ks
+0 c_at os
+(hx:l_atches hx:Reset) c_at rs

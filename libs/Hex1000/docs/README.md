@@ -86,6 +86,7 @@ program with `error[panic]` and the line.
 | `hx:m_atrix (c, r)` | | the K inputs with key `c` held and latches `r`: column `c / 4` selected by R8 to R13, row `c mod 4` a K bit |
 | `rom hx:t_ype (st, keys, n)` | | the machine typed at as a terminal would (each key held from R15 up to R15 down), the display latched from O on R0 to R7 rising: (state, digit latches, done, instructions) |
 | `rom hx:t_ypeOn (st, digits, keys, n)` | | `t_ype` from a display already showing `digits` (a terminal keeps its screen: an ignored key changes nothing) |
+| `rom hx:r_ecord (st, keys, n)` | | `t_ype`'s instructions at the ports: per instruction the K given, O and the R latches after: (ks, os, rs) |
 | `hx:s_creen digits` | `Int -> Char` | latched digits as text, blank where O's bit 4 was clear |
 | `hx:c_alc text` | `Char -> Char` | the screen after typing a text at the calculator from reset: the machine's `16 rx:c_alc text` |
 | `hx:c_ost text` | `Char -> Int` | the instructions that took |
@@ -149,9 +150,20 @@ key for key; how it works, its RAM, its pages and its cost are in
 - [`demos/keys.xtl`](../demos/keys.xtl): keys read from K and stored:
   the listing, the presses, the registers and RAM at the end.
 
+## The circuit
+
+`demos/hex1000.xir` is HEX1000 as a circuit, written by
+`scripts/gen-hex1000-xir.py` (one rule per instruction), and
+`rtl/hex1000.v` its Verilog: one instruction per clock, ports `in_k`,
+`out_o`, `out_r`. `demos/circuit.xtl` (`hx:r_ecord`) is what it must
+reproduce at its ports, clock for clock, and does: in the IR
+interpreter, the netlist simulator and iverilog (`just equiv`,
+`just rtl`). `just fit hex1000`: about 2220 LUTs and 379 flip-flops.
+
 ## Not yet
 
-Octal and decimal (a radix mode in the program), and the circuit.
+Octal and decimal (a radix mode in the program); the ROM and RAM as
+block and LUT RAM, to fit the Tang Nano 1K.
 
 ## Provenance
 

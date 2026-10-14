@@ -105,6 +105,13 @@ parallelism?").
 | `n s_elect table`, a lookup | `lookup %t %i` | a `case` ROM or `$readmemh` | 2 |
 | `x '+ '* i_nner w`, `nr:d_ense` (an i8 dense layer, X0) | `matvec` | MAC lanes, weights in a ROM, an accumulator | 4 |
 
+## Goals
+
+The goals and their order (the user's, 2026-10-14) are in
+[`docs/goals.md`](goals.md): HEX1000 on a Tang Nano 4K or 9K agreeing
+with X_eTaL first; then serial-data matmul pipelines; then our own
+soft CPU; the 1K is a long-term optimization.
+
 ## Parallel lanes (from 2026-10-14)
 
 Two agents work this repository at once, as CLAUDE.md's "Working a

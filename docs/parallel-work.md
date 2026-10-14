@@ -122,3 +122,14 @@ results matching on the board. Only then optimize for the 1K.
     rightmost) takes `out_o` when R p rises; after R0 rises the
     display is complete: send the 8 characters (digit or space) and a
     carriage return at 115200 8N1.
+
+- 2026-10-14 12:11: the core has landed on `main`: `libs/Hex1000/rtl/hex1000.v`,
+  module `hex1000`, the ports as above (`clk`, `rst`, `in_k[4:0]`,
+  `out_o[5:0]`, `out_r[15:0]`), the ROM inside it. It reproduces the
+  X_eTaL machine's ports clock for clock over the 1752 clocks of
+  12+34= under iverilog (`just rtl`); the testbench is
+  `xetal-fpga testbench libs/Hex1000/demos/hex1000.xir`. Yosys
+  (`just fit hex1000`): 2220 LUTs, 379 flip-flops, a quarter of the
+  9K. Timing at 27 MHz is not yet known: run it on a divided clock
+  first. The board top and the UART glue are the board lane's, as in
+  the contract above.
