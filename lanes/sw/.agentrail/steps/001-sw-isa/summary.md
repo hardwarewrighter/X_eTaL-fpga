@@ -1,0 +1,1 @@
+docs/machine.md: HEX1000 decided with the user (name, shift-register PC with a rule checked to visit all 64 addresses, two clocks per instruction, UART terminal I/O, eight digits add/subtract/multiply, TMS1000 status rule, instruction list as proposed).

@@ -126,6 +126,8 @@ the earlier one. See [project goals](docs/goals.md).
 | [`libs/Hex1000/demos/hex1000.xir`](libs/Hex1000/demos/hex1000.xir) | the circuit in the intermediate form (generated; the gate checks it is current) |
 | [`libs/Hex1000/rtl/hex1000.v`](libs/Hex1000/rtl/hex1000.v) | the circuit in Verilog-2005, module `hex1000`: the core a board top wraps (generated and pinned; iverilog, Verilator and Yosys in the gate) |
 | [`libs/Hex1000/demos/terminal.xtl`](libs/Hex1000/demos/terminal.xtl) | the calculator at a terminal (`just calc`); [`web/hex1000`](web/hex1000) the same in a browser ([live](https://hardwarewrighter.github.io/X_eTaL-fpga/calc/)) |
+| [`libs/Hex1000/demos/board.xtl`](libs/Hex1000/demos/board.xtl) | the machine with the board's glue (`hx:g_lue`: key queue, key matrix and handshake, digit latches, frames), at the glue's ports every clock ([`serial.xtl`](libs/Hex1000/demos/serial.xtl) shows its frames as a terminal does) |
+| [`libs/Hex1000/rtl/hex1000-board.v`](libs/Hex1000/rtl/hex1000-board.v) | the machine and its glue in Verilog, module `hex1000_board` (`in_c`, `out_f`, `out_d`), checked clock for clock against `board.xtl` ([IR](libs/Hex1000/demos/hex1000-board.xir)) |
 | [`docs/parallel-work.md`](docs/parallel-work.md) | the core's ports and the UART glue a board needs |
 
 ```bash

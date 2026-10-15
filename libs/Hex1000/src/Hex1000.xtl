@@ -485,3 +485,124 @@ l:c_ost := { text ->
   (st, digits, done, took) := l:CalcRom l:t_ype (l:Reset, keys, n)
   took
 }
+
+### The board's glue
+
+## Keymap: the key code of each character, ASCII 0 to 127, as the
+## board's glue decodes what a terminal sends: 0 to 9, A to F (or a to
+## f), + - * = and X (or x) as hx:m_atrix's codes, Enter (a carriage
+## return or a line feed) as =, and 31 for any other character (not a
+## key).
+## >> "hx:" u_se< "Hex1000"
+## >> (1 + []U_CS "1a+= ?") s_elect hx:Keymap
+## 1 10 16 19 31 31
+l:Keymap := (([]D c_at (6 t_ake []A) c_at "+-*=Xabcdefx" c_at []U_CHAR 13 10) i_ndexOf []AV) s_elect (o_ffsets 21) c_at 10 11 12 13 14 15 20 19 19 31
+
+## GlueReset: the glue's state at reset, (queue, write, read, count,
+## held, key, digits, seen, frame): a queue of 16 key codes with the
+## places to write and read and how many are queued, whether a key is
+## held and its code, the eight digit latches (digit 0 first, O as
+## latched), R0 to R7 as last seen, and whether a frame was just
+## completed.
+## >> "hx:" u_se< "Hex1000"
+## >> (q, w, rd, n, held, key, d, seen, f) := hx:GlueReset
+## >> t_ally q
+## 16
+l:GlueReset := (16 r_eshape 0, 0, 0, 0, 0, 0, 8 r_eshape 0, 8 r_eshape 0, 0)
+
+## g_lueK (g, r): the K inputs the glue in state g gives the machine
+## with latches r: the held key's, as hx:m_atrix, while one is held,
+## else 0. Combinational: the machine reads K in the clock it selects a
+## column.
+## >> "hx:" u_se< "Hex1000"
+## >> (q, w, rd, n, held, key, d, seen, f) := hx:GlueReset
+## >> hx:g_lueK ((q, w, rd, n, 1, 18, d, seen, f), (12 r_eshape 0) c_at 1 0 0 0)
+## 4
+l:g_lueK := { ((q, w, rd, n, held, key, d, seen, f), r) -> held * l:m_atrix (key, r) }
+
+## g_lue (g, c, o, r): the glue's next state, given the character c
+## that arrived this clock (0: none) and the machine's O and latches r.
+## A key is queued (dropped when 16 are waiting); the next is held from
+## when R15 says the program is ready until it says busy; digit p
+## latches O when R p rises; R0 rising completes a frame.
+## >> "hx:" u_se< "Hex1000"
+## >> g := hx:g_lue (hx:GlueReset, 55, 0, 16 r_eshape 0)
+## >> (q, w, rd, n, held, key, d, seen, f) := hx:g_lue (g, 0, 0, (15 r_eshape 0) c_at 1)
+## >> held c_at key c_at n
+## 1 7 0
+l:g_lue := { ((q, w, rd, n, held, key, d, seen, f), c, o, r) ->
+  kc := (1 + c) s_elect l:Keymap
+  push := (kc < 21) & n < 16
+  ready := 16 s_elect r
+  pop := (n_ot held) & (n > 0) & ready
+  q1 := q + (push * (w + 1) = r_ange 16) * kc - q
+  key1 := key + pop * ((1 + rd) s_elect q) - key
+  rose := (8 t_ake r) > seen
+  held1 := 0 + pop | held & ready
+  (q1, (w + push) m_od 16, (rd + pop) m_od 16, n + push - pop, held1, key1, d + rose * o - d, 8 t_ake r, 0 + f_irst rose)
+}
+
+## rom b_oard (st, g, c): one clock of the board, (the machine's state,
+## the glue's): the machine's instruction with K from the glue, and the
+## glue's step with character c, both reading the ports as they were
+## before the clock.
+## >> "hx:" u_se< "Hex1000"
+## >> (st, g) := hx:CalcRom hx:b_oard (hx:Reset, hx:GlueReset, 49)
+## >> (q, w, rd, n, held, key, d, seen, f) := g
+## >> n
+## 1
+l:b_oard := { rom (st, g, c) ->
+  r := l:l_atches st
+  k := l:g_lueK (g, r)
+  ((rom l:s_tep st)_ k, l:g_lue (g, c, f_irst (n_eg 1) t_ake l:r_egs st, r))
+}
+
+## rom s_erial (text, n): the board typed at over its serial line: the
+## characters of text arrive one a clock from the first, the board runs
+## n clocks from reset, and each frame the glue completes is a row of
+## its eight digits, digit 7 first (hx:s_creen shows them).
+## >> "hx:" u_se< "Hex1000"
+## >> hx:s_creen hx:CalcRom hx:s_erial ("12+34=", 2000)
+##        0
+##        1
+##       12
+##       12
+##        3
+##       34
+##       46
+l:s_erial := { rom (text, n) ->
+  cs := []U_CS text
+  start := (l:Reset, l:GlueReset, 0, 0 r_eshape 0)
+  (st, g, i, fr) := n '{ v -> (rom, cs) h:c_lock v } p_ower start
+  (((t_ally fr) d_iv 8) c_at 8) r_eshape fr
+}
+
+## One clock of s_erial: the board, and the frame kept when completed.
+h:c_lock := { (rom, cs) (st, g, i, fr) ->
+  c := (1 + i m_in t_ally cs) s_elect cs c_at 0
+  (st1, g1) := rom l:b_oard (st, g, c)
+  (q, w, rd, n, held, key, d, seen, f) := g1
+  (st1, g1, i + 1, fr c_at (8 * f) t_ake r_ev d)
+}
+
+## rom w_ires (text, n): s_erial's run at the glue's ports, (cs, fs,
+## ds): the character given at each clock, then after reset and after
+## each clock whether a frame was just completed and the eight digit
+## latches (a row each, digit 0 first).
+## >> "hx:" u_se< "Hex1000"
+## >> (cs, fs, ds) := hx:CalcRom hx:w_ires ("1", 3)
+## >> cs
+## 49 0 0
+l:w_ires := { rom (text, n) ->
+  cs := n t_ake []U_CS text
+  start := (l:Reset, l:GlueReset, 0, 1 r_eshape 0, 1 8 r_eshape 0)
+  (st, g, i, fs, ds) := n '{ v -> (rom, cs) h:w_ire v } p_ower start
+  (cs, fs, ds)
+}
+
+## One clock of w_ires.
+h:w_ire := { (rom, cs) (st, g, i, fs, ds) ->
+  (st1, g1) := rom l:b_oard (st, g, (1 + i) s_elect cs)
+  (q, w, rd, n, held, key, d, seen, f) := g1
+  (st1, g1, i + 1, fs c_at f, ds c_at d)
+}

@@ -1,0 +1,9 @@
+number = 6
+slug = "sw-loops"
+status = "completed"
+description = "No recursion in the run harnesses (the user asked why recursion was needed; i..."
+role = "production"
+context_files = []
+created_at = "2026-10-14T08:38:56"
+completed_at = "2026-10-14T08:53:20"
+commits = ["a264e08b06f88f5e66ee360a62c8bf58f1795503"]

@@ -120,7 +120,7 @@ carry its prefix, so `.agentrail/` merges without collisions.
 
 | Lane | Where | Owns | Saga |
 | ---- | ----- | ---- | ---- |
-| `sw` | the Mac, on `main` | the X_eTaL libraries (`libs/`), the software HEX1000 and its live demo, the site (`scripts/*pages*`, `landing.py`), the IR and emitter (`components/xir`, `components/rtl`): the circuit of the machine | `sw-nibble-machine`: live-demo, radixes, machine-rtl |
+| `sw` | the Mac, on `main` | the X_eTaL libraries (`libs/`), the software HEX1000 and its live demo, the site (`scripts/*pages*`, `landing.py`), the IR and emitter (`components/xir`, `components/rtl`): the circuit of the machine | `sw-nibble-machine`, in `lanes/sw/.agentrail` (`agentrail --saga lanes/sw ...`) since the lanes share `main`: `.agentrail/` is the board lane's |
 | `board` | the Arch Linux machine with the boards, on a `board/...` branch merged to `main` | the open FPGA flow on real boards: `xetal-fpga synth`, `pnr`, `pack`, `load` (`components/cli`), constraints files per board, `scripts/board-*.sh`, `docs/linux-nvidia.md`, `docs/boards.md`, the board half of `docs/hardware.md`; blink, the UART echo, the pinned circuits placed and routed | `board-fpga-board` (saga 4: flow, cell-sim, machine-board, round-trip, lanes-board) |
 
 Shared files take a line each, never a rewrite: `CHANGES.md` (both
@@ -214,8 +214,9 @@ Nano 1K. The machine is HEX1000 (`docs/machine.md`, decided with the user).
 | 8 | parallel-handoff (done; the board lane's acknowledgment, docs/parallel-work.md) | |
 | 9 | live-demo (done; inserted, asked by the user) | `libs/Hex1000/demos/terminal.xtl` (`just calc`: the calculator at a terminal, a key at a time through the key matrix, each key's cost; its scripted session a baseline through `terminal.keys`); `web/hex1000`, the same program in the browser around X_eTaL's engine (`just web`; works, slow: diagnosed with a per-key log and a native bench); a VHS tape (`just tape`); the landing page's HEX1000 section; ask F14 |
 | 10 | machine-rtl (moved ahead of radixes: the board lane needs the circuit) | the machine hand-lowered to XIR (registers, RAM, ROM, decode), simulated with the ROM program, every key sequence reproduced; memory cells in the emitter (a computed-address RAM and the ROM as block RAM, not flip-flops and muxes); the Verilog pinned and run under iverilog with a bit-level UART testbench (key bytes in on the receive line, the display decoded from the transmit line) and under Verilator for long runs; the simulated circuit's UART bridged to a terminal (the sw-tos pattern: a stdin/stdout UART, a pty relay), so the live demo's session can run on the circuit too; `just fit` against the 1K (`docs/hardware.md`) |
-| 11 | web-perf (inserted, decided with the user) | the browser HEX1000 faster: the engine in a Web Worker, typing budgets in chunks that skip once done, a cheaper step and harness; measured before and after; then perhaps the circuit simulated in the page |
-| 12 | radixes | octal and decimal (a radix mode, the digit adjust as an instruction or in the program, an instruction-set decision made here); all three against the reference |
+| 11 | uart-glue (done; inserted, asked by the user) | the board's glue in X_eTaL (`hx:g_lue`: a 16-key queue, the key matrix and R15 handshake, the digit latches, the frame; `hx:b_oard`, `hx:s_erial`, `hx:w_ires`), 14 checks against `hx:c_alc`; the machine and glue lowered together (`demos/hex1000-board.xir`) and emitted (`rtl/hex1000-board.v`, module `hex1000_board`), equal clock for clock in the IR, the netlist simulator and iverilog; 2338 LUTs, 540 flip-flops. The board lane can replace its hand-written adapter logic with it |
+| 12 | web-perf (inserted, decided with the user) | the browser HEX1000 faster: the engine in a Web Worker, typing budgets in chunks that skip once done, a cheaper step and harness; measured before and after; then perhaps the circuit simulated in the page |
+| 13 | radixes | octal and decimal (a radix mode, the digit adjust as an instruction or in the program, an instruction-set decision made here); all three against the reference |
 
 ### Saga 4 -- fpga-board
 

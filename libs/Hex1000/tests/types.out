@@ -24,3 +24,10 @@ l:r_ecord : Int -> ((Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int)
 l:s_creen : Int -> Char
 l:c_alc : Char -> Char
 l:c_ost : Num a => Char -> a
+l:Keymap : Int
+l:GlueReset : (Int, Int, Int, Int, Int, Int, Int, Int, Int)
+l:g_lueK : (Any a, Any b, Any c, Any d, Any e, Any f, Any g) => ((a, b, c, d, Int, Int, e, f, g), Int) -> Int
+l:g_lue : (Truthy a, Ord a, Num b, Truthy b, Any c, Num d, Truthy d) => ((Int, Int, Int, Int, a, Int, b, a, c), Int, b, a) -> (Int, Int, Int, Int, d, Int, b, a, b)
+l:b_oard : (Any a, Num b, Truthy b) => Int -> ((Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int), (Int, Int, Int, Int, Int, Int, Int, Int, a), Int) -> ((Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int), (Int, Int, Int, Int, b, Int, Int, Int, Int))
+l:s_erial : Int -> (Char, Int) -> Int
+l:w_ires : Int -> (Char, Int) -> (Int, Int, Int)

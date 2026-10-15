@@ -1,0 +1,15 @@
+#!/usr/bin/env xetal
+# HEX1000 with the board's glue, at the glue's ports: the specification
+# its circuit (demos/hex1000-board.xir, rtl/hex1000-board.v) must
+# reproduce clock for clock. The characters 12+34= arrive one a clock
+# from reset, as a serial receiver would hand them over; the machine
+# and the glue run 1710 clocks. Line 1: the character given at each
+# clock (0: none); line 2: whether a frame was just completed, after
+# reset and after each clock; then the eight digit latches, digit 0
+# first, a row after reset and after each clock. Run with
+# "just demo-lib Hex1000 board".
+"hx:" u_se< "Hex1000"
+(cs, fs, ds) := hx:CalcRom hx:w_ires ("12+34=", 1710)
+cs
+fs
+ds

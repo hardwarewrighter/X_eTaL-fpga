@@ -1,0 +1,9 @@
+number = 2
+slug = "sw-radix-lib"
+status = "completed"
+description = "The reference for the calculator: a pure X_eTaL library of digit-serial arith..."
+role = "production"
+context_files = []
+created_at = "2026-10-07T19:35:24"
+completed_at = "2026-10-08T07:40:48"
+commits = ["5b97f072726bb4caee9cf461007b3f923680d47c"]

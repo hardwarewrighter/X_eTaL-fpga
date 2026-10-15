@@ -1,0 +1,1 @@
+Acknowledged Mac sw/board lanes, file ownership and contracts; Nano 9K first. Integrated Mac commits through c6d0a26. Linux stable Rust 1.99 builds pinned evaluator; gate passed, HDL tools skipped before activation.

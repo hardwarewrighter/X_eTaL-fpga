@@ -1,0 +1,2 @@
+command = "../../../scripts/xt run board.xtl"
+exit_code = 0

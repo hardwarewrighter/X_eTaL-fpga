@@ -1,0 +1,29 @@
+#!/usr/bin/env xetal
+# Hex1000: the board's glue (hx:g_lue) around the machine, typed at
+# over its serial line (hx:s_erial, the characters one a clock): the
+# last frame it completes must be the screen hx:c_alc gives for the
+# same keys. The queue holds 16 keys, so a text sent at once keeps its
+# first 16 and drops the rest; lowercase digits, x and Enter are keys
+# too. "ok" per sequence. Run with "just run-lib Hex1000 board".
+"hx:" u_se< "Hex1000"
+"k:" u_se< "Check"
+u:l_ast := { text -> r_avel hx:s_creen (n_eg 1) t_ake hx:CalcRom hx:s_erial (text, 4000 + (1500 * t_ally text) + 12000 * '+ r_/ text = f_irst "*") }
+u:s_ame := { text -> text k:t_est (hx:c_alc text) k:i_s u:l_ast text }
+u:a_s := { (text, keys) -> ("as " c_at keys) k:t_est (hx:c_alc keys) k:i_s u:l_ast text }
+cr := []U_CHAR 13
+k:r_eport (
+  (u:s_ame "")
+  k:a_nd (u:s_ame "7")
+  k:a_nd (u:s_ame "12+34=")
+  k:a_nd (u:s_ame "FF+1=")
+  k:a_nd (u:s_ame "A*B=")
+  k:a_nd (u:s_ame "C0DE+BEEF=")
+  k:a_nd (u:s_ame "5-7=")
+  k:a_nd (u:s_ame "FFFFFFFF+1=")
+  k:a_nd (u:s_ame "2*3+4=")
+  k:a_nd (u:s_ame "12+X34=")
+  k:a_nd (u:s_ame "2 + 2 = ? 1")
+  k:a_nd (u:a_s ("c0de+beef" c_at cr, "C0DE+BEEF="))
+  k:a_nd (u:a_s ("12+34x5\n", "12+34X5="))
+  k:a_nd (u:a_s ("123456789ABCDEF0123", "123456789ABCDEF0"))
+)

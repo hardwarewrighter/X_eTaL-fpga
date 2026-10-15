@@ -1,0 +1,9 @@
+number = 10
+slug = "sw-machine-rtl"
+status = "completed"
+description = "The machine as a circuit: s_tep hand-lowered to XIR (registers, the RAM as a ..."
+role = "production"
+context_files = []
+created_at = "2026-10-07T19:35:24"
+completed_at = "2026-10-14T12:14:44"
+commits = ["d4eb786a7b7859c5d78ba6ed373c147665a688a4"]

@@ -90,6 +90,13 @@ program with `error[panic]` and the line.
 | `hx:s_creen digits` | `Int -> Char` | latched digits as text, blank where O's bit 4 was clear |
 | `hx:c_alc text` | `Char -> Char` | the screen after typing a text at the calculator from reset: the machine's `16 rx:c_alc text` |
 | `hx:c_ost text` | `Char -> Int` | the instructions that took |
+| `hx:Keymap` | `Int` | the key code of each ASCII character (0 to 127) as the board's glue decodes it: digits, `A` to `F` and `a` to `f`, `+ - * =`, `X` and `x`, Enter as `=`; 31 for a character that is not a key |
+| `hx:GlueReset` | a 9-part tuple | the glue's state at reset: (queue of 16 key codes, write place, read place, count, held, key, digit latches, R0 to R7 as seen, frame) |
+| `hx:g_lueK (g, r)` | | the K the glue gives the machine with latches `r`: the held key's row bit while its column is selected (combinational) |
+| `hx:g_lue (g, c, o, r)` | | the glue's next state with character `c` arriving (0: none), O and the latches: a key queued (dropped when 16 wait), the next held from R15 up to R15 down, digit p latching O when R p rises, R0 rising completing a frame |
+| `rom hx:b_oard (st, g, c)` | | one clock of the board: the machine with K from the glue, and the glue, both reading the ports as they were before the clock |
+| `rom hx:s_erial (text, n)` | | the board typed at over its serial line, a character a clock: each completed frame as a row of eight digits, digit 7 first (`hx:s_creen` shows them) |
+| `rom hx:w_ires (text, n)` | | `s_erial`'s run at the glue's ports: the characters, and after reset and each clock the frame flag and the digit latches |
 
 `just types Hex1000` prints the full types; `tests/types.rgt` pins them. The run harness
 loops with `p_ower` over a tuple state; nothing recurses.
@@ -137,6 +144,15 @@ key for key; how it works, its RAM, its pages and its cost are in
   operators in a row, ignored keys).
 - [`tests/errors.xtl`](../tests/errors.xtl): the assembler stopping at
   a mistake.
+- [`tests/board.xtl`](../tests/board.xtl): the machine with the
+  board's glue, typed at over the serial line: the last frame equals
+  `hx:c_alc`'s screen (lowercase, `x` and Enter as keys; a text of 19
+  keys sent at once keeps its first 16).
+- [`demos/serial.xtl`](../demos/serial.xtl): the frames the board
+  sends, as a terminal attached to it shows them.
+- [`demos/board.xtl`](../demos/board.xtl): the machine and glue at the
+  glue's ports, clock for clock: what `rtl/hex1000-board.v` must
+  reproduce.
 - [`demos/counter.xtl`](../demos/counter.xtl): the machine counting on
   its outputs: its listing, then every register under a header,
   after reset and after each instruction.
@@ -159,6 +175,19 @@ key for key; how it works, its RAM, its pages and its cost are in
 reproduce at its ports, clock for clock, and does: in the IR
 interpreter, the netlist simulator and iverilog (`just equiv`,
 `just rtl`). `just fit hex1000`: about 2220 LUTs and 379 flip-flops.
+
+`demos/hex1000-board.xir` is the machine with the board's glue
+(`hx:b_oard`), from the same script, and `rtl/hex1000-board.v` its
+Verilog, module `hex1000_board`: `in_c[7:0]` a character for one
+clock (0: none), `out_f` 1 for the clock after a frame is complete,
+`out_d[47:0]` the eight digit latches, digit p in bits `6p+5` to `6p`
+(the digit in the low four bits, bit 4 set to show it). A board top
+adds the UART, hands each received byte to `in_c` in the machine's
+clock domain, and sends the digits as text when `out_f` is 1.
+`demos/board.xtl` (`hx:w_ires`) is what it must reproduce, and does,
+clock for clock, in the IR interpreter, the netlist simulator and
+iverilog. `just fit hex1000-board`: about 2340 LUTs and 540
+flip-flops, the glue about 120 LUTs and 160 flip-flops.
 
 ## Not yet
 

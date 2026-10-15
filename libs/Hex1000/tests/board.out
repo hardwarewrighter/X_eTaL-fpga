@@ -1,0 +1,15 @@
+ok: 
+ok: 7
+ok: 12+34=
+ok: FF+1=
+ok: A*B=
+ok: C0DE+BEEF=
+ok: 5-7=
+ok: FFFFFFFF+1=
+ok: 2*3+4=
+ok: 12+X34=
+ok: 2 + 2 = ? 1
+ok: as C0DE+BEEF=
+ok: as 12+34X5=
+ok: as 123456789ABCDEF0
+14 checks, all passed

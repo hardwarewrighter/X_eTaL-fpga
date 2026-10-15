@@ -1,0 +1,13 @@
+#!/usr/bin/env xetal
+# HEX1000 on a board, in X_eTaL: the machine and the board's glue typed
+# at over the serial line, each frame the glue sends as a line of text,
+# as a terminal attached to the board shows it. Run with
+# "just demo-lib Hex1000 serial".
+"hx:" u_se< "Hex1000"
+u:s_how := { (label, text, n) ->
+  p_rint! "typed: " c_at label
+  hx:s_creen hx:CalcRom hx:s_erial (text, n)
+}
+u:s_how ("12+34=", "12+34=", 2000)
+u:s_how ("C0DE+BEEF=", "C0DE+BEEF=", 6000)
+u:s_how ("a*b then Enter", "a*b" c_at []U_CHAR 13, 3000)

@@ -1,0 +1,26 @@
+typed: 12+34=
+       0
+       1
+      12
+      12
+       3
+      34
+      46
+typed: C0DE+BEEF=
+       0
+       C
+      C0
+     C0D
+    C0DE
+    C0DE
+       B
+      BE
+     BEE
+    BEEF
+   17FCD
+typed: a*b then Enter
+       0
+       A
+       A
+       B
+      6E

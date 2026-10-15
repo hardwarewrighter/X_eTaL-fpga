@@ -10,6 +10,10 @@ one, `docs` documentation, `plan` saga planning and reordering,
 `release` milestone release, `chore` agentrail bookkeeping (step
 complete, saga archive).
 
+## 2026-10-15
+
+- 15:48 `feat` The board's glue in X_eTaL and as a checked circuit: `hx:g_lue` (16-key queue, key matrix and R15 handshake, digit latches, frames), `hx:b_oard`, `hx:s_erial`, `hx:w_ires`, `hx:Keymap`; 14 checks against `hx:c_alc` (tests/board.xtl), demos board and serial; the machine and glue lowered together (demos/hex1000-board.xir, scripts/gen-hex1000-xir.py) and emitted as rtl/hex1000-board.v, module hex1000_board (in_c, out_f, out_d), equal clock for clock in the IR, the netlist simulator and iverilog; 2338 LUTs, 540 flip-flops. The sw lane's saga restored into lanes/sw/.agentrail.
+
 ## 2026-10-14
 
 - 14:20 `docs` No stale "planned" rows: the mapped-cell simulation is marked done for the board tops, the bitstream check optional, the board test order marked with what passed on the 9K. Open flow only, never the Gowin IDE (the user's decision): the Tang Primer 25K waits for GW5A support in the open flow (README, docs/boards.md, docs/hardware.md, plan A12).

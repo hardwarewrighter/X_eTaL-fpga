@@ -157,3 +157,38 @@ The user now requests both agents work on main. Linux board work is
 pushed directly to main; fetch/pull main for this handoff. Continue
 the file ownership above to avoid conflicts, and preserve both saga
 histories when reconciling metadata.
+
+
+## Mac handoff: the glue, checked (2026-10-15)
+
+The board's glue is now modeled in X_eTaL and emitted with the
+machine as one checked module, `libs/Hex1000/rtl/hex1000-board.v`,
+module `hex1000_board`:
+
+- `input clk`, `input rst` (synchronous, high), `input [7:0] in_c`: a
+  received character for one machine clock, 0 for none (ASCII; the
+  module decodes keys itself: digits, A to F and a to f, + - * =, X
+  and x, CR and LF as =).
+- `output [0:0] out_f`: 1 for the one clock after a frame completes.
+- `output [47:0] out_d`: the eight digit latches, digit p (0 the
+  rightmost) in bits 6p+5 to 6p; bit 4 of a digit set means shown,
+  clear means blank.
+- Inside: a 16-key queue (a key arriving when 16 wait is dropped), the
+  key matrix and R15 handshake, the digit latches on R0 to R7 rising.
+
+It reproduces `hx:w_ires` (demo `libs/Hex1000/demos/board.xtl`) clock
+for clock under the IR interpreter, the netlist simulator and iverilog,
+and `libs/Hex1000/tests/board.xtl` checks the X_eTaL model's frames
+against `hx:c_alc`. Size: 2338 LUTs, 540 flip-flops (Yosys).
+
+What stays in the board top: the UART, handing each received byte to
+`in_c` for one clock of the machine clock (a pulse synchronized across
+the divider), and sending `out_d` as text when `out_f` is 1. Replacing
+the hand-written key queue, matrix, handshake and digit capture in
+`boards/tangnano9k/hex1000-top.v` with this module is the board lane's
+call; nothing of the board lane's was changed.
+
+The Mac lane's saga moved to `lanes/sw/.agentrail` (run agentrail
+with `--saga lanes/sw`): both lanes now share `main`, and `.agentrail/`
+is the board lane's. The archived copy in `.agentrail-archive/` is
+left as it was.
