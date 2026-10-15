@@ -1,0 +1,1 @@
+Board glue modeled in X_eTaL (hx:g_lue, b_oard, s_erial, w_ires, Keymap), 14 checks vs hx:c_alc; machine+glue lowered to hex1000-board.xir and emitted as rtl/hex1000-board.v (hex1000_board: in_c, out_f, out_d), clock-for-clock equal in IR, netlist sim, iverilog; 2338 LUTs/540 FFs. Sw saga restored into lanes/sw.
