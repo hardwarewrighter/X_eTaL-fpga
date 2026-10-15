@@ -1,0 +1,8 @@
+number = 12
+slug = "sw-rtl-memories"
+status = "pending"
+description = "Memories in the emitter, for the calculator on the Tang Nano 1K (decided with..."
+role = "production"
+context_files = []
+created_at = "2026-10-15T15:57:35"
+commits = []

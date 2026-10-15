@@ -24,15 +24,38 @@ Done when: the calculator, typed at over the UART on a 4K or 9K,
 shows the screens the X_eTaL machine shows for the same keys (the
 board lane's machine-board step, with the Mac's circuit).
 
-## Long term (and alongside): HEX1000 down to the Tang Nano 1K
+## Now: a physical HEX1000 calculator on the Tang Nano 1K
 
-Future work, not on the critical path: optimize the circuit that
-fits the 4K and 9K until it fits the 1K (1152 LUTs, 864 flip-flops,
-4 block RAMs). The known levers: the ROM in block RAM with a
-registered read (the two-clock fetch and execute of `docs/machine.md`),
-the RAM in LUT RAM, unsigned types in the IR so 4-bit values are 4
-bits, dead cells removed, the decoder shared. Each is a schedule or
-emitter change; the X_eTaL machine stays the specification.
+Decided with the user, 2026-10-15: HEX1000 as a battery-powered hex
+calculator in a case, the **Tang Nano 1K the goal, the 4K the
+fallback**. This makes the 1K the target again (it had been long
+term).
+
+- Keys: a 4x4 matrix of the 16 hexadecimal keys, a 4-button board for
+  `+ - * =` (common ground, a wire a button) and a Clear key. They wire
+  straight to the machine's own key scan (R8 to R13 select a column,
+  K reads its row), debounced in the fabric; an I2C GPIO expander is
+  the option if pins run short.
+- Display: an 8-digit 7-segment LED display on I2C, written by an I2C
+  transmitter in the fabric each time the program completes a frame.
+- LEDs for power and, perhaps, overflow (R14 is free); switches for
+  power and reset.
+- Power: batteries (4 AA cells and a diode, or a regulator), into the
+  board's 5 V input.
+- Efficiency: the circuit as first lowered (about 2220 LUTs) is cut to
+  fit 1152 LUTs by the known levers: the ROM in block RAM (measured:
+  about 500 LUTs and 440 wide muxes as logic, none as one block RAM),
+  the RAM in block or LUT RAM, unsigned 4-bit types in the IR, dead
+  and duplicate logic removed, one shared adder rather than one per
+  instruction. Each is a lowering, emitter or schedule change; the
+  X_eTaL machine stays the specification.
+
+Done when: the calculator runs from batteries on a 1K (or a 4K),
+keys in, digits on the display, every screen the X_eTaL machine's.
+
+## Later: HEX1000 on smaller boards still
+
+Superseded by the section above: the 1K is the target now.
 
 ## Next: mini GPU/NPU pipelines for serial data
 
@@ -61,8 +84,10 @@ then lowered to a circuit that must agree with it.
 
 ## Order
 
-1. HEX1000 on a 4K or 9K board, agreeing with X_eTaL (short term).
-2. Serial-data matmul pipelines, a mini GPU or NPU (next).
-3. Our own soft CPU, prototyped in X_eTaL, on the 9K, 20K or 25K
+1. HEX1000 on a 4K or 9K board, agreeing with X_eTaL (done on the
+   9K, 2026-10-14).
+2. The physical calculator on the Tang Nano 1K (fallback 4K): keypad,
+   I2C display, batteries; the circuit made efficient enough to fit.
+3. Serial-data matmul pipelines, a mini GPU or NPU (next).
+4. Our own soft CPU, prototyped in X_eTaL, on the 9K, 20K or 25K
    (medium term), with the CDP1802 and the IBM 1130 as inspirations.
-4. HEX1000 on the 1K (long term, whenever it is worth it).

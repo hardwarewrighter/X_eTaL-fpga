@@ -1,0 +1,8 @@
+number = 13
+slug = "sw-rtl-narrow"
+status = "pending"
+description = "Unsigned types in the IR (a nibble 4 bits, not i5), dead nodes removed, commo..."
+role = "production"
+context_files = []
+created_at = "2026-10-15T15:57:35"
+commits = []

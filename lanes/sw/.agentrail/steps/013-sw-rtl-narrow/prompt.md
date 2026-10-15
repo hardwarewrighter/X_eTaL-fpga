@@ -1,0 +1,1 @@
+Unsigned types in the IR (a nibble 4 bits, not i5), dead nodes removed, common subexpressions shared, constants folded; one shared adder with operand muxes in the HEX1000 lowering instead of one per instruction; the 1K budget measured lever by lever; goal: machine plus panel within 1152 LUTs.
