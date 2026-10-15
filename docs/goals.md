@@ -36,12 +36,18 @@ term).
   straight to the machine's own key scan (R8 to R13 select a column,
   K reads its row), debounced in the fabric; an I2C GPIO expander is
   the option if pins run short.
-- Display: an 8-digit 7-segment LED display on I2C, written by an I2C
-  transmitter in the fabric each time the program completes a frame.
-- LEDs for power and, perhaps, overflow (R14 is free); switches for
-  power and reset.
-- Power: batteries (4 AA cells and a diode, or a regulator), into the
-  board's 5 V input.
+- Display: an 8-digit 7-segment LED module driven by a MAX7219
+  (SPI-style, write-only: data, clock, load), written in no-decode
+  mode with our own hex font each time the program completes a frame;
+  5 V, with a 74AHCT125 shifting the 3.3 V lines up. Raw multiplexed
+  digits (16 pins, a transistor per digit) are the alternative.
+- Rules (decided with the user): negatives stay two's complement
+  (`5-7=` shows `FFFFFFFE`); `=` pressed twice clears to 0, so no Clear
+  key and no reset button; overflow (a carry out of digit 7 on `+` or
+  `*`) shows `OuErFLO` until the next key.
+- LEDs for power and overflow (R14); a power switch.
+- Power: 4 AA cells through a 5 V buck-boost module, for the board and
+  the MAX7219 (the cells alone sag below the MAX7219's 4.0 V).
 - Efficiency: the circuit as first lowered (about 2220 LUTs) is cut to
   fit 1152 LUTs by the known levers: the ROM in block RAM (measured:
   about 500 LUTs and 440 wide muxes as logic, none as one block RAM),
