@@ -1,5 +1,11 @@
 # HEX1000 hardware demo and handoff
 
+The captures below are historical evidence from 2026-10-14, using
+the board image built before the memory-backed core update. They do
+not validate the newer core now on main or any Nano 1K image. The
+interactive CLI reads whichever configuration is currently loaded.
+Rebuilding with current main requires fresh hardware validation.
+
 ## HEX1000 on actual Nano 9K (2026-10-14)
 
 The complete calculator runs on the attached Tang Nano 9K in SRAM.
@@ -54,8 +60,9 @@ Known issues and remaining work:
 - The interactive CLI is now available. Subtraction, wrap and chaining
   have additional observed hardware results below; broader coverage
   and reset/reconnect behavior still need verification.
-- The 9K is the current target. Nano 1K optimization and block-memory
-  ROM/RAM mapping are later work. No SD card is used.
+- The 9K was the recording target. Mac has since delivered block-memory
+  ROM/RAM mapping and a [Nano 1K handoff](handoff-1k.md); its physical
+  validation is separate from these recordings. No SD card is used.
 
 Linux owns boards/tangnano9k, scripts/board-hex1000.py and its recipes.
 Mac owns the machine/library, browser and site. Mac can use the three
