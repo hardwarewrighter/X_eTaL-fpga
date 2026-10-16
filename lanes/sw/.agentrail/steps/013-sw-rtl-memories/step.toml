@@ -1,8 +1,9 @@
 number = 13
 slug = "sw-rtl-memories"
-status = "in-progress"
+status = "completed"
 description = "Memories in the emitter, for the calculator on the Tang Nano 1K (decided with..."
 role = "production"
 context_files = []
 created_at = "2026-10-15T15:57:35"
-commits = []
+completed_at = "2026-10-15T18:12:49"
+commits = ["6b248aa4fec63bf04ec6d5b37befbe650204efff"]

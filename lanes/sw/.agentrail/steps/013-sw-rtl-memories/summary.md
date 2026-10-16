@@ -1,0 +1,1 @@
+ROM and RAM in block RAM: registered reads at the next state's address in the HEX1000 lowering (traces unchanged), --memories schedule data (memory cells, write port), registered reads emitted as block RAM reads, range analysis for addresses; HEX1000 2220 LUTs/379 FFs -> 438 LUTs/81 FFs/2 BSRAM, fits the Tang Nano 1K. RAM not cleared by rst until calc-rules.
