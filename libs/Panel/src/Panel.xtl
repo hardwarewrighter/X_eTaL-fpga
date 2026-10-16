@@ -1,0 +1,274 @@
+## Panel: HEX1000's calculator panel as arrays: the 7-segment font, the keys and display in 3D, where a click lands, a key pressed at the machine
+## Import it with an alias of your choice: "pn:" u_se< "Panel".
+## Put libs/Panel/src on XETAL_PATH ("just path"); the reference is libs/Panel/docs.
+## Names with l: are exported; the others are private to this file.
+##
+## The physical calculator (docs/goals.md): a 4x4 hexadecimal pad, a
+## column of four operator keys (+ - * =) and an 8-digit 7-segment
+## display, around HEX1000 running the calculator ROM. Everything here
+## is pure arrays: the segments a digit lights (the font the display
+## driver will get), the panel's boxes and strokes in scene units (the
+## face in the plane z = 0, facing +z, y up), the projection of a fixed
+## camera onto a window (so a click can be mapped back to a key), and a
+## key pressed at the machine through its own key scan (hx:t_ypeOn).
+## A window or a renderer only draws what these give (mockup/).
+"hx:" u_se< "Hex1000"
+
+### The font
+
+## Font: the segments of the hexadecimal digits 0 to F, a number each:
+## bit 0 is segment a (the top), then b to f clockwise from the top
+## right, bit 6 g (the middle). A b C d E F: lowercase b and d tell them
+## from 8 and 0.
+## >> "pn:" u_se< "Panel"
+## >> 4 t_ake pn:Font
+## 63 6 91 79
+l:Font := 63 6 91 79 102 109 125 7 127 111 119 124 57 94 121 113
+
+## s_egs d: the segments lit for each digit latch d (O as the program
+## latched it: the digit in bits 0 to 3, bit 4 set to show it), a row a
+## to g each; a latch with bit 4 clear is blank.
+## >> "pn:" u_se< "Panel"
+## >> pn:s_egs 16 17 1
+## 1 1 1 1 1 1 0
+## 0 1 1 0 0 0 0
+## 0 0 0 0 0 0 0
+l:s_egs := { d ->
+  p := (d >= 16) * (1 + d m_od 16) s_elect l:Font
+  (p 'd_iv t_able 1 2 4 8 16 32 64) m_od 2
+}
+
+## Seg: a digit's seven segments as strokes, a row each (x1 y1 x2 y2), in
+## a digit 0.3 wide and 0.5 tall centered on 0 0, a to g.
+Seg := 7 4 r_eshape -0.11 0.25 0.11 0.25  0.15 0.21 0.15 0.04  0.15 -0.04 0.15 -0.21  -0.11 -0.25 0.11 -0.25  -0.15 -0.04 -0.15 -0.21  -0.15 0.21 -0.15 0.04  -0.11 0 0.11 0
+
+## Ops: the operator keys' legends as strokes, a row each (the key's
+## code, x1 y1 x2 y2): + - * (a cross) and =.
+Ops := 7 5 r_eshape 16 -0.15 0 0.15 0  16 0 -0.15 0 0.15  17 -0.15 0 0.15 0  18 -0.12 -0.12 0.12 0.12  18 -0.12 0.12 0.12 -0.12  19 -0.15 0.07 0.15 0.07  19 -0.15 -0.07 0.15 -0.07
+
+## Column k of a matrix m, as a vector.
+h:c_ol := { k m -> r_avel k s_elect 2 1 t_ranspose m }
+
+## k columns, each a vector of n, as an n by k matrix.
+h:r_ows := { k cs -> 2 1 t_ranspose (k c_at (t_ally cs) d_iv k) r_eshape cs }
+
+### The panel in 3D
+
+## Keys: the keys as they sit, a row of the panel each from the top: the
+## hexadecimal pad (C D E F, 8 9 A B, 4 5 6 7, 0 1 2 3) and the operator
+## column (+ - * =), by their codes (hx:m_atrix's).
+## >> "pn:" u_se< "Panel"
+## >> pn:Keys
+## 12 13 14 15 16
+##  8  9 10 11 17
+##  4  5  6  7 18
+##  0  1  2  3 19
+l:Keys := 4 5 r_eshape 12 13 14 15 16  8 9 10 11 17  4 5 6 7 18  0 1 2 3 19
+
+## k_eyAt c: where the middle of each key c is, x y (scene units), a row
+## each: 0.95 apart, the operator column 0.2 further right.
+## >> "pn:" u_se< "Panel"
+## >> pn:k_eyAt 12 19
+## -2.0 0.55
+##  2.0 -2.3
+l:k_eyAt := { c ->
+  i := ((r_avel l:Keys) i_ndexOf c) - 1
+  col := i m_od 5
+  x := ((0.95 * f_loat col) + 0.2 * f_loat col = 4) - 2.0
+  y := 0.55 - 0.95 * f_loat i d_iv 5
+  2 h:r_ows x c_at y
+}
+
+## k_eyBoxes p: the 20 keys as boxes, by code from 0, a row each (x y z
+## of the middle, width, height, depth): 0.78 square, standing 0.3 off
+## the face, key p (-1: none) pressed down to 0.1.
+## >> "pn:" u_se< "Panel"
+## >> s_hape pn:k_eyBoxes 1
+## 20 6
+l:k_eyBoxes := { p ->
+  c := o_ffsets 20
+  xy := l:k_eyAt c
+  d := 0.3 - 0.2 * f_loat c = p
+  6 h:r_ows (1 h:c_ol xy) c_at (2 h:c_ol xy) c_at (d / 2) c_at (40 r_eshape 0.78) c_at d
+}
+
+## Case: the case and the display's window, as boxes (x y z, width,
+## height, depth); the face of the case is z = 0.
+## >> "pn:" u_se< "Panel"
+## >> 1 t_ake pn:Case
+## 0.0 0.25 -0.2 5.5 6.7 0.4
+l:Case := 2 6 r_eshape 0.0 0.25 -0.2 5.5 6.7 0.4  0.0 2.3 0.01 4.9 1.1 0.02
+
+## Led: the ready light's box, top right above the display (lit while
+## R15 says the program waits for a key).
+## >> "pn:" u_se< "Panel"
+## >> pn:Led
+## 2.2 3.2 0.05 0.16 0.16 0.1
+l:Led := 1 6 r_eshape 2.2 3.2 0.05 0.16 0.16 0.1
+
+## Corners of a unit cube (signs) and its six faces, the corners round
+## each from 1.
+Signs := f_loat 8 3 r_eshape -1 -1 -1  1 -1 -1  -1 1 -1  1 1 -1  -1 -1 1  1 -1 1  -1 1 1  1 1 1
+Faces := 1 3 4 2  5 6 8 7  1 5 7 3  2 4 8 6  1 2 6 5  3 7 8 4
+
+## b_oxes b: boxes (a row each: x y z of the middle, width, height,
+## depth) as quads, six faces each, 4 corners a face (24 rows x y z a
+## box): every box's corners at once, an outer product of the halves and
+## a unit cube's signs.
+## >> "pn:" u_se< "Panel"
+## >> s_hape pn:b_oxes 2 6 r_eshape 0 0 0 1 1 1  2 0 0 1 2 1
+## 48 3
+l:b_oxes := { b ->
+  n := f_irst s_hape b
+  c_o := { k -> r_avel ((k h:c_ol b) '+ t_able 8 r_eshape 0) + (0.5 * (k + 3) h:c_ol b) '* t_able k h:c_ol Signs }
+  v := 3 h:r_ows (c_o 1) c_at (c_o 2) c_at c_o 3
+  (r_avel (8 * (r_ange n) - 1) '+ t_able Faces) s_elect v
+}
+
+## s_trokes (s, z, t): strokes as thin quads facing +z, t wide, at depth
+## z (one for all, or one a stroke): s a row each (x1 y1 x2 y2); 4
+## corners a stroke.
+## >> "pn:" u_se< "Panel"
+## >> pn:s_trokes (1 4 r_eshape 0 0 1 0, 0.5, 0.2)
+## 0.0  0.1 0.5
+## 1.0  0.1 0.5
+## 1.0 -0.1 0.5
+## 0.0 -0.1 0.5
+l:s_trokes := { (s, z, t) ->
+  n := f_irst s_hape s
+  x1 := 1 h:c_ol s
+  y1 := 2 h:c_ol s
+  x2 := 3 h:c_ol s
+  y2 := 4 h:c_ol s
+  l := (((x2 - x1) ^ 2.0) + (y2 - y1) ^ 2.0) ^ 0.5
+  nx := (t * y1 - y2) / 2.0 * l
+  ny := (t * x2 - x1) / 2.0 * l
+  x := r_avel 4 h:r_ows (x1 + nx) c_at (x2 + nx) c_at (x2 - nx) c_at x1 - nx
+  y := r_avel 4 h:r_ows (y1 + ny) c_at (y2 + ny) c_at (y2 - ny) c_at y1 - ny
+  zs := n r_eshape z
+  3 h:r_ows x c_at y c_at r_avel 4 h:r_ows zs c_at zs c_at zs c_at zs
+}
+
+## Strokes s (a row each x1 y1 x2 y2) moved by xy (a row each x y).
+h:m_ove := { (s, xy) ->
+  cx := 1 h:c_ol xy
+  cy := 2 h:c_ol xy
+  4 h:r_ows ((1 h:c_ol s) + cx) c_at ((2 h:c_ol s) + cy) c_at ((3 h:c_ol s) + cx) c_at (4 h:c_ol s) + cy
+}
+
+## l_egends p: every key's legend as strokes on its top, with key p
+## (-1: none) pressed: (the strokes, a row each x1 y1 x2 y2; their
+## depths). The digits are the display's font at 0.8 size; the
+## operators are Ops.
+## >> "pn:" u_se< "Panel"
+## >> (s, z) := pn:l_egends -1
+## >> t_ally z
+## 85
+l:l_egends := { p ->
+  digit := r_avel (o_ffsets 16) '+ t_able 7 r_eshape 0
+  on := r_avel l:s_egs 16 + o_ffsets 16
+  ds := h:m_ove (112 4 r_eshape 0.8 * r_avel Seg, l:k_eyAt digit)
+  oc := f_loor 1 h:c_ol Ops
+  os := h:m_ove (4 h:r_ows (2 h:c_ol Ops) c_at (3 h:c_ol Ops) c_at (4 h:c_ol Ops) c_at 5 h:c_ol Ops, l:k_eyAt oc)
+  codes := (on r_eplicate digit) c_at oc
+  ((on r_eplicate ds) c_at os, 0.305 - 0.2 * f_loat codes = p)
+}
+
+## d_igits d: the display's eight digits for the digit latches d (digit
+## 0, the rightmost, first) as strokes: (those lit, those dark), a row
+## each x1 y1 x2 y2.
+## >> "pn:" u_se< "Panel"
+## >> (lit, dark) := pn:d_igits 16 17 0 0 0 0 0 0
+## >> (t_ally lit) c_at t_ally dark
+## 8 48
+l:d_igits := { d ->
+  xp := 0.58 * 3.5 - f_loat o_ffsets 8
+  all := h:m_ove (56 4 r_eshape r_avel Seg, 2 h:r_ows (r_avel xp '+ t_able 7 r_eshape 0) c_at 56 r_eshape 2.3)
+  on := r_avel l:s_egs d
+  (on r_eplicate all, (1 - on) r_eplicate all)
+}
+
+### The camera and the window
+
+## View: the window, width and height (logical pixels).
+## >> "pn:" u_se< "Panel"
+## >> pn:View
+## 560 760
+l:View := 560 760
+
+## Eye: the fixed camera, x y z then its pitch (radians, down negative),
+## facing -z: in front of the panel and a little above it.
+## >> "pn:" u_se< "Panel"
+## >> 3 t_ake pn:Eye
+## 0.0 1.2 5.1
+l:Eye := 0.0 1.2 5.1 -0.2
+
+## p_roject pts: points (a row each x y z) where the camera draws them in
+## the window, x y in logical pixels from the top left: the scene
+## extension's first-person view (sc:e_ye!: a 70 degree field of view
+## across the window's smaller side).
+## >> "pn:" u_se< "Panel"
+## >> f_loor pn:p_roject 1 3 r_eshape 0.0 1.5 0.0
+## 280 274
+l:p_roject := { pts ->
+  rx := (1 h:c_ol pts) - 1 s_elect l:Eye
+  ry := (2 h:c_ol pts) - 2 s_elect l:Eye
+  rz := (3 h:c_ol pts) - 3 s_elect l:Eye
+  a := 4 s_elect l:Eye
+  sp := s_in a
+  cp := c_os a
+  yc := (cp * ry) + sp * rz
+  zc := (sp * ry) - cp * rz
+  half := 0.6108652381980153
+  v := f_loat l:View
+  f := ('m_in r_/ v) / 2.0 * (s_in half) / c_os half
+  sx := (0.5 * f_irst v) + f * rx / zc
+  sy := (0.5 * 2 s_elect v) - f * yc / zc
+  2 h:r_ows sx c_at sy
+}
+
+## h_it xy: the key a click at x y (logical pixels) lands on, its
+## code, or -1 for none: each key's top face projected, its corners'
+## box on the screen.
+## >> "pn:" u_se< "Panel"
+## >> c := pn:p_roject 1 3 r_eshape (pn:k_eyAt 19) c_at 0.3
+## >> pn:h_it r_avel c
+## 19
+l:h_it := { xy0 ->
+  x := f_irst xy0
+  y := 2 s_elect xy0
+  xy := l:k_eyAt o_ffsets 20
+  kx := 1 h:c_ol xy
+  ky := 2 h:c_ol xy
+  tl := l:p_roject 3 h:r_ows (kx - 0.39) c_at (ky + 0.39) c_at 20 r_eshape 0.3
+  br := l:p_roject 3 h:r_ows (kx + 0.39) c_at (ky - 0.39) c_at 20 r_eshape 0.3
+  in := (x >= 1 h:c_ol tl) & (x <= 1 h:c_ol br) & (y >= 2 h:c_ol tl) & y <= 2 h:c_ol br
+  i := in i_ndexOf 1
+  i > 20 ? -1
+  i - 1
+}
+
+### The machine behind the panel
+
+## p_ress (st, d, c): key c pressed at the machine running the calculator
+## ROM, from state st with the display showing the digit latches d (digit
+## 0 first), through its own key scan (hx:t_ypeOn): (the state, the
+## digit latches, the instructions it took). A digit is given 2000
+## instructions, an operator 20000 (a multiply runs when the next
+## operator or = settles it).
+## >> "pn:" u_se< "Panel"
+## >> "hx:" u_se< "Hex1000"
+## >> (st, d, took) := pn:p_ress (hx:Reset, 8 r_eshape 0, 7)
+## >> hx:s_creen r_ev d
+##        7
+l:p_ress := { (st, d, c) ->
+  (t, d1, done, took) := hx:CalcRom hx:t_ypeOn (st, d, 1 r_eshape c, 2000 + 18000 * c >= 16)
+  (t, d1, took)
+}
+
+## r_eady st: 1 while the program waits for a key (R15), else 0.
+## >> "pn:" u_se< "Panel"
+## >> "hx:" u_se< "Hex1000"
+## >> pn:r_eady hx:Reset
+## 0
+l:r_eady := { st -> 16 s_elect hx:l_atches st }

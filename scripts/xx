@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# The pinned xetal-x (scripts/xetal-extensions.sh) with X_eTaL-extensions'
+# scene and blender extensions loaded, Blender's script libraries (Bpy,
+# Video) and every library of this repository and the pinned
+# X_eTaL-libraries on XETAL_PATH, written relative to the current
+# directory so baselines do not depend on the checkout. "xx run FILE"
+# adds --seed 1 --ascii, as the tests run; any other command passes
+# through. Used by the 3D mockup (mockup/).
+#   scripts/xx run mockup/calculator.xtl
+set -euo pipefail
+root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+[ -x "$root/bin/xetal-x" ] || "$root/scripts/xetal-extensions.sh" >/dev/null
+"$root/scripts/xetal-libraries.sh" >/dev/null
+rel() { python3 -c 'import os,sys; print(os.path.relpath(sys.argv[1]))' "$1"; }
+ext="$root/work/xetal-extensions/extensions"
+XETAL_PATH="$( { for d in "$root"/libs/*/src "$root"/work/libs/*/src "$ext/blender/lib"; do [ -d "$d" ] && rel "$d"; done; } | paste -sd: -)"
+export XETAL_PATH
+exts=(--ext "$(rel "$ext/scene")" --ext "$(rel "$ext/blender")")
+if [ "${1:-}" = run ]; then shift; exec "$root/bin/xetal-x" "${exts[@]}" run --seed 1 --ascii "$@"; fi
+exec "$root/bin/xetal-x" "${exts[@]}" "$@"

@@ -1,0 +1,31 @@
+#!/usr/bin/env xetal
+# The panel's 7-segment font, drawn the classic way in three lines of
+# text (_ and | for the segments): the sixteen digits, then the display
+# after calculations typed at HEX1000. The same segments light the 3D
+# mockup (mockup/calculator.xtl) and will be sent to the display driver.
+# Run with "just demo-lib Panel font".
+"pn:" u_se< "Panel"
+"hx:" u_se< "Hex1000"
+"rx:" u_se< "Radix"
+## d u:a_rt: digit latches d (the leftmost first) as three lines
+u:a_rt := { d ->
+  s := pn:s_egs d
+  n := t_ally d
+  c_ol := { k -> r_avel k s_elect 2 1 t_ranspose s }
+  one := n r_eshape 1
+  i := (9 c_at n) r_eshape one c_at (1 + c_ol 1) c_at one c_at (1 + 2 * c_ol 6) c_at (1 + c_ol 7) c_at (1 + 2 * c_ol 2) c_at (1 + 2 * c_ol 5) c_at (1 + c_ol 4) c_at 1 + 2 * c_ol 3
+  t := i s_elect " _|"
+  r_ow := { k -> r_avel 2 1 t_ranspose 3 t_ake (3 * k) d_rop t }
+  (3 c_at 3 * n) r_eshape (r_ow 0) c_at (r_ow 1) c_at r_ow 2
+}
+## u:s_hown text: the display after typing text at the calculator
+u:s_hown := { text ->
+  (st, d, done, took) := hx:CalcRom hx:t_ype (hx:Reset, rx:k_eys text, 30000)
+  p_rint! text
+  u:a_rt r_ev d
+}
+"the font, 0 to F:"
+u:a_rt 16 + o_ffsets 16
+u:s_hown "12+34="
+u:s_hown "C0DE+BEEF="
+u:s_hown "A*B="

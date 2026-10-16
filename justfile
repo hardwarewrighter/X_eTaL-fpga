@@ -129,6 +129,26 @@ web:
 tape:
     @mkdir -p work/tapes && vhs docs/tapes/hex1000-calc.tape
 
+# Get and build xetal-x, X_eTaL-extensions' bridge host, with its scene and blender extensions, at XETAL_EXTENSIONS_COMMIT (work/xetal-extensions, bin/xetal-x)
+xetal-x:
+    @scripts/xetal-extensions.sh
+
+# Pin a committed ref of ../../softwarewrighter/X_eTaL-extensions (default HEAD) in XETAL_EXTENSIONS_COMMIT and build it; commit it on its own
+extensions-pin ref="HEAD":
+    scripts/xetal-extensions.sh --pin "$1"
+
+# HEX1000 as a 3D calculator in a window: click the keys or type them (q quits); the machine computes every digit
+mockup:
+    @scripts/xx run mockup/calculator.xtl
+
+# The 3D calculator, headless, against its baseline (mockup/headless.out)
+mockup-test:
+    scripts/test-mockup.sh
+
+# Render the 3D calculator with Blender: work/mockup/blender/out/hex1000-mockup.mp4 (shown by the live site)
+mockup-video:
+    scripts/mockup-video.sh
+
 # A library's demo as a notebook, each statement then its output
 show-lib name prog="":
     @scripts/run-lib.sh --echo --demos "$1" ${2:+"$2"}

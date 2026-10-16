@@ -1,0 +1,119 @@
+#!/usr/bin/env xetal-x
+# HEX1000 as a 3D calculator, interactive: the panel of the physical
+# calculator (libs/Panel: the 4x4 hexadecimal pad, the operator column
+# + - * =, the 8-digit 7-segment display, the ready light) drawn in
+# X_eTaL-extensions' scene window, and behind it HEX1000 running the
+# calculator ROM. A click on a key (hit-tested by projecting the keys
+# with the window's camera) or a typed key presses it at the machine
+# through its own key scan; the display shows the digits the program
+# strobed out, and the line under it what the key cost.
+# Run with "just mockup": click the keys or type 0-9 a-f + - * = (Enter
+# is =); q or Escape quits. Headless (XETAL_HEADLESS=1, XETAL_EVENTS)
+# it is a test: it prints each key and the screen after it.
+"pn:" u_se< "Panel"
+"hx:" u_se< "Hex1000"
+"sc:" u_se< "Scene"
+"s:" u_se< "Strings"
+
+w := "HEX1000 -- X_eTaL" sc:o_pen! f_loat pn:View
+e := w sc:e_ye! (3 t_ake pn:Eye) c_at 0.0 c_at 4 s_elect pn:Eye
+s := w sc:s_ky! 0.12 0.13 0.16
+
+## put object id as quads of the given color
+u:p_ut := { (id, rgb, pts) -> ((f_loat w) c_at id c_at rgb) sc:q_uads! pts }
+
+## the case, the display's window and the ready light (lit or not)
+z := u:p_ut (1.0, 0.16 0.17 0.19, pn:b_oxes 1 t_ake pn:Case)
+z := u:p_ut (2.0, 0.02 0.02 0.02, pn:b_oxes 1 d_rop pn:Case)
+u:l_ed := { on ->
+  o := f_loat on
+  u:p_ut (3.0, (o * 0.2 1.0 0.3) + (1.0 - o) * 0.1 0.25 0.12, pn:b_oxes pn:Led)
+}
+
+## the keys, key p (-1: none) pressed: the pad light, the operators orange
+u:k_eys := { p ->
+  b := pn:k_eyBoxes p
+  z := u:p_ut (4.0, 0.78 0.78 0.74, pn:b_oxes 16 t_ake b)
+  z := u:p_ut (5.0, 0.95 0.55 0.15, pn:b_oxes 16 d_rop b)
+  (s, d) := pn:l_egends p
+  u:p_ut (6.0, 0.08 0.08 0.1, pn:s_trokes (s, d, 0.05))
+}
+
+## the display, digit latches d (digit 0 first): lit segments red, dark
+## ones a dim red
+u:s_how := { d ->
+  (lit, dark) := pn:d_igits d
+  z := u:p_ut (7.0, 1.0 0.12 0.08, pn:s_trokes (lit, 0.03, 0.07))
+  u:p_ut (8.0, 0.13 0.03 0.03, pn:s_trokes (dark, 0.025, 0.07))
+}
+
+## the line under the panel
+u:s_ay := { text -> ((f_loat w) c_at 1.0 20.0 725.0 14.0 0.85 0.85 0.85) sc:l_abel! text }
+z := ((f_loat w) c_at 2.0 20.0 16.0 21.0 0.9 0.9 0.9) sc:l_abel! "HEX1000"
+z := ((f_loat w) c_at 3.0 20.0 44.0 14.0 0.6 0.6 0.6) sc:l_abel! "IN X-ETAL: CLICK OR TYPE THE KEYS"
+
+## the key of a typed character, its code (hx:Keymap), or -1
+h:k_ey := { ch ->
+  k := (1 + []U_CS ch) s_elect hx:Keymap
+  k < 20 ? k
+  -1
+}
+
+## the key of event v: a click on a key, or a key typed; else -1
+u:k_eyOf := { v ->
+  (10 t_ake v) m_atch "click left" ? pn:h_it n_umbers 11 d_rop v
+  v m_atch "key Enter" ? 19
+  (5 = t_ally v) * (4 t_ake v) m_atch "key " ? h:k_ey f_irst -1 t_ake v
+  -1
+}
+
+## a key's name, for the line under the panel (the scene font has no * or =)
+Names := s:w_ords "0 1 2 3 4 5 6 7 8 9 A B C D E F PLUS MINUS TIMES EQUALS"
+
+### Playing
+
+## The state: (the machine, the digit latches, the key down (-1: none),
+## the frames until the next thing happens, running). A key goes down
+## at once; two frames later the machine takes it (the window shows it
+## down meanwhile), and a frame after that it comes up.
+u:d_own := { (st, d, c) ->
+  z := u:k_eys c
+  z := u:l_ed 0
+  (st, d, c, 3, 1)
+}
+u:r_un := { (st, d, c) ->
+  (st1, d1, took) := pn:p_ress (st, d, c)
+  z := u:s_how d1
+  z := u:l_ed pn:r_eady st1
+  z := u:s_ay "KEY " c_at (d_isclose (1 + c) s_elect Names) c_at ": " c_at (f_ormat took) c_at " INSTRUCTIONS"
+  z := p_rint! "key " c_at (d_isclose (1 + c) s_elect Names) c_at ":" c_at (hx:s_creen r_ev d1) c_at "  (" c_at (f_ormat took) c_at " instructions)"
+  (st1, d1, c, 1, 1)
+}
+u:u_p := { (st, d) ->
+  z := u:k_eys -1
+  (st, d, -1, 0, 1)
+}
+
+## one frame: quit, the machine's turn, a key coming up, or a new key
+u:f_rame := { (st, d, p, t, on) ->
+  0 = on ? (st, d, p, t, on)
+  v := sc:n_ext! w
+  ((v m_atch "close") + (v m_atch "key q") + v m_atch "key Escape") > 0 ? (st, d, p, t, 0)
+  t = 2 ? u:r_un (st, d, p)
+  t = 1 ? u:u_p (st, d)
+  t > 0 ? (st, d, p, t - 1, 1)
+  c := u:k_eyOf v
+  c >= 0 ? u:d_own (st, d, c)
+  (st, d, p, t, on)
+}
+
+## From reset: the program shows 0 and waits for a key.
+(st0, d0, done0, took0) := hx:CalcRom hx:t_ype (hx:Reset, 0 r_eshape 0, 2000)
+z := u:k_eys -1
+z := u:s_how d0
+z := u:l_ed pn:r_eady st0
+z := u:s_ay "READY: " c_at (f_ormat took0) c_at " INSTRUCTIONS FROM RESET"
+z := p_rint! "reset:" c_at hx:s_creen r_ev d0
+last := 200000 'u:f_rame p_ower (st0, d0, -1, 0, 1)
+z := sc:c_lose! w
+"bye"

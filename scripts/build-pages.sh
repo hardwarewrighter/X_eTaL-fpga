@@ -20,6 +20,10 @@ done
 if [ -d work/web/calc ]; then cp -R work/web/calc pages/calc; fi
 # The terminal recording (just tape), when it has been made.
 if [ -f work/tapes/hex1000-calc.gif ]; then mkdir -p pages/media && cp work/tapes/hex1000-calc.gif pages/media/; fi
+# The 3D calculator rendered by Blender (just mockup-video), when it has been made.
+if [ -f work/mockup/blender/out/hex1000-mockup.mp4 ]; then
+  mkdir -p pages/media && cp work/mockup/blender/out/hex1000-mockup.mp4 pages/media/ && cp work/mockup/blender/out/hex1000-mockup-1.png pages/media/hex1000-mockup.png
+fi
 python3 "$root/scripts/landing.py" > pages/index.html
 touch pages/.nojekyll
 echo "pages: $(find pages -type f | wc -l | tr -d ' ') files ($(du -sh pages | cut -f1)) in pages/"

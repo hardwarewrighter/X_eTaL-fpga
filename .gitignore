@@ -33,5 +33,6 @@ __pycache__/
 /tmp/
 work/
 bin/xetal
+bin/xetal-x
 *.vcd
 *.vvp

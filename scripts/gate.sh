@@ -23,6 +23,8 @@ else
 fi
 "$root/scripts/test-libs.sh"
 "$root/scripts/doctest-libs.sh"
+# The 3D mockup, headless (skipped, and said so, without xetal-x).
+"$root/scripts/test-mockup.sh"
 # The documentation site builds (into work/, so pages/ is left alone).
 XETAL_DOC_OUT="$root/work/doc" "$root/scripts/doc-site.sh"
 if [ -f "$root/components/Cargo.toml" ]; then

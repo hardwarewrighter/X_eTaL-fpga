@@ -1,0 +1,109 @@
+#!/usr/bin/env xetal-x
+# HEX1000 as a 3D calculator, rendered by Blender: the panel of the
+# physical calculator (libs/Panel) lying on a desk, a key sequence
+# pressed one key a second, and the display showing what HEX1000,
+# running the calculator ROM in X_eTaL, strobed out after each key.
+# Every box, line, label, key press, color change and the camera's path
+# is an array worked out here; X_eTaL-extensions' Video library writes
+# them into the Python Blender runs. The render refuses to start unless
+# the last screen is hx:c_alc's for the same keys (the evaluator's
+# answer, the one the Tang Nano 9K gives).
+# Run with "just mockup-video" (Blender; about a minute):
+# work/mockup/blender/hex1000-mockup.mp4 and a still.
+"pn:" u_se< "Panel"
+"hx:" u_se< "Hex1000"
+"rx:" u_se< "Radix"
+"bl:" u_se< "Blender"
+"bp:" u_se< "Bpy"
+"vd:" u_se< "Video"
+
+text := "C0DE+BEEF="
+keys := rx:k_eys text
+n := t_ally keys
+
+### The machine: the digit latches after reset and after each key
+
+(st0, d0, done0, took0) := hx:CalcRom hx:t_ype (hx:Reset, 0 r_eshape 0, 2000)
+u:k_ey := { (i, st, ds) ->
+  (st1, d1, took) := pn:p_ress (st, r_avel (n_eg 1) t_ake ds, i s_elect keys)
+  (i + 1, st1, ds c_at d1)
+}
+(i, st, ds) := n 'u:k_ey p_ower (1, st0, 1 8 r_eshape d0)
+screen := hx:s_creen r_ev r_avel (n_eg 1) t_ake ds
+u:c_heck := { sc ->
+  (sc m_atch hx:c_alc text) = 0 ? []P_ANIC "mockup/video: the panel shows " c_at sc c_at ", the evaluator " c_at hx:c_alc text
+  sc
+}
+screen := u:c_heck screen
+
+### Time: an opening second, a second a key, then a pause
+
+## each key's second: down at once, held, the display changing as it is
+## taken, up again
+s := 1.0 + f_loat o_ffsets n
+end := 3.0 + f_loat n
+times := 0.0 c_at (r_avel s '+ t_able 0.0 0.12 0.4 0.52) c_at end
+k := t_ally times
+## the key down at each time (-1: none), and the display's state (0:
+## reset, i: after key i)
+down := -1 c_at (r_avel ((keys + 1) '* t_able 0 1 1 0) - 1) c_at -1
+state := 0 c_at (r_avel (o_ffsets n) '+ t_able 0 0 1 1) c_at n
+D := f_loat (o_ffsets 20) '= t_able down
+
+### The panel
+
+## the keys: their boxes (x y z w d h), lowered 0.06 while down, each key
+## a row of k places
+B := pn:k_eyBoxes -1
+rep := r_avel (r_ange 20) '+ t_able k r_eshape 0
+P := (rep s_elect B) + (r_avel D) '* t_able 0.0 0.0 -0.06 0.0 0.0 0.0
+places := (20 c_at 6 * k) r_eshape r_avel P
+## their colors: the pad light, the operators orange, a key brighter
+## while down
+base := f_loat (16 3 r_eshape 200 200 190) c_at 4 3 r_eshape 240 140 40
+bright := f_loat (16 3 r_eshape 255 255 255) c_at 4 3 r_eshape 255 205 120
+keyc := (20 c_at 3 * k) r_eshape r_avel (rep s_elect base) + ((r_avel D) '* t_able 1.0 1.0 1.0) * rep s_elect bright - base
+keyrows := B c_at_2 base c_at_2 20 1 r_eshape 1.0
+edgerows := B c_at_2 (20 3 r_eshape 25.0 25.0 28.0) c_at_2 20 1 r_eshape 1.0
+## their legends, facing the camera above each key
+names := "0|1|2|3|4|5|6|7|8|9|A|B|C|D|E|F|+|-|*|="
+at := pn:k_eyAt o_ffsets 20
+legrows := at c_at_2 (20 5 r_eshape 0.36 0.34 30.0 30.0 35.0)
+
+## the display's 56 segments, a glowing line each (from, to, color,
+## radius), lit or dark at each time from the machine's digit latches
+(all, none) := pn:d_igits 8 r_eshape 24
+z56 := 56 1 r_eshape 0.04
+segrows := (2 t_ake_2 all) c_at_2 z56 c_at_2 (2 d_rop_2 all) c_at_2 z56 c_at_2 (56 3 r_eshape 45.0 10.0 10.0) c_at_2 56 1 r_eshape 0.035
+S := ((n + 1) c_at 56) r_eshape r_avel pn:s_egs ds
+on := r_avel f_loat 2 1 t_ranspose (1 + state) s_elect S
+segc := (56 c_at 3 * k) r_eshape r_avel (on '* t_able 255.0 40.0 25.0) + (1.0 - on) '* t_able 45.0 10.0 10.0
+
+## the case, the display's window, and the ready light (dark while a key
+## is down)
+caserows := pn:Case c_at_2 (2 4 r_eshape 38.0 40.0 46.0 1.0 6.0 6.0 8.0 1.0)
+ledrows := pn:Led c_at_2 1 4 r_eshape 15.0 50.0 25.0 1.0
+ready := f_loat down < 0
+ledc := (1 c_at 3 * k) r_eshape r_avel (ready '* t_able 50.0 230.0 90.0) + (1.0 - ready) '* t_able 15.0 50.0 25.0
+
+### The video
+
+captions := "HEX1000 in X_eTaL: C0DE+BEEF= pressed at its own key scan|17FCD: the answer the Tang Nano 9K gives"
+caprows := 2 5 r_eshape 0.3 c_at (end - 2.2) c_at 235.0 235.0 235.0 c_at (end - 2.0) c_at end c_at 255.0 210.0 120.0
+eyes := 2 3 r_eshape 0.0 -9.6 11.0 1.5 -8.4 9.9
+aims := 2 3 r_eshape 0.0 -0.6 0.0 0.2 -0.4 0.0
+script := vd:head c_at ((1280, 720, 30, end, 26 27 32, 38) vd:s_tage 0)
+script := script c_at (("case", caserows) vd:b_oxes 0) c_at (("led", ledrows) vd:b_oxes 0) c_at ("led", times, ledc) vd:t_ints 0
+script := script c_at (("key", keyrows) vd:b_oxes 0) c_at (("key", times, places) vd:m_oves 0) c_at ("key", times, keyc) vd:t_ints 0
+script := script c_at (("edge", edgerows) vd:o_utlines 0) c_at ("edge", times, places) vd:m_oves 0
+script := script c_at (("legend", names, legrows) vd:l_abels 0)
+script := script c_at (("seg", segrows) vd:l_ines 0) c_at ("seg", times, segc) vd:t_ints 0
+script := script c_at ((captions, caprows) vd:c_aptions 0) c_at ((0.0 c_at end, eyes, aims) vd:c_amera 0)
+script := script c_at ((1 r_eshape end - 0.5, "hex1000-mockup") vd:s_tills 0) c_at (vd:r_ender "hex1000-mockup.mp4") c_at vd:report
+w1 := "work/mockup/blender/run.py" bl:w_rite! bp:launcher
+w2 := "work/mockup/blender/video.py" bl:w_rite! script
+"the panel shows " c_at screen c_at ", as hx:c_alc does; rendering " c_at (f_ormat f_loor 30.0 * end) c_at " frames with Blender ..."
+r := "work/mockup/blender/run.py" bl:r_un! "work/mockup/blender/video.py work/mockup/blender/out"
+lines := (n_ot r = f_irst "\n") p_artition r
+d_isclose 1 s_elect lines
+bl:f_iles "work/mockup/blender/out"

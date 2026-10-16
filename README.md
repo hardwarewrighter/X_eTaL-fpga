@@ -11,6 +11,18 @@ X_eTaL programs as hardware.
 
 [![HEX1000 running in the browser: the display and its key matrix](docs/images/hex1000-browser.png)](https://hardwarewrighter.github.io/X_eTaL-fpga/calc/)
 
+As the physical calculator it is becoming, in 3D (`just mockup` to
+click its keys; [the mockup](mockup/README.md), rendered by Blender
+from X_eTaL arrays):
+
+[![HEX1000 as a 3D calculator rendered by Blender: the display reads 17FCd after C0DE+BEEF=](https://hardwarewrighter.github.io/X_eTaL-fpga/media/hex1000-mockup.png)](https://hardwarewrighter.github.io/X_eTaL-fpga/media/hex1000-mockup.mp4)
+
+As the physical calculator it is becoming, in 3D (`just mockup` to
+click its keys; [the mockup](mockup/README.md), rendered by Blender
+from X_eTaL arrays):
+
+[![HEX1000 as a 3D calculator rendered by Blender: the display reads 17FCd after C0DE+BEEF=](https://hardwarewrighter.github.io/X_eTaL-fpga/media/hex1000-mockup.png)](https://hardwarewrighter.github.io/X_eTaL-fpga/media/hex1000-mockup.mp4)
+
 At a terminal (`just calc`):
 
 ![HEX1000 at a terminal: 12+34= shows 46, C0DE+BEEF= shows 17FCD](https://hardwarewrighter.github.io/X_eTaL-fpga/media/hex1000-calc.gif)
@@ -128,6 +140,10 @@ the earlier one. See [project goals](docs/goals.md).
 | [`libs/Hex1000/demos/terminal.xtl`](libs/Hex1000/demos/terminal.xtl) | the calculator at a terminal (`just calc`); [`web/hex1000`](web/hex1000) the same in a browser ([live](https://hardwarewrighter.github.io/X_eTaL-fpga/calc/)) |
 | [`libs/Hex1000/demos/board.xtl`](libs/Hex1000/demos/board.xtl) | the machine with the board's glue (`hx:g_lue`: key queue, key matrix and handshake, digit latches, frames), at the glue's ports every clock ([`serial.xtl`](libs/Hex1000/demos/serial.xtl) shows its frames as a terminal does) |
 | [`libs/Hex1000/rtl/hex1000-board.v`](libs/Hex1000/rtl/hex1000-board.v) | the machine and its glue in Verilog, module `hex1000_board` (`in_c`, `out_f`, `out_d`), checked clock for clock against `board.xtl` ([IR](libs/Hex1000/demos/hex1000-board.xir)) |
+| [`libs/Panel/src/Panel.xtl`](libs/Panel/src/Panel.xtl) | the physical calculator's panel as arrays: the 7-segment font, the keys and display in 3D, the camera's projection (a click to a key), a key pressed at the machine ([reference](libs/Panel/docs/README.md)) |
+| [`mockup/`](mockup/README.md) | the 3D calculator: interactive in a window (`just mockup`) and rendered by Blender (`just mockup-video`) |
+| [`libs/Panel/src/Panel.xtl`](libs/Panel/src/Panel.xtl) | the physical calculator's panel as arrays: the 7-segment font, the keys and display in 3D, the camera's projection (a click to a key), a key pressed at the machine ([reference](libs/Panel/docs/README.md)) |
+| [`mockup/`](mockup/README.md) | the 3D calculator: interactive in a window (`just mockup`) and rendered by Blender (`just mockup-video`) |
 | [`docs/parallel-work.md`](docs/parallel-work.md) | the core's ports and the UART glue a board needs |
 
 ```bash

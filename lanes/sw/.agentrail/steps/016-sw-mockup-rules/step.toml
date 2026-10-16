@@ -1,0 +1,8 @@
+number = 16
+slug = "sw-mockup-rules"
+status = "pending"
+description = "Update the 3D mockup and its renders for the calc-rules decisions (== clears,..."
+role = "production"
+context_files = []
+created_at = "2026-10-15T16:35:26"
+commits = []

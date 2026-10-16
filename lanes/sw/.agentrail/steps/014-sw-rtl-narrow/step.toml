@@ -1,4 +1,4 @@
-number = 13
+number = 14
 slug = "sw-rtl-narrow"
 status = "pending"
 description = "Unsigned types in the IR (a nibble 4 bits, not i5), dead nodes removed, commo..."

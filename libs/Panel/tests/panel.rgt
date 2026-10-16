@@ -1,0 +1,2 @@
+command = "../../../scripts/xt run panel.xtl"
+exit_code = 0

@@ -1,0 +1,17 @@
+l:Font : Int
+l:s_egs : Int -> Int
+l:Keys : Int
+l:k_eyAt : Int -> Float
+l:k_eyBoxes : Int -> Float
+l:Case : Float
+l:Led : Float
+l:b_oxes : Float -> Float
+l:s_trokes : (Float, Float, Float) -> Float
+l:l_egends : Int -> (Float, Float)
+l:d_igits : Int -> (Float, Float)
+l:View : Int
+l:Eye : Float
+l:p_roject : Float -> Float
+l:h_it : Float -> Int
+l:p_ress : Num a => ((Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int), Int, Int) -> ((Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int), Int, a)
+l:r_eady : (Any a, Any b, Any c, Any d, Any e, Any f, Any g, Any h, Any i, Any j, Any l) => (a, b, c, d, e, f, g, h, i, j, k, l) -> k

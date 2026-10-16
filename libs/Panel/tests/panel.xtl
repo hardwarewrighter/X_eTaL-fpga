@@ -1,0 +1,39 @@
+#!/usr/bin/env xetal
+# Panel: the font against the segments it names, the 3D panel's shapes,
+# every key found again where the camera draws it, and keys pressed at
+# the machine against hx:c_alc. "ok" per check. Run with
+# "just run-lib Panel panel".
+"pn:" u_se< "Panel"
+"hx:" u_se< "Hex1000"
+"k:" u_se< "Check"
+## a's a b c d e f g: which of the seven segments each digit lights
+u:a_s := { d bits -> ("font " c_at f_ormat d) k:t_est bits k:i_s r_avel pn:s_egs 16 + d }
+## the middle of key c's top, projected, hit-tested back
+u:f_ound := { c -> pn:h_it r_avel pn:p_roject 1 3 r_eshape (pn:k_eyAt c) c_at 0.3 }
+## every key, found again
+(n, found) := 20 '{ (i, out) -> (i + 1, out c_at u:f_ound i) } p_ower (0, 0 r_eshape 0)
+## keys pressed one by one from reset, the screen after
+u:t_yped := { codes ->
+  (st, d, done, took) := hx:CalcRom hx:t_ype (hx:Reset, 0 r_eshape 0, 2000)
+  (n, (st2, d2)) := (t_ally codes) '{ (i, (st, d)) -> (i + 1, h:k_ey (st, d, i s_elect codes)) } p_ower (1, (st, d))
+  hx:s_creen r_ev d2
+}
+h:k_ey := { (st, d, c) ->
+  (st1, d1, took) := pn:p_ress (st, d, c)
+  (st1, d1)
+}
+(lit, dark) := pn:d_igits 29 28 31 23 17 0 0 0
+k:r_eport (
+  (0 u:a_s 1 1 1 1 1 1 0)
+  k:a_nd (1 u:a_s 0 1 1 0 0 0 0)
+  k:a_nd (8 u:a_s 1 1 1 1 1 1 1)
+  k:a_nd (11 u:a_s 0 0 1 1 1 1 1)
+  k:a_nd (13 u:a_s 0 1 1 1 1 0 1)
+  k:a_nd ("blank digits" k:t_est (7 r_eshape 0) k:i_s r_avel pn:s_egs 5)
+  k:a_nd ("every key found where it is drawn" k:t_est (o_ffsets 20) k:i_s found)
+  k:a_nd ("a click between keys is none" k:t_est -1 k:i_s pn:h_it 5.0 5.0)
+  k:a_nd ("20 keys, 6 faces of 4 corners" k:t_est 480 3 k:i_s s_hape pn:b_oxes pn:k_eyBoxes -1)
+  k:a_nd ("17FCd lights 18 segments" k:t_est 18 38 k:i_s (t_ally lit) c_at t_ally dark)
+  k:a_nd ("12+34= at the panel" k:t_est (hx:c_alc "12+34=") k:i_s u:t_yped 1 2 16 3 4 19)
+  k:a_nd ("A*B= at the panel" k:t_est (hx:c_alc "A*B=") k:i_s u:t_yped 10 18 11 19)
+)

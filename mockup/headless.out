@@ -1,0 +1,12 @@
+reset:       0
+key C:       C  (298 instructions)
+key 0:      C0  (231 instructions)
+key D:     C0D  (265 instructions)
+key E:    C0DE  (263 instructions)
+key PLUS:    C0DE  (281 instructions)
+key B:       B  (293 instructions)
+key E:      BE  (273 instructions)
+key E:     BEE  (268 instructions)
+key F:    BEEF  (264 instructions)
+key EQUALS:   17FCD  (303 instructions)
+bye
