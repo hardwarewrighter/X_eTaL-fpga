@@ -12,6 +12,8 @@ complete, saga archive).
 
 ## 2026-10-16
 
+- `plan` Queue Linux Nano 1K board configuration and three-LED smoke test from Mac handoff d843c77; Linux synthesis confirms 438 LUTs, 81 flip-flops, 2 block RAMs. Integrated main gate passes all 19 circuit checks; optional 3D mockup test is explicitly skipped without xetal-x.
+
 - `docs` Preserve Mac main through d843c77 when integrating the interactive UART handoff; explicitly scope recorded hardware evidence to the October 14 image, not the newer memory-backed core or Nano 1K.
 
 - 08:42 `docs` docs/handoff-1k.md: the Linux lane's procedure for the Tang Nano 1K (what is ready, the two caveats, the board flow's missing 1K entry and what to confirm, a smoke-test top and what its LEDs must show from the X_eTaL trace, the next steps and the panel's expected ports).
