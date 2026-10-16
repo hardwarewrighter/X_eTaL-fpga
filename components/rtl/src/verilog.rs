@@ -5,6 +5,8 @@
 //! program's does; a Bool is a 1-bit wire.
 
 use crate::netlist::{Kind, Netlist, Port};
+use crate::range::ranges;
+use std::collections::{HashMap, HashSet};
 use xetal_fpga_xir::{wrap, Elem, MapOp};
 
 fn decl(e: Elem) -> String {
@@ -141,8 +143,70 @@ fn expr(n: &Netlist, i: usize) -> String {
             }
             _ => format!("n{a}"),
         },
+        Kind::MemRead(m, a) => {
+            let len = match &n.cells[*m].kind {
+                Kind::Mem { init, .. } => init.len(),
+                _ => unreachable!("a memory"),
+            };
+            format!(
+                "((n{a} >= 0) && (n{a} < {len})) ? mem{m}[n{a}] : {}",
+                lit(c.elem, 0)
+            )
+        }
         Kind::Reg { .. } => unreachable!("registers are declared as reg"),
+        Kind::Mem { .. } => unreachable!("memories are declared as arrays"),
     }
+}
+
+/// A register loaded from a memory: `reg <= ARRAY[rst ? A0 : addr]`.
+struct Fused {
+    array: String,
+    addr: usize,
+    reset_addr: usize,
+}
+
+/// The registers whose next value is a read of a ROM or a memory (read
+/// by nothing else) at an address that is always in range: written as
+/// a registered read, so Yosys maps the table to block RAM. At reset
+/// the read is of a word that holds the register's reset value, so the
+/// register needs no reset of its own (block RAM outputs can only be
+/// cleared to 0). Tables of fewer than 64 words stay as logic.
+fn fused_reads(n: &Netlist) -> HashMap<usize, Fused> {
+    let uses = n.uses();
+    let range = ranges(n);
+    let mut f = HashMap::new();
+    for (i, c) in n.cells.iter().enumerate() {
+        let Kind::Reg { d, init } = c.kind else {
+            continue;
+        };
+        if uses[d] != 1 {
+            continue;
+        }
+        let (array, words, addr) = match &n.cells[d].kind {
+            Kind::Rom(t, a) => (format!("rom{d}"), t.clone(), *a),
+            Kind::MemRead(m, a) => match &n.cells[*m].kind {
+                Kind::Mem { init, .. } => (format!("mem{m}"), init.clone(), *a),
+                _ => continue,
+            },
+            _ => continue,
+        };
+        let (lo, hi) = range[addr];
+        if words.len() < 64 || lo < 0 || hi >= words.len() as i128 {
+            continue;
+        }
+        let Some(reset_addr) = words.iter().position(|w| *w == init) else {
+            continue;
+        };
+        f.insert(
+            i,
+            Fused {
+                array,
+                addr,
+                reset_addr,
+            },
+        );
+    }
+    f
 }
 
 /// The circuit as a Verilog-2005 module.
@@ -188,6 +252,15 @@ pub fn verilog(n: &Netlist) -> String {
         ports.push("  output wire done".to_string());
     }
     v.push_str(&format!("module {} (\n{}\n);\n", n.name, ports.join(",\n")));
+    let fused = fused_reads(n);
+    // The cells a registered read takes the place of.
+    let absorbed: HashSet<usize> = fused
+        .keys()
+        .filter_map(|r| match n.cells[*r].kind {
+            Kind::Reg { d, .. } => Some(d),
+            _ => None,
+        })
+        .collect();
     for (i, c) in n.cells.iter().enumerate() {
         if let Kind::Reg { .. } = c.kind {
             let r = match c.elem {
@@ -215,8 +288,27 @@ pub fn verilog(n: &Netlist) -> String {
             v.push_str("  end\n");
         }
     }
+    // A memory: a word array loaded at configuration, written at every
+    // clock out of reset; block RAM, which every Tang board has (the 1K
+    // has no LUT RAM).
     for (i, c) in n.cells.iter().enumerate() {
-        if !matches!(c.kind, Kind::Reg { .. }) {
+        if let Kind::Mem { init, .. } = &c.kind {
+            let r = match c.elem {
+                Elem::Bool => "reg".to_string(),
+                Elem::Int(w) => format!("reg signed [{}:0]", w - 1),
+            };
+            v.push_str(&format!(
+                "  (* ram_style = \"block\" *) {r} mem{i} [0:{}];\n  initial begin\n",
+                init.len() - 1
+            ));
+            for (k, x) in init.iter().enumerate() {
+                v.push_str(&format!("    mem{i}[{k}] = {};\n", lit(c.elem, *x)));
+            }
+            v.push_str("  end\n");
+        }
+    }
+    for (i, c) in n.cells.iter().enumerate() {
+        if !matches!(c.kind, Kind::Reg { .. } | Kind::Mem { .. }) && !absorbed.contains(&i) {
             v.push_str(&format!("  {} n{i} = {};\n", decl(c.elem), expr(n, i)));
         }
     }
@@ -224,12 +316,9 @@ pub fn verilog(n: &Netlist) -> String {
         .cells
         .iter()
         .enumerate()
-        .filter_map(|(i, c)| {
-            if let Kind::Reg { d, init } = c.kind {
-                Some((i, d, init))
-            } else {
-                None
-            }
+        .filter_map(|(i, c)| match c.kind {
+            Kind::Reg { d, init } if !fused.contains_key(&i) => Some((i, d, init)),
+            _ => None,
         })
         .collect();
     if !regs.is_empty() {
@@ -245,6 +334,24 @@ pub fn verilog(n: &Netlist) -> String {
             v.push_str(&format!("      n{i} <= n{d};\n"));
         }
         v.push_str("    end\n  end\n");
+    }
+    let mut fused_regs: Vec<(&usize, &Fused)> = fused.iter().collect();
+    fused_regs.sort_by_key(|(i, _)| **i);
+    for (i, f) in fused_regs {
+        v.push_str(&format!(
+            "  always @(posedge clk) n{i} <= {}[rst ? {} : n{}];\n",
+            f.array,
+            lit(n.cells[f.addr].elem, f.reset_addr as i64),
+            f.addr
+        ));
+    }
+    for (i, c) in n.cells.iter().enumerate() {
+        if let Kind::Mem { init, addr, data } = &c.kind {
+            v.push_str(&format!(
+                "  always @(posedge clk) if (!rst && (n{addr} >= 0) && (n{addr} < {})) mem{i}[n{addr}] <= n{data};\n",
+                init.len()
+            ));
+        }
     }
     for p in output_ports(n) {
         let ws: Vec<String> = p.wires.iter().rev().map(|w| format!("n{w}")).collect();

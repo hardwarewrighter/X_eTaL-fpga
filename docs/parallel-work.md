@@ -192,3 +192,30 @@ The Mac lane's saga moved to `lanes/sw/.agentrail` (run agentrail
 with `--saga lanes/sw`): both lanes now share `main`, and `.agentrail/`
 is the board lane's. The archived copy in `.agentrail-archive/` is
 left as it was.
+
+
+## Mac handoff: HEX1000 fits the Tang Nano 1K (2026-10-15)
+
+`libs/Hex1000/rtl/hex1000.v` (and `hex1000-board.v`) now read the ROM
+and the RAM through registers, which Yosys maps to block RAM:
+`just fit hex1000` gives 438 LUTs, 81 flip-flops and 2 block RAMs (the
+1K has 1152, 864 and 4; it was 2220 LUTs and 379 flip-flops). The
+ports are unchanged (`clk`, `rst`, `in_k`, `out_o`, `out_r`) and the
+module still reproduces the X_eTaL trace clock for clock under
+iverilog.
+
+For the board:
+
+- Hold `rst` high for at least one clock (the startup reset does): at
+  reset the ROM's read is of address 0, which loads the first
+  instruction.
+- The RAM is a block RAM: loaded with zeros at configuration, **not
+  cleared by `rst`**. The calculator expects a cleared RAM, so after a
+  later reset (a button) it can show stale digits until the program
+  clears its own RAM (Mac step calc-rules). Reconfigure (or power
+  cycle) to start clean meanwhile.
+- The 1K has no USB serial port and no LUT RAM; the design needs
+  neither (block RAM only).
+- `hex1000-board.v` (with the UART glue) is 1138 LUTs: it also fits,
+  barely; the physical calculator's panel (Mac step panel) replaces the
+  glue's key queue with the keypad wired to the machine's key scan.

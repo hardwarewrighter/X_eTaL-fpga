@@ -12,6 +12,8 @@ complete, saga archive).
 
 ## 2026-10-15
 
+- 18:08 `feat` HEX1000 fits the Tang Nano 1K: memories in the schedule and emitter (`--memories`, `# schedule:` lines in the .xir; a memory cell, its reads, a write port loaded at configuration), registered reads of ROMs and memories emitted as block RAM reads (`r <= ROM[rst ? A0 : addr]`), a range analysis proving addresses in range (`ranges`); the HEX1000 lowering reads its instruction and RAM word through registers at the next state's address, traces unchanged. 2220 LUTs and 379 flip-flops to 438 LUTs, 81 flip-flops and 2 block RAMs. Three tests; handoff in docs/parallel-work.md (the RAM is not cleared by rst until calc-rules).
+
 - 17:38 `feat` The 3D calculator mockup: libs/Panel (`pn:`: the 7-segment font, the keys and display as boxes and strokes, the camera's projection and a click's key, a key pressed at HEX1000; 12 checks, a demo drawing the font in text); mockup/calculator.xtl, interactive in X_eTaL-extensions' scene window, headless baseline in the gate (just mockup, just mockup-test); mockup/video.xtl, rendered by Blender (just mockup-video), refusing to render unless the display ends on hx:c_alc's answer; X_eTaL-extensions pinned (XETAL_EXTENSIONS_COMMIT, just xetal-x); the video on the live site and in the README.
 
 - 16:50 `plan` Calculator rules decided with the user (negatives two's complement; `==` clears to 0, no Clear key or reset button; overflow shows OuErFLO until the next key): sw-lane step calc-rules inserted before panel. The display is a MAX7219 module (SPI-style), not I2C; power by 4 AA cells and a 5 V buck-boost.

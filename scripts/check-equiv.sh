@@ -7,7 +7,9 @@
 # that it names in a comment,
 #   # baseline: demo-NAME LINES      (LINES: 2, 1-3, 2,4,5)
 # where demo-NAME.out is the pinned evaluator's output of the .xtl
-# beside it. Ints are compared exactly (plan A2). A twin without a
+# beside it. Ints are compared exactly (plan A2); a twin's schedule
+# data, "# schedule: OPTIONS" (as --memories), is passed to its
+# simulated circuit. A twin without a
 # baseline line, or naming a missing baseline, fails.
 #   scripts/check-equiv.sh
 set -euo pipefail
@@ -40,8 +42,9 @@ print("\n".join(text[i - 1] for i in picked))
 PY
 )"
   # A clocked twin (one with state) has one schedule; the lanes are for vectors.
+  sched="$(sed -n 's/^# schedule: *//p' "$twin" | head -1)"
   hows=("run" "sim" "sim --lanes 1" "sim --lanes 2" "sim --lanes 3")
-  grep -q '= state ' "$twin" && hows=("run" "sim")
+  grep -q '= state ' "$twin" && hows=("run" "sim $sched")
   for how in "${hows[@]}"; do
     read -r cmd opts <<<"$how"
     # shellcheck disable=SC2086

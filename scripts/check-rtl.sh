@@ -3,7 +3,8 @@
 # libs/<Lib>/demos/NAME.xir, the Verilog of the spatial schedule and of
 # one lane is pinned as libs/<Lib>/rtl/NAME.v and NAME.lanes1.v (a
 # clocked twin, one with state, only NAME.v), and
-# must be what xetal-fpga writes today (XETAL_BLESS=1 rewrites them:
+# must be what xetal-fpga writes today, with the schedule data the twin
+# names ("# schedule: --memories") (XETAL_BLESS=1 rewrites them:
 # review the diff). Then, when the tools are installed (plan A10; they
 # are optional and never installed from here):
 #   iverilog:  each pinned module with its self-checking testbench
@@ -31,6 +32,10 @@ for twin in "$root"/libs/*/demos/*.xir; do
   grep -q '= state ' "$twin" && scheds=(spatial)   # a clocked twin has one schedule
   for sched in "${scheds[@]}"; do
     if [ "$sched" = lanes1 ]; then opts=(--lanes 1); suffix=.lanes1; else opts=(); suffix=; fi
+    # The twin's schedule data ("# schedule: --memories"), for its one schedule.
+    extra="$(sed -n 's/^# schedule: *//p' "$twin" | head -1)"
+    # shellcheck disable=SC2206
+    [ -n "$extra" ] && opts+=($extra)
     pinned="$dir/$name$suffix.v"
     rel="${pinned#$root/}"
     n=$((n + 1))

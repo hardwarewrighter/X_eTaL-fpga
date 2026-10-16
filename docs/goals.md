@@ -14,11 +14,10 @@ same design as a circuit runs on the board, and the two agree.
   machine: in X_eTaL (`libs/Hex1000`), as Verilog
   (`libs/Hex1000/rtl/hex1000.v`), and on a board, typed at over a
   serial terminal, every screen the same as the X_eTaL machine's.
-- The board is a **Tang Nano 4K or 9K**. The circuit as first lowered
-  takes about 2220 LUTs and 379 flip-flops (Yosys, before placement):
-  a quarter of the 9K, about half of the 4K. The 9K is where the board
-  lane brings up the flow first (`docs/parallel-work.md`).
-- The Tang Nano 1K was an early target, not a requirement now.
+- The board is a **Tang Nano 4K or 9K** (done on the 9K). The circuit
+  as first lowered took about 2220 LUTs and 379 flip-flops; with its
+  memories in block RAM it takes 438 LUTs, 81 flip-flops and 2 block
+  RAMs, so it fits the 1K too.
 
 Done when: the calculator, typed at over the UART on a 4K or 9K,
 shows the screens the X_eTaL machine shows for the same keys (the
@@ -48,13 +47,13 @@ term).
 - LEDs for power and overflow (R14); a power switch.
 - Power: 4 AA cells through a 5 V buck-boost module, for the board and
   the MAX7219 (the cells alone sag below the MAX7219's 4.0 V).
-- Efficiency: the circuit as first lowered (about 2220 LUTs) is cut to
-  fit 1152 LUTs by the known levers: the ROM in block RAM (measured:
-  about 500 LUTs and 440 wide muxes as logic, none as one block RAM),
-  the RAM in block or LUT RAM, unsigned 4-bit types in the IR, dead
-  and duplicate logic removed, one shared adder rather than one per
-  instruction. Each is a lowering, emitter or schedule change; the
-  X_eTaL machine stays the specification.
+- Efficiency: the circuit as first lowered (about 2220 LUTs) had to
+  fit 1152. The ROM and the RAM in block RAM, read through registers
+  (step rtl-memories, 2026-10-15), took it to 438 LUTs, 81 flip-flops
+  and 2 of the 4 block RAMs: it fits, with room for the keypad and
+  display logic. Unsigned 4-bit types, dead and duplicate logic removed
+  and a shared adder (rtl-narrow) are left for more room. The X_eTaL
+  machine stays the specification.
 
 Done when: the calculator runs from batteries on a 1K (or a 4K),
 keys in, digits on the display, every screen the X_eTaL machine's.

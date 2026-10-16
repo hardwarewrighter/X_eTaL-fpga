@@ -92,9 +92,17 @@ def machine(ir, rom, k_first, k_later):
     if k is None:
         k = k_later(r, o)
     romt = ir.node("i9[1024]", "const i9[1024] " + " ".join(map(str, rom)), "rom")
-    # Fetch: the instruction at 64 PA + PC.
-    addr = ir.map("add", ir.node("i12", f"shl %{ir.cast('i12', pa)} 6"), ir.cast("i12", pc))
-    op = ir.node("i9", f"lookup %{romt} %{addr}", "op")
+    # Fetch: the instruction at 64 PA + PC, held in a register that
+    # reads the ROM at the next instruction's address (below), so the
+    # ROM's read is registered and it can be block RAM; at reset it
+    # holds the instruction at address 0.
+    op = ir.node("i9", f"state i9 {rom[0]}", "op")
+    # The RAM word at X, Y, held the same way: the word read from the
+    # RAM before this clock's write (mraw), or the word just written
+    # when the write was to that address (byp, wq).
+    mraw = ir.node("i5", "state i5 0", "mraw")
+    byp = ir.node("bool", "state bool 0", "byp")
+    wq = ir.node("i5", "state i5 0", "wq")
     # Decode.
     f15 = c("i9", 15)
     n = ir.cast("i5", ir.map("and", op, f15))                      # the operand, 0 to 15
@@ -114,7 +122,7 @@ def machine(ir, rom, k_first, k_later):
     is_["BR"], is_["CALL"] = eq(hi2, 2), eq(hi2, 3)
     # Values the instructions use.
     at = ir.map("add", ir.node("i8", f"shl %{ir.cast('i8', x)} 4"), ir.cast("i8", y))
-    m = ir.node("i5", f"lookup %{ram} %{at}", "m")
+    m = ir.node("i5", f"select %{byp} %{wq} %{mraw}", "m")
     m15 = c("i5", 15)
     mask4 = lambda v: ir.map("and", v, c(ir.ty(v), 15))
     six = lambda v: ir.cast("i6", v)
@@ -145,7 +153,7 @@ def machine(ir, rom, k_first, k_later):
                    (is_["DMAN"], mask4(ir.map("sub", m, one5))),
                    (is_["IA"], mask4(ir.map("add", a, one5))),
                    (is_["CPAIZ"], mask4(ir.map("sub", zero5, a))),
-                   (is_["TKA"], k),
+                   (is_["TKA"], mask4(k)),
                    (is_["ACC"], ir.cast("i5", mask4(sum_an)))], a)
     y2 = ir.chain([(is_["TAY"], a), (is_["TMY"], m), (is_["TAMIY"], y1), (is_["TCMIY"], y1),
                    (is_["IYC"], y1), (is_["DYN"], mask4(ir.map("sub", y, one5))),
@@ -184,8 +192,15 @@ def machine(ir, rom, k_first, k_later):
     # Out of range (64) when not writing: the RAM is unchanged.
     waddr = ir.sel(we, at, c("i8", 64))
     ram2 = ir.node("i5[64]", f"put %{ram} %{waddr} %{wd}")
+    # The next instruction, and the RAM word at the next X, Y.
+    addr2 = ir.map("add", ir.node("i12", f"shl %{ir.cast('i12', pa2)} 6"), ir.cast("i12", pc2))
+    op2 = ir.node("i9", f"lookup %{romt} %{addr2}")
+    at2 = ir.map("add", ir.node("i8", f"shl %{ir.cast('i8', x2)} 4"), ir.cast("i8", y2))
+    mraw2 = ir.node("i5", f"lookup %{ram} %{at2}")
+    byp2 = ir.map("eq", waddr, at2)
     return [(a, a2), (y, y2), (x, x2), (s, s2), (pc, pc2), (pa, pa2), (pb, pb2),
-            (sr, sr2), (cl, cl2), (o, o2), (r, r2), (ram, ram2)]
+            (sr, sr2), (cl, cl2), (o, o2), (r, r2), (ram, ram2),
+            (op, op2), (mraw, mraw2), (byp, byp2), (wq, wd)]
 
 
 def glue(ir, chars):
@@ -265,6 +280,7 @@ def main():
         "# demo circuit.xtl (12+34= typed at the calculator from reset), and",
         "# O and the R latches must match its trace at every clock.",
         "# baseline: demo-circuit 2-" + str(len(out_lines)),
+        "# schedule: --memories",
     ]
     body = ir.lines + [f"next %{reg} %{nxt}" for reg, nxt in nexts]
     body += ["trace %o", "trace %r"]
@@ -283,6 +299,7 @@ def main():
         "# board.xtl (12+34= arriving one a clock from reset), and the frame",
         "# flag and the digit latches must match its trace at every clock.",
         "# baseline: demo-board 2-" + str(len(out_lines)),
+        "# schedule: --memories",
     ]
     body = ir.lines + [f"next %{reg} %{nxt}" for reg, nxt in glue_nexts + nexts]
     body += [f"trace %{f}", f"trace %{d}"]

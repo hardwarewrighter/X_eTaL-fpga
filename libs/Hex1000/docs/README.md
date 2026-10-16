@@ -174,7 +174,14 @@ key for key; how it works, its RAM, its pages and its cost are in
 `out_o`, `out_r`. `demos/circuit.xtl` (`hx:r_ecord`) is what it must
 reproduce at its ports, clock for clock, and does: in the IR
 interpreter, the netlist simulator and iverilog (`just equiv`,
-`just rtl`). `just fit hex1000`: about 2220 LUTs and 379 flip-flops.
+`just rtl`). Its ROM and RAM are read through registers at the next
+instruction's address (the instruction `op`, the RAM word `mraw` with
+its bypass `byp`, `wq`), so with `# schedule: --memories` both are
+block RAM: `just fit hex1000` gives 438 LUTs, 81 flip-flops and 2
+block RAMs, a fit for the Tang Nano 1K (it was 2220 LUTs and 379
+flip-flops). A block RAM is not cleared by a reset: the calculator
+expects a cleared RAM, so it is right after the reset at configuration
+(until it clears its own, step calc-rules).
 
 `demos/hex1000-board.xir` is the machine with the board's glue
 (`hx:b_oard`), from the same script, and `rtl/hex1000-board.v` its
@@ -187,12 +194,14 @@ clock domain, and sends the digits as text when `out_f` is 1.
 `demos/board.xtl` (`hx:w_ires`) is what it must reproduce, and does,
 clock for clock, in the IR interpreter, the netlist simulator and
 iverilog. `just fit hex1000-board`: about 2340 LUTs and 540
-flip-flops, the glue about 120 LUTs and 160 flip-flops.
+flip-flops, the glue about 120 LUTs and 160 flip-flops (before the
+memories: now 1138 LUTs and 179 flip-flops, mostly the glue's 16-key
+queue).
 
 ## Not yet
 
-Octal and decimal (a radix mode in the program); the ROM and RAM as
-block and LUT RAM, to fit the Tang Nano 1K.
+Octal and decimal (a radix mode in the program); unsigned 4-bit types
+and a shared adder, for more room on the 1K.
 
 ## Provenance
 

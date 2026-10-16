@@ -36,7 +36,17 @@ mux per word; an index too narrow to name a word never writes it). A
 constant index is wiring: a `lookup` at a constant is the item
 itself, a `put` at a constant replaces that word, so reading and
 writing the fields of a state vector costs no logic.
-The simulator resets, runs the stream's clocks, and gives the outputs
+
+With `--memories` (schedule data: an .xir asks for it with a
+`# schedule: --memories` line, which the check scripts pass on), a
+state vector written only by its `next`, a `put` of itself, and read
+only by `lookup`s is a memory instead: one cell for all its words, a
+write port, and reads. A memory is loaded at configuration and not
+cleared by a reset (block RAM cannot be), which is why it is asked for
+rather than the default: a program using it is right after a reset
+at configuration, but must not rely on a later reset clearing it
+(HEX1000's calculator does today; step calc-rules makes it clear its
+own RAM). The simulator resets, runs the stream's clocks, and gives the outputs
 after the last clock and the traces after reset and every clock.
 
 ## The netlist and the simulator
@@ -44,8 +54,12 @@ after the last clock and the traces after reset and every clock.
 A cell produces one word of an element type (an integer of its
 width, or a 1-bit Bool): an input element, a constant, a unit (any
 of the IR's `map` operations), a mux, a shift by a constant, a
-`select 1 of n` (a mux tree on an address), a ROM read, a cast, or a
-register (its init on reset, then its `d` at every clock). `Netlist::simulate` resets,
+`select 1 of n` (a mux tree on an address), a ROM read, a cast, a
+register (its init on reset, then its `d` at every clock), a memory
+or a memory read. `ranges` gives every cell's interval of values
+(registers and memories by iterating to a fixed point, anything
+unsettled given its type's whole range), which the emitter uses to
+prove an address is always in range. `Netlist::simulate` resets,
 clocks until `done` (at once for a combinational circuit) and gives
 the outputs and the clocks taken. The units compute exactly as the
 IR interpreter does, so the simulated circuit gives the evaluator's
@@ -59,9 +73,16 @@ its elements, element 0 in the low bits; integers are `signed` wires
 of their width, so a 16-bit `+` wraps as the program's does; Bools are
 1-bit wires. A module with registers has `clk` and `rst`; a temporal
 one also a `done` output. A ROM is a memory initialized in an
-`initial` block, read through a range guard (Yosys maps it to LUTs;
-block RAM wants a registered read, a later refinement for the 4-bit
-machine's program store). `testbench` writes a self-checking testbench that drives the
+`initial` block, read through a range guard, which Yosys maps to
+LUTs. A register whose next value is a read of a ROM or a memory of
+64 words or more, read by nothing else, at an address proven always
+in range, is a registered read instead, `r <= ROM[rst ? A0 : addr]`,
+which Yosys maps to block RAM: at reset it reads a word holding the
+register's reset value, since block RAM outputs clear only to 0. A
+memory is an array with `(* ram_style = "block" *)` (the Tang Nano 1K
+has no LUT RAM), written at every clock out of reset. HEX1000's
+lowering reads both its ROM and its RAM this way: from 2220 LUTs and
+379 flip-flops to 438 LUTs, 81 flip-flops and 2 block RAMs. `testbench` writes a self-checking testbench that drives the
 program's input data, clocks until done and compares every output
 with the expected bits, printing `PASS` or `FAIL` lines; for a
 clocked module it resets, drives one stream item per clock, and
@@ -85,6 +106,7 @@ implicit assignment rules.
 | Clocked | `counter`, `accumulator`, `shift`, `detect` (a ROM), `ram` (five) |
 | Fixed | `counter` (one) |
 | Uart | `loopback` (one) |
+| Hex1000 | `hex1000` (the machine), `hex1000-board` (with the UART glue), both with `--memories` (two) |
 
 `just fit` gives each module's LUTs, flip-flops, ALUs, block RAM and
 multipliers on a Gowin GW1N against the Tang Nano 1K. The deeper
@@ -112,5 +134,6 @@ it; when they are not, it says so.
 
 ## Not yet
 
-Memory cells for block RAM (a computed-address RAM, the ROM with a
-registered read), the board's pins and clock.
+Unsigned types (a nibble in 4 bits, not 5), dead and duplicate cells
+removed, a shared adder (step rtl-narrow); the board's pins and clock
+(the board lane's).

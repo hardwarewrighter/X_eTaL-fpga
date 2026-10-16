@@ -2,7 +2,7 @@
 
 use crate::netlist::{Kind, Netlist, Port};
 use std::collections::{HashMap, HashSet};
-use xetal_fpga_xir::{check, clocks, Elem, MapOp, Op, Program, RedOp, Type};
+use xetal_fpga_xir::{check, clocks, operands, Elem, MapOp, Op, Program, RedOp, Type};
 
 /// A value while it is built: its cells (one per element, or one per
 /// lane in a temporal schedule) and whether it is a vector.
@@ -82,6 +82,22 @@ fn index_width(top: usize) -> u32 {
 /// Schedule a program with `lanes` elements at once (`None`: as many
 /// as the longest vector, the spatial, combinational circuit).
 pub fn schedule(p: &Program, name: &str, lanes: Option<usize>) -> Result<Netlist, String> {
+    schedule_with(p, name, lanes, false)
+}
+
+/// As `schedule`, and with `memories` a state vector that is only
+/// written by its `next` (a `put` of itself) and only read by
+/// `lookup`s becomes a memory (`Kind::Mem`): a RAM, which Yosys maps
+/// to block or LUT RAM, instead of a register per word and a mux tree.
+/// A memory is loaded at configuration and not cleared by a reset, so
+/// this is schedule data a program opts into (`# schedule: --memories`
+/// in an .xir), not the default.
+pub fn schedule_with(
+    p: &Program,
+    name: &str,
+    lanes: Option<usize>,
+    memories: bool,
+) -> Result<Netlist, String> {
     let types: HashMap<String, Type> = check(p).map_err(|e| e.to_string())?.into_iter().collect();
     let longest = types
         .values()
@@ -97,7 +113,12 @@ pub fn schedule(p: &Program, name: &str, lanes: Option<usize>) -> Result<Netlist
     };
     n.clocks = clocks(p);
     if lanes >= longest {
-        spatial(p, &types, &mut n)?;
+        let mems = if memories {
+            memory_states(p, &types)
+        } else {
+            HashSet::new()
+        };
+        spatial(p, &types, &mut n, &mems)?;
     } else if n.clocks.is_some() {
         return Err(format!(
             "the temporal schedule (--lanes {lanes}) cannot take a clocked program (one with state); use the spatial schedule"
@@ -217,11 +238,85 @@ fn fits(e: Elem, k: usize) -> bool {
     }
 }
 
-fn spatial(p: &Program, types: &HashMap<String, Type>, n: &mut Netlist) -> Result<(), String> {
+/// The state vectors that can be memories: each written only by its
+/// `next`, a `put` of itself used nowhere else, and otherwise read only
+/// as the table of `lookup`s (not an output).
+fn memory_states(p: &Program, types: &HashMap<String, Type>) -> HashSet<String> {
+    let ops: HashMap<&str, &Op> = p.nodes.iter().map(|n| (n.name.as_str(), &n.op)).collect();
+    let mut uses: HashMap<&str, Vec<&str>> = HashMap::new();
+    for node in &p.nodes {
+        for x in operands(&node.op) {
+            uses.entry(x.as_str()).or_default().push(node.name.as_str());
+        }
+    }
+    let outputs: HashSet<&str> = p.outputs.iter().map(|o| o.name.as_str()).collect();
+    let nexts: Vec<&str> = p.nexts.iter().map(|(_, v)| v.as_str()).collect();
+    let mut found = HashSet::new();
+    for (s, v) in &p.nexts {
+        if types[s].rank() != 1 || outputs.contains(s.as_str()) || outputs.contains(v.as_str()) {
+            continue;
+        }
+        let Some(Op::Put(of, _, _)) = ops.get(v.as_str()) else {
+            continue;
+        };
+        if of != s || nexts.iter().filter(|x| **x == v.as_str()).count() != 1 {
+            continue;
+        }
+        let put_unused = uses.get(v.as_str()).is_none_or(|u| u.is_empty());
+        let reads_only = uses.get(s.as_str()).is_some_and(|u| {
+            u.iter().all(|user| {
+                *user == v.as_str()
+                    || matches!(ops.get(user), Some(Op::Lookup(t, i)) if t == s && i != s)
+            })
+        });
+        let put_index_not_self =
+            matches!(ops.get(v.as_str()), Some(Op::Put(_, i, x)) if i != s && x != s);
+        if put_unused && reads_only && put_index_not_self {
+            found.insert(s.clone());
+        }
+    }
+    found
+}
+
+fn spatial(
+    p: &Program,
+    types: &HashMap<String, Type>,
+    n: &mut Netlist,
+    mems: &HashSet<String>,
+) -> Result<(), String> {
     let mut env: HashMap<String, Sig> = HashMap::new();
+    // A memory's cell, by state name; a write (the put that is its next).
+    let mut mem_of: HashMap<String, usize> = HashMap::new();
+    let mut writes: HashMap<String, (usize, usize)> = HashMap::new();
     for node in &p.nodes {
         let ty = &types[&node.name];
         let sig = match &node.op {
+            Op::State(t, d) if mems.contains(&node.name) => {
+                let m = n.add(
+                    Kind::Mem {
+                        init: d.clone(),
+                        addr: 0,
+                        data: 0,
+                    },
+                    t.elem,
+                );
+                mem_of.insert(node.name.clone(), m);
+                Sig {
+                    cells: vec![],
+                    vector: true,
+                }
+            }
+            Op::Lookup(t, i) if mem_of.contains_key(t) => {
+                let m = mem_of[t];
+                each(&[&env[i]], |c| n.add(Kind::MemRead(m, c[0]), ty.elem))
+            }
+            Op::Put(v, i, x) if mem_of.contains_key(v) => {
+                writes.insert(node.name.clone(), (env[i].cells[0], env[x].cells[0]));
+                Sig {
+                    cells: vec![],
+                    vector: true,
+                }
+            }
             Op::Input(t, d) => input(n, &node.name, t, d),
             Op::Stream(t, d) => {
                 let c = t.count().max(1);
@@ -258,6 +353,13 @@ fn spatial(p: &Program, types: &HashMap<String, Type>, n: &mut Netlist) -> Resul
         env.insert(node.name.clone(), sig);
     }
     for (s, v) in &p.nexts {
+        if let Some(&m) = mem_of.get(s) {
+            let (addr, data) = writes[v];
+            if let Kind::Mem { init, .. } = n.cells[m].kind.clone() {
+                n.cells[m].kind = Kind::Mem { init, addr, data };
+            }
+            continue;
+        }
         for (&r, &d) in env[s].cells.iter().zip(&env[v].cells) {
             if let Kind::Reg { init, .. } = n.cells[r].kind {
                 n.cells[r].kind = Kind::Reg { d, init };

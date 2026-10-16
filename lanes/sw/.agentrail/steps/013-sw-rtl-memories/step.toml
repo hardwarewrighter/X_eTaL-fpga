@@ -1,6 +1,6 @@
 number = 13
 slug = "sw-rtl-memories"
-status = "pending"
+status = "in-progress"
 description = "Memories in the emitter, for the calculator on the Tang Nano 1K (decided with..."
 role = "production"
 context_files = []

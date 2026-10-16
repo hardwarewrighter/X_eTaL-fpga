@@ -1,4 +1,4 @@
-use xetal_fpga_rtl::{explain, schedule, testbench, verilog};
+use xetal_fpga_rtl::{explain, ranges, schedule, schedule_with, testbench, verilog, Kind};
 use xetal_fpga_xir::{parse, run, Program};
 
 const TWINS: [&str; 5] = ["vector-add", "saxpy", "threshold", "reduce-sum", "pipeline"];
@@ -228,4 +228,94 @@ output %n %w %e
     assert!(v.contains("[7:0];"), "{v}");
     assert!(v.contains("{{16{n0[15]}}, n0}"), "{v}");
     assert!(v.contains("{{15{1'b0}}, n1}"), "{v}");
+}
+
+/// A RAM of 64 words, written at a counter's address and read back a
+/// clock behind through a registered read at the next address, as
+/// HEX1000's lowering does; and a 64-word ROM read the same way.
+const MEMORY: &str = "\
+%x = stream i8 5 6 7 8 9 10 11 12
+%ram = state i8[64] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+%i = state i8 0
+%q = state i8 0
+%rq = state i8 7
+%c63 = const i8 63
+%one = const i8 1
+%rom = const i8[64] 7 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63
+%inc = map add %i %one
+%i2 = map and %inc %c63
+%ram2 = put %ram %i %x
+%q2 = lookup %ram %i
+%rq2 = lookup %rom %i2
+next %ram %ram2
+next %i %i2
+next %q %q2
+next %rq %rq2
+trace %q
+trace %rq
+";
+
+fn memory_program() -> Program {
+    parse(MEMORY).unwrap()
+}
+
+#[test]
+fn memories_are_scheduled_only_when_asked() {
+    let p = memory_program();
+    let plain = schedule(&p, "mem", None).unwrap();
+    let mems = schedule_with(&p, "mem", None, true).unwrap();
+    assert!(!plain
+        .cells
+        .iter()
+        .any(|c| matches!(c.kind, Kind::Mem { .. })));
+    let rams = mems
+        .cells
+        .iter()
+        .filter(|c| matches!(c.kind, Kind::Mem { .. }))
+        .count();
+    assert_eq!(rams, 1);
+    // Both simulate to the interpreter's traces.
+    let want: Vec<String> = run(&p).unwrap().iter().map(|v| v.to_string()).collect();
+    for n in [plain, mems] {
+        let (got, _) = n.simulate().unwrap();
+        let got: Vec<String> = got.iter().map(|v| v.to_string()).collect();
+        assert_eq!(got, want);
+    }
+}
+
+#[test]
+fn an_address_always_in_range_is_proven_so() {
+    let p = memory_program();
+    let n = schedule_with(&p, "mem", None, true).unwrap();
+    let r = ranges(&n);
+    // The ROM's address (%i2, masked to 63) is within the table.
+    let rom_addr = n
+        .cells
+        .iter()
+        .find_map(|c| match c.kind {
+            Kind::Rom(_, a) => Some(a),
+            _ => None,
+        })
+        .unwrap();
+    assert!(
+        r[rom_addr].0 >= 0 && r[rom_addr].1 <= 63,
+        "{:?}",
+        r[rom_addr]
+    );
+}
+
+#[test]
+fn a_registered_read_becomes_a_block_ram_read() {
+    let p = memory_program();
+    let v = verilog(&schedule_with(&p, "mem", None, true).unwrap());
+    assert!(v.contains("(* ram_style = \"block\" *) reg signed [7:0] mem"));
+    // The ROM read, at an address proven in range, is registered; at
+    // reset it reads the word holding the register's reset value (7, at 0).
+    assert!(v.contains("<= rom"), "{v}");
+    assert!(v.contains("[rst ? 8'sh0 : n"), "{v}");
+    // The RAM's write is gated by the reset and the range.
+    assert!(v.contains("if (!rst && (n"), "{v}");
+    // Without the option the RAM is registers and muxes.
+    let plain = verilog(&schedule(&p, "mem", None).unwrap());
+    assert!(!plain.contains("ram_style"));
 }

@@ -96,13 +96,15 @@ The same layers apply to the machine (`docs/machine.md`):
    the transmit line, so the UART is inside the same check.
 5. `just fit` says whether it fits the 1K before a board is touched.
 
-One emitter change is needed first: memories with a computed address.
-Today a `put` or `lookup` at a computed index becomes comparators and
-muxes, and the 64 by 4-bit RAM held in flip-flops would take 256 of
-the 1K's 864. The emitter needs a memory cell, written the way Yosys
-maps to block RAM (a `reg` array, a synchronous write, a registered
-read), and the 1024 by 8-bit ROM the same way (one of the 1K's four
-block RAMs). That is part of step machine-rtl.
+Memories (step rtl-memories, 2026-10-15): with `# schedule:
+--memories` the RAM is a memory cell (a `reg` array, a write at every
+clock out of reset) and both it and the 1024-instruction ROM are read
+through registers at the next instruction's address, which Yosys maps
+to block RAM. HEX1000 went from 2220 LUTs and 379 flip-flops to 438
+LUTs, 81 flip-flops and 2 block RAMs: it fits the 1K (1152, 864, 4)
+with room for the keypad and display logic. A block RAM is not
+cleared by a reset, so until the calculator clears its own RAM (step
+calc-rules) it is right after the reset at configuration only.
 
 ## Simulators, not emulators
 

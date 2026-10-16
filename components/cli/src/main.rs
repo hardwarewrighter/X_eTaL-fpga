@@ -11,14 +11,16 @@
 //!   xetal-fpga explain FILE.xir [--lanes N]   # units, registers, clocks
 //!
 //! Without --lanes the schedule is spatial (a unit per element).
+//! --memories makes a state vector written by a put of itself and read
+//! by lookups a memory (block RAM), as the .xir's `# schedule:` line asks.
 
 use std::path::Path;
 use std::process::ExitCode;
-use xetal_fpga_rtl::{explain, schedule, testbench, verilog};
+use xetal_fpga_rtl::{explain, schedule_with, testbench, verilog};
 use xetal_fpga_xir::{check, parse, run};
 
 const USAGE: &str =
-    "usage: xetal-fpga check|run|netlist|verilog|testbench|sim|explain FILE.xir [--lanes N]\n\
+    "usage: xetal-fpga check|run|netlist|verilog|testbench|sim|explain FILE.xir [--lanes N] [--memories]\n\
      board: xetal-fpga synth|pnr|pack|load|detect [FILE] [--board NAME] [--help]";
 
 fn main() -> ExitCode {
@@ -53,7 +55,13 @@ fn go(args: &[String]) -> Result<(), String> {
         println!("{USAGE}");
         return Ok(());
     }
-    let (cmd, file, lanes) = match args {
+    let memories = args.iter().any(|a| a == "--memories");
+    let args: Vec<String> = args
+        .iter()
+        .filter(|a| *a != "--memories")
+        .cloned()
+        .collect();
+    let (cmd, file, lanes) = match args.as_slice() {
         [c, f] => (c.as_str(), f, None),
         [c, f, l, n] if l == "--lanes" => {
             let n: usize = n
@@ -72,7 +80,7 @@ fn go(args: &[String]) -> Result<(), String> {
         .file_stem()
         .and_then(|s| s.to_str())
         .unwrap_or("circuit");
-    let net = || schedule(&p, name, lanes).map_err(|e| format!("{file}: {e}"));
+    let net = || schedule_with(&p, name, lanes, memories).map_err(|e| format!("{file}: {e}"));
     match cmd {
         "check" => {
             for (name, ty) in check(&p).map_err(|e| format!("{file}: {e}"))? {

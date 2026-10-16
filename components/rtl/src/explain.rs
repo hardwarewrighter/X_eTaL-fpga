@@ -27,6 +27,8 @@ pub fn explain(n: &Netlist) -> String {
             }
             Kind::Rom(table, _) => format!("rom {} x {}", table.len(), ty(c.elem)),
             Kind::Cast(a) => format!("cast {} to {} (wiring)", ty(n.cells[*a].elem), ty(c.elem)),
+            Kind::Mem { init, .. } => format!("ram {} x {} (a memory)", init.len(), ty(c.elem)),
+            Kind::MemRead(..) => format!("ram read {}", ty(c.elem)),
             Kind::In { .. } | Kind::Const(_) => continue,
         };
         *units.entry(key).or_default() += 1;

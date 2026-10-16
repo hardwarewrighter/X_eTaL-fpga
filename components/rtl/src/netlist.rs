@@ -33,6 +33,18 @@ pub enum Kind {
         d: usize,
         init: i64,
     },
+    /// A memory (a state vector scheduled with `--memories`): its words
+    /// hold `init` from configuration, and at every clock out of reset
+    /// the word at `addr` takes `data` (an address out of range writes
+    /// nothing). Unlike registers, a reset does not clear it. The cell's
+    /// own value is unused.
+    Mem {
+        init: Vec<i64>,
+        addr: usize,
+        data: usize,
+    },
+    /// A memory's word at the address (out of range gives 0).
+    MemRead(usize, usize),
 }
 
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -87,14 +99,80 @@ impl Netlist {
         self.add(Kind::Const(v), elem)
     }
 
-    /// Whether the circuit has registers (it then has a clock and a reset).
+    /// Whether the circuit has registers or memories (it then has a
+    /// clock and a reset).
     pub fn is_sequential(&self) -> bool {
         self.cells
             .iter()
-            .any(|c| matches!(c.kind, Kind::Reg { .. }))
+            .any(|c| matches!(c.kind, Kind::Reg { .. } | Kind::Mem { .. }))
     }
 
-    fn eval(&self, data: &[Vec<i64>], state: &[i64]) -> Vec<i64> {
+    /// The cells each cell reads (a register its `d`, a memory its
+    /// write's address and data).
+    pub fn operands(&self, i: usize) -> Vec<usize> {
+        match &self.cells[i].kind {
+            Kind::In { .. } | Kind::Const(_) => vec![],
+            Kind::Map(_, xs) => xs.clone(),
+            Kind::Mux(s, a, b) => vec![*s, *a, *b],
+            Kind::Shl(a, _) | Kind::Shr(a, _) | Kind::Cast(a) | Kind::Rom(_, a) => vec![*a],
+            Kind::Pick(items, a) => {
+                let mut v = items.clone();
+                v.push(*a);
+                v
+            }
+            Kind::Reg { d, .. } => vec![*d],
+            Kind::Mem { addr, data, .. } => vec![*addr, *data],
+            Kind::MemRead(m, a) => vec![*m, *a],
+        }
+    }
+
+    /// How many places read each cell (cells, output wires, `done`).
+    pub fn uses(&self) -> Vec<usize> {
+        let mut u = vec![0; self.cells.len()];
+        for i in 0..self.cells.len() {
+            for x in self.operands(i) {
+                u[x] += 1;
+            }
+        }
+        for p in &self.outputs {
+            for w in &p.wires {
+                u[*w] += 1;
+            }
+        }
+        if let Some(d) = self.done {
+            u[d] += 1;
+        }
+        u
+    }
+
+    /// Every memory's words at configuration, by cell.
+    fn mems_init(&self) -> Vec<Vec<i64>> {
+        self.cells
+            .iter()
+            .map(|c| match &c.kind {
+                Kind::Mem { init, .. } => init.clone(),
+                _ => Vec::new(),
+            })
+            .collect()
+    }
+
+    /// A clock: every register takes its `d`, every memory its write.
+    fn clock(&self, v: &[i64], state: &mut [i64], mems: &mut [Vec<i64>]) {
+        for (i, c) in self.cells.iter().enumerate() {
+            match &c.kind {
+                Kind::Reg { d, .. } => state[i] = v[*d],
+                Kind::Mem { addr, data, .. } => {
+                    let a = v[*addr];
+                    if a >= 0 && (a as usize) < mems[i].len() {
+                        mems[i][a as usize] = v[*data];
+                    }
+                }
+                _ => {}
+            }
+        }
+    }
+
+    fn eval(&self, data: &[Vec<i64>], state: &[i64], mems: &[Vec<i64>]) -> Vec<i64> {
         let mut v = vec![0i64; self.cells.len()];
         for (i, c) in self.cells.iter().enumerate() {
             v[i] = match &c.kind {
@@ -130,6 +208,15 @@ impl Netlist {
                 }
                 Kind::Cast(a) => fit(c.elem, v[*a] as i128),
                 Kind::Reg { .. } => state[i],
+                Kind::Mem { .. } => 0,
+                Kind::MemRead(m, addr) => {
+                    let a = v[*addr];
+                    if a >= 0 && (a as usize) < mems[*m].len() {
+                        mems[*m][a as usize]
+                    } else {
+                        0
+                    }
+                }
             };
         }
         v
@@ -150,10 +237,11 @@ impl Netlist {
                 }
             })
             .collect();
+        let mut mems = self.mems_init();
         if let Some(n) = self.clocks {
-            return Ok((self.run_clocked(n, &mut state), n));
+            return Ok((self.run_clocked(n, &mut state, &mut mems), n));
         }
-        let mut v = self.eval(&self.input_data, &state);
+        let mut v = self.eval(&self.input_data, &state, &mems);
         let mut clocks = 0;
         if let Some(done) = self.done {
             while v[done] == 0 {
@@ -164,13 +252,9 @@ impl Netlist {
                         self.steps + 2
                     ));
                 }
-                for (i, c) in self.cells.iter().enumerate() {
-                    if let Kind::Reg { d, .. } = c.kind {
-                        state[i] = v[d];
-                    }
-                }
+                self.clock(&v, &mut state, &mut mems);
                 clocks += 1;
-                v = self.eval(&self.input_data, &state);
+                v = self.eval(&self.input_data, &state, &mems);
             }
         }
         let outs = self
@@ -209,7 +293,7 @@ impl Netlist {
 
     /// A clocked circuit from reset for `n` clocks: the outputs after
     /// the last, a traced output stacked over reset and every clock.
-    fn run_clocked(&self, n: usize, state: &mut [i64]) -> Vec<Value> {
+    fn run_clocked(&self, n: usize, state: &mut [i64], mems: &mut [Vec<i64>]) -> Vec<Value> {
         let read = |p: &Port, v: &[i64]| Value {
             ty: p.ty.clone(),
             data: p.wires.iter().map(|w| v[*w]).collect(),
@@ -217,18 +301,14 @@ impl Netlist {
         let mut traces: Vec<Vec<Value>> = vec![Vec::new(); self.outputs.len()];
         let mut v = Vec::new();
         for clock in 0..=n {
-            v = self.eval(&self.data_at(clock, n), state);
+            v = self.eval(&self.data_at(clock, n), state, mems);
             for (p, t) in self.outputs.iter().zip(traces.iter_mut()) {
                 if p.trace {
                     t.push(read(p, &v));
                 }
             }
             if clock < n {
-                for (i, c) in self.cells.iter().enumerate() {
-                    if let Kind::Reg { d, .. } = c.kind {
-                        state[i] = v[d];
-                    }
-                }
+                self.clock(&v, state, mems);
             }
         }
         self.outputs
@@ -296,6 +376,10 @@ impl fmt::Display for Netlist {
                 Kind::Rom(table, a) => format!("rom n{a} of {} items", table.len()),
                 Kind::Cast(a) => format!("cast n{a}"),
                 Kind::Reg { d, init } => format!("reg d=n{d} init={init}"),
+                Kind::Mem { init, addr, data } => {
+                    format!("ram of {} words, write n{data} at n{addr}", init.len())
+                }
+                Kind::MemRead(m, a) => format!("read n{m} at n{a}"),
             };
             writeln!(f, "n{i} : {} = {body}", ty(c.elem))?;
         }

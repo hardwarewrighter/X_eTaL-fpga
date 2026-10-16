@@ -116,7 +116,9 @@ Repeat the initial checks with `just board-prepare`, `just board-check`
 and `just board-test`. The fixture does not use the inserted SD card.
 [First-board instructions](boards/tangnano9k/README.md) and
 [hardware verification](docs/hardware.md) describe the tests. The
-initial target is Nano 9K; Nano 1K sizing is deferred.
+9K was the first target; the physical calculator targets the 1K, which
+the machine now fits: 438 LUTs, 81 flip-flops and 2 block RAMs of its
+1152, 864 and 4 (`just fit hex1000`).
 
 Actual calculator results, repeatable commands, recording and known limits:
 [HEX1000 hardware handoff](docs/hex1000-hardware.md).
@@ -165,14 +167,14 @@ resources, processors and the software it needs, with sources.
 
 | Board | Family | LUT4 | Processor besides the fabric | Open flow | Used for |
 | ----- | ------ | ---- | ---------------------------- | --------- | -------- |
-| Tang Nano 1K | GW1N (GW1NZ) | 1,152 | none | yes | HEX1000 optimization later |
+| Tang Nano 1K | GW1N (GW1NZ) | 1,152 | none | yes | the physical HEX1000 calculator (it fits) |
 | Tang Nano 4K | GW1N (GW1NSR) | 4,608 | a hard ARM Cortex-M3 in the FPGA | yes (the fabric) | HEX1000 alternative; lane counts |
 | Tang Nano 9K | GW1N (GW1NR) | 8,640 | none | yes | HEX1000 now; the CDP1802; the neural layer |
 | Tang Nano 20K | GW2A (GW2AR) | 20,736 | a BL616 microcontroller as programmer | yes | the IBM 1130, larger designs |
 | Tang Primer 20K | GW2A | 20,736 | a BL702 on its Dock, as programmer | yes | as the 20K, with DDR3 |
 | Tang Primer 25K | GW5A | 23,040 | a BL616 as programmer | not yet (GW5A support in progress) | later, once the open flow supports it |
 
-HEX1000 currently runs on the 9K; optimization for the 1K is later.
+HEX1000 runs on the 9K; with its ROM and RAM in block RAM it fits the 1K, the physical calculator's board.
 Everything is built with the open flow; the Gowin IDE is not used.
 Which other Tang
 Primer boards the user has is still to record.
@@ -329,7 +331,7 @@ Copyright (c) 2026 Michael A Wright
 MIT. See [`LICENSE`](LICENSE) and [`COPYRIGHT`](COPYRIGHT).
 
 Hardware bring-up starts on the Nano 9K with onboard USB-JTAG and
-USB-UART; Nano 1K sizing comes later. Development ownership is in
+USB-UART; the physical calculator goes on the Nano 1K. Development ownership is in
 [parallel work](docs/parallel-work.md).
 
 The X_eTaL hardware proof uses `just board-probe-build` and

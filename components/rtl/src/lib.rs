@@ -14,10 +14,12 @@
 
 mod explain;
 mod netlist;
+mod range;
 mod schedule;
 mod verilog;
 
 pub use explain::explain;
 pub use netlist::{Cell, Kind, Netlist, Port};
-pub use schedule::schedule;
+pub use range::ranges;
+pub use schedule::{schedule, schedule_with};
 pub use verilog::{testbench, verilog};
