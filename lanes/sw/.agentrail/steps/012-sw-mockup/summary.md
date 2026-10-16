@@ -1,0 +1,1 @@
+3D calculator mockup: libs/Panel (font, 3D panel arrays, projection and click hit-test, key press at HEX1000; 12 checks), mockup/calculator.xtl interactive in the scene window with a headless baseline in the gate, mockup/video.xtl rendered by Blender refusing to render unless the display ends on hx:c_alc's answer; X_eTaL-extensions pinned; video on the live site.
