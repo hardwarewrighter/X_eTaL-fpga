@@ -313,3 +313,10 @@ calculator timing, SRAM CRC and three physical calculations (46,
 See docs/hex1000-hardware.md. Reconnect reset/reload workaround,
 32-key queue, coalesced display frames and unverified calculator
 flash boot are explicit remaining work.
+
+
+Board-demo-video: recorded a 7.68-second interactive session against
+the existing calculator configuration, with no SRAM/flash loading.
+Observed 48C, FFFFFFFE and 0 over UART; committed raw bytes and added
+interactive/query CLI recipes. Machine correctness remains scoped
+to observed cases and the existing equivalence checks, not all inputs.

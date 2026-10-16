@@ -18,6 +18,7 @@ python3 "$root/scripts/test-board-flow.py"
 if [ "$(uname -s)" = Linux ]; then
   python3 "$root/scripts/test-board-first.py"
   python3 "$root/scripts/test-board-probe.py"
+  python3 "$root/scripts/test-board-hex1000.py"
 else
   echo "board-first: SKIPPED Linux USB/serial setup tests on $(uname -s)"
 fi

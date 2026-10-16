@@ -125,13 +125,39 @@ def calculate(fd, expression, pace=0.08):
         os.write(fd, character.encode("ascii"))
         data.extend(read_until(fd, pace))
     data.extend(read_until(fd, 0.3))
-    frames = [frame.decode("ascii") for frame in data.split(b"\r") if len(frame) == 8]
+    frames = [frame.decode("ascii") for frame in data.split(b"\r")[:-1] if len(frame) == 8]
     if not frames:
         raise ValueError(f"No display frame received for {expression!r}; reset/reload after opening serial")
-    return frames[-1]
+    return frames[-1], bytes(data)
 
 
-def hardware(stage):
+KEYS = "0123456789ABCDEFabcdef+-*=Xx\r\n"
+
+
+def requests(stage, keys):
+    if stage == "terminal":
+        print("Type calculator keys and press Enter; X clears, = evaluates, q quits.", flush=True)
+        print("Using the current FPGA configuration; no bitstream is loaded.", flush=True)
+        while True:
+            try:
+                expression = input("HEX1000> ")
+            except EOFError:
+                return
+            if expression in ("q", "quit"):
+                return
+            if not expression:
+                continue
+            if any(key not in KEYS for key in expression):
+                print("Use 0-9, A-F, +, -, *, = and X. q quits.", flush=True)
+                continue
+            yield expression, None
+    elif keys is not None:
+        yield keys, None
+    else:
+        yield from CASES
+
+
+def hardware(stage, keys=None):
     report = {"stage": stage, "loaded_sram": False, "persistent_flash_written": False, "results": []}
     try:
         probe = first.choose_probe(first.probes())
@@ -144,7 +170,7 @@ def hardware(stage):
         # Open/configure first, then reset by loading: FTDI reconfiguration can
         # inject a false start. Keep this one connection for the entire session.
         with serial_session(ports[0]) as fd:
-            if stage != "uart":
+            if stage not in ("uart", "query", "terminal"):
                 image = OUT / "hex1000.fs"
                 if not image.is_file():
                     raise ValueError("Run just board-calc-build first")
@@ -155,13 +181,18 @@ def hardware(stage):
                 time.sleep(0.5)
                 termios.tcflush(fd, termios.TCIFLUSH)
             print("HEX1000 on Tang Nano 9K | USB UART 115200 baud", flush=True)
-            for expression, expected in CASES:
-                actual = calculate(fd, expression)
-                report["results"].append({"keys": expression, "display": actual, "expected": expected})
-                print(f"{expression[1:]}  ->  {actual.strip()}", flush=True)
-                if actual != expected:
+            for expression, expected in requests(stage, keys):
+                actual, raw = calculate(fd, expression)
+                report["results"].append({"keys": expression, "display": actual, "expected": expected, "received_hex": raw.hex()})
+                print(f"{expression.lstrip('Xx')}  ->  |{actual}|", flush=True)
+                if stage == "query":
+                    print(f"Raw received UART bytes: {raw!r}", flush=True)
+                    print(f"Received hex: {raw.hex()}", flush=True)
+                if expected is not None and actual != expected:
                     raise ValueError(f"FPGA display {actual!r}, expected {expected!r}")
-            print("PASS: all three results received from the FPGA.", flush=True)
+            print("Serial session closed." if stage == "terminal" else
+                  "PASS: display received from existing board configuration." if stage == "query" else
+                  "PASS: all three results received from the FPGA.", flush=True)
     except (OSError, ValueError) as error:
         report["error"] = str(error)
         raise
@@ -172,19 +203,27 @@ def hardware(stage):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("stage", choices=("check", "build", "test", "demo", "flash", "uart"))
+    parser.add_argument("stage", choices=("check", "build", "test", "demo", "flash", "uart", "query", "terminal"))
+    parser.add_argument("--keys", help="query: ASCII calculator keys, no reference calculation or reload")
     args = parser.parse_args()
+    if args.stage == "query":
+        if not args.keys or any(key not in KEYS for key in args.keys):
+            parser.error("query requires --keys containing supported calculator characters")
+    elif args.keys is not None:
+        parser.error("--keys applies only to query")
     if args.stage == "check":
         check()
     elif args.stage == "build":
         build()
     else:
-        hardware(args.stage)
+        hardware(args.stage, args.keys)
 
 
 if __name__ == "__main__":
     try:
         main()
+    except KeyboardInterrupt:
+        print("\nSerial session closed.")
     except (OSError, ValueError) as error:
         print(f"board-hex1000: {error}", file=sys.stderr)
         sys.exit(1)

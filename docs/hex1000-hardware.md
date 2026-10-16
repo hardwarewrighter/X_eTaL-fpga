@@ -51,8 +51,9 @@ Known issues and remaining work:
 - HEX1000 has been verified in SRAM only. Explicit calculator flash
   programming and calculator boot after unplug/replug remain to test.
   Earlier counter/fixture flash results do not prove calculator boot.
-- Add a persistent interactive terminal, broaden hardware checks to
-  subtraction/wrap/chaining, and check reset/reconnect behavior.
+- The interactive CLI is now available. Subtraction, wrap and chaining
+  have additional observed hardware results below; broader coverage
+  and reset/reconnect behavior still need verification.
 - The 9K is the current target. Nano 1K optimization and block-memory
   ROM/RAM mapping are later work. No SD card is used.
 
@@ -60,3 +61,48 @@ Linux owns boards/tangnano9k, scripts/board-hex1000.py and its recipes.
 Mac owns the machine/library, browser and site. Mac can use the three
 verified results and recording in the blog without waiting for flash
 boot, an interactive terminal or Nano 1K optimization.
+
+## Try your own input and inspect the evidence
+
+```bash
+just board-calc                  # interactive; current image, no reload
+# At HEX1000>: X123*4= then Enter; X clears; q quits.
+just board-calc-query 'X5-7='     # one request; print raw received bytes
+```
+
+Both commands read the current FPGA configuration without loading a
+bitstream. The terminal accepts a line of keys and paces them at 80 ms;
+it displays the board's final eight-character screen between vertical
+bars. It has no expected-answer lookup or host arithmetic. The query
+also prints every received byte, including intermediate displays.
+If no display frame arrives, it reports an error; it does not invent
+an answer. If this is an older image after power loss, use
+`just board-calc-demo` to load the calculator into SRAM first.
+
+A new interactive hardware recording is work/tapes/hex1000-9k-live.mp4
+(7.68 seconds), with a GIF alongside it. Unlike the original demo,
+this session does not load a bitstream. Its source is
+boards/tangnano9k/hex1000-live.tape (`just board-calc-live-video`).
+The session returned 48C for X123*4=, FFFFFFFE for X5-7=, and 0 for
+XFFFFFFFF+1=. A separate interactive session returned A for X2*3+4=.
+Raw received bytes for the recorded session are committed in
+[the evidence file](../boards/tangnano9k/evidence/hex1000-live-2026-10-14.json).
+Local per-session reports remain in work/board/hex1000.
+
+### Why the LED still blinks
+
+The calculator top explicitly retains a heartbeat LED. In
+boards/tangnano9k/hex1000-top.v, `led = ~heartbeat[23]`, and the
+button resets both the heartbeat and machine. A blinking LED that
+pauses while reset is held therefore also occurs with the calculator
+loaded. It cannot identify an image by itself. The no-reload UART
+responses above establish that the calculator was running in that
+session. A power cycle can still restore the older probe image from
+flash, because calculator flash boot has not been verified.
+
+The evidence supports these observed calculations on this board;
+it does not establish complete correctness for all inputs. Serial
+reader tests additionally check that an arbitrary device response is
+returned unchanged and that silence or local input echo cannot supply
+a calculator answer. Interactive CLI is now delivered; reconnect,
+flow control and calculator flash/power-cycle checks remain open.

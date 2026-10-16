@@ -135,3 +135,13 @@ checked hand-lowered twins. [Proof source and recording](../examples/README.md).
 HEX1000 now runs on this board in SRAM. `just board-calc-demo` loads
 the calculator and verifies 12+34=, A*B= and C0DE+BEEF= over UART.
 [Calculator results, recording and known issues](../../docs/hex1000-hardware.md).
+
+
+## Interactive hardware calculator
+
+`just board-calc` connects to the currently running image without
+reprogramming it. Type X123*4= and press Enter; X clears, q quits.
+`just board-calc-query 'X5-7='` prints raw UART bytes as well as the
+final display. The calculator retains a blinking heartbeat and the
+button resets it; those LED behaviors alone do not identify an image.
+See [no-reload proof and evidence](../../docs/hex1000-hardware.md).

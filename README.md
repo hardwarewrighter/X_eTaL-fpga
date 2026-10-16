@@ -122,6 +122,8 @@ the machine now fits: 438 LUTs, 81 flip-flops and 2 block RAMs of its
 
 Actual calculator results, repeatable commands, recording and known limits:
 [HEX1000 hardware handoff](docs/hex1000-hardware.md).
+Try the current board with `just board-calc` (interactive) or
+`just board-calc-query 'X123*4='` (raw UART evidence, no reload).
 
 ## HEX1000
 

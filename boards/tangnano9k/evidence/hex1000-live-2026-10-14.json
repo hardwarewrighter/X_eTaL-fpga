@@ -1,0 +1,29 @@
+{
+  "stage": "terminal",
+  "loaded_sram": false,
+  "persistent_flash_written": false,
+  "results": [
+    {
+      "keys": "X123*4=",
+      "display": "     48C",
+      "expected": null,
+      "received_hex": "20202020202020300d20202020202020310d20202020202031320d20202020203132330d20202020203132330d20202020202020340d20202020203438430d"
+    },
+    {
+      "keys": "X5-7=",
+      "display": "FFFFFFFE",
+      "expected": null,
+      "received_hex": "20202020202020300d20202020202020350d20202020202020350d20202020202020370d46464646464646450d"
+    },
+    {
+      "keys": "XFFFFFFFF+1=",
+      "display": "       0",
+      "expected": null,
+      "received_hex": "20202020202020300d20202020202020460d20202020202046460d20202020204646460d20202020464646460d20202046464646460d20204646464646460d20464646464646460d46464646464646460d46464646464646460d20202020202020310d20202020202020300d"
+    }
+  ],
+  "uart_port": "/dev/ttyUSB1",
+  "description": "Actual connected Nano 9K UART capture from interactive VHS session; no configuration loaded; raw bytes preserved. This is evidence of observed calculations, not exhaustive validation.",
+  "recording": "work/tapes/hex1000-9k-live.mp4",
+  "recording_duration_seconds": 7.68
+}

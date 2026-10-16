@@ -28,6 +28,8 @@ complete, saga archive).
 
 ## 2026-10-14
 
+- 13:40 `feat` Interactive Nano 9K calculator CLI and arbitrary-key raw UART query, both without reprogramming. Record a 7.68-second live session and commit its received bytes (123*4=48C, 5-7=FFFFFFFE, FFFFFFFF+1=0); also observe chaining to A. Explain retained heartbeat/reset LED, narrow verification claims and flash boot limits. Reader tests reject silence/echo and return arbitrary device data unchanged.
+
 - 14:20 `docs` No stale "planned" rows: the mapped-cell simulation is marked done for the board tops, the bitstream check optional, the board test order marked with what passed on the 9K. Open flow only, never the Gowin IDE (the user's decision): the Tang Primer 25K waits for GW5A support in the open flow (README, docs/boards.md, docs/hardware.md, plan A12).
 
 - 14:08 `docs` README: the live site, the browser HEX1000 (with a screenshot) and the terminal recording linked at the top.

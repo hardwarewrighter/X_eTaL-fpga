@@ -289,3 +289,16 @@ board-calc-uart:
 board-calc-video:
     @mkdir -p work/tapes
     vhs boards/tangnano9k/hex1000.tape
+
+# Send your own keys to the currently running board; print raw UART bytes, no reload
+board-calc-query keys:
+    python3 scripts/board-hex1000.py query --keys "$1"
+
+# Interactive calculator on the current FPGA configuration; Enter submits, q quits
+board-calc:
+    python3 scripts/board-hex1000.py terminal
+
+# Record interaction with the existing FPGA configuration without a reload
+board-calc-live-video:
+    @mkdir -p work/tapes
+    vhs boards/tangnano9k/hex1000-live.tape

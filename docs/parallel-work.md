@@ -222,3 +222,10 @@ For the board:
 
 The full procedure for the 1K, what the first test must show and what
 comes next: [docs/handoff-1k.md](handoff-1k.md).
+Interactive hardware handoff: `just board-calc` and
+`just board-calc-query 'X123*4='` use the current board image without
+loading it and expose actual UART display data. Raw evidence is
+committed under boards/tangnano9k/evidence. The additional live MP4
+is work/tapes/hex1000-9k-live.mp4 (7.68 seconds); Mac needs to copy
+that generated artifact separately. The earlier MP4 remains valid.
+LED blink/reset is intentionally retained in the calculator top.
