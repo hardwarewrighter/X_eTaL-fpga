@@ -219,3 +219,6 @@ For the board:
 - `hex1000-board.v` (with the UART glue) is 1138 LUTs: it also fits,
   barely; the physical calculator's panel (Mac step panel) replaces the
   glue's key queue with the keypad wired to the machine's key scan.
+
+The full procedure for the 1K, what the first test must show and what
+comes next: [docs/handoff-1k.md](handoff-1k.md).

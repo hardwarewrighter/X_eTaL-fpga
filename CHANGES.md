@@ -10,6 +10,10 @@ one, `docs` documentation, `plan` saga planning and reordering,
 `release` milestone release, `chore` agentrail bookkeeping (step
 complete, saga archive).
 
+## 2026-10-16
+
+- 08:42 `docs` docs/handoff-1k.md: the Linux lane's procedure for the Tang Nano 1K (what is ready, the two caveats, the board flow's missing 1K entry and what to confirm, a smoke-test top and what its LEDs must show from the X_eTaL trace, the next steps and the panel's expected ports).
+
 ## 2026-10-15
 
 - 18:08 `feat` HEX1000 fits the Tang Nano 1K: memories in the schedule and emitter (`--memories`, `# schedule:` lines in the .xir; a memory cell, its reads, a write port loaded at configuration), registered reads of ROMs and memories emitted as block RAM reads (`r <= ROM[rst ? A0 : addr]`), a range analysis proving addresses in range (`ranges`); the HEX1000 lowering reads its instruction and RAM word through registers at the next state's address, traces unchanged. 2220 LUTs and 379 flip-flops to 438 LUTs, 81 flip-flops and 2 block RAMs. Three tests; handoff in docs/parallel-work.md (the RAM is not cleared by rst until calc-rules).
