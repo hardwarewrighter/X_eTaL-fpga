@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>libs/Panel/src/Panel.xtl - X_eTaL doc</title>
+<link rel="stylesheet" href="style.css">
+<script src="theme.js"></script>
+<script defer src="search-index.js"></script>
+<script defer src="search.js"></script>
+</head>
+<body>
+<nav class="side">
+<a class="home" href="index.html">X_eTaL doc</a>
+<input id="search" type="search" autocomplete="off" placeholder="Search: a name, or a type" title="A name (mean finds m_ean), or a type: Num a =&gt; a -&gt; a -&gt; a finds +, m_ax ...">
+<h2>Files</h2>
+<h3>libs/Clocked/src/</h3>
+<ul>
+<li><a href="libs-Clocked-src-Clocked.xtl.html">Clocked.xtl</a></li>
+</ul>
+<h3>libs/Fixed/src/</h3>
+<ul>
+<li><a href="libs-Fixed-src-Fixed.xtl.html">Fixed.xtl</a></li>
+</ul>
+<h3>libs/Datapath/src/</h3>
+<ul>
+<li><a href="libs-Datapath-src-Datapath.xtl.html">Datapath.xtl</a></li>
+</ul>
+<h3>libs/Hex1000/src/</h3>
+<ul>
+<li><a href="libs-Hex1000-src-Hex1000.xtl.html">Hex1000.xtl</a></li>
+</ul>
+<h3>work/libs/Strings/src/</h3>
+<ul>
+<li><a href="work-libs-Strings-src-Strings.xtl.html">Strings.xtl</a></li>
+</ul>
+<h3>libs/Radix/src/</h3>
+<ul>
+<li><a href="libs-Radix-src-Radix.xtl.html">Radix.xtl</a></li>
+</ul>
+<h3>std/</h3>
+<ul>
+<li><a href="std-System.xtlm.html">System.xtlm</a></li>
+</ul>
+<h3>libs/Panel/src/</h3>
+<ul>
+<li><a href="libs-Panel-src-Panel.xtl.html">Panel.xtl</a></li>
+</ul>
+<h3>libs/Uart/src/</h3>
+<ul>
+<li><a href="libs-Uart-src-Uart.xtl.html">Uart.xtl</a></li>
+</ul>
+<h3>libs/Clocked/demos/</h3>
+<ul>
+<li><a href="libs-Clocked-demos-accumulator.xtl.html">accumulator.xtl</a></li>
+<li><a href="libs-Clocked-demos-counter.xtl.html">counter.xtl</a></li>
+<li><a href="libs-Clocked-demos-detect.xtl.html">detect.xtl</a></li>
+<li><a href="libs-Clocked-demos-ram.xtl.html">ram.xtl</a></li>
+<li><a href="libs-Clocked-demos-shift.xtl.html">shift.xtl</a></li>
+</ul>
+<h3>libs/Datapath/demos/</h3>
+<ul>
+<li><a href="libs-Datapath-demos-pipeline.xtl.html">pipeline.xtl</a></li>
+<li><a href="libs-Datapath-demos-reduce-sum.xtl.html">reduce-sum.xtl</a></li>
+<li><a href="libs-Datapath-demos-saxpy.xtl.html">saxpy.xtl</a></li>
+<li><a href="libs-Datapath-demos-threshold.xtl.html">threshold.xtl</a></li>
+<li><a href="libs-Datapath-demos-vector-add.xtl.html">vector-add.xtl</a></li>
+</ul>
+<h3>libs/Fixed/demos/</h3>
+<ul>
+<li><a href="libs-Fixed-demos-counter.xtl.html">counter.xtl</a></li>
+<li><a href="libs-Fixed-demos-overflow.xtl.html">overflow.xtl</a></li>
+</ul>
+<h3>libs/Hex1000/demos/</h3>
+<ul>
+<li><a href="libs-Hex1000-demos-board.xtl.html">board.xtl</a></li>
+<li><a href="libs-Hex1000-demos-calc.xtl.html">calc.xtl</a></li>
+<li><a href="libs-Hex1000-demos-circuit.xtl.html">circuit.xtl</a></li>
+<li><a href="libs-Hex1000-demos-counter.xtl.html">counter.xtl</a></li>
+<li><a href="libs-Hex1000-demos-keys.xtl.html">keys.xtl</a></li>
+<li><a href="libs-Hex1000-demos-listing.xtl.html">listing.xtl</a></li>
+<li><a href="libs-Hex1000-demos-serial.xtl.html">serial.xtl</a></li>
+<li><a href="libs-Hex1000-demos-terminal.xtl.html">terminal.xtl</a></li>
+</ul>
+<h3>libs/Panel/demos/</h3>
+<ul>
+<li><a href="libs-Panel-demos-font.xtl.html">font.xtl</a></li>
+</ul>
+<h3>libs/Radix/demos/</h3>
+<ul>
+<li><a href="libs-Radix-demos-radixes.xtl.html">radixes.xtl</a></li>
+<li><a href="libs-Radix-demos-session.xtl.html">session.xtl</a></li>
+</ul>
+<h3>libs/Uart/demos/</h3>
+<ul>
+<li><a href="libs-Uart-demos-loopback.xtl.html">loopback.xtl</a></li>
+</ul>
+<ul>
+<li><a href="builtins.html">built-ins</a></li>
+</ul>
+<h2>On this page</h2>
+<ul>
+<li><a href="#section-1">The font</a></li>
+<li class="item"><a href="#l.Font">ˡFont</a></li>
+<li class="item"><a href="#l.s_egs"><span class="c-libfunc">ˡs̲egs</span></a></li>
+<li class="item"><a href="#Seg">Seg</a></li>
+<li class="item"><a href="#Ops">Ops</a></li>
+<li class="item"><a href="#h.c_ol"><span class="c-libfunc">ʰc̲ol</span></a></li>
+<li class="item"><a href="#h.r_ows"><span class="c-libfunc">ʰr̲ows</span></a></li>
+<li><a href="#section-2">The panel in 3D</a></li>
+<li class="item"><a href="#l.Keys">ˡKeys</a></li>
+<li class="item"><a href="#l.k_eyAt"><span class="c-libfunc">ˡk̲eyAt</span></a></li>
+<li class="item"><a href="#l.k_eyBoxes"><span class="c-libfunc">ˡk̲eyBoxes</span></a></li>
+<li class="item"><a href="#l.Case">ˡCase</a></li>
+<li class="item"><a href="#l.Led">ˡLed</a></li>
+<li class="item"><a href="#Signs">Signs</a></li>
+<li class="item"><a href="#Faces">Faces</a></li>
+<li class="item"><a href="#l.b_oxes"><span class="c-libfunc">ˡb̲oxes</span></a></li>
+<li class="item"><a href="#l.s_trokes"><span class="c-libfunc">ˡs̲trokes</span></a></li>
+<li class="item"><a href="#h.m_ove"><span class="c-libfunc">ʰm̲ove</span></a></li>
+<li class="item"><a href="#l.l_egends"><span class="c-libfunc">ˡl̲egends</span></a></li>
+<li class="item"><a href="#l.d_igits"><span class="c-libfunc">ˡd̲igits</span></a></li>
+<li><a href="#section-3">The camera and the window</a></li>
+<li class="item"><a href="#l.View">ˡView</a></li>
+<li class="item"><a href="#l.Eye">ˡEye</a></li>
+<li class="item"><a href="#l.p_roject"><span class="c-libfunc">ˡp̲roject</span></a></li>
+<li class="item"><a href="#l.h_it"><span class="c-libfunc">ˡh̲it</span></a></li>
+<li><a href="#section-4">The machine behind the panel</a></li>
+<li class="item"><a href="#l.p_ress"><span class="c-libfunc">ˡp̲ress</span></a></li>
+<li class="item"><a href="#l.r_eady"><span class="c-libfunc">ˡr̲eady</span></a></li>
+</ul>
+</nav>
+<main>
+<button class="theme" title="Light or dark">theme</button>
+<section id="results"></section>
+<h1><span class="kind">library</span>libs/Panel/src/Panel.xtl</h1>
+<p class="meta"><a href="libs-Panel-src-Panel.xtl.src.html">source</a> &middot; imports <code><span class="c-error">hx:</span></code> <a href="libs-Hex1000-src-Hex1000.xtl.html">libs/Hex1000/src/Hex1000.xtl</a></p>
+<h2 class="section" id="section-1">The font</h2>
+<div class="item" id="l.Font">
+<h3><a href="#l.Font">ˡFont</a> <span class="type">: Int</span></h3>
+<div class="meta">value &middot; <a href="libs-Panel-src-Panel.xtl.src.html#L26">line 26</a></div>
+<div class="doc">
+<p>Font: the segments of the hexadecimal digits 0 to F, a number each:
+bit 0 is segment a (the top), then b to f clockwise from the top
+right, bit 6 g (the middle). A b C d E F: lowercase b and d tell them
+from 8 and 0.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵖⁿ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Panel-src-Panel.xtl.html" class="c-string">&quot;Panel&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-number">4</span> <a href="builtins.html#t_ake" class="c-builtin">t̲ake</a> <a href="libs-Panel-src-Panel.xtl.html#l.Font">ᵖⁿFont</a>
+63 6 91 79</pre>
+</div>
+<pre class="code">ˡFont ← <span class="c-number">63</span> <span class="c-number">6</span> <span class="c-number">91</span> <span class="c-number">79</span> <span class="c-number">102</span> <span class="c-number">109</span> <span class="c-number">125</span> <span class="c-number">7</span> <span class="c-number">127</span> <span class="c-number">111</span> <span class="c-number">119</span> <span class="c-number">124</span> <span class="c-number">57</span> <span class="c-number">94</span> <span class="c-number">121</span> <span class="c-number">113</span></pre>
+<div class="uses">Used in: <a href="libs-Panel-src-Panel.xtl.html#l.s_egs"><span class="c-libfunc">ˡs̲egs</span></a></div>
+</div>
+<div class="item" id="l.s_egs">
+<h3><a href="#l.s_egs"><span class="c-libfunc">ˡs̲egs</span></a> <span class="type">: Int -&gt; Int</span></h3>
+<div class="meta">function &middot; <a href="libs-Panel-src-Panel.xtl.src.html#L36">line 36</a></div>
+<div class="doc">
+<p>s_egs d: the segments lit for each digit latch d (O as the program
+latched it: the digit in bits 0 to 3, bit 4 set to show it), a row a
+to g each; a latch with bit 4 clear is blank.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵖⁿ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Panel-src-Panel.xtl.html" class="c-string">&quot;Panel&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Panel-src-Panel.xtl.html#l.s_egs" class="c-libfunc">ᵖⁿs̲egs</a> <span class="c-number">16</span> <span class="c-number">17</span> <span class="c-number">1</span>
+1 1 1 1 1 1 0
+0 1 1 0 0 0 0
+0 0 0 0 0 0 0</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡs̲egs</span> ← { d →
+  p ← (d <a href="builtins.html#-3e-3d" class="c-symbol">≥</a> <span class="c-number">16</span>) <a href="builtins.html#-2a" class="c-symbol">×</a> (<span class="c-number">1</span> <a href="builtins.html#-2b" class="c-symbol">+</a> d <a href="builtins.html#m_od" class="c-builtin">m̲od</a> <span class="c-number">16</span>) <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> <a href="libs-Panel-src-Panel.xtl.html#l.Font">ˡFont</a>
+  (p <span class="c-builtin">'</span><a href="builtins.html#d_iv" class="c-builtin">d̲iv</a> <a href="builtins.html#t_able" class="c-builtin">t̲able</a> <span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">4</span> <span class="c-number">8</span> <span class="c-number">16</span> <span class="c-number">32</span> <span class="c-number">64</span>) <a href="builtins.html#m_od" class="c-builtin">m̲od</a> <span class="c-number">2</span>
+}</pre>
+<div class="uses">Used in: <a href="libs-Panel-src-Panel.xtl.html#l.l_egends"><span class="c-libfunc">ˡl̲egends</span></a>, <a href="libs-Panel-src-Panel.xtl.html#l.d_igits"><span class="c-libfunc">ˡd̲igits</span></a>, <a href="libs-Panel-demos-font.xtl.html#u.a_rt"><span class="c-userfunc">ᵘa̲rt</span></a></div>
+</div>
+<div class="item" id="Seg">
+<h3><a href="#Seg">Seg</a> <span class="type">: Float</span></h3>
+<div class="meta">value <span class="private">(private)</span> &middot; <a href="libs-Panel-src-Panel.xtl.src.html#L43">line 43</a></div>
+<div class="doc">
+<p>Seg: a digit's seven segments as strokes, a row each (x1 y1 x2 y2), in
+a digit 0.3 wide and 0.5 tall centered on 0 0, a to g.</p>
+</div>
+<pre class="code">Seg ← <span class="c-number">7</span> <span class="c-number">4</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">-0.11</span> <span class="c-number">0.25</span> <span class="c-number">0.11</span> <span class="c-number">0.25</span>  <span class="c-number">0.15</span> <span class="c-number">0.21</span> <span class="c-number">0.15</span> <span class="c-number">0.04</span>  <span class="c-number">0.15</span> <span class="c-number">-0.04</span> <span class="c-number">0.15</span> <span class="c-number">-0.21</span>  <span class="c-number">-0.11</span> <span class="c-number">-0.25</span> <span class="c-number">0.11</span> <span class="c-number">-0.25</span>  <span class="c-number">-0.15</span> <span class="c-number">-0.04</span> <span class="c-number">-0.15</span> <span class="c-number">-0.21</span>  <span class="c-number">-0.15</span> <span class="c-number">0.21</span> <span class="c-number">-0.15</span> <span class="c-number">0.04</span>  <span class="c-number">-0.11</span> <span class="c-number">0</span> <span class="c-number">0.11</span> <span class="c-number">0</span></pre>
+<div class="uses">Used in: <a href="libs-Panel-src-Panel.xtl.html#l.l_egends"><span class="c-libfunc">ˡl̲egends</span></a>, <a href="libs-Panel-src-Panel.xtl.html#l.d_igits"><span class="c-libfunc">ˡd̲igits</span></a></div>
+</div>
+<div class="item" id="Ops">
+<h3><a href="#Ops">Ops</a> <span class="type">: Float</span></h3>
+<div class="meta">value <span class="private">(private)</span> &middot; <a href="libs-Panel-src-Panel.xtl.src.html#L47">line 47</a></div>
+<div class="doc">
+<p>Ops: the operator keys' legends as strokes, a row each (the key's
+code, x1 y1 x2 y2): + - * (a cross) and =.</p>
+</div>
+<pre class="code">Ops ← <span class="c-number">7</span> <span class="c-number">5</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">16</span> <span class="c-number">-0.15</span> <span class="c-number">0</span> <span class="c-number">0.15</span> <span class="c-number">0</span>  <span class="c-number">16</span> <span class="c-number">0</span> <span class="c-number">-0.15</span> <span class="c-number">0</span> <span class="c-number">0.15</span>  <span class="c-number">17</span> <span class="c-number">-0.15</span> <span class="c-number">0</span> <span class="c-number">0.15</span> <span class="c-number">0</span>  <span class="c-number">18</span> <span class="c-number">-0.12</span> <span class="c-number">-0.12</span> <span class="c-number">0.12</span> <span class="c-number">0.12</span>  <span class="c-number">18</span> <span class="c-number">-0.12</span> <span class="c-number">0.12</span> <span class="c-number">0.12</span> <span class="c-number">-0.12</span>  <span class="c-number">19</span> <span class="c-number">-0.15</span> <span class="c-number">0.07</span> <span class="c-number">0.15</span> <span class="c-number">0.07</span>  <span class="c-number">19</span> <span class="c-number">-0.15</span> <span class="c-number">-0.07</span> <span class="c-number">0.15</span> <span class="c-number">-0.07</span></pre>
+<div class="uses">Used in: <a href="libs-Panel-src-Panel.xtl.html#l.l_egends"><span class="c-libfunc">ˡl̲egends</span></a></div>
+</div>
+<div class="item" id="h.c_ol">
+<h3><a href="#h.c_ol"><span class="c-libfunc">ʰc̲ol</span></a> <span class="type">: Int -&gt; a -&gt; a</span></h3>
+<div class="meta">function <span class="private">(private)</span> &middot; <a href="libs-Panel-src-Panel.xtl.src.html#L50">line 50</a></div>
+<div class="doc">
+<p>Column k of a matrix m, as a vector.</p>
+</div>
+<pre class="code"><span class="c-libfunc">ʰc̲ol</span> ← { k m → <a href="builtins.html#r_avel" class="c-builtin">r̲avel</a> k <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> <span class="c-number">2</span> <span class="c-number">1</span> <a href="builtins.html#t_ranspose" class="c-builtin">t̲ranspose</a> m }</pre>
+<div class="uses">Used in: <a href="libs-Panel-src-Panel.xtl.html#l.k_eyBoxes"><span class="c-libfunc">ˡk̲eyBoxes</span></a>, <a href="libs-Panel-src-Panel.xtl.html#l.b_oxes"><span class="c-libfunc">ˡb̲oxes</span></a>, <a href="libs-Panel-src-Panel.xtl.html#l.s_trokes"><span class="c-libfunc">ˡs̲trokes</span></a>, <a href="libs-Panel-src-Panel.xtl.html#h.m_ove"><span class="c-libfunc">ʰm̲ove</span></a>, <a href="libs-Panel-src-Panel.xtl.html#l.l_egends"><span class="c-libfunc">ˡl̲egends</span></a>, <a href="libs-Panel-src-Panel.xtl.html#l.p_roject"><span class="c-libfunc">ˡp̲roject</span></a>, <a href="libs-Panel-src-Panel.xtl.html#l.h_it"><span class="c-libfunc">ˡh̲it</span></a></div>
+</div>
+<div class="item" id="h.r_ows">
+<h3><a href="#h.r_ows"><span class="c-libfunc">ʰr̲ows</span></a> <span class="type">: Int -&gt; a -&gt; a</span></h3>
+<div class="meta">function <span class="private">(private)</span> &middot; <a href="libs-Panel-src-Panel.xtl.src.html#L53">line 53</a></div>
+<div class="doc">
+<p>k columns, each a vector of n, as an n by k matrix.</p>
+</div>
+<pre class="code"><span class="c-libfunc">ʰr̲ows</span> ← { k cs → <span class="c-number">2</span> <span class="c-number">1</span> <a href="builtins.html#t_ranspose" class="c-builtin">t̲ranspose</a> (k <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> cs) <a href="builtins.html#d_iv" class="c-builtin">d̲iv</a> k) <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> cs }</pre>
+<div class="uses">Used in: <a href="libs-Panel-src-Panel.xtl.html#l.k_eyAt"><span class="c-libfunc">ˡk̲eyAt</span></a>, <a href="libs-Panel-src-Panel.xtl.html#l.k_eyBoxes"><span class="c-libfunc">ˡk̲eyBoxes</span></a>, <a href="libs-Panel-src-Panel.xtl.html#l.b_oxes"><span class="c-libfunc">ˡb̲oxes</span></a>, <a href="libs-Panel-src-Panel.xtl.html#l.s_trokes"><span class="c-libfunc">ˡs̲trokes</span></a>, <a href="libs-Panel-src-Panel.xtl.html#h.m_ove"><span class="c-libfunc">ʰm̲ove</span></a>, <a href="libs-Panel-src-Panel.xtl.html#l.l_egends"><span class="c-libfunc">ˡl̲egends</span></a>, <a href="libs-Panel-src-Panel.xtl.html#l.d_igits"><span class="c-libfunc">ˡd̲igits</span></a>, <a href="libs-Panel-src-Panel.xtl.html#l.p_roject"><span class="c-libfunc">ˡp̲roject</span></a>, <a href="libs-Panel-src-Panel.xtl.html#l.h_it"><span class="c-libfunc">ˡh̲it</span></a></div>
+</div>
+<h2 class="section" id="section-2">The panel in 3D</h2>
+<div class="item" id="l.Keys">
+<h3><a href="#l.Keys">ˡKeys</a> <span class="type">: Int</span></h3>
+<div class="meta">value &middot; <a href="libs-Panel-src-Panel.xtl.src.html#L66">line 66</a></div>
+<div class="doc">
+<p>Keys: the keys as they sit, a row of the panel each from the top: the
+hexadecimal pad (C D E F, 8 9 A B, 4 5 6 7, 0 1 2 3) and the operator
+column (+ - * =), by their codes (hx:m_atrix's).</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵖⁿ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Panel-src-Panel.xtl.html" class="c-string">&quot;Panel&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Panel-src-Panel.xtl.html#l.Keys">ᵖⁿKeys</a>
+12 13 14 15 16
+ 8  9 10 11 17
+ 4  5  6  7 18
+ 0  1  2  3 19</pre>
+</div>
+<pre class="code">ˡKeys ← <span class="c-number">4</span> <span class="c-number">5</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">12</span> <span class="c-number">13</span> <span class="c-number">14</span> <span class="c-number">15</span> <span class="c-number">16</span>  <span class="c-number">8</span> <span class="c-number">9</span> <span class="c-number">10</span> <span class="c-number">11</span> <span class="c-number">17</span>  <span class="c-number">4</span> <span class="c-number">5</span> <span class="c-number">6</span> <span class="c-number">7</span> <span class="c-number">18</span>  <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">3</span> <span class="c-number">19</span></pre>
+<div class="uses">Used in: <a href="libs-Panel-src-Panel.xtl.html#l.k_eyAt"><span class="c-libfunc">ˡk̲eyAt</span></a></div>
+</div>
+<div class="item" id="l.k_eyAt">
+<h3><a href="#l.k_eyAt"><span class="c-libfunc">ˡk̲eyAt</span></a> <span class="type">: Int -&gt; Float</span></h3>
+<div class="meta">function &middot; <a href="libs-Panel-src-Panel.xtl.src.html#L74">line 74</a></div>
+<div class="doc">
+<p>k_eyAt c: where the middle of each key c is, x y (scene units), a row
+each: 0.95 apart, the operator column 0.2 further right.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵖⁿ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Panel-src-Panel.xtl.html" class="c-string">&quot;Panel&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Panel-src-Panel.xtl.html#l.k_eyAt" class="c-libfunc">ᵖⁿk̲eyAt</a> <span class="c-number">12</span> <span class="c-number">19</span>
+-2.0 0.55
+ 2.0 -2.3</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡk̲eyAt</span> ← { c →
+  i ← ((<a href="builtins.html#r_avel" class="c-builtin">r̲avel</a> <a href="libs-Panel-src-Panel.xtl.html#l.Keys">ˡKeys</a>) <a href="builtins.html#i_ndexOf" class="c-builtin">i̲ndexOf</a> c) <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span>
+  col ← i <a href="builtins.html#m_od" class="c-builtin">m̲od</a> <span class="c-number">5</span>
+  x ← ((<span class="c-number">0.95</span> <a href="builtins.html#-2a" class="c-symbol">×</a> <a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> col) <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">0.2</span> <a href="builtins.html#-2a" class="c-symbol">×</a> <a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> col <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">4</span>) <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">2.0</span>
+  y ← <span class="c-number">0.55</span> <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">0.95</span> <a href="builtins.html#-2a" class="c-symbol">×</a> <a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> i <a href="builtins.html#d_iv" class="c-builtin">d̲iv</a> <span class="c-number">5</span>
+  <span class="c-number">2</span> <a href="libs-Panel-src-Panel.xtl.html#h.r_ows" class="c-libfunc">ʰr̲ows</a> x <a href="builtins.html#c_at" class="c-builtin">c̲at</a> y
+}</pre>
+<div class="uses">Used in: <a href="libs-Panel-src-Panel.xtl.html#l.k_eyBoxes"><span class="c-libfunc">ˡk̲eyBoxes</span></a>, <a href="libs-Panel-src-Panel.xtl.html#l.l_egends"><span class="c-libfunc">ˡl̲egends</span></a>, <a href="libs-Panel-src-Panel.xtl.html#l.h_it"><span class="c-libfunc">ˡh̲it</span></a></div>
+</div>
+<div class="item" id="l.k_eyBoxes">
+<h3><a href="#l.k_eyBoxes"><span class="c-libfunc">ˡk̲eyBoxes</span></a> <span class="type">: Int -&gt; Float</span></h3>
+<div class="meta">function &middot; <a href="libs-Panel-src-Panel.xtl.src.html#L88">line 88</a></div>
+<div class="doc">
+<p>k_eyBoxes p: the 20 keys as boxes, by code from 0, a row each (x y z
+of the middle, width, height, depth): 0.78 square, standing 0.3 off
+the face, key p (-1: none) pressed down to 0.1.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵖⁿ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Panel-src-Panel.xtl.html" class="c-string">&quot;Panel&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="builtins.html#s_hape" class="c-builtin">s̲hape</a> <a href="libs-Panel-src-Panel.xtl.html#l.k_eyBoxes" class="c-libfunc">ᵖⁿk̲eyBoxes</a> <span class="c-number">1</span>
+20 6</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡk̲eyBoxes</span> ← { p →
+  c ← <a href="builtins.html#o_ffsets" class="c-builtin">o̲ffsets</a> <span class="c-number">20</span>
+  xy ← <a href="libs-Panel-src-Panel.xtl.html#l.k_eyAt" class="c-libfunc">ˡk̲eyAt</a> c
+  d ← <span class="c-number">0.3</span> <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">0.2</span> <a href="builtins.html#-2a" class="c-symbol">×</a> <a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> c <a href="builtins.html#-3d" class="c-symbol">=</a> p
+  <span class="c-number">6</span> <a href="libs-Panel-src-Panel.xtl.html#h.r_ows" class="c-libfunc">ʰr̲ows</a> (<span class="c-number">1</span> <a href="libs-Panel-src-Panel.xtl.html#h.c_ol" class="c-libfunc">ʰc̲ol</a> xy) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<span class="c-number">2</span> <a href="libs-Panel-src-Panel.xtl.html#h.c_ol" class="c-libfunc">ʰc̲ol</a> xy) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (d <a href="builtins.html#-2f" class="c-symbol">÷</a> <span class="c-number">2</span>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<span class="c-number">40</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0.78</span>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> d
+}</pre>
+</div>
+<div class="item" id="l.Case">
+<h3><a href="#l.Case">ˡCase</a> <span class="type">: Float</span></h3>
+<div class="meta">value &middot; <a href="libs-Panel-src-Panel.xtl.src.html#L100">line 100</a></div>
+<div class="doc">
+<p>Case: the case and the display's window, as boxes (x y z, width,
+height, depth); the face of the case is z = 0.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵖⁿ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Panel-src-Panel.xtl.html" class="c-string">&quot;Panel&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-number">1</span> <a href="builtins.html#t_ake" class="c-builtin">t̲ake</a> <a href="libs-Panel-src-Panel.xtl.html#l.Case">ᵖⁿCase</a>
+0.0 0.25 -0.2 5.5 6.7 0.4</pre>
+</div>
+<pre class="code">ˡCase ← <span class="c-number">2</span> <span class="c-number">6</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0.0</span> <span class="c-number">0.25</span> <span class="c-number">-0.2</span> <span class="c-number">5.5</span> <span class="c-number">6.7</span> <span class="c-number">0.4</span>  <span class="c-number">0.0</span> <span class="c-number">2.3</span> <span class="c-number">0.01</span> <span class="c-number">4.9</span> <span class="c-number">1.1</span> <span class="c-number">0.02</span></pre>
+</div>
+<div class="item" id="l.Led">
+<h3><a href="#l.Led">ˡLed</a> <span class="type">: Float</span></h3>
+<div class="meta">value &middot; <a href="libs-Panel-src-Panel.xtl.src.html#L107">line 107</a></div>
+<div class="doc">
+<p>Led: the ready light's box, top right above the display (lit while
+R15 says the program waits for a key).</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵖⁿ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Panel-src-Panel.xtl.html" class="c-string">&quot;Panel&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Panel-src-Panel.xtl.html#l.Led">ᵖⁿLed</a>
+2.2 3.2 0.05 0.16 0.16 0.1</pre>
+</div>
+<pre class="code">ˡLed ← <span class="c-number">1</span> <span class="c-number">6</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">2.2</span> <span class="c-number">3.2</span> <span class="c-number">0.05</span> <span class="c-number">0.16</span> <span class="c-number">0.16</span> <span class="c-number">0.1</span></pre>
+</div>
+<div class="item" id="Signs">
+<h3><a href="#Signs">Signs</a> <span class="type">: Float</span></h3>
+<div class="meta">value <span class="private">(private)</span> &middot; <a href="libs-Panel-src-Panel.xtl.src.html#L111">line 111</a></div>
+<div class="doc">
+<p>Corners of a unit cube (signs) and its six faces, the corners round
+each from 1.</p>
+</div>
+<pre class="code">Signs ← <a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> <span class="c-number">8</span> <span class="c-number">3</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">-1</span> <span class="c-number">-1</span> <span class="c-number">-1</span>  <span class="c-number">1</span> <span class="c-number">-1</span> <span class="c-number">-1</span>  <span class="c-number">-1</span> <span class="c-number">1</span> <span class="c-number">-1</span>  <span class="c-number">1</span> <span class="c-number">1</span> <span class="c-number">-1</span>  <span class="c-number">-1</span> <span class="c-number">-1</span> <span class="c-number">1</span>  <span class="c-number">1</span> <span class="c-number">-1</span> <span class="c-number">1</span>  <span class="c-number">-1</span> <span class="c-number">1</span> <span class="c-number">1</span>  <span class="c-number">1</span> <span class="c-number">1</span> <span class="c-number">1</span></pre>
+<div class="uses">Used in: <a href="libs-Panel-src-Panel.xtl.html#l.b_oxes"><span class="c-libfunc">ˡb̲oxes</span></a></div>
+</div>
+<div class="item" id="Faces">
+<h3><a href="#Faces">Faces</a> <span class="type">: Int</span></h3>
+<div class="meta">value <span class="private">(private)</span> &middot; <a href="libs-Panel-src-Panel.xtl.src.html#L112">line 112</a></div>
+<pre class="code">Faces ← <span class="c-number">1</span> <span class="c-number">3</span> <span class="c-number">4</span> <span class="c-number">2</span>  <span class="c-number">5</span> <span class="c-number">6</span> <span class="c-number">8</span> <span class="c-number">7</span>  <span class="c-number">1</span> <span class="c-number">5</span> <span class="c-number">7</span> <span class="c-number">3</span>  <span class="c-number">2</span> <span class="c-number">4</span> <span class="c-number">8</span> <span class="c-number">6</span>  <span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">6</span> <span class="c-number">5</span>  <span class="c-number">3</span> <span class="c-number">7</span> <span class="c-number">8</span> <span class="c-number">4</span></pre>
+<div class="uses">Used in: <a href="libs-Panel-src-Panel.xtl.html#l.b_oxes"><span class="c-libfunc">ˡb̲oxes</span></a></div>
+</div>
+<div class="item" id="l.b_oxes">
+<h3><a href="#l.b_oxes"><span class="c-libfunc">ˡb̲oxes</span></a> <span class="type">: Float -&gt; Float</span></h3>
+<div class="meta">function &middot; <a href="libs-Panel-src-Panel.xtl.src.html#L121">line 121</a></div>
+<div class="doc">
+<p>b_oxes b: boxes (a row each: x y z of the middle, width, height,
+depth) as quads, six faces each, 4 corners a face (24 rows x y z a
+box): every box's corners at once, an outer product of the halves and
+a unit cube's signs.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵖⁿ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Panel-src-Panel.xtl.html" class="c-string">&quot;Panel&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="builtins.html#s_hape" class="c-builtin">s̲hape</a> <a href="libs-Panel-src-Panel.xtl.html#l.b_oxes" class="c-libfunc">ᵖⁿb̲oxes</a> <span class="c-number">2</span> <span class="c-number">6</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">1</span> <span class="c-number">1</span>  <span class="c-number">2</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">1</span>
+48 3</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡb̲oxes</span> ← { b →
+  n ← <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> <a href="builtins.html#s_hape" class="c-builtin">s̲hape</a> b
+  <span class="c-builtin">c̲o</span> ← { k → <a href="builtins.html#r_avel" class="c-builtin">r̲avel</a> ((k <a href="libs-Panel-src-Panel.xtl.html#h.c_ol" class="c-libfunc">ʰc̲ol</a> b) <span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#t_able" class="c-builtin">t̲able</a> <span class="c-number">8</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0</span>) <a href="builtins.html#-2b" class="c-symbol">+</a> (<span class="c-number">0.5</span> <a href="builtins.html#-2a" class="c-symbol">×</a> (k <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">3</span>) <a href="libs-Panel-src-Panel.xtl.html#h.c_ol" class="c-libfunc">ʰc̲ol</a> b) <span class="c-symbol">'</span><a href="builtins.html#-2a" class="c-symbol">×</a> <a href="builtins.html#t_able" class="c-builtin">t̲able</a> k <a href="libs-Panel-src-Panel.xtl.html#h.c_ol" class="c-libfunc">ʰc̲ol</a> <a href="libs-Panel-src-Panel.xtl.html#Signs">Signs</a> }
+  v ← <span class="c-number">3</span> <a href="libs-Panel-src-Panel.xtl.html#h.r_ows" class="c-libfunc">ʰr̲ows</a> (<span class="c-builtin">c̲o</span> <span class="c-number">1</span>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<span class="c-builtin">c̲o</span> <span class="c-number">2</span>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-builtin">c̲o</span> <span class="c-number">3</span>
+  (<a href="builtins.html#r_avel" class="c-builtin">r̲avel</a> (<span class="c-number">8</span> <a href="builtins.html#-2a" class="c-symbol">×</a> (<a href="builtins.html#r_ange" class="c-builtin">r̲ange</a> n) <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span>) <span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#t_able" class="c-builtin">t̲able</a> <a href="libs-Panel-src-Panel.xtl.html#Faces">Faces</a>) <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> v
+}</pre>
+</div>
+<div class="item" id="l.s_trokes">
+<h3><a href="#l.s_trokes"><span class="c-libfunc">ˡs̲trokes</span></a> <span class="type">: (Float, Float, Float) -&gt; Float</span></h3>
+<div class="meta">function &middot; <a href="libs-Panel-src-Panel.xtl.src.html#L137">line 137</a></div>
+<div class="doc">
+<p>s_trokes (s, z, t): strokes as thin quads facing +z, t wide, at depth
+z (one for all, or one a stroke): s a row each (x1 y1 x2 y2); 4
+corners a stroke.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵖⁿ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Panel-src-Panel.xtl.html" class="c-string">&quot;Panel&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Panel-src-Panel.xtl.html#l.s_trokes" class="c-libfunc">ᵖⁿs̲trokes</a> (<span class="c-number">1</span> <span class="c-number">4</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span>, <span class="c-number">0.5</span>, <span class="c-number">0.2</span>)
+0.0  0.1 0.5
+1.0  0.1 0.5
+1.0 -0.1 0.5
+0.0 -0.1 0.5</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡs̲trokes</span> ← { (s, z, t) →
+  n ← <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> <a href="builtins.html#s_hape" class="c-builtin">s̲hape</a> s
+  x1 ← <span class="c-number">1</span> <a href="libs-Panel-src-Panel.xtl.html#h.c_ol" class="c-libfunc">ʰc̲ol</a> s
+  y1 ← <span class="c-number">2</span> <a href="libs-Panel-src-Panel.xtl.html#h.c_ol" class="c-libfunc">ʰc̲ol</a> s
+  x2 ← <span class="c-number">3</span> <a href="libs-Panel-src-Panel.xtl.html#h.c_ol" class="c-libfunc">ʰc̲ol</a> s
+  y2 ← <span class="c-number">4</span> <a href="libs-Panel-src-Panel.xtl.html#h.c_ol" class="c-libfunc">ʰc̲ol</a> s
+  l ← (((x2 <a href="builtins.html#-2d" class="c-symbol">−</a> x1) <a href="builtins.html#-5e" class="c-symbol">^</a> <span class="c-number">2.0</span>) <a href="builtins.html#-2b" class="c-symbol">+</a> (y2 <a href="builtins.html#-2d" class="c-symbol">−</a> y1) <a href="builtins.html#-5e" class="c-symbol">^</a> <span class="c-number">2.0</span>) <a href="builtins.html#-5e" class="c-symbol">^</a> <span class="c-number">0.5</span>
+  nx ← (t <a href="builtins.html#-2a" class="c-symbol">×</a> y1 <a href="builtins.html#-2d" class="c-symbol">−</a> y2) <a href="builtins.html#-2f" class="c-symbol">÷</a> <span class="c-number">2.0</span> <a href="builtins.html#-2a" class="c-symbol">×</a> l
+  ny ← (t <a href="builtins.html#-2a" class="c-symbol">×</a> x2 <a href="builtins.html#-2d" class="c-symbol">−</a> x1) <a href="builtins.html#-2f" class="c-symbol">÷</a> <span class="c-number">2.0</span> <a href="builtins.html#-2a" class="c-symbol">×</a> l
+  x ← <a href="builtins.html#r_avel" class="c-builtin">r̲avel</a> <span class="c-number">4</span> <a href="libs-Panel-src-Panel.xtl.html#h.r_ows" class="c-libfunc">ʰr̲ows</a> (x1 <a href="builtins.html#-2b" class="c-symbol">+</a> nx) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (x2 <a href="builtins.html#-2b" class="c-symbol">+</a> nx) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (x2 <a href="builtins.html#-2d" class="c-symbol">−</a> nx) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> x1 <a href="builtins.html#-2d" class="c-symbol">−</a> nx
+  y ← <a href="builtins.html#r_avel" class="c-builtin">r̲avel</a> <span class="c-number">4</span> <a href="libs-Panel-src-Panel.xtl.html#h.r_ows" class="c-libfunc">ʰr̲ows</a> (y1 <a href="builtins.html#-2b" class="c-symbol">+</a> ny) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (y2 <a href="builtins.html#-2b" class="c-symbol">+</a> ny) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (y2 <a href="builtins.html#-2d" class="c-symbol">−</a> ny) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> y1 <a href="builtins.html#-2d" class="c-symbol">−</a> ny
+  zs ← n <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> z
+  <span class="c-number">3</span> <a href="libs-Panel-src-Panel.xtl.html#h.r_ows" class="c-libfunc">ʰr̲ows</a> x <a href="builtins.html#c_at" class="c-builtin">c̲at</a> y <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#r_avel" class="c-builtin">r̲avel</a> <span class="c-number">4</span> <a href="libs-Panel-src-Panel.xtl.html#h.r_ows" class="c-libfunc">ʰr̲ows</a> zs <a href="builtins.html#c_at" class="c-builtin">c̲at</a> zs <a href="builtins.html#c_at" class="c-builtin">c̲at</a> zs <a href="builtins.html#c_at" class="c-builtin">c̲at</a> zs
+}</pre>
+</div>
+<div class="item" id="h.m_ove">
+<h3><a href="#h.m_ove"><span class="c-libfunc">ʰm̲ove</span></a> <span class="type">: Num a =&gt; (a, a) -&gt; a</span></h3>
+<div class="meta">function <span class="private">(private)</span> &middot; <a href="libs-Panel-src-Panel.xtl.src.html#L153">line 153</a></div>
+<div class="doc">
+<p>Strokes s (a row each x1 y1 x2 y2) moved by xy (a row each x y).</p>
+</div>
+<pre class="code"><span class="c-libfunc">ʰm̲ove</span> ← { (s, xy) →
+  cx ← <span class="c-number">1</span> <a href="libs-Panel-src-Panel.xtl.html#h.c_ol" class="c-libfunc">ʰc̲ol</a> xy
+  cy ← <span class="c-number">2</span> <a href="libs-Panel-src-Panel.xtl.html#h.c_ol" class="c-libfunc">ʰc̲ol</a> xy
+  <span class="c-number">4</span> <a href="libs-Panel-src-Panel.xtl.html#h.r_ows" class="c-libfunc">ʰr̲ows</a> ((<span class="c-number">1</span> <a href="libs-Panel-src-Panel.xtl.html#h.c_ol" class="c-libfunc">ʰc̲ol</a> s) <a href="builtins.html#-2b" class="c-symbol">+</a> cx) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> ((<span class="c-number">2</span> <a href="libs-Panel-src-Panel.xtl.html#h.c_ol" class="c-libfunc">ʰc̲ol</a> s) <a href="builtins.html#-2b" class="c-symbol">+</a> cy) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> ((<span class="c-number">3</span> <a href="libs-Panel-src-Panel.xtl.html#h.c_ol" class="c-libfunc">ʰc̲ol</a> s) <a href="builtins.html#-2b" class="c-symbol">+</a> cx) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<span class="c-number">4</span> <a href="libs-Panel-src-Panel.xtl.html#h.c_ol" class="c-libfunc">ʰc̲ol</a> s) <a href="builtins.html#-2b" class="c-symbol">+</a> cy
+}</pre>
+<div class="uses">Used in: <a href="libs-Panel-src-Panel.xtl.html#l.l_egends"><span class="c-libfunc">ˡl̲egends</span></a>, <a href="libs-Panel-src-Panel.xtl.html#l.d_igits"><span class="c-libfunc">ˡd̲igits</span></a></div>
+</div>
+<div class="item" id="l.l_egends">
+<h3><a href="#l.l_egends"><span class="c-libfunc">ˡl̲egends</span></a> <span class="type">: Int -&gt; (Float, Float)</span></h3>
+<div class="meta">function &middot; <a href="libs-Panel-src-Panel.xtl.src.html#L167">line 167</a></div>
+<div class="doc">
+<p>l_egends p: every key's legend as strokes on its top, with key p
+(-1: none) pressed: (the strokes, a row each x1 y1 x2 y2; their
+depths). The digits are the display's font at 0.8 size; the
+operators are Ops.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵖⁿ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Panel-src-Panel.xtl.html" class="c-string">&quot;Panel&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span>(s, z) ← <a href="libs-Panel-src-Panel.xtl.html#l.l_egends" class="c-libfunc">ᵖⁿl̲egends</a> <span class="c-number">-1</span></pre>
+<pre class="example"><span class="prompt">      </span><a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> z
+85</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡl̲egends</span> ← { p →
+  digit ← <a href="builtins.html#r_avel" class="c-builtin">r̲avel</a> (<a href="builtins.html#o_ffsets" class="c-builtin">o̲ffsets</a> <span class="c-number">16</span>) <span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#t_able" class="c-builtin">t̲able</a> <span class="c-number">7</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0</span>
+  on ← <a href="builtins.html#r_avel" class="c-builtin">r̲avel</a> <a href="libs-Panel-src-Panel.xtl.html#l.s_egs" class="c-libfunc">ˡs̲egs</a> <span class="c-number">16</span> <a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#o_ffsets" class="c-builtin">o̲ffsets</a> <span class="c-number">16</span>
+  ds ← <a href="libs-Panel-src-Panel.xtl.html#h.m_ove" class="c-libfunc">ʰm̲ove</a> (<span class="c-number">112</span> <span class="c-number">4</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0.8</span> <a href="builtins.html#-2a" class="c-symbol">×</a> <a href="builtins.html#r_avel" class="c-builtin">r̲avel</a> <a href="libs-Panel-src-Panel.xtl.html#Seg">Seg</a>, <a href="libs-Panel-src-Panel.xtl.html#l.k_eyAt" class="c-libfunc">ˡk̲eyAt</a> digit)
+  oc ← <a href="builtins.html#f_loor" class="c-builtin">f̲loor</a> <span class="c-number">1</span> <a href="libs-Panel-src-Panel.xtl.html#h.c_ol" class="c-libfunc">ʰc̲ol</a> <a href="libs-Panel-src-Panel.xtl.html#Ops">Ops</a>
+  os ← <a href="libs-Panel-src-Panel.xtl.html#h.m_ove" class="c-libfunc">ʰm̲ove</a> (<span class="c-number">4</span> <a href="libs-Panel-src-Panel.xtl.html#h.r_ows" class="c-libfunc">ʰr̲ows</a> (<span class="c-number">2</span> <a href="libs-Panel-src-Panel.xtl.html#h.c_ol" class="c-libfunc">ʰc̲ol</a> <a href="libs-Panel-src-Panel.xtl.html#Ops">Ops</a>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<span class="c-number">3</span> <a href="libs-Panel-src-Panel.xtl.html#h.c_ol" class="c-libfunc">ʰc̲ol</a> <a href="libs-Panel-src-Panel.xtl.html#Ops">Ops</a>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<span class="c-number">4</span> <a href="libs-Panel-src-Panel.xtl.html#h.c_ol" class="c-libfunc">ʰc̲ol</a> <a href="libs-Panel-src-Panel.xtl.html#Ops">Ops</a>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">5</span> <a href="libs-Panel-src-Panel.xtl.html#h.c_ol" class="c-libfunc">ʰc̲ol</a> <a href="libs-Panel-src-Panel.xtl.html#Ops">Ops</a>, <a href="libs-Panel-src-Panel.xtl.html#l.k_eyAt" class="c-libfunc">ˡk̲eyAt</a> oc)
+  codes ← (on <a href="builtins.html#r_eplicate" class="c-builtin">r̲eplicate</a> digit) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> oc
+  ((on <a href="builtins.html#r_eplicate" class="c-builtin">r̲eplicate</a> ds) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> os, <span class="c-number">0.305</span> <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">0.2</span> <a href="builtins.html#-2a" class="c-symbol">×</a> <a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> codes <a href="builtins.html#-3d" class="c-symbol">=</a> p)
+}</pre>
+</div>
+<div class="item" id="l.d_igits">
+<h3><a href="#l.d_igits"><span class="c-libfunc">ˡd̲igits</span></a> <span class="type">: Int -&gt; (Float, Float)</span></h3>
+<div class="meta">function &middot; <a href="libs-Panel-src-Panel.xtl.src.html#L184">line 184</a></div>
+<div class="doc">
+<p>d_igits d: the display's eight digits for the digit latches d (digit
+0, the rightmost, first) as strokes: (those lit, those dark), a row
+each x1 y1 x2 y2.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵖⁿ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Panel-src-Panel.xtl.html" class="c-string">&quot;Panel&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span>(lit, dark) ← <a href="libs-Panel-src-Panel.xtl.html#l.d_igits" class="c-libfunc">ᵖⁿd̲igits</a> <span class="c-number">16</span> <span class="c-number">17</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span></pre>
+<pre class="example"><span class="prompt">      </span>(<a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> lit) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> dark
+8 48</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡd̲igits</span> ← { d →
+  xp ← <span class="c-number">0.58</span> <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-number">3.5</span> <a href="builtins.html#-2d" class="c-symbol">−</a> <a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> <a href="builtins.html#o_ffsets" class="c-builtin">o̲ffsets</a> <span class="c-number">8</span>
+  all ← <a href="libs-Panel-src-Panel.xtl.html#h.m_ove" class="c-libfunc">ʰm̲ove</a> (<span class="c-number">56</span> <span class="c-number">4</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <a href="builtins.html#r_avel" class="c-builtin">r̲avel</a> <a href="libs-Panel-src-Panel.xtl.html#Seg">Seg</a>, <span class="c-number">2</span> <a href="libs-Panel-src-Panel.xtl.html#h.r_ows" class="c-libfunc">ʰr̲ows</a> (<a href="builtins.html#r_avel" class="c-builtin">r̲avel</a> xp <span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#t_able" class="c-builtin">t̲able</a> <span class="c-number">7</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0</span>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">56</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">2.3</span>)
+  on ← <a href="builtins.html#r_avel" class="c-builtin">r̲avel</a> <a href="libs-Panel-src-Panel.xtl.html#l.s_egs" class="c-libfunc">ˡs̲egs</a> d
+  (on <a href="builtins.html#r_eplicate" class="c-builtin">r̲eplicate</a> all, (<span class="c-number">1</span> <a href="builtins.html#-2d" class="c-symbol">−</a> on) <a href="builtins.html#r_eplicate" class="c-builtin">r̲eplicate</a> all)
+}</pre>
+</div>
+<h2 class="section" id="section-3">The camera and the window</h2>
+<div class="item" id="l.View">
+<h3><a href="#l.View">ˡView</a> <span class="type">: Int</span></h3>
+<div class="meta">value &middot; <a href="libs-Panel-src-Panel.xtl.src.html#L197">line 197</a></div>
+<div class="doc">
+<p>View: the window, width and height (logical pixels).</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵖⁿ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Panel-src-Panel.xtl.html" class="c-string">&quot;Panel&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Panel-src-Panel.xtl.html#l.View">ᵖⁿView</a>
+560 760</pre>
+</div>
+<pre class="code">ˡView ← <span class="c-number">560</span> <span class="c-number">760</span></pre>
+<div class="uses">Used in: <a href="libs-Panel-src-Panel.xtl.html#l.p_roject"><span class="c-libfunc">ˡp̲roject</span></a></div>
+</div>
+<div class="item" id="l.Eye">
+<h3><a href="#l.Eye">ˡEye</a> <span class="type">: Float</span></h3>
+<div class="meta">value &middot; <a href="libs-Panel-src-Panel.xtl.src.html#L204">line 204</a></div>
+<div class="doc">
+<p>Eye: the fixed camera, x y z then its pitch (radians, down negative),
+facing -z: in front of the panel and a little above it.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵖⁿ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Panel-src-Panel.xtl.html" class="c-string">&quot;Panel&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-number">3</span> <a href="builtins.html#t_ake" class="c-builtin">t̲ake</a> <a href="libs-Panel-src-Panel.xtl.html#l.Eye">ᵖⁿEye</a>
+0.0 1.2 5.1</pre>
+</div>
+<pre class="code">ˡEye ← <span class="c-number">0.0</span> <span class="c-number">1.2</span> <span class="c-number">5.1</span> <span class="c-number">-0.2</span></pre>
+<div class="uses">Used in: <a href="libs-Panel-src-Panel.xtl.html#l.p_roject"><span class="c-libfunc">ˡp̲roject</span></a></div>
+</div>
+<div class="item" id="l.p_roject">
+<h3><a href="#l.p_roject"><span class="c-libfunc">ˡp̲roject</span></a> <span class="type">: Float -&gt; Float</span></h3>
+<div class="meta">function &middot; <a href="libs-Panel-src-Panel.xtl.src.html#L213">line 213</a></div>
+<div class="doc">
+<p>p_roject pts: points (a row each x y z) where the camera draws them in
+the window, x y in logical pixels from the top left: the scene
+extension's first-person view (sc:e_ye!: a 70 degree field of view
+across the window's smaller side).</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵖⁿ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Panel-src-Panel.xtl.html" class="c-string">&quot;Panel&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="builtins.html#f_loor" class="c-builtin">f̲loor</a> <a href="libs-Panel-src-Panel.xtl.html#l.p_roject" class="c-libfunc">ᵖⁿp̲roject</a> <span class="c-number">1</span> <span class="c-number">3</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0.0</span> <span class="c-number">1.5</span> <span class="c-number">0.0</span>
+280 274</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡp̲roject</span> ← { pts →
+  rx ← (<span class="c-number">1</span> <a href="libs-Panel-src-Panel.xtl.html#h.c_ol" class="c-libfunc">ʰc̲ol</a> pts) <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> <a href="libs-Panel-src-Panel.xtl.html#l.Eye">ˡEye</a>
+  ry ← (<span class="c-number">2</span> <a href="libs-Panel-src-Panel.xtl.html#h.c_ol" class="c-libfunc">ʰc̲ol</a> pts) <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">2</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> <a href="libs-Panel-src-Panel.xtl.html#l.Eye">ˡEye</a>
+  rz ← (<span class="c-number">3</span> <a href="libs-Panel-src-Panel.xtl.html#h.c_ol" class="c-libfunc">ʰc̲ol</a> pts) <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">3</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> <a href="libs-Panel-src-Panel.xtl.html#l.Eye">ˡEye</a>
+  a ← <span class="c-number">4</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> <a href="libs-Panel-src-Panel.xtl.html#l.Eye">ˡEye</a>
+  sp ← <a href="builtins.html#s_in" class="c-builtin">s̲in</a> a
+  cp ← <a href="builtins.html#c_os" class="c-builtin">c̲os</a> a
+  yc ← (cp <a href="builtins.html#-2a" class="c-symbol">×</a> ry) <a href="builtins.html#-2b" class="c-symbol">+</a> sp <a href="builtins.html#-2a" class="c-symbol">×</a> rz
+  zc ← (sp <a href="builtins.html#-2a" class="c-symbol">×</a> ry) <a href="builtins.html#-2d" class="c-symbol">−</a> cp <a href="builtins.html#-2a" class="c-symbol">×</a> rz
+  half ← <span class="c-number">0.6108652381980153</span>
+  v ← <a href="builtins.html#f_loat" class="c-builtin">f̲loat</a> <a href="libs-Panel-src-Panel.xtl.html#l.View">ˡView</a>
+  f ← (<span class="c-builtin">'</span><a href="builtins.html#m_in" class="c-builtin">m̲in</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> v) <a href="builtins.html#-2f" class="c-symbol">÷</a> <span class="c-number">2.0</span> <a href="builtins.html#-2a" class="c-symbol">×</a> (<a href="builtins.html#s_in" class="c-builtin">s̲in</a> half) <a href="builtins.html#-2f" class="c-symbol">÷</a> <a href="builtins.html#c_os" class="c-builtin">c̲os</a> half
+  sx ← (<span class="c-number">0.5</span> <a href="builtins.html#-2a" class="c-symbol">×</a> <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> v) <a href="builtins.html#-2b" class="c-symbol">+</a> f <a href="builtins.html#-2a" class="c-symbol">×</a> rx <a href="builtins.html#-2f" class="c-symbol">÷</a> zc
+  sy ← (<span class="c-number">0.5</span> <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-number">2</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> v) <a href="builtins.html#-2d" class="c-symbol">−</a> f <a href="builtins.html#-2a" class="c-symbol">×</a> yc <a href="builtins.html#-2f" class="c-symbol">÷</a> zc
+  <span class="c-number">2</span> <a href="libs-Panel-src-Panel.xtl.html#h.r_ows" class="c-libfunc">ʰr̲ows</a> sx <a href="builtins.html#c_at" class="c-builtin">c̲at</a> sy
+}</pre>
+<div class="uses">Used in: <a href="libs-Panel-src-Panel.xtl.html#l.h_it"><span class="c-libfunc">ˡh̲it</span></a></div>
+</div>
+<div class="item" id="l.h_it">
+<h3><a href="#l.h_it"><span class="c-libfunc">ˡh̲it</span></a> <span class="type">: Float -&gt; Int</span></h3>
+<div class="meta">function &middot; <a href="libs-Panel-src-Panel.xtl.src.html#L237">line 237</a></div>
+<div class="doc">
+<p>h_it xy: the key a click at x y (logical pixels) lands on, its
+code, or -1 for none: each key's top face projected, its corners'
+box on the screen.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵖⁿ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Panel-src-Panel.xtl.html" class="c-string">&quot;Panel&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span>c ← <a href="libs-Panel-src-Panel.xtl.html#l.p_roject" class="c-libfunc">ᵖⁿp̲roject</a> <span class="c-number">1</span> <span class="c-number">3</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> (<a href="libs-Panel-src-Panel.xtl.html#l.k_eyAt" class="c-libfunc">ᵖⁿk̲eyAt</a> <span class="c-number">19</span>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0.3</span></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Panel-src-Panel.xtl.html#l.h_it" class="c-libfunc">ᵖⁿh̲it</a> <a href="builtins.html#r_avel" class="c-builtin">r̲avel</a> c
+19</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡh̲it</span> ← { xy0 →
+  x ← <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> xy0
+  y ← <span class="c-number">2</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> xy0
+  xy ← <a href="libs-Panel-src-Panel.xtl.html#l.k_eyAt" class="c-libfunc">ˡk̲eyAt</a> <a href="builtins.html#o_ffsets" class="c-builtin">o̲ffsets</a> <span class="c-number">20</span>
+  kx ← <span class="c-number">1</span> <a href="libs-Panel-src-Panel.xtl.html#h.c_ol" class="c-libfunc">ʰc̲ol</a> xy
+  ky ← <span class="c-number">2</span> <a href="libs-Panel-src-Panel.xtl.html#h.c_ol" class="c-libfunc">ʰc̲ol</a> xy
+  tl ← <a href="libs-Panel-src-Panel.xtl.html#l.p_roject" class="c-libfunc">ˡp̲roject</a> <span class="c-number">3</span> <a href="libs-Panel-src-Panel.xtl.html#h.r_ows" class="c-libfunc">ʰr̲ows</a> (kx <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">0.39</span>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (ky <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">0.39</span>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">20</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0.3</span>
+  br ← <a href="libs-Panel-src-Panel.xtl.html#l.p_roject" class="c-libfunc">ˡp̲roject</a> <span class="c-number">3</span> <a href="libs-Panel-src-Panel.xtl.html#h.r_ows" class="c-libfunc">ʰr̲ows</a> (kx <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">0.39</span>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (ky <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">0.39</span>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">20</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0.3</span>
+  in ← (x <a href="builtins.html#-3e-3d" class="c-symbol">≥</a> <span class="c-number">1</span> <a href="libs-Panel-src-Panel.xtl.html#h.c_ol" class="c-libfunc">ʰc̲ol</a> tl) <a href="builtins.html#-26" class="c-symbol">∧</a> (x <a href="builtins.html#-3c-3d" class="c-symbol">≤</a> <span class="c-number">1</span> <a href="libs-Panel-src-Panel.xtl.html#h.c_ol" class="c-libfunc">ʰc̲ol</a> br) <a href="builtins.html#-26" class="c-symbol">∧</a> (y <a href="builtins.html#-3e-3d" class="c-symbol">≥</a> <span class="c-number">2</span> <a href="libs-Panel-src-Panel.xtl.html#h.c_ol" class="c-libfunc">ʰc̲ol</a> tl) <a href="builtins.html#-26" class="c-symbol">∧</a> y <a href="builtins.html#-3c-3d" class="c-symbol">≤</a> <span class="c-number">2</span> <a href="libs-Panel-src-Panel.xtl.html#h.c_ol" class="c-libfunc">ʰc̲ol</a> br
+  i ← in <a href="builtins.html#i_ndexOf" class="c-builtin">i̲ndexOf</a> <span class="c-number">1</span>
+  i <a href="builtins.html#-3e" class="c-symbol">&gt;</a> <span class="c-number">20</span> ? <span class="c-number">-1</span>
+  i <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span>
+}</pre>
+</div>
+<h2 class="section" id="section-4">The machine behind the panel</h2>
+<div class="item" id="l.p_ress">
+<h3><a href="#l.p_ress"><span class="c-libfunc">ˡp̲ress</span></a> <span class="type">: Num a =&gt; ((Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int), Int, Int) -&gt; ((Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int), Int, a)</span></h3>
+<div class="meta">function &middot; <a href="libs-Panel-src-Panel.xtl.src.html#L264">line 264</a></div>
+<div class="doc">
+<p>p_ress (st, d, c): key c pressed at the machine running the calculator
+ROM, from state st with the display showing the digit latches d (digit
+0 first), through its own key scan (hx:t_ypeOn): (the state, the
+digit latches, the instructions it took). A digit is given 2000
+instructions, an operator 20000 (a multiply runs when the next
+operator or = settles it).</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵖⁿ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Panel-src-Panel.xtl.html" class="c-string">&quot;Panel&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʰˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Hex1000-src-Hex1000.xtl.html" class="c-string">&quot;Hex1000&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span>(st, d, took) ← <a href="libs-Panel-src-Panel.xtl.html#l.p_ress" class="c-libfunc">ᵖⁿp̲ress</a> (<a href="libs-Hex1000-src-Hex1000.xtl.html#l.Reset">ʰˣReset</a>, <span class="c-number">8</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0</span>, <span class="c-number">7</span>)</pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Hex1000-src-Hex1000.xtl.html#l.s_creen" class="c-libfunc">ʰˣs̲creen</a> <a href="builtins.html#r_ev" class="c-builtin">r̲ev</a> d
+       7</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡp̲ress</span> ← { (st, d, c) →
+  (t, d1, done, took) ← <a href="libs-Hex1000-src-Hex1000.xtl.html#l.CalcRom">ʰˣCalcRom</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#l.t_ypeOn" class="c-libfunc">ʰˣt̲ypeOn</a> (st, d, <span class="c-number">1</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> c, <span class="c-number">2000</span> <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">18000</span> <a href="builtins.html#-2a" class="c-symbol">×</a> c <a href="builtins.html#-3e-3d" class="c-symbol">≥</a> <span class="c-number">16</span>)
+  (t, d1, took)
+}</pre>
+</div>
+<div class="item" id="l.r_eady">
+<h3><a href="#l.r_eady"><span class="c-libfunc">ˡr̲eady</span></a> <span class="type">: (Any a, Any b, Any c, Any d, Any e, Any f, Any g, Any h, Any i, Any j, Any l) =&gt; (a, b, c, d, e, f, g, h, i, j, k, l) -&gt; k</span></h3>
+<div class="meta">function &middot; <a href="libs-Panel-src-Panel.xtl.src.html#L274">line 274</a></div>
+<div class="doc">
+<p>r_eady st: 1 while the program waits for a key (R15), else 0.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵖⁿ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Panel-src-Panel.xtl.html" class="c-string">&quot;Panel&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʰˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Hex1000-src-Hex1000.xtl.html" class="c-string">&quot;Hex1000&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Panel-src-Panel.xtl.html#l.r_eady" class="c-libfunc">ᵖⁿr̲eady</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#l.Reset">ʰˣReset</a>
+0</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡr̲eady</span> ← { st → <span class="c-number">16</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#l.l_atches" class="c-libfunc">ʰˣl̲atches</a> st }</pre>
+</div>
+</main>
+</body>
+</html>

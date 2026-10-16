@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>libs/Uart/src/Uart.xtl - X_eTaL doc</title>
+<link rel="stylesheet" href="style.css">
+<script src="theme.js"></script>
+<script defer src="search-index.js"></script>
+<script defer src="search.js"></script>
+</head>
+<body>
+<nav class="side">
+<a class="home" href="index.html">X_eTaL doc</a>
+<input id="search" type="search" autocomplete="off" placeholder="Search: a name, or a type" title="A name (mean finds m_ean), or a type: Num a =&gt; a -&gt; a -&gt; a finds +, m_ax ...">
+<h2>Files</h2>
+<h3>libs/Clocked/src/</h3>
+<ul>
+<li><a href="libs-Clocked-src-Clocked.xtl.html">Clocked.xtl</a></li>
+</ul>
+<h3>libs/Fixed/src/</h3>
+<ul>
+<li><a href="libs-Fixed-src-Fixed.xtl.html">Fixed.xtl</a></li>
+</ul>
+<h3>libs/Datapath/src/</h3>
+<ul>
+<li><a href="libs-Datapath-src-Datapath.xtl.html">Datapath.xtl</a></li>
+</ul>
+<h3>libs/Hex1000/src/</h3>
+<ul>
+<li><a href="libs-Hex1000-src-Hex1000.xtl.html">Hex1000.xtl</a></li>
+</ul>
+<h3>work/libs/Strings/src/</h3>
+<ul>
+<li><a href="work-libs-Strings-src-Strings.xtl.html">Strings.xtl</a></li>
+</ul>
+<h3>libs/Radix/src/</h3>
+<ul>
+<li><a href="libs-Radix-src-Radix.xtl.html">Radix.xtl</a></li>
+</ul>
+<h3>std/</h3>
+<ul>
+<li><a href="std-System.xtlm.html">System.xtlm</a></li>
+</ul>
+<h3>libs/Panel/src/</h3>
+<ul>
+<li><a href="libs-Panel-src-Panel.xtl.html">Panel.xtl</a></li>
+</ul>
+<h3>libs/Uart/src/</h3>
+<ul>
+<li><a href="libs-Uart-src-Uart.xtl.html">Uart.xtl</a></li>
+</ul>
+<h3>libs/Clocked/demos/</h3>
+<ul>
+<li><a href="libs-Clocked-demos-accumulator.xtl.html">accumulator.xtl</a></li>
+<li><a href="libs-Clocked-demos-counter.xtl.html">counter.xtl</a></li>
+<li><a href="libs-Clocked-demos-detect.xtl.html">detect.xtl</a></li>
+<li><a href="libs-Clocked-demos-ram.xtl.html">ram.xtl</a></li>
+<li><a href="libs-Clocked-demos-shift.xtl.html">shift.xtl</a></li>
+</ul>
+<h3>libs/Datapath/demos/</h3>
+<ul>
+<li><a href="libs-Datapath-demos-pipeline.xtl.html">pipeline.xtl</a></li>
+<li><a href="libs-Datapath-demos-reduce-sum.xtl.html">reduce-sum.xtl</a></li>
+<li><a href="libs-Datapath-demos-saxpy.xtl.html">saxpy.xtl</a></li>
+<li><a href="libs-Datapath-demos-threshold.xtl.html">threshold.xtl</a></li>
+<li><a href="libs-Datapath-demos-vector-add.xtl.html">vector-add.xtl</a></li>
+</ul>
+<h3>libs/Fixed/demos/</h3>
+<ul>
+<li><a href="libs-Fixed-demos-counter.xtl.html">counter.xtl</a></li>
+<li><a href="libs-Fixed-demos-overflow.xtl.html">overflow.xtl</a></li>
+</ul>
+<h3>libs/Hex1000/demos/</h3>
+<ul>
+<li><a href="libs-Hex1000-demos-board.xtl.html">board.xtl</a></li>
+<li><a href="libs-Hex1000-demos-calc.xtl.html">calc.xtl</a></li>
+<li><a href="libs-Hex1000-demos-circuit.xtl.html">circuit.xtl</a></li>
+<li><a href="libs-Hex1000-demos-counter.xtl.html">counter.xtl</a></li>
+<li><a href="libs-Hex1000-demos-keys.xtl.html">keys.xtl</a></li>
+<li><a href="libs-Hex1000-demos-listing.xtl.html">listing.xtl</a></li>
+<li><a href="libs-Hex1000-demos-serial.xtl.html">serial.xtl</a></li>
+<li><a href="libs-Hex1000-demos-terminal.xtl.html">terminal.xtl</a></li>
+</ul>
+<h3>libs/Panel/demos/</h3>
+<ul>
+<li><a href="libs-Panel-demos-font.xtl.html">font.xtl</a></li>
+</ul>
+<h3>libs/Radix/demos/</h3>
+<ul>
+<li><a href="libs-Radix-demos-radixes.xtl.html">radixes.xtl</a></li>
+<li><a href="libs-Radix-demos-session.xtl.html">session.xtl</a></li>
+</ul>
+<h3>libs/Uart/demos/</h3>
+<ul>
+<li><a href="libs-Uart-demos-loopback.xtl.html">loopback.xtl</a></li>
+</ul>
+<ul>
+<li><a href="builtins.html">built-ins</a></li>
+</ul>
+<h2>On this page</h2>
+<ul>
+<li><a href="#section-1">The transmitter</a></li>
+<li class="item"><a href="#l.TxIdle">ˡTxIdle</a></li>
+<li class="item"><a href="#l.t_x"><span class="c-libfunc">ˡt̲x</span></a></li>
+<li class="item"><a href="#l.l_ine"><span class="c-libfunc">ˡl̲ine</span></a></li>
+<li><a href="#section-2">The receiver</a></li>
+<li class="item"><a href="#l.RxIdle">ˡRxIdle</a></li>
+<li class="item"><a href="#l.r_x"><span class="c-libfunc">ˡr̲x</span></a></li>
+<li class="item"><a href="#l.r_eceived"><span class="c-libfunc">ˡr̲eceived</span></a></li>
+<li class="item"><a href="#l.v_alid-3f"><span class="c-libfunc">ˡv̲alid?</span></a></li>
+<li><a href="#section-3">Looped back</a></li>
+<li class="item"><a href="#l.LoopIdle">ˡLoopIdle</a></li>
+<li class="item"><a href="#l.l_oopback"><span class="c-libfunc">ˡl̲oopback</span></a></li>
+<li class="item"><a href="#l.l_ines"><span class="c-libfunc">ˡl̲ines</span></a></li>
+<li class="item"><a href="#l.l_og"><span class="c-libfunc">ˡl̲og</span></a></li>
+<li class="item"><a href="#l.c_ommands"><span class="c-libfunc">ˡc̲ommands</span></a></li>
+</ul>
+</nav>
+<main>
+<button class="theme" title="Light or dark">theme</button>
+<section id="results"></section>
+<h1><span class="kind">library</span>libs/Uart/src/Uart.xtl</h1>
+<div class="doc">
+<p>Uart: a serial port (UART: 8 data bits, no parity, 1 stop bit) as X_eTaL step functions: a transmitter, a receiver, and the two looped back
+Import it with an alias of your choice: &quot;ua:&quot; u_se&lt; &quot;Uart&quot;.
+Put libs/Uart/src on XETAL_PATH (&quot;just path&quot;); the reference is libs/Uart/docs.
+Names with l: are exported; the others are private to this file.</p>
+<p>A line idles at 1. A byte is sent as a frame of ten bits, each held
+for d clocks: a start bit (0), the eight data bits, least significant
+first, and a stop bit (1). d, the clocks per bit, is the clock rate
+over the baud rate: 234 for a 27 MHz Tang Nano at 115200 baud, 3 in
+the tests. It is the first argument of every step, bound once:
+u:t_x := ua:t_x 3, then s0 'u:t_x ck:r_un commands (Clocked's harness).
+Each step is pure, one clock's input in, the next state out.</p>
+</div>
+<p class="meta"><a href="libs-Uart-src-Uart.xtl.src.html">source</a></p>
+<h2 class="section" id="section-1">The transmitter</h2>
+<div class="item" id="l.TxIdle">
+<h3><a href="#l.TxIdle">ˡTxIdle</a> <span class="type">: Int</span></h3>
+<div class="meta">value &middot; <a href="libs-Uart-src-Uart.xtl.src.html#L21">line 21</a></div>
+<div class="doc">
+<p>Its state, four registers: busy (0 or 1), clocks left in this bit,
+bits left in the frame, the frame (bit 0 on the line).</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵘᵃ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Uart-src-Uart.xtl.html" class="c-string">&quot;Uart&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Uart-src-Uart.xtl.html#l.TxIdle">ᵘᵃTxIdle</a>
+0 0 0 0</pre>
+</div>
+<pre class="code">ˡTxIdle ← <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span></pre>
+</div>
+<div class="item" id="l.t_x">
+<h3><a href="#l.t_x"><span class="c-libfunc">ˡt̲x</span></a> <span class="type">: Int -&gt; Int -&gt; Int -&gt; Int</span></h3>
+<div class="meta">function &middot; <a href="libs-Uart-src-Uart.xtl.src.html#L30">line 30</a></div>
+<div class="doc">
+<p>d t_x s c: the transmitter after one clock. A command c of 0 to 255
+starts sending that byte when it is idle; -1 is no command (a
+command while busy is ignored).</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵘᵃ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Uart-src-Uart.xtl.html" class="c-string">&quot;Uart&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-userfunc">ᵘt̲x</span> ← <a href="libs-Uart-src-Uart.xtl.html#l.t_x" class="c-libfunc">ᵘᵃt̲x</a> <span class="c-number">3</span></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Uart-src-Uart.xtl.html#l.TxIdle">ᵘᵃTxIdle</a> <span class="c-userfunc">ᵘt̲x</span> <span class="c-number">65</span>
+1 2 10 642</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡt̲x</span> ← { d s c →
+  b ← <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> s
+  n ← <span class="c-number">2</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> s
+  k ← <span class="c-number">3</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> s
+  f ← <span class="c-number">4</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> s
+  (b <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">0</span>) <a href="builtins.html#-26" class="c-symbol">∧</a> c <a href="builtins.html#-3e-3d" class="c-symbol">≥</a> <span class="c-number">0</span> ? <span class="c-number">1</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (d <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">10</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">512</span> <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">2</span> <a href="builtins.html#-2a" class="c-symbol">×</a> c <a href="builtins.html#m_od" class="c-builtin">m̲od</a> <span class="c-number">256</span>
+  b <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">0</span> ? <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span>
+  n <a href="builtins.html#-3e" class="c-symbol">&gt;</a> <span class="c-number">0</span> ? <span class="c-number">1</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (n <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> k <a href="builtins.html#c_at" class="c-builtin">c̲at</a> f
+  k <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">1</span> ? <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span>
+  <span class="c-number">1</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (d <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (k <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> f <a href="builtins.html#d_iv" class="c-builtin">d̲iv</a> <span class="c-number">2</span>
+}</pre>
+<div class="uses">Used in: <a href="libs-Uart-src-Uart.xtl.html#l.l_oopback"><span class="c-libfunc">ˡl̲oopback</span></a></div>
+</div>
+<div class="item" id="l.l_ine">
+<h3><a href="#l.l_ine"><span class="c-libfunc">ˡl̲ine</span></a> <span class="type">: Int -&gt; Int</span></h3>
+<div class="meta">function &middot; <a href="libs-Uart-src-Uart.xtl.src.html#L46">line 46</a></div>
+<div class="doc">
+<p>l_ine s: the transmitter's line: 1 when idle, else the frame's bit 0.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵘᵃ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Uart-src-Uart.xtl.html" class="c-string">&quot;Uart&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Uart-src-Uart.xtl.html#l.l_ine" class="c-libfunc">ᵘᵃl̲ine</a> <span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">10</span> <span class="c-number">642</span>
+0</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡl̲ine</span> ← { s → (<span class="c-number">1</span> <a href="builtins.html#-2d" class="c-symbol">−</a> <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> s) <a href="builtins.html#-2b" class="c-symbol">+</a> (<a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> s) <a href="builtins.html#-2a" class="c-symbol">×</a> (<span class="c-number">4</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> s) <a href="builtins.html#m_od" class="c-builtin">m̲od</a> <span class="c-number">2</span> }</pre>
+<div class="uses">Used in: <a href="libs-Uart-src-Uart.xtl.html#l.l_oopback"><span class="c-libfunc">ˡl̲oopback</span></a></div>
+</div>
+<h2 class="section" id="section-2">The receiver</h2>
+<div class="item" id="l.RxIdle">
+<h3><a href="#l.RxIdle">ˡRxIdle</a> <span class="type">: Int</span></h3>
+<div class="meta">value &middot; <a href="libs-Uart-src-Uart.xtl.src.html#L57">line 57</a></div>
+<div class="doc">
+<p>Its state, six registers: phase (0 idle, 1 receiving, 2 waiting for
+the stop bit), clocks to the next sample, bits left, the bits so
+far, the last byte received, and valid (1 for the one clock after a
+byte arrives).</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵘᵃ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Uart-src-Uart.xtl.html" class="c-string">&quot;Uart&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Uart-src-Uart.xtl.html#l.RxIdle">ᵘᵃRxIdle</a>
+0 0 0 0 0 0</pre>
+</div>
+<pre class="code">ˡRxIdle ← <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span></pre>
+</div>
+<div class="item" id="l.r_x">
+<h3><a href="#l.r_x"><span class="c-libfunc">ˡr̲x</span></a> <span class="type">: Int -&gt; Int -&gt; Int -&gt; Int</span></h3>
+<div class="meta">function &middot; <a href="libs-Uart-src-Uart.xtl.src.html#L67">line 67</a></div>
+<div class="doc">
+<p>d r_x s l: the receiver after one clock of the line l. A fall to 0
+while idle is a start bit; each data bit is sampled in its middle
+(d + d/2 clocks after the fall, then every d clocks), least
+significant first.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵘᵃ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Uart-src-Uart.xtl.html" class="c-string">&quot;Uart&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-userfunc">ᵘr̲x</span> ← <a href="libs-Uart-src-Uart.xtl.html#l.r_x" class="c-libfunc">ᵘᵃr̲x</a> <span class="c-number">3</span></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Uart-src-Uart.xtl.html#l.RxIdle">ᵘᵃRxIdle</a> <span class="c-userfunc">ᵘr̲x</span> <span class="c-number">0</span>
+1 3 8 0 0 0</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡr̲x</span> ← { d s l →
+  p ← <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> s
+  n ← <span class="c-number">2</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> s
+  k ← <span class="c-number">3</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> s
+  sh ← <span class="c-number">4</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> s
+  da ← <span class="c-number">5</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> s
+  (p <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">0</span>) <a href="builtins.html#-26" class="c-symbol">∧</a> l <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">0</span> ? <span class="c-number">1</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (d <a href="builtins.html#-2b" class="c-symbol">+</a> (d <a href="builtins.html#d_iv" class="c-builtin">d̲iv</a> <span class="c-number">2</span>) <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">8</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> da <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0</span>
+  p <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">0</span> ? <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> da <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0</span>
+  p <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">2</span> ? (<span class="c-number">2</span> <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-number">1</span> <a href="builtins.html#-2d" class="c-symbol">−</a> l) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> da <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0</span>
+  n <a href="builtins.html#-3e" class="c-symbol">&gt;</a> <span class="c-number">0</span> ? <span class="c-number">1</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (n <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> k <a href="builtins.html#c_at" class="c-builtin">c̲at</a> sh <a href="builtins.html#c_at" class="c-builtin">c̲at</a> da <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0</span>
+  s2 ← (sh <a href="builtins.html#d_iv" class="c-builtin">d̲iv</a> <span class="c-number">2</span>) <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">128</span> <a href="builtins.html#-2a" class="c-symbol">×</a> l
+  k <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">1</span> ? <span class="c-number">2</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> s2 <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">1</span>
+  <span class="c-number">1</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (d <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (k <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> s2 <a href="builtins.html#c_at" class="c-builtin">c̲at</a> da <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0</span>
+}</pre>
+<div class="uses">Used in: <a href="libs-Uart-src-Uart.xtl.html#l.l_oopback"><span class="c-libfunc">ˡl̲oopback</span></a></div>
+</div>
+<div class="item" id="l.r_eceived">
+<h3><a href="#l.r_eceived"><span class="c-libfunc">ˡr̲eceived</span></a> <span class="type">: a -&gt; a</span></h3>
+<div class="meta">function &middot; <a href="libs-Uart-src-Uart.xtl.src.html#L86">line 86</a></div>
+<div class="doc">
+<p>r_eceived s: the last byte received.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵘᵃ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Uart-src-Uart.xtl.html" class="c-string">&quot;Uart&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Uart-src-Uart.xtl.html#l.r_eceived" class="c-libfunc">ᵘᵃr̲eceived</a> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">72</span> <span class="c-number">1</span>
+72</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡr̲eceived</span> ← { s → <span class="c-number">5</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> s }</pre>
+</div>
+<div class="item" id="l.v_alid-3f">
+<h3><a href="#l.v_alid-3f"><span class="c-libfunc">ˡv̲alid?</span></a> <span class="type">: (Num a, Truthy b) =&gt; a -&gt; b</span></h3>
+<div class="meta">function &middot; <a href="libs-Uart-src-Uart.xtl.src.html#L92">line 92</a></div>
+<div class="doc">
+<p>v_alid? s: whether the last byte arrived on the last clock.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵘᵃ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Uart-src-Uart.xtl.html" class="c-string">&quot;Uart&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Uart-src-Uart.xtl.html#l.v_alid-3f" class="c-libfunc">ᵘᵃv̲alid?</a> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">72</span> <span class="c-number">1</span>
+1</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡv̲alid?</span> ← { s → <span class="c-number">1</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">6</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> s }</pre>
+</div>
+<h2 class="section" id="section-3">Looped back</h2>
+<div class="item" id="l.LoopIdle">
+<h3><a href="#l.LoopIdle">ˡLoopIdle</a> <span class="type">: Int</span></h3>
+<div class="meta">value &middot; <a href="libs-Uart-src-Uart.xtl.src.html#L102">line 102</a></div>
+<div class="doc">
+<p>The transmitter's line wired to the receiver, and a log of the first
+four bytes received with their count: fifteen registers, the
+transmitter's four, the receiver's six, the log's four, the count.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵘᵃ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Uart-src-Uart.xtl.html" class="c-string">&quot;Uart&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Uart-src-Uart.xtl.html#l.LoopIdle">ᵘᵃLoopIdle</a>
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</pre>
+</div>
+<pre class="code">ˡLoopIdle ← <span class="c-number">15</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0</span></pre>
+<div class="uses">Used in: <a href="libs-Uart-demos-loopback.xtl.html#trace">trace</a></div>
+</div>
+<div class="item" id="l.l_oopback">
+<h3><a href="#l.l_oopback"><span class="c-libfunc">ˡl̲oopback</span></a> <span class="type">: Int -&gt; Int -&gt; Int -&gt; Int</span></h3>
+<div class="meta">function &middot; <a href="libs-Uart-src-Uart.xtl.src.html#L112">line 112</a></div>
+<div class="doc">
+<p>d l_oopback s c: one clock: the receiver samples the line as the
+transmitter drives it now, then both step, and a byte that arrives
+goes into the log at the count.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵘᵃ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Uart-src-Uart.xtl.html" class="c-string">&quot;Uart&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᶜᵏ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Clocked-src-Clocked.xtl.html" class="c-string">&quot;Clocked&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-userfunc">ᵘl̲oop</span> ← <a href="libs-Uart-src-Uart.xtl.html#l.l_oopback" class="c-libfunc">ᵘᵃl̲oopback</a> <span class="c-number">3</span></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Uart-src-Uart.xtl.html#l.l_og" class="c-libfunc">ᵘᵃl̲og</a> <a href="libs-Uart-src-Uart.xtl.html#l.LoopIdle">ᵘᵃLoopIdle</a> <span class="c-userfunc">'</span><span class="c-userfunc">ᵘl̲oop</span> <a href="libs-Clocked-src-Clocked.xtl.html#l.r_un" class="c-libfunc">ᶜᵏr̲un</a> <span class="c-number">3</span> <a href="libs-Uart-src-Uart.xtl.html#l.c_ommands" class="c-libfunc">ᵘᵃc̲ommands</a> <span class="c-number">65</span>
+65</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡl̲oopback</span> ← { d s c →
+  tx ← <span class="c-number">4</span> <a href="builtins.html#t_ake" class="c-builtin">t̲ake</a> s
+  rx ← <span class="c-number">6</span> <a href="builtins.html#t_ake" class="c-builtin">t̲ake</a> <span class="c-number">4</span> <a href="builtins.html#d_rop" class="c-builtin">d̲rop</a> s
+  lg ← <span class="c-number">4</span> <a href="builtins.html#t_ake" class="c-builtin">t̲ake</a> <span class="c-number">10</span> <a href="builtins.html#d_rop" class="c-builtin">d̲rop</a> s
+  ct ← <span class="c-number">15</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> s
+  rx2 ← (d <a href="libs-Uart-src-Uart.xtl.html#l.r_x" class="c-libfunc">ˡr̲x</a> rx)_ <a href="libs-Uart-src-Uart.xtl.html#l.l_ine" class="c-libfunc">ˡl̲ine</a> tx
+  v ← <span class="c-number">6</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> rx2
+  lg2 ← lg <a href="builtins.html#-2b" class="c-symbol">+</a> v <a href="builtins.html#-2a" class="c-symbol">×</a> ((<a href="builtins.html#o_ffsets" class="c-builtin">o̲ffsets</a> <span class="c-number">4</span>) <a href="builtins.html#-3d" class="c-symbol">=</a> ct) <a href="builtins.html#-2a" class="c-symbol">×</a> (<span class="c-number">5</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> rx2) <a href="builtins.html#-2d" class="c-symbol">−</a> lg
+  ((d <a href="libs-Uart-src-Uart.xtl.html#l.t_x" class="c-libfunc">ˡt̲x</a> tx)_ c) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> rx2 <a href="builtins.html#c_at" class="c-builtin">c̲at</a> lg2 <a href="builtins.html#c_at" class="c-builtin">c̲at</a> ct <a href="builtins.html#-2b" class="c-symbol">+</a> v
+}</pre>
+<div class="uses">Used in: <a href="libs-Uart-demos-loopback.xtl.html#u.l_oop"><span class="c-userfunc">ᵘl̲oop</span></a></div>
+</div>
+<div class="item" id="l.l_ines">
+<h3><a href="#l.l_ines"><span class="c-libfunc">ˡl̲ines</span></a> <span class="type">: Int -&gt; Int</span></h3>
+<div class="meta">function &middot; <a href="libs-Uart-src-Uart.xtl.src.html#L129">line 129</a></div>
+<div class="doc">
+<p>l_ines t: the transmitter's line for every row of a trace (of the
+transmitter, or of the looped-back pair: both start with its four
+registers).</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵘᵃ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Uart-src-Uart.xtl.html" class="c-string">&quot;Uart&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Uart-src-Uart.xtl.html#l.l_ines" class="c-libfunc">ᵘᵃl̲ines</a> <span class="c-number">2</span> <span class="c-number">4</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">10</span> <span class="c-number">640</span>
+1 0</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡl̲ines</span> ← { t →
+  b ← <span class="c-number">1</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect₂</a> t
+  (<span class="c-number">1</span> <a href="builtins.html#-2d" class="c-symbol">−</a> b) <a href="builtins.html#-2b" class="c-symbol">+</a> b <a href="builtins.html#-2a" class="c-symbol">×</a> (<span class="c-number">4</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect₂</a> t) <a href="builtins.html#m_od" class="c-builtin">m̲od</a> <span class="c-number">2</span>
+}</pre>
+<div class="uses">Used in: <a href="libs-Uart-demos-loopback.xtl.src.html#L10">libs/Uart/demos/loopback.xtl:10</a></div>
+</div>
+<div class="item" id="l.l_og">
+<h3><a href="#l.l_og"><span class="c-libfunc">ˡl̲og</span></a> <span class="type">: Int -&gt; Int</span></h3>
+<div class="meta">function &middot; <a href="libs-Uart-src-Uart.xtl.src.html#L138">line 138</a></div>
+<div class="doc">
+<p>l_og s: the bytes received so far, from a looped-back state.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵘᵃ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Uart-src-Uart.xtl.html" class="c-string">&quot;Uart&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Uart-src-Uart.xtl.html#l.l_og" class="c-libfunc">ᵘᵃl̲og</a> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">72</span> <span class="c-number">105</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">2</span>
+72 105</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡl̲og</span> ← { s → (<span class="c-number">4</span> <a href="builtins.html#m_in" class="c-builtin">m̲in</a> <span class="c-number">15</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> s) <a href="builtins.html#t_ake" class="c-builtin">t̲ake</a> <span class="c-number">4</span> <a href="builtins.html#t_ake" class="c-builtin">t̲ake</a> <span class="c-number">10</span> <a href="builtins.html#d_rop" class="c-builtin">d̲rop</a> s }</pre>
+</div>
+<div class="item" id="l.c_ommands">
+<h3><a href="#l.c_ommands"><span class="c-libfunc">ˡc̲ommands</span></a> <span class="type">: (Num a, Truthy a) =&gt; Int -&gt; a -&gt; a</span></h3>
+<div class="meta">function &middot; <a href="libs-Uart-src-Uart.xtl.src.html#L147">line 147</a></div>
+<div class="doc">
+<p>The commands that send bytes (0 to 255), each when the transmitter
+is free: d c_ommands bytes gives one command per clock, the byte at
+the start of each frame of 10 d + 1 clocks, -1 elsewhere, with d
+more clocks at the end for the last stop bit.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵘᵃ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Uart-src-Uart.xtl.html" class="c-string">&quot;Uart&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-number">2</span> <a href="libs-Uart-src-Uart.xtl.html#l.c_ommands" class="c-libfunc">ᵘᵃc̲ommands</a> <span class="c-number">65</span>
+65 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡc̲ommands</span> ← { d bytes →
+  per ← <span class="c-number">1</span> <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">10</span> <a href="builtins.html#-2a" class="c-symbol">×</a> d
+  at ← per <a href="builtins.html#-2a" class="c-symbol">×</a> <a href="builtins.html#o_ffsets" class="c-builtin">o̲ffsets</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> bytes
+  all ← ((per <a href="builtins.html#-2a" class="c-symbol">×</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> bytes) <a href="builtins.html#-2b" class="c-symbol">+</a> d) <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">-1</span>
+  all <a href="builtins.html#-2b" class="c-symbol">+</a> ((<a href="builtins.html#o_ffsets" class="c-builtin">o̲ffsets</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> all) <span class="c-symbol">'</span><a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#t_able" class="c-builtin">t̲able</a> at) <span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-symbol">'</span><a href="builtins.html#-2a" class="c-symbol">×</a> <a href="builtins.html#i_nner" class="c-builtin">i̲nner</a> bytes <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">1</span>
+}</pre>
+<div class="uses">Used in: <a href="libs-Uart-demos-loopback.xtl.html#trace">trace</a></div>
+</div>
+</main>
+</body>
+</html>

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>libs/Clocked/src/Clocked.xtl - X_eTaL doc</title>
+<link rel="stylesheet" href="style.css">
+<script src="theme.js"></script>
+<script defer src="search-index.js"></script>
+<script defer src="search.js"></script>
+</head>
+<body>
+<nav class="side">
+<a class="home" href="index.html">X_eTaL doc</a>
+<input id="search" type="search" autocomplete="off" placeholder="Search: a name, or a type" title="A name (mean finds m_ean), or a type: Num a =&gt; a -&gt; a -&gt; a finds +, m_ax ...">
+<h2>Files</h2>
+<h3>libs/Clocked/src/</h3>
+<ul>
+<li><a href="libs-Clocked-src-Clocked.xtl.html">Clocked.xtl</a></li>
+</ul>
+<h3>libs/Fixed/src/</h3>
+<ul>
+<li><a href="libs-Fixed-src-Fixed.xtl.html">Fixed.xtl</a></li>
+</ul>
+<h3>libs/Datapath/src/</h3>
+<ul>
+<li><a href="libs-Datapath-src-Datapath.xtl.html">Datapath.xtl</a></li>
+</ul>
+<h3>libs/Hex1000/src/</h3>
+<ul>
+<li><a href="libs-Hex1000-src-Hex1000.xtl.html">Hex1000.xtl</a></li>
+</ul>
+<h3>work/libs/Strings/src/</h3>
+<ul>
+<li><a href="work-libs-Strings-src-Strings.xtl.html">Strings.xtl</a></li>
+</ul>
+<h3>libs/Radix/src/</h3>
+<ul>
+<li><a href="libs-Radix-src-Radix.xtl.html">Radix.xtl</a></li>
+</ul>
+<h3>std/</h3>
+<ul>
+<li><a href="std-System.xtlm.html">System.xtlm</a></li>
+</ul>
+<h3>libs/Panel/src/</h3>
+<ul>
+<li><a href="libs-Panel-src-Panel.xtl.html">Panel.xtl</a></li>
+</ul>
+<h3>libs/Uart/src/</h3>
+<ul>
+<li><a href="libs-Uart-src-Uart.xtl.html">Uart.xtl</a></li>
+</ul>
+<h3>libs/Clocked/demos/</h3>
+<ul>
+<li><a href="libs-Clocked-demos-accumulator.xtl.html">accumulator.xtl</a></li>
+<li><a href="libs-Clocked-demos-counter.xtl.html">counter.xtl</a></li>
+<li><a href="libs-Clocked-demos-detect.xtl.html">detect.xtl</a></li>
+<li><a href="libs-Clocked-demos-ram.xtl.html">ram.xtl</a></li>
+<li><a href="libs-Clocked-demos-shift.xtl.html">shift.xtl</a></li>
+</ul>
+<h3>libs/Datapath/demos/</h3>
+<ul>
+<li><a href="libs-Datapath-demos-pipeline.xtl.html">pipeline.xtl</a></li>
+<li><a href="libs-Datapath-demos-reduce-sum.xtl.html">reduce-sum.xtl</a></li>
+<li><a href="libs-Datapath-demos-saxpy.xtl.html">saxpy.xtl</a></li>
+<li><a href="libs-Datapath-demos-threshold.xtl.html">threshold.xtl</a></li>
+<li><a href="libs-Datapath-demos-vector-add.xtl.html">vector-add.xtl</a></li>
+</ul>
+<h3>libs/Fixed/demos/</h3>
+<ul>
+<li><a href="libs-Fixed-demos-counter.xtl.html">counter.xtl</a></li>
+<li><a href="libs-Fixed-demos-overflow.xtl.html">overflow.xtl</a></li>
+</ul>
+<h3>libs/Hex1000/demos/</h3>
+<ul>
+<li><a href="libs-Hex1000-demos-board.xtl.html">board.xtl</a></li>
+<li><a href="libs-Hex1000-demos-calc.xtl.html">calc.xtl</a></li>
+<li><a href="libs-Hex1000-demos-circuit.xtl.html">circuit.xtl</a></li>
+<li><a href="libs-Hex1000-demos-counter.xtl.html">counter.xtl</a></li>
+<li><a href="libs-Hex1000-demos-keys.xtl.html">keys.xtl</a></li>
+<li><a href="libs-Hex1000-demos-listing.xtl.html">listing.xtl</a></li>
+<li><a href="libs-Hex1000-demos-serial.xtl.html">serial.xtl</a></li>
+<li><a href="libs-Hex1000-demos-terminal.xtl.html">terminal.xtl</a></li>
+</ul>
+<h3>libs/Panel/demos/</h3>
+<ul>
+<li><a href="libs-Panel-demos-font.xtl.html">font.xtl</a></li>
+</ul>
+<h3>libs/Radix/demos/</h3>
+<ul>
+<li><a href="libs-Radix-demos-radixes.xtl.html">radixes.xtl</a></li>
+<li><a href="libs-Radix-demos-session.xtl.html">session.xtl</a></li>
+</ul>
+<h3>libs/Uart/demos/</h3>
+<ul>
+<li><a href="libs-Uart-demos-loopback.xtl.html">loopback.xtl</a></li>
+</ul>
+<ul>
+<li><a href="builtins.html">built-ins</a></li>
+</ul>
+<h2>On this page</h2>
+<ul>
+<li><a href="#section-1">The harness: one input per clock</a></li>
+<li class="item"><a href="#l.r_un"><span class="c-libfunc">ˡr̲un</span></a></li>
+<li class="item"><a href="#l.t_race"><span class="c-libfunc">ˡt̲race</span></a></li>
+<li><a href="#section-2">Counters and accumulators</a></li>
+<li class="item"><a href="#l.t_ick"><span class="c-libfunc">ˡt̲ick</span></a></li>
+<li class="item"><a href="#l.a_ccumulate"><span class="c-libfunc">ˡa̲ccumulate</span></a></li>
+<li><a href="#section-3">Shift register</a></li>
+<li class="item"><a href="#l.s_hift"><span class="c-libfunc">ˡs̲hift</span></a></li>
+<li><a href="#section-4">A sequence detector: a state machine from a table</a></li>
+<li class="item"><a href="#l.Next101">ˡNext101</a></li>
+<li class="item"><a href="#l.d_etect"><span class="c-libfunc">ˡd̲etect</span></a></li>
+<li class="item"><a href="#l.f_ound-3f"><span class="c-libfunc">ˡf̲ound?</span></a></li>
+<li><a href="#section-5">A RAM</a></li>
+<li class="item"><a href="#l.w_rite"><span class="c-libfunc">ˡw̲rite</span></a></li>
+<li class="item"><a href="#l.r_ead"><span class="c-libfunc">ˡr̲ead</span></a></li>
+</ul>
+</nav>
+<main>
+<button class="theme" title="Light or dark">theme</button>
+<section id="results"></section>
+<h1><span class="kind">library</span>libs/Clocked/src/Clocked.xtl</h1>
+<p class="meta"><a href="libs-Clocked-src-Clocked.xtl.src.html">source</a> &middot; imports <code><span class="c-error">fx:</span></code> <a href="libs-Fixed-src-Fixed.xtl.html">libs/Fixed/src/Fixed.xtl</a></p>
+<h2 class="section" id="section-1">The harness: one input per clock</h2>
+<div class="item" id="l.r_un">
+<h3><a href="#l.r_un"><span class="c-libfunc">ˡr̲un</span></a> <span class="type">: Any a =&gt; (a -&gt; b -&gt; a) -&gt; a -&gt; b -&gt; a</span></h3>
+<div class="meta">function &middot; <a href="libs-Clocked-src-Clocked.xtl.src.html#L23">line 23</a></div>
+<div class="doc">
+<p>s0 'step r_un xs: the state after every input (an item, or a row of
+a matrix, per clock).</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᶜᵏ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Clocked-src-Clocked.xtl.html" class="c-string">&quot;Clocked&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-number">0</span> <span class="c-libfunc">'</span><a href="libs-Clocked-src-Clocked.xtl.html#l.a_ccumulate" class="c-libfunc">ᶜᵏa̲ccumulate</a> <a href="libs-Clocked-src-Clocked.xtl.html#l.r_un" class="c-libfunc">ᶜᵏr̲un</a> <span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">3</span> <span class="c-number">4</span>
+10</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡr̲un</span> ← { <span class="c-builtin">f̲</span> s xs →
+  (n, last) ← (<a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> xs) <span class="c-quote">'</span>{ (i, t) → (i <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">1</span>, t <span class="c-builtin">f̲</span> i <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> xs) } <a href="builtins.html#p_ower" class="c-builtin">p̲ower</a> (<span class="c-number">1</span>, s)
+  last
+}</pre>
+<div class="uses">Used in: <a href="libs-Clocked-demos-accumulator.xtl.src.html#L6">libs/Clocked/demos/accumulator.xtl:6</a>, <a href="libs-Clocked-demos-ram.xtl.src.html#L9">libs/Clocked/demos/ram.xtl:9</a></div>
+</div>
+<div class="item" id="l.t_race">
+<h3><a href="#l.t_race"><span class="c-libfunc">ˡt̲race</span></a> <span class="type">: (a -&gt; b -&gt; a) -&gt; a -&gt; b -&gt; a</span></h3>
+<div class="meta">function &middot; <a href="libs-Clocked-src-Clocked.xtl.src.html#L37">line 37</a></div>
+<div class="doc">
+<p>s0 'step t_race xs: every state from s0 on, one per row (a vector
+for a scalar state): what the registers hold after reset and after
+each clock.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᶜᵏ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Clocked-src-Clocked.xtl.html" class="c-string">&quot;Clocked&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span>(<span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span>) <span class="c-libfunc">'</span><a href="libs-Clocked-src-Clocked.xtl.html#l.s_hift" class="c-libfunc">ᶜᵏs̲hift</a> <a href="libs-Clocked-src-Clocked.xtl.html#l.t_race" class="c-libfunc">ᶜᵏt̲race</a> <span class="c-number">1</span> <span class="c-number">1</span> <span class="c-number">0</span>
+0 0 0
+0 0 1
+0 1 1
+1 1 0</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡt̲race</span> ← { <span class="c-builtin">f̲</span> s xs →
+  first ← (<span class="c-number">1</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#s_hape" class="c-builtin">s̲hape</a> s) <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> s
+  (n, last, rows) ← (<a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> xs) <span class="c-quote">'</span>{ (i, t, m) → t1 ← t <span class="c-builtin">f̲</span> i <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> xs◆ (i <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">1</span>, t1, m <a href="builtins.html#c_at" class="c-builtin">c̲at</a> t1) } <a href="builtins.html#p_ower" class="c-builtin">p̲ower</a> (<span class="c-number">1</span>, s, first)
+  rows
+}</pre>
+<div class="uses">Used in: <a href="libs-Clocked-demos-accumulator.xtl.src.html#L7">libs/Clocked/demos/accumulator.xtl:7</a>, <a href="libs-Clocked-demos-counter.xtl.src.html#L6">libs/Clocked/demos/counter.xtl:6</a>, <a href="libs-Clocked-demos-detect.xtl.html#states">states</a>, <a href="libs-Clocked-demos-ram.xtl.src.html#L10">libs/Clocked/demos/ram.xtl:10</a>, <a href="libs-Clocked-demos-shift.xtl.src.html#L5">libs/Clocked/demos/shift.xtl:5</a>, <a href="libs-Uart-demos-loopback.xtl.html#trace">trace</a></div>
+</div>
+<h2 class="section" id="section-2">Counters and accumulators</h2>
+<div class="item" id="l.t_ick">
+<h3><a href="#l.t_ick"><span class="c-libfunc">ˡt̲ick</span></a> <span class="type">: Int -&gt; Int -&gt; Int</span></h3>
+<div class="meta">function &middot; <a href="libs-Clocked-src-Clocked.xtl.src.html#L49">line 49</a></div>
+<div class="doc">
+<p>s t_ick e: an 8-bit counter that counts when its enable e is 1.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᶜᵏ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Clocked-src-Clocked.xtl.html" class="c-string">&quot;Clocked&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-number">127</span> <a href="libs-Clocked-src-Clocked.xtl.html#l.t_ick" class="c-libfunc">ᶜᵏt̲ick</a> <span class="c-number">1</span>
+-128</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡt̲ick</span> ← { s e → <span class="c-number">8</span> <a href="libs-Fixed-src-Fixed.xtl.html#l.w_rap" class="c-libfunc">ᶠˣw̲rap</a> s <a href="builtins.html#-2b" class="c-symbol">+</a> e }</pre>
+<div class="uses">Used in: <a href="libs-Clocked-demos-counter.xtl.src.html#L6">libs/Clocked/demos/counter.xtl:6</a></div>
+</div>
+<div class="item" id="l.a_ccumulate">
+<h3><a href="#l.a_ccumulate"><span class="c-libfunc">ˡa̲ccumulate</span></a> <span class="type">: Int -&gt; Int -&gt; Int</span></h3>
+<div class="meta">function &middot; <a href="libs-Clocked-src-Clocked.xtl.src.html#L55">line 55</a></div>
+<div class="doc">
+<p>s a_ccumulate x: an 8-bit accumulator (an adder and a register).</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᶜᵏ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Clocked-src-Clocked.xtl.html" class="c-string">&quot;Clocked&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-number">100</span> <a href="libs-Clocked-src-Clocked.xtl.html#l.a_ccumulate" class="c-libfunc">ᶜᵏa̲ccumulate</a> <span class="c-number">100</span>
+-56</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡa̲ccumulate</span> ← { s x → <span class="c-number">8</span> <a href="libs-Fixed-src-Fixed.xtl.html#l.w_rap" class="c-libfunc">ᶠˣw̲rap</a> s <a href="builtins.html#-2b" class="c-symbol">+</a> x }</pre>
+<div class="uses">Used in: <a href="libs-Clocked-demos-accumulator.xtl.src.html#L6">libs/Clocked/demos/accumulator.xtl:6</a>, <a href="libs-Clocked-demos-accumulator.xtl.src.html#L7">libs/Clocked/demos/accumulator.xtl:7</a></div>
+</div>
+<h2 class="section" id="section-3">Shift register</h2>
+<div class="item" id="l.s_hift">
+<h3><a href="#l.s_hift"><span class="c-libfunc">ˡs̲hift</span></a> <span class="type">: a -&gt; a -&gt; a</span></h3>
+<div class="meta">function &middot; <a href="libs-Clocked-src-Clocked.xtl.src.html#L65">line 65</a></div>
+<div class="doc">
+<p>s s_hift b: the bits move one place toward the front and b comes in
+at the end (a serial-in, parallel-out shift register: wiring and
+flip-flops, no logic).</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᶜᵏ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Clocked-src-Clocked.xtl.html" class="c-string">&quot;Clocked&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span>(<span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">1</span>) <a href="libs-Clocked-src-Clocked.xtl.html#l.s_hift" class="c-libfunc">ᶜᵏs̲hift</a> <span class="c-number">1</span>
+0 0 1 1</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡs̲hift</span> ← { s b → (<span class="c-number">1</span> <a href="builtins.html#d_rop" class="c-builtin">d̲rop</a> s) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> b }</pre>
+<div class="uses">Used in: <a href="libs-Clocked-demos-shift.xtl.src.html#L5">libs/Clocked/demos/shift.xtl:5</a></div>
+</div>
+<h2 class="section" id="section-4">A sequence detector: a state machine from a table</h2>
+<div class="item" id="l.Next101">
+<h3><a href="#l.Next101">ˡNext101</a> <span class="type">: Int</span></h3>
+<div class="meta">value &middot; <a href="libs-Clocked-src-Clocked.xtl.src.html#L76">line 76</a></div>
+<div class="doc">
+<p>Next101: the next state of a detector of the bits 1 0 1 (overlapping),
+a table indexed by state and bit: item 1 + s + 4 * b. States: 0
+nothing yet, 1 seen 1, 2 seen 1 0, 3 seen 1 0 1 (found). In
+hardware the table is a ROM or a few gates.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᶜᵏ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Clocked-src-Clocked.xtl.html" class="c-string">&quot;Clocked&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Clocked-src-Clocked.xtl.html#l.Next101">ᶜᵏNext101</a>
+0 2 0 2 1 1 3 1</pre>
+</div>
+<pre class="code">ˡNext101 ← <span class="c-number">0</span> <span class="c-number">2</span> <span class="c-number">0</span> <span class="c-number">2</span> <span class="c-number">1</span> <span class="c-number">1</span> <span class="c-number">3</span> <span class="c-number">1</span></pre>
+<div class="uses">Used in: <a href="libs-Clocked-src-Clocked.xtl.html#l.d_etect"><span class="c-libfunc">ˡd̲etect</span></a></div>
+</div>
+<div class="item" id="l.d_etect">
+<h3><a href="#l.d_etect"><span class="c-libfunc">ˡd̲etect</span></a> <span class="type">: Int -&gt; Int -&gt; Int</span></h3>
+<div class="meta">function &middot; <a href="libs-Clocked-src-Clocked.xtl.src.html#L82">line 82</a></div>
+<div class="doc">
+<p>s d_etect b: the detector's next state.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᶜᵏ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Clocked-src-Clocked.xtl.html" class="c-string">&quot;Clocked&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-number">2</span> <a href="libs-Clocked-src-Clocked.xtl.html#l.d_etect" class="c-libfunc">ᶜᵏd̲etect</a> <span class="c-number">1</span>
+3</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡd̲etect</span> ← { s b → (<span class="c-number">1</span> <a href="builtins.html#-2b" class="c-symbol">+</a> s <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">4</span> <a href="builtins.html#-2a" class="c-symbol">×</a> b) <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> <a href="libs-Clocked-src-Clocked.xtl.html#l.Next101">ˡNext101</a> }</pre>
+<div class="uses">Used in: <a href="libs-Clocked-demos-detect.xtl.html#states">states</a></div>
+</div>
+<div class="item" id="l.f_ound-3f">
+<h3><a href="#l.f_ound-3f"><span class="c-libfunc">ˡf̲ound?</span></a> <span class="type">: (Num a, Truthy b) =&gt; a -&gt; b</span></h3>
+<div class="meta">function &middot; <a href="libs-Clocked-src-Clocked.xtl.src.html#L89">line 89</a></div>
+<div class="doc">
+<p>f_ound? s: whether the state says 1 0 1 was just seen (the Moore
+output).</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᶜᵏ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Clocked-src-Clocked.xtl.html" class="c-string">&quot;Clocked&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Clocked-src-Clocked.xtl.html#l.f_ound-3f" class="c-libfunc">ᶜᵏf̲ound?</a> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">3</span>
+0 0 0 1</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡf̲ound?</span> ← { s → s <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">3</span> }</pre>
+<div class="uses">Used in: <a href="libs-Clocked-demos-detect.xtl.src.html#L8">libs/Clocked/demos/detect.xtl:8</a></div>
+</div>
+<h2 class="section" id="section-5">A RAM</h2>
+<div class="item" id="l.w_rite">
+<h3><a href="#l.w_rite"><span class="c-libfunc">ˡw̲rite</span></a> <span class="type">: Int -&gt; Int -&gt; Int</span></h3>
+<div class="meta">function &middot; <a href="libs-Clocked-src-Clocked.xtl.src.html#L100">line 100</a></div>
+<div class="doc">
+<p>m w_rite c: a memory of 8-bit words after one clock of a write port:
+the command c is write-enable, address (from 0) and data; when
+write-enable is 1 the word at the address becomes the data, every
+other word is kept (each word a register with a mux in front).</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᶜᵏ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Clocked-src-Clocked.xtl.html" class="c-string">&quot;Clocked&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span>(<span class="c-number">4</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0</span>) <a href="libs-Clocked-src-Clocked.xtl.html#l.w_rite" class="c-libfunc">ᶜᵏw̲rite</a> <span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">9</span>
+0 0 9 0</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡw̲rite</span> ← { m c →
+  we ← <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> c
+  hit ← (<a href="builtins.html#o_ffsets" class="c-builtin">o̲ffsets</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> m) <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">2</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> c
+  <span class="c-number">8</span> <a href="libs-Fixed-src-Fixed.xtl.html#l.w_rap" class="c-libfunc">ᶠˣw̲rap</a> m <a href="builtins.html#-2b" class="c-symbol">+</a> we <a href="builtins.html#-2a" class="c-symbol">×</a> hit <a href="builtins.html#-2a" class="c-symbol">×</a> (<span class="c-number">3</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> c) <a href="builtins.html#-2d" class="c-symbol">−</a> m
+}</pre>
+<div class="uses">Used in: <a href="libs-Clocked-demos-ram.xtl.src.html#L9">libs/Clocked/demos/ram.xtl:9</a>, <a href="libs-Clocked-demos-ram.xtl.src.html#L10">libs/Clocked/demos/ram.xtl:10</a></div>
+</div>
+<div class="item" id="l.r_ead">
+<h3><a href="#l.r_ead"><span class="c-libfunc">ˡr̲ead</span></a> <span class="type">: a -&gt; Int -&gt; a</span></h3>
+<div class="meta">function &middot; <a href="libs-Clocked-src-Clocked.xtl.src.html#L110">line 110</a></div>
+<div class="doc">
+<p>m r_ead a: the word at address a (from 0): a read port, a mux.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᶜᵏ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Clocked-src-Clocked.xtl.html" class="c-string">&quot;Clocked&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span>(<span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">9</span> <span class="c-number">0</span>) <a href="libs-Clocked-src-Clocked.xtl.html#l.r_ead" class="c-libfunc">ᶜᵏr̲ead</a> <span class="c-number">2</span>
+9</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡr̲ead</span> ← { m a → (<span class="c-number">1</span> <a href="builtins.html#-2b" class="c-symbol">+</a> a) <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> m }</pre>
+</div>
+</main>
+</body>
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>libs/Datapath/src/Datapath.xtl - X_eTaL doc</title>
+<link rel="stylesheet" href="style.css">
+<script src="theme.js"></script>
+<script defer src="search-index.js"></script>
+<script defer src="search.js"></script>
+</head>
+<body>
+<nav class="side">
+<a class="home" href="index.html">X_eTaL doc</a>
+<input id="search" type="search" autocomplete="off" placeholder="Search: a name, or a type" title="A name (mean finds m_ean), or a type: Num a =&gt; a -&gt; a -&gt; a finds +, m_ax ...">
+<h2>Files</h2>
+<h3>libs/Clocked/src/</h3>
+<ul>
+<li><a href="libs-Clocked-src-Clocked.xtl.html">Clocked.xtl</a></li>
+</ul>
+<h3>libs/Fixed/src/</h3>
+<ul>
+<li><a href="libs-Fixed-src-Fixed.xtl.html">Fixed.xtl</a></li>
+</ul>
+<h3>libs/Datapath/src/</h3>
+<ul>
+<li><a href="libs-Datapath-src-Datapath.xtl.html">Datapath.xtl</a></li>
+</ul>
+<h3>libs/Hex1000/src/</h3>
+<ul>
+<li><a href="libs-Hex1000-src-Hex1000.xtl.html">Hex1000.xtl</a></li>
+</ul>
+<h3>work/libs/Strings/src/</h3>
+<ul>
+<li><a href="work-libs-Strings-src-Strings.xtl.html">Strings.xtl</a></li>
+</ul>
+<h3>libs/Radix/src/</h3>
+<ul>
+<li><a href="libs-Radix-src-Radix.xtl.html">Radix.xtl</a></li>
+</ul>
+<h3>std/</h3>
+<ul>
+<li><a href="std-System.xtlm.html">System.xtlm</a></li>
+</ul>
+<h3>libs/Panel/src/</h3>
+<ul>
+<li><a href="libs-Panel-src-Panel.xtl.html">Panel.xtl</a></li>
+</ul>
+<h3>libs/Uart/src/</h3>
+<ul>
+<li><a href="libs-Uart-src-Uart.xtl.html">Uart.xtl</a></li>
+</ul>
+<h3>libs/Clocked/demos/</h3>
+<ul>
+<li><a href="libs-Clocked-demos-accumulator.xtl.html">accumulator.xtl</a></li>
+<li><a href="libs-Clocked-demos-counter.xtl.html">counter.xtl</a></li>
+<li><a href="libs-Clocked-demos-detect.xtl.html">detect.xtl</a></li>
+<li><a href="libs-Clocked-demos-ram.xtl.html">ram.xtl</a></li>
+<li><a href="libs-Clocked-demos-shift.xtl.html">shift.xtl</a></li>
+</ul>
+<h3>libs/Datapath/demos/</h3>
+<ul>
+<li><a href="libs-Datapath-demos-pipeline.xtl.html">pipeline.xtl</a></li>
+<li><a href="libs-Datapath-demos-reduce-sum.xtl.html">reduce-sum.xtl</a></li>
+<li><a href="libs-Datapath-demos-saxpy.xtl.html">saxpy.xtl</a></li>
+<li><a href="libs-Datapath-demos-threshold.xtl.html">threshold.xtl</a></li>
+<li><a href="libs-Datapath-demos-vector-add.xtl.html">vector-add.xtl</a></li>
+</ul>
+<h3>libs/Fixed/demos/</h3>
+<ul>
+<li><a href="libs-Fixed-demos-counter.xtl.html">counter.xtl</a></li>
+<li><a href="libs-Fixed-demos-overflow.xtl.html">overflow.xtl</a></li>
+</ul>
+<h3>libs/Hex1000/demos/</h3>
+<ul>
+<li><a href="libs-Hex1000-demos-board.xtl.html">board.xtl</a></li>
+<li><a href="libs-Hex1000-demos-calc.xtl.html">calc.xtl</a></li>
+<li><a href="libs-Hex1000-demos-circuit.xtl.html">circuit.xtl</a></li>
+<li><a href="libs-Hex1000-demos-counter.xtl.html">counter.xtl</a></li>
+<li><a href="libs-Hex1000-demos-keys.xtl.html">keys.xtl</a></li>
+<li><a href="libs-Hex1000-demos-listing.xtl.html">listing.xtl</a></li>
+<li><a href="libs-Hex1000-demos-serial.xtl.html">serial.xtl</a></li>
+<li><a href="libs-Hex1000-demos-terminal.xtl.html">terminal.xtl</a></li>
+</ul>
+<h3>libs/Panel/demos/</h3>
+<ul>
+<li><a href="libs-Panel-demos-font.xtl.html">font.xtl</a></li>
+</ul>
+<h3>libs/Radix/demos/</h3>
+<ul>
+<li><a href="libs-Radix-demos-radixes.xtl.html">radixes.xtl</a></li>
+<li><a href="libs-Radix-demos-session.xtl.html">session.xtl</a></li>
+</ul>
+<h3>libs/Uart/demos/</h3>
+<ul>
+<li><a href="libs-Uart-demos-loopback.xtl.html">loopback.xtl</a></li>
+</ul>
+<ul>
+<li><a href="builtins.html">built-ins</a></li>
+</ul>
+<h2>On this page</h2>
+<ul>
+<li><a href="#section-1">Elementwise: one unit per element</a></li>
+<li class="item"><a href="#l.v_add"><span class="c-libfunc">ˡv̲add</span></a></li>
+<li class="item"><a href="#l.s_axpy"><span class="c-libfunc">ˡs̲axpy</span></a></li>
+<li class="item"><a href="#l.r_elu"><span class="c-libfunc">ˡr̲elu</span></a></li>
+<li><a href="#section-2">Masks and select: a mux</a></li>
+<li class="item"><a href="#l.t_hreshold"><span class="c-libfunc">ˡt̲hreshold</span></a></li>
+<li class="item"><a href="#l.k_eep"><span class="c-libfunc">ˡk̲eep</span></a></li>
+<li><a href="#section-3">Reductions: a tree of adders</a></li>
+<li class="item"><a href="#l.s_um"><span class="c-libfunc">ˡs̲um</span></a></li>
+<li class="item"><a href="#h.h_alve"><span class="c-libfunc">ʰh̲alve</span></a></li>
+<li class="item"><a href="#l.l_argest"><span class="c-libfunc">ˡl̲argest</span></a></li>
+<li class="item"><a href="#l.d_ot"><span class="c-libfunc">ˡd̲ot</span></a></li>
+<li><a href="#section-4">The acceptance pipeline</a></li>
+<li class="item"><a href="#l.p_ipeline"><span class="c-libfunc">ˡp̲ipeline</span></a></li>
+</ul>
+</nav>
+<main>
+<button class="theme" title="Light or dark">theme</button>
+<section id="results"></section>
+<h1><span class="kind">library</span>libs/Datapath/src/Datapath.xtl</h1>
+<p class="meta"><a href="libs-Datapath-src-Datapath.xtl.src.html">source</a> &middot; imports <code><span class="c-error">fx:</span></code> <a href="libs-Fixed-src-Fixed.xtl.html">libs/Fixed/src/Fixed.xtl</a></p>
+<h2 class="section" id="section-1">Elementwise: one unit per element</h2>
+<div class="item" id="l.v_add">
+<h3><a href="#l.v_add"><span class="c-libfunc">ˡv̲add</span></a> <span class="type">: Int -&gt; Int -&gt; Int -&gt; Int</span></h3>
+<div class="meta">function &middot; <a href="libs-Datapath-src-Datapath.xtl.src.html#L25">line 25</a></div>
+<div class="doc">
+<p>w v_add x y: the sum, item by item, wrapped to w bits (eight 16-bit
+numbers: eight 16-bit adders).</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵈᵖ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Datapath-src-Datapath.xtl.html" class="c-string">&quot;Datapath&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-userfunc">ᵘv̲add</span> ← <a href="libs-Datapath-src-Datapath.xtl.html#l.v_add" class="c-libfunc">ᵈᵖv̲add</a> <span class="c-number">16</span></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-number">30000</span> <span class="c-userfunc">ᵘv̲add</span> <span class="c-number">30000</span> <span class="c-number">-30000</span>
+-5536 0</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡv̲add</span> ← { w x y → w <a href="libs-Fixed-src-Fixed.xtl.html#l.w_rap" class="c-libfunc">ᶠˣw̲rap</a> x <a href="builtins.html#-2b" class="c-symbol">+</a> y }</pre>
+<div class="uses">Used in: <a href="libs-Datapath-demos-vector-add.xtl.html#u.v_add"><span class="c-userfunc">ᵘv̲add</span></a></div>
+</div>
+<div class="item" id="l.s_axpy">
+<h3><a href="#l.s_axpy"><span class="c-libfunc">ˡs̲axpy</span></a> <span class="type">: Int -&gt; Int -&gt; Int -&gt; Int -&gt; Int</span></h3>
+<div class="meta">function &middot; <a href="libs-Datapath-src-Datapath.xtl.src.html#L33">line 33</a></div>
+<div class="doc">
+<p>w s_axpy a x y: a times x plus y, wrapped at each unit (a multiplier
+and an adder per element); bind w and a: u:s_axpy := 16 dp:s_axpy 3.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵈᵖ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Datapath-src-Datapath.xtl.html" class="c-string">&quot;Datapath&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-userfunc">ᵘs̲axpy</span> ← <span class="c-number">16</span> <a href="libs-Datapath-src-Datapath.xtl.html#l.s_axpy" class="c-libfunc">ᵈᵖs̲axpy</a> <span class="c-number">3</span></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">3</span> <span class="c-number">4</span> <span class="c-userfunc">ᵘs̲axpy</span> <span class="c-number">100</span> <span class="c-number">200</span> <span class="c-number">300</span> <span class="c-number">400</span>
+103 206 309 412</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡs̲axpy</span> ← { w a x y → w <a href="libs-Fixed-src-Fixed.xtl.html#l.w_rap" class="c-libfunc">ᶠˣw̲rap</a> y <a href="builtins.html#-2b" class="c-symbol">+</a> w <a href="libs-Fixed-src-Fixed.xtl.html#l.w_rap" class="c-libfunc">ᶠˣw̲rap</a> a <a href="builtins.html#-2a" class="c-symbol">×</a> x }</pre>
+<div class="uses">Used in: <a href="libs-Datapath-demos-saxpy.xtl.html#u.s_axpy"><span class="c-userfunc">ᵘs̲axpy</span></a>, <a href="libs-Datapath-demos-saxpy.xtl.html#u.b_ig"><span class="c-userfunc">ᵘb̲ig</span></a></div>
+</div>
+<div class="item" id="l.r_elu">
+<h3><a href="#l.r_elu"><span class="c-libfunc">ˡr̲elu</span></a> <span class="type">: Num a =&gt; a -&gt; a</span></h3>
+<div class="meta">function &middot; <a href="libs-Datapath-src-Datapath.xtl.src.html#L39">line 39</a></div>
+<div class="doc">
+<p>r_elu x: x where positive, 0 elsewhere (a comparator and a mux).</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵈᵖ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Datapath-src-Datapath.xtl.html" class="c-string">&quot;Datapath&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Datapath-src-Datapath.xtl.html#l.r_elu" class="c-libfunc">ᵈᵖr̲elu</a> <span class="c-number">1</span> <span class="c-number">-2</span> <span class="c-number">3</span> <span class="c-number">-4</span>
+1 0 3 0</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡr̲elu</span> ← { x → x <a href="builtins.html#m_ax" class="c-builtin">m̲ax</a> <span class="c-number">0</span> }</pre>
+<div class="uses">Used in: <a href="libs-Datapath-src-Datapath.xtl.html#l.p_ipeline"><span class="c-libfunc">ˡp̲ipeline</span></a>, <a href="libs-Datapath-demos-pipeline.xtl.src.html#L9">libs/Datapath/demos/pipeline.xtl:9</a>, <a href="libs-Datapath-demos-threshold.xtl.src.html#L9">libs/Datapath/demos/threshold.xtl:9</a></div>
+</div>
+<h2 class="section" id="section-2">Masks and select: a mux</h2>
+<div class="item" id="l.t_hreshold">
+<h3><a href="#l.t_hreshold"><span class="c-libfunc">ˡt̲hreshold</span></a> <span class="type">: (Num a, Truthy a) =&gt; a -&gt; a -&gt; a</span></h3>
+<div class="meta">function &middot; <a href="libs-Datapath-src-Datapath.xtl.src.html#L48">line 48</a></div>
+<div class="doc">
+<p>t t_hreshold x: x where x &gt; t, 0 elsewhere: the mask <code>x <a href="builtins.html#-3e" class="c-symbol">&gt;</a> t</code> is the
+mux's select line.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵈᵖ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Datapath-src-Datapath.xtl.html" class="c-string">&quot;Datapath&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-number">2</span> <a href="libs-Datapath-src-Datapath.xtl.html#l.t_hreshold" class="c-libfunc">ᵈᵖt̲hreshold</a> <span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">3</span> <span class="c-number">4</span>
+0 0 3 4</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡt̲hreshold</span> ← { t x → x <a href="builtins.html#-2a" class="c-symbol">×</a> x <a href="builtins.html#-3e" class="c-symbol">&gt;</a> t }</pre>
+<div class="uses">Used in: <a href="libs-Datapath-demos-threshold.xtl.src.html#L7">libs/Datapath/demos/threshold.xtl:7</a></div>
+</div>
+<div class="item" id="l.k_eep">
+<h3><a href="#l.k_eep"><span class="c-libfunc">ˡk̲eep</span></a> <span class="type">: Num a =&gt; a -&gt; a -&gt; a</span></h3>
+<div class="meta">function &middot; <a href="libs-Datapath-src-Datapath.xtl.src.html#L54">line 54</a></div>
+<div class="doc">
+<p>m k_eep x: x where the mask m is 1, 0 elsewhere.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵈᵖ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Datapath-src-Datapath.xtl.html" class="c-string">&quot;Datapath&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span>(<span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">0</span>) <a href="libs-Datapath-src-Datapath.xtl.html#l.k_eep" class="c-libfunc">ᵈᵖk̲eep</a> <span class="c-number">5</span> <span class="c-number">6</span> <span class="c-number">7</span> <span class="c-number">8</span>
+5 0 7 0</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡk̲eep</span> ← { m x → x <a href="builtins.html#-2a" class="c-symbol">×</a> m }</pre>
+<div class="uses">Used in: <a href="libs-Datapath-demos-threshold.xtl.src.html#L8">libs/Datapath/demos/threshold.xtl:8</a></div>
+</div>
+<h2 class="section" id="section-3">Reductions: a tree of adders</h2>
+<div class="item" id="l.s_um">
+<h3><a href="#l.s_um"><span class="c-libfunc">ˡs̲um</span></a> <span class="type">: Int -&gt; Int -&gt; Int</span></h3>
+<div class="meta">function &middot; <a href="libs-Datapath-src-Datapath.xtl.src.html#L67">line 67</a></div>
+<div class="doc">
+<p>w s_um x: the sum of a vector as a balanced tree of w-bit adders:
+the first half added to the second half, item by item, then that
+vector likewise, down to one number (a loop over the log2 n levels
+of the tree; an odd length is padded with a 0). Wrapping at every
+adder gives the same bits as wrapping the exact sum once (checked in
+tests/checks.xtl).</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵈᵖ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Datapath-src-Datapath.xtl.html" class="c-string">&quot;Datapath&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-number">16</span> <a href="libs-Datapath-src-Datapath.xtl.html#l.s_um" class="c-libfunc">ᵈᵖs̲um</a> <span class="c-number">20000</span> <span class="c-number">20000</span> <span class="c-number">20000</span> <span class="c-number">20000</span>
+14464</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡs̲um</span> ← { w x →
+  levels ← <span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> (<span class="c-number">2</span> <a href="builtins.html#-5e" class="c-symbol">^</a> <a href="builtins.html#o_ffsets" class="c-builtin">o̲ffsets</a> <span class="c-number">63</span>) <a href="builtins.html#-3c" class="c-symbol">&lt;</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> x
+  <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> levels <span class="c-quote">'</span>{ v → w <a href="libs-Datapath-src-Datapath.xtl.html#h.h_alve" class="c-libfunc">ʰh̲alve</a> v } <a href="builtins.html#p_ower" class="c-builtin">p̲ower</a> x
+}</pre>
+<div class="uses">Used in: <a href="libs-Datapath-src-Datapath.xtl.html#l.d_ot"><span class="c-libfunc">ˡd̲ot</span></a>, <a href="libs-Datapath-src-Datapath.xtl.html#l.p_ipeline"><span class="c-libfunc">ˡp̲ipeline</span></a>, <a href="libs-Datapath-demos-reduce-sum.xtl.src.html#L8">libs/Datapath/demos/reduce-sum.xtl:8</a>, <a href="libs-Datapath-demos-reduce-sum.xtl.src.html#L11">libs/Datapath/demos/reduce-sum.xtl:11</a></div>
+</div>
+<div class="item" id="h.h_alve">
+<h3><a href="#h.h_alve"><span class="c-libfunc">ʰh̲alve</span></a> <span class="type">: Int -&gt; Int -&gt; Int</span></h3>
+<div class="meta">function <span class="private">(private)</span> &middot; <a href="libs-Datapath-src-Datapath.xtl.src.html#L74">line 74</a></div>
+<div class="doc">
+<p>One level of the tree: the first half added to the second (after a
+0 pads an odd length).</p>
+</div>
+<pre class="code"><span class="c-libfunc">ʰh̲alve</span> ← { w v →
+  e ← v <a href="builtins.html#c_at" class="c-builtin">c̲at</a> ((<a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> v) <a href="builtins.html#m_od" class="c-builtin">m̲od</a> <span class="c-number">2</span>) <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0</span>
+  h ← (<a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> e) <a href="builtins.html#d_iv" class="c-builtin">d̲iv</a> <span class="c-number">2</span>
+  w <a href="libs-Fixed-src-Fixed.xtl.html#l.w_rap" class="c-libfunc">ᶠˣw̲rap</a> (h <a href="builtins.html#t_ake" class="c-builtin">t̲ake</a> e) <a href="builtins.html#-2b" class="c-symbol">+</a> h <a href="builtins.html#d_rop" class="c-builtin">d̲rop</a> e
+}</pre>
+<div class="uses">Used in: <a href="libs-Datapath-src-Datapath.xtl.html#l.s_um"><span class="c-libfunc">ˡs̲um</span></a></div>
+</div>
+<div class="item" id="l.l_argest">
+<h3><a href="#l.l_argest"><span class="c-libfunc">ˡl̲argest</span></a> <span class="type">: Num a =&gt; a -&gt; a</span></h3>
+<div class="meta">function &middot; <a href="libs-Datapath-src-Datapath.xtl.src.html#L84">line 84</a></div>
+<div class="doc">
+<p>l_argest x: the largest item (a tree of comparators and muxes).</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵈᵖ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Datapath-src-Datapath.xtl.html" class="c-string">&quot;Datapath&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Datapath-src-Datapath.xtl.html#l.l_argest" class="c-libfunc">ᵈᵖl̲argest</a> <span class="c-number">3</span> <span class="c-number">9</span> <span class="c-number">2</span>
+9</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡl̲argest</span> ← { x → <span class="c-builtin">'</span><a href="builtins.html#m_ax" class="c-builtin">m̲ax</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> x }</pre>
+<div class="uses">Used in: <a href="libs-Datapath-demos-reduce-sum.xtl.src.html#L12">libs/Datapath/demos/reduce-sum.xtl:12</a></div>
+</div>
+<div class="item" id="l.d_ot">
+<h3><a href="#l.d_ot"><span class="c-libfunc">ˡd̲ot</span></a> <span class="type">: Int -&gt; Int -&gt; Int -&gt; Int</span></h3>
+<div class="meta">function &middot; <a href="libs-Datapath-src-Datapath.xtl.src.html#L92">line 92</a></div>
+<div class="doc">
+<p>w d_ot x y: the inner product, a multiplier per element then the
+tree.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵈᵖ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Datapath-src-Datapath.xtl.html" class="c-string">&quot;Datapath&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-userfunc">ᵘd̲ot</span> ← <a href="libs-Datapath-src-Datapath.xtl.html#l.d_ot" class="c-libfunc">ᵈᵖd̲ot</a> <span class="c-number">16</span></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">3</span> <span class="c-userfunc">ᵘd̲ot</span> <span class="c-number">4</span> <span class="c-number">5</span> <span class="c-number">6</span>
+32</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡd̲ot</span> ← { w x y → w <a href="libs-Datapath-src-Datapath.xtl.html#l.s_um" class="c-libfunc">ˡs̲um</a> w <a href="libs-Fixed-src-Fixed.xtl.html#l.w_rap" class="c-libfunc">ᶠˣw̲rap</a> x <a href="builtins.html#-2a" class="c-symbol">×</a> y }</pre>
+</div>
+<h2 class="section" id="section-4">The acceptance pipeline</h2>
+<div class="item" id="l.p_ipeline">
+<h3><a href="#l.p_ipeline"><span class="c-libfunc">ˡp̲ipeline</span></a> <span class="type">: Int -&gt; Int -&gt; Int -&gt; Int</span></h3>
+<div class="meta">function &middot; <a href="libs-Datapath-src-Datapath.xtl.src.html#L104">line 104</a></div>
+<div class="doc">
+<p>w p_ipeline x k: multiply, add, select, reduce in one expression,
+the sum of the positive items of x + x * k, every unit w bits: the
+first end-to-end test research7 asks for (arithmetic, map, zip,
+comparison, selection, reduction).</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ᵈᵖ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Datapath-src-Datapath.xtl.html" class="c-string">&quot;Datapath&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-userfunc">ᵘp̲ipeline</span> ← <a href="libs-Datapath-src-Datapath.xtl.html#l.p_ipeline" class="c-libfunc">ᵈᵖp̲ipeline</a> <span class="c-number">16</span></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">3</span> <span class="c-number">4</span> <span class="c-userfunc">ᵘp̲ipeline</span> <span class="c-number">1</span> <span class="c-number">-2</span> <span class="c-number">1</span> <span class="c-number">-2</span>
+8</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡp̲ipeline</span> ← { w x k → w <a href="libs-Datapath-src-Datapath.xtl.html#l.s_um" class="c-libfunc">ˡs̲um</a> <a href="libs-Datapath-src-Datapath.xtl.html#l.r_elu" class="c-libfunc">ˡr̲elu</a> w <a href="libs-Fixed-src-Fixed.xtl.html#l.w_rap" class="c-libfunc">ᶠˣw̲rap</a> x <a href="builtins.html#-2b" class="c-symbol">+</a> w <a href="libs-Fixed-src-Fixed.xtl.html#l.w_rap" class="c-libfunc">ᶠˣw̲rap</a> x <a href="builtins.html#-2a" class="c-symbol">×</a> k }</pre>
+<div class="uses">Used in: <a href="libs-Datapath-demos-pipeline.xtl.html#u.p_ipeline"><span class="c-userfunc">ᵘp̲ipeline</span></a></div>
+</div>
+</main>
+</body>
+</html>

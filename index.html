@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>X_eTaL-fpga</title>
+<style>
+:root { --bg: #fbfaf7; --fg: #1d1d1b; --muted: #5d5b55; --rule: #dedbd2; --link: #0b5cad; --code: #f0ede5; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #171716; --fg: #e8e6e1; --muted: #a8a49b; --rule: #34332f; --link: #7fb3ec; --code: #24231f; }
+}
+body { background: var(--bg); color: var(--fg); font: 16px/1.55 system-ui, sans-serif; margin: 0; }
+main { max-width: 60rem; margin: 0 auto; padding: 2rem 16px 4rem; }
+h1 { margin: 0 0 .25rem; font-size: 2rem; }
+h2 { margin-top: 2.5rem; border-bottom: 1px solid var(--rule); padding-bottom: .25rem; }
+p.lede { color: var(--muted); margin-top: 0; }
+a { color: var(--link); }
+code { background: var(--code); padding: 0 .25em; border-radius: 3px; }
+table { border-collapse: collapse; width: 100%; display: block; overflow-x: auto; }
+th, td { text-align: left; padding: .35rem .75rem .35rem 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+pre { background: var(--code); padding: .75rem; overflow-x: auto; }
+pre.lcd { margin: 0; padding: .2rem .6rem; display: inline-block; background: #20301f; color: #9cf59a; font-size: 1.15rem; letter-spacing: .08em; border-radius: 4px; }
+footer { color: var(--muted); font-size: .9rem; margin-top: 3rem; }
+</style>
+</head>
+<body>
+<main>
+<h1>X_eTaL-fpga</h1>
+<p class="lede">X_eTaL programs as hardware: a typed array program becomes a circuit, simulated and checked bit for bit against the X_eTaL evaluator, and on its way to a Tang Nano.</p>
+<p><code>c := a + b</code> on eight 16-bit numbers is eight adders; <code>'+ r_/ v</code> is a tree of adders; a step function over a state vector is registers and the logic between them. Every example here is an X_eTaL program first. Its output is the reference, and the intermediate form, the simulated circuit and the generated Verilog must all reproduce it. The first machine, HEX1000, is a 4-bit calculator in the spirit of the TI TMS1000, sized for a Tang Nano 1K; larger machines go to the Tang Nano 9K and 20K and the Tang Primer boards.</p>
+<pre>
+            X_eTaL program (.xtl)
+                    |
+   +----------------+----------------+
+   v                v                v
+evaluator    intermediate form   simulated circuit, Verilog
+   |                |                |
+   +----------------+----------------+
+                    v
+             the same answers
+</pre>
+
+<h2>HEX1000</h2>
+<p>A 4-bit machine of our own design in the spirit of the TMS1000: a 4-bit accumulator, 64 words of 4-bit RAM, a ROM of 1024 instructions, a program counter that steps as a shift register (<a href="https://github.com/hardwarewrighter/X_eTaL-fpga/blob/main/docs/machine.md">docs/machine.md</a>). It is written in X_eTaL (<a href="doc/libs-Hex1000-src-Hex1000.xtl.html">the Hex1000 library</a>: one instruction is a pure step function of the machine's state), and its ROM holds a program in its own instructions (<a href="https://github.com/hardwarewrighter/X_eTaL-fpga/blob/main/libs/Hex1000/rom/calc.asm">rom/calc.asm</a>, about 330 of them) that makes it an eight-digit hexadecimal calculator. Keys go in through its key matrix and the digits come out on its output latches, nothing else computing; every screen is checked against the specification, the <a href="doc/libs-Radix-src-Radix.xtl.html">Radix</a> library. The screens below were made by running it while this page was built:</p>
+<p><img src="media/hex1000-calc.gif" alt="HEX1000 at a terminal: 12+34= shows 46, C0DE+BEEF= shows 17FCD, A*B= shows 6E, FFFFFFFF*FFFFFFFF= shows 1" style="max-width:100%;height:auto;border-radius:6px"></p>
+<table>
+<tr><th>Keys typed</th><th>Screen</th></tr>
+<tr><td><code>12+34=</code></td><td><pre class="lcd">      46</pre></td></tr>
+<tr><td><code>FF+1=</code></td><td><pre class="lcd">     100</pre></td></tr>
+<tr><td><code>A*B=</code></td><td><pre class="lcd">      6E</pre></td></tr>
+<tr><td><code>C0DE+BEEF=</code></td><td><pre class="lcd">   17FCD</pre></td></tr>
+<tr><td><code>5-7=</code></td><td><pre class="lcd">FFFFFFFE</pre></td></tr>
+<tr><td><code>FFFFFFFF+1=</code></td><td><pre class="lcd">       0</pre></td></tr>
+<tr><td><code>2*3+4=</code></td><td><pre class="lcd">       A</pre></td></tr>
+<tr><td><code>FFFFFFFF*FFFFFFFF=</code></td><td><pre class="lcd">       1</pre></td></tr>
+</table>
+<p>12+34= takes the machine 1752 instructions, FFFFFFFF*FFFFFFFF= 16406: on a Tang Nano at 13.5 million instructions a second, about a millisecond. <strong><a href="calc/">Try HEX1000 in your browser</a></strong>: the same program, X_eTaL running in the page. Or at a terminal: clone the repository and run <code>just calc</code> (keys 0-9 A-F + - * = X, q to quit); <code>just demo-lib Hex1000 listing</code> shows its ROM, page by page. It runs as a circuit on a Tang Nano 9K; next, a physical calculator on a Tang Nano 1K.</p>
+<h3>The physical calculator, in 3D first</h3><p>HEX1000 is becoming a battery-powered calculator on a Tang Nano 1K: a 4x4 hexadecimal pad, four operator keys and an 8-digit 7-segment display. Before anything is soldered, the panel is modeled in X_eTaL (<a href="doc/libs-Panel-src-Panel.xtl.html">the Panel library</a>: the font, the keys and display as arrays, where a click lands) and drawn two ways: interactively in a window (<code>just mockup</code>: click or type the keys) and rendered by Blender, below. Each key goes through the machine's own key scan running the calculator ROM; the render refuses to start unless the display ends on the evaluator's answer, the one the Tang Nano 9K gives.</p><p><video controls muted loop playsinline poster="media/hex1000-mockup.png" style="max-width:100%;height:auto;border-radius:6px"><source src="media/hex1000-mockup.mp4" type="video/mp4"></video></p>
+
+<h2>Libraries</h2>
+<p>Each links to its documentation, generated by <code>xetal doc</code> from the <code>##</code> comments in its source; every <code>## &gt;&gt;</code> example there is run as a test. The <a href="doc/index.html">documentation index</a> also has the demo programs, a search, the built-ins, and each source file.</p>
+<table>
+<tr><th>Library</th><th>Alias</th><th>What</th></tr>
+<tr><td><a href="doc/libs-Clocked-src-Clocked.xtl.html">Clocked</a></td><td><code>ck:</code></td><td>clocked circuits as X_eTaL step functions: counters, accumulators, shift registers, a sequence detector, a RAM, and the harness that clocks them</td></tr>
+<tr><td><a href="doc/libs-Datapath-src-Datapath.xtl.html">Datapath</a></td><td><code>dp:</code></td><td>the vector examples at a stated width: the whole-array operations a circuit realizes directly</td></tr>
+<tr><td><a href="doc/libs-Fixed-src-Fixed.xtl.html">Fixed</a></td><td><code>fx:</code></td><td>fixed-width two&#x27;s complement numbers at a stated width, the arithmetic a w-bit circuit does</td></tr>
+<tr><td><a href="doc/libs-Hex1000-src-Hex1000.xtl.html">Hex1000</a></td><td><code>hx:</code></td><td>HEX1000, a 4-bit machine in the spirit of the TMS1000: its state, one instruction as a pure step, a run harness, an assembler</td></tr>
+<tr><td><a href="doc/libs-Panel-src-Panel.xtl.html">Panel</a></td><td><code>pn:</code></td><td>HEX1000&#x27;s calculator panel as arrays: the 7-segment font, the keys and display in 3D, where a click lands, a key pressed at the machine</td></tr>
+<tr><td><a href="doc/libs-Radix-src-Radix.xtl.html">Radix</a></td><td><code>rx:</code></td><td>an eight-digit calculator in any radix (hexadecimal, octal, decimal): the specification HEX1000&#x27;s ROM program must meet</td></tr>
+<tr><td><a href="doc/libs-Uart-src-Uart.xtl.html">Uart</a></td><td><code>ua:</code></td><td>a serial port (UART: 8 data bits, no parity, 1 stop bit) as X_eTaL step functions: a transmitter, a receiver, and the two looped back</td></tr>
+</table>
+
+<h2>Circuits</h2>
+<p>The Verilog-2005 of every example circuit, as pinned in the repository. Each is checked by a simulator of the same netlist against the X_eTaL evaluator, and every module passes its self-checking testbench under iverilog, Verilator's lint and Yosys's synthesis.</p>
+<table>
+<tr><th>Library</th><th>Module</th><th>Schedule</th></tr>
+<tr><td>Clocked</td><td><a href="rtl/Clocked/accumulator.v">accumulator.v</a></td><td>Clocked: registers from reset, one stream item per clock.</td></tr>
+<tr><td>Clocked</td><td><a href="rtl/Clocked/counter.v">counter.v</a></td><td>Clocked: registers from reset, one stream item per clock.</td></tr>
+<tr><td>Clocked</td><td><a href="rtl/Clocked/detect.v">detect.v</a></td><td>Clocked: registers from reset, one stream item per clock.</td></tr>
+<tr><td>Clocked</td><td><a href="rtl/Clocked/ram.v">ram.v</a></td><td>Clocked: registers from reset, one stream item per clock.</td></tr>
+<tr><td>Clocked</td><td><a href="rtl/Clocked/shift.v">shift.v</a></td><td>Clocked: registers from reset, one stream item per clock.</td></tr>
+<tr><td>Datapath</td><td><a href="rtl/Datapath/pipeline.lanes1.v">pipeline.lanes1.v</a></td><td>Temporal schedule: 1 lane(s), done after 8 clock(s) from reset.</td></tr>
+<tr><td>Datapath</td><td><a href="rtl/Datapath/pipeline.v">pipeline.v</a></td><td>Spatial schedule: 8 lane(s), combinational.</td></tr>
+<tr><td>Datapath</td><td><a href="rtl/Datapath/reduce-sum.lanes1.v">reduce-sum.lanes1.v</a></td><td>Temporal schedule: 1 lane(s), done after 8 clock(s) from reset.</td></tr>
+<tr><td>Datapath</td><td><a href="rtl/Datapath/reduce-sum.v">reduce-sum.v</a></td><td>Spatial schedule: 8 lane(s), combinational.</td></tr>
+<tr><td>Datapath</td><td><a href="rtl/Datapath/saxpy.lanes1.v">saxpy.lanes1.v</a></td><td>Temporal schedule: 1 lane(s), done after 8 clock(s) from reset.</td></tr>
+<tr><td>Datapath</td><td><a href="rtl/Datapath/saxpy.v">saxpy.v</a></td><td>Spatial schedule: 8 lane(s), combinational.</td></tr>
+<tr><td>Datapath</td><td><a href="rtl/Datapath/threshold.lanes1.v">threshold.lanes1.v</a></td><td>Temporal schedule: 1 lane(s), done after 8 clock(s) from reset.</td></tr>
+<tr><td>Datapath</td><td><a href="rtl/Datapath/threshold.v">threshold.v</a></td><td>Spatial schedule: 8 lane(s), combinational.</td></tr>
+<tr><td>Datapath</td><td><a href="rtl/Datapath/vector-add.lanes1.v">vector-add.lanes1.v</a></td><td>Temporal schedule: 1 lane(s), done after 8 clock(s) from reset.</td></tr>
+<tr><td>Datapath</td><td><a href="rtl/Datapath/vector-add.v">vector-add.v</a></td><td>Spatial schedule: 8 lane(s), combinational.</td></tr>
+<tr><td>Fixed</td><td><a href="rtl/Fixed/counter.v">counter.v</a></td><td>Clocked: registers from reset, one stream item per clock.</td></tr>
+<tr><td>Hex1000</td><td><a href="rtl/Hex1000/hex1000-board.v">hex1000-board.v</a></td><td>Clocked: registers from reset, one stream item per clock.</td></tr>
+<tr><td>Hex1000</td><td><a href="rtl/Hex1000/hex1000.v">hex1000.v</a></td><td>Clocked: registers from reset, one stream item per clock.</td></tr>
+<tr><td>Uart</td><td><a href="rtl/Uart/loopback.v">loopback.v</a></td><td>Clocked: registers from reset, one stream item per clock.</td></tr>
+</table>
+
+<h2>Documents</h2>
+<ul>
+<li><a href="https://github.com/hardwarewrighter/X_eTaL-fpga/blob/main/docs/plan.md">docs/plan.md</a>: the plan: architecture decisions and the roadmap</li>
+<li><a href="https://github.com/hardwarewrighter/X_eTaL-fpga/blob/main/docs/machine.md">docs/machine.md</a>: HEX1000, the 4-bit machine</li>
+<li><a href="https://github.com/hardwarewrighter/X_eTaL-fpga/blob/main/libs/Hex1000/docs/calc.md">libs/Hex1000/docs/calc.md</a>: HEX1000&#x27;s calculator program: its ports, RAM, pages and costs</li>
+<li><a href="https://github.com/hardwarewrighter/X_eTaL-fpga/blob/main/docs/hardware.md">docs/hardware.md</a>: Verilog, the checks from the evaluator to the bitstream, testing on a board</li>
+<li><a href="https://github.com/hardwarewrighter/X_eTaL-fpga/blob/main/docs/boards.md">docs/boards.md</a>: the Tang boards: families, resources, software</li>
+<li><a href="https://github.com/hardwarewrighter/X_eTaL-fpga/blob/main/docs/calc-approaches.md">docs/calc-approaches.md</a>: calculators, state and data: the discussion and its decisions</li>
+<li><a href="https://github.com/hardwarewrighter/X_eTaL-fpga/blob/main/docs/xetal-asks.md">docs/xetal-asks.md</a>: what this repository needs from X_eTaL</li>
+<li><a href="https://github.com/hardwarewrighter/X_eTaL-fpga/blob/main/CHANGES.md">CHANGES.md</a>: every commit</li>
+</ul>
+
+<footer>Built from <a href="https://github.com/hardwarewrighter/X_eTaL-fpga/commit/3fab50d">3fab50d</a> with X_eTaL d284a8c. Source: <a href="https://github.com/hardwarewrighter/X_eTaL-fpga">https://github.com/hardwarewrighter/X_eTaL-fpga</a>. Copyright (c) 2026 Michael A Wright, MIT license.</footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>libs/Clocked/src/Clocked.xtl - X_eTaL doc</title>
+<link rel="stylesheet" href="style.css">
+<script src="theme.js"></script>
+<script defer src="search-index.js"></script>
+<script defer src="search.js"></script>
+</head>
+<body>
+<nav class="side">
+<a class="home" href="index.html">X_eTaL doc</a>
+<input id="search" type="search" autocomplete="off" placeholder="Search: a name, or a type" title="A name (mean finds m_ean), or a type: Num a =&gt; a -&gt; a -&gt; a finds +, m_ax ...">
+<h2>Files</h2>
+<h3>libs/Clocked/src/</h3>
+<ul>
+<li><a href="libs-Clocked-src-Clocked.xtl.html">Clocked.xtl</a></li>
+</ul>
+<h3>libs/Fixed/src/</h3>
+<ul>
+<li><a href="libs-Fixed-src-Fixed.xtl.html">Fixed.xtl</a></li>
+</ul>
+<h3>libs/Datapath/src/</h3>
+<ul>
+<li><a href="libs-Datapath-src-Datapath.xtl.html">Datapath.xtl</a></li>
+</ul>
+<h3>libs/Hex1000/src/</h3>
+<ul>
+<li><a href="libs-Hex1000-src-Hex1000.xtl.html">Hex1000.xtl</a></li>
+</ul>
+<h3>work/libs/Strings/src/</h3>
+<ul>
+<li><a href="work-libs-Strings-src-Strings.xtl.html">Strings.xtl</a></li>
+</ul>
+<h3>libs/Radix/src/</h3>
+<ul>
+<li><a href="libs-Radix-src-Radix.xtl.html">Radix.xtl</a></li>
+</ul>
+<h3>std/</h3>
+<ul>
+<li><a href="std-System.xtlm.html">System.xtlm</a></li>
+</ul>
+<h3>libs/Panel/src/</h3>
+<ul>
+<li><a href="libs-Panel-src-Panel.xtl.html">Panel.xtl</a></li>
+</ul>
+<h3>libs/Uart/src/</h3>
+<ul>
+<li><a href="libs-Uart-src-Uart.xtl.html">Uart.xtl</a></li>
+</ul>
+<h3>libs/Clocked/demos/</h3>
+<ul>
+<li><a href="libs-Clocked-demos-accumulator.xtl.html">accumulator.xtl</a></li>
+<li><a href="libs-Clocked-demos-counter.xtl.html">counter.xtl</a></li>
+<li><a href="libs-Clocked-demos-detect.xtl.html">detect.xtl</a></li>
+<li><a href="libs-Clocked-demos-ram.xtl.html">ram.xtl</a></li>
+<li><a href="libs-Clocked-demos-shift.xtl.html">shift.xtl</a></li>
+</ul>
+<h3>libs/Datapath/demos/</h3>
+<ul>
+<li><a href="libs-Datapath-demos-pipeline.xtl.html">pipeline.xtl</a></li>
+<li><a href="libs-Datapath-demos-reduce-sum.xtl.html">reduce-sum.xtl</a></li>
+<li><a href="libs-Datapath-demos-saxpy.xtl.html">saxpy.xtl</a></li>
+<li><a href="libs-Datapath-demos-threshold.xtl.html">threshold.xtl</a></li>
+<li><a href="libs-Datapath-demos-vector-add.xtl.html">vector-add.xtl</a></li>
+</ul>
+<h3>libs/Fixed/demos/</h3>
+<ul>
+<li><a href="libs-Fixed-demos-counter.xtl.html">counter.xtl</a></li>
+<li><a href="libs-Fixed-demos-overflow.xtl.html">overflow.xtl</a></li>
+</ul>
+<h3>libs/Hex1000/demos/</h3>
+<ul>
+<li><a href="libs-Hex1000-demos-board.xtl.html">board.xtl</a></li>
+<li><a href="libs-Hex1000-demos-calc.xtl.html">calc.xtl</a></li>
+<li><a href="libs-Hex1000-demos-circuit.xtl.html">circuit.xtl</a></li>
+<li><a href="libs-Hex1000-demos-counter.xtl.html">counter.xtl</a></li>
+<li><a href="libs-Hex1000-demos-keys.xtl.html">keys.xtl</a></li>
+<li><a href="libs-Hex1000-demos-listing.xtl.html">listing.xtl</a></li>
+<li><a href="libs-Hex1000-demos-serial.xtl.html">serial.xtl</a></li>
+<li><a href="libs-Hex1000-demos-terminal.xtl.html">terminal.xtl</a></li>
+</ul>
+<h3>libs/Panel/demos/</h3>
+<ul>
+<li><a href="libs-Panel-demos-font.xtl.html">font.xtl</a></li>
+</ul>
+<h3>libs/Radix/demos/</h3>
+<ul>
+<li><a href="libs-Radix-demos-radixes.xtl.html">radixes.xtl</a></li>
+<li><a href="libs-Radix-demos-session.xtl.html">session.xtl</a></li>
+</ul>
+<h3>libs/Uart/demos/</h3>
+<ul>
+<li><a href="libs-Uart-demos-loopback.xtl.html">loopback.xtl</a></li>
+</ul>
+<ul>
+<li><a href="builtins.html">built-ins</a></li>
+</ul>
+<h2>On this page</h2>
+<ul>
+<li class="item"><a href="#L23"><span class="c-libfunc">ˡr̲un</span></a></li>
+<li class="item"><a href="#L37"><span class="c-libfunc">ˡt̲race</span></a></li>
+<li class="item"><a href="#L49"><span class="c-libfunc">ˡt̲ick</span></a></li>
+<li class="item"><a href="#L55"><span class="c-libfunc">ˡa̲ccumulate</span></a></li>
+<li class="item"><a href="#L65"><span class="c-libfunc">ˡs̲hift</span></a></li>
+<li class="item"><a href="#L76">ˡNext101</a></li>
+<li class="item"><a href="#L82"><span class="c-libfunc">ˡd̲etect</span></a></li>
+<li class="item"><a href="#L89"><span class="c-libfunc">ˡf̲ound?</span></a></li>
+<li class="item"><a href="#L100"><span class="c-libfunc">ˡw̲rite</span></a></li>
+<li class="item"><a href="#L110"><span class="c-libfunc">ˡr̲ead</span></a></li>
+</ul>
+</nav>
+<main>
+<button class="theme" title="Light or dark">theme</button>
+<section id="results"></section>
+<h1><span class="kind">source</span><a href="libs-Clocked-src-Clocked.xtl.html">libs/Clocked/src/Clocked.xtl</a></h1>
+<div class="source"><span class="line" id="L1"><a class="ln" href="#L1">1</a><span class="c-comment">⍝</span><span class="c-comment"># Clocked: clocked circuits as X_eTaL step functions: counters, accumulators, shift registers, a sequence detector, a RAM, and the harness that clocks them</span></span>
+<span class="line" id="L2"><a class="ln" href="#L2">2</a><span class="c-comment">⍝</span><span class="c-comment"># Import it with an alias of your choice: &quot;ck:&quot; u_se&lt; &quot;Clocked&quot;.</span></span>
+<span class="line" id="L3"><a class="ln" href="#L3">3</a><span class="c-comment">⍝</span><span class="c-comment"># Put libs/Clocked/src on XETAL_PATH (&quot;just path&quot;); the reference is libs/Clocked/docs.</span></span>
+<span class="line" id="L4"><a class="ln" href="#L4">4</a><span class="c-comment">⍝</span><span class="c-comment"># Names with l: are exported; the others are private to this file.</span></span>
+<span class="line" id="L5"><a class="ln" href="#L5">5</a><span class="c-comment">⍝</span><span class="c-comment">#</span></span>
+<span class="line" id="L6"><a class="ln" href="#L6">6</a><span class="c-comment">⍝</span><span class="c-comment"># A clocked circuit is </span><span class="c-comment"></span>state<span class="c-error">'</span> <span class="c-symbol">=</span> step(state, input)<span class="c-comment"></span><span class="c-comment"> at every clock.</span></span>
+<span class="line" id="L7"><a class="ln" href="#L7">7</a><span class="c-comment">⍝</span><span class="c-comment"># Here a step is an ordinary pure dyadic function, </span><span class="c-comment"></span>s <span class="c-builtin">f̲</span> x<span class="c-comment"></span><span class="c-comment">: the state</span></span>
+<span class="line" id="L8"><a class="ln" href="#L8">8</a><span class="c-comment">⍝</span><span class="c-comment"># on the left, one clock's input on the right, the next state out. That</span></span>
+<span class="line" id="L9"><a class="ln" href="#L9">9</a><span class="c-comment">⍝</span><span class="c-comment"># function is what becomes hardware: registers for the state, the</span></span>
+<span class="line" id="L10"><a class="ln" href="#L10">10</a><span class="c-comment">⍝</span><span class="c-comment"># function as the logic between them. The harness, r_un and t_race,</span></span>
+<span class="line" id="L11"><a class="ln" href="#L11">11</a><span class="c-comment">⍝</span><span class="c-comment"># applies it once per input, as a clock would: a loop, p_ower over a</span></span>
+<span class="line" id="L12"><a class="ln" href="#L12">12</a><span class="c-comment">⍝</span><span class="c-comment"># tuple of the clock count and the state (X_eTaL has no left fold yet,</span></span>
+<span class="line" id="L13"><a class="ln" href="#L13">13</a><span class="c-comment">⍝</span><span class="c-comment"># ask F5). It is the testbench, never lowered. Numbers are 8-bit two's complement (Fixed).</span></span>
+<span class="line" id="L14"><a class="ln" href="#L14">14</a><span class="c-libfunc">ᶠˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Fixed-src-Fixed.xtl.html" class="c-string">&quot;Fixed&quot;</a></span>
+<span class="line" id="L15"><a class="ln" href="#L15">15</a></span>
+<span class="line" id="L16"><a class="ln" href="#L16">16</a><span class="c-comment">⍝</span><span class="c-comment">## The harness: one input per clock</span></span>
+<span class="line" id="L17"><a class="ln" href="#L17">17</a></span>
+<span class="line" id="L18"><a class="ln" href="#L18">18</a><span class="c-comment">⍝</span><span class="c-comment"># s0 'step r_un xs: the state after every input (an item, or a row of</span></span>
+<span class="line" id="L19"><a class="ln" href="#L19">19</a><span class="c-comment">⍝</span><span class="c-comment"># a matrix, per clock).</span></span>
+<span class="line" id="L20"><a class="ln" href="#L20">20</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;ck:&quot; u_se&lt; &quot;Clocked&quot;</span></span>
+<span class="line" id="L21"><a class="ln" href="#L21">21</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; 0 'ck:a_ccumulate ck:r_un 1 2 3 4</span></span>
+<span class="line" id="L22"><a class="ln" href="#L22">22</a><span class="c-comment">⍝</span><span class="c-comment"># 10</span></span>
+<span class="line" id="L23"><a class="ln" href="#L23">23</a><span class="c-libfunc">ˡr̲un</span> ← { <span class="c-builtin">f̲</span> s xs →</span>
+<span class="line" id="L24"><a class="ln" href="#L24">24</a>  (n, last) ← (<a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> xs) <span class="c-quote">'</span>{ (i, t) → (i <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">1</span>, t <span class="c-builtin">f̲</span> i <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> xs) } <a href="builtins.html#p_ower" class="c-builtin">p̲ower</a> (<span class="c-number">1</span>, s)</span>
+<span class="line" id="L25"><a class="ln" href="#L25">25</a>  last</span>
+<span class="line" id="L26"><a class="ln" href="#L26">26</a>}</span>
+<span class="line" id="L27"><a class="ln" href="#L27">27</a></span>
+<span class="line" id="L28"><a class="ln" href="#L28">28</a><span class="c-comment">⍝</span><span class="c-comment"># s0 'step t_race xs: every state from s0 on, one per row (a vector</span></span>
+<span class="line" id="L29"><a class="ln" href="#L29">29</a><span class="c-comment">⍝</span><span class="c-comment"># for a scalar state): what the registers hold after reset and after</span></span>
+<span class="line" id="L30"><a class="ln" href="#L30">30</a><span class="c-comment">⍝</span><span class="c-comment"># each clock.</span></span>
+<span class="line" id="L31"><a class="ln" href="#L31">31</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;ck:&quot; u_se&lt; &quot;Clocked&quot;</span></span>
+<span class="line" id="L32"><a class="ln" href="#L32">32</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; (0 0 0) 'ck:s_hift ck:t_race 1 1 0</span></span>
+<span class="line" id="L33"><a class="ln" href="#L33">33</a><span class="c-comment">⍝</span><span class="c-comment"># 0 0 0</span></span>
+<span class="line" id="L34"><a class="ln" href="#L34">34</a><span class="c-comment">⍝</span><span class="c-comment"># 0 0 1</span></span>
+<span class="line" id="L35"><a class="ln" href="#L35">35</a><span class="c-comment">⍝</span><span class="c-comment"># 0 1 1</span></span>
+<span class="line" id="L36"><a class="ln" href="#L36">36</a><span class="c-comment">⍝</span><span class="c-comment"># 1 1 0</span></span>
+<span class="line" id="L37"><a class="ln" href="#L37">37</a><span class="c-libfunc">ˡt̲race</span> ← { <span class="c-builtin">f̲</span> s xs →</span>
+<span class="line" id="L38"><a class="ln" href="#L38">38</a>  first ← (<span class="c-number">1</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#s_hape" class="c-builtin">s̲hape</a> s) <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> s</span>
+<span class="line" id="L39"><a class="ln" href="#L39">39</a>  (n, last, rows) ← (<a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> xs) <span class="c-quote">'</span>{ (i, t, m) → t1 ← t <span class="c-builtin">f̲</span> i <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> xs◆ (i <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">1</span>, t1, m <a href="builtins.html#c_at" class="c-builtin">c̲at</a> t1) } <a href="builtins.html#p_ower" class="c-builtin">p̲ower</a> (<span class="c-number">1</span>, s, first)</span>
+<span class="line" id="L40"><a class="ln" href="#L40">40</a>  rows</span>
+<span class="line" id="L41"><a class="ln" href="#L41">41</a>}</span>
+<span class="line" id="L42"><a class="ln" href="#L42">42</a></span>
+<span class="line" id="L43"><a class="ln" href="#L43">43</a><span class="c-comment">⍝</span><span class="c-comment">## Counters and accumulators</span></span>
+<span class="line" id="L44"><a class="ln" href="#L44">44</a></span>
+<span class="line" id="L45"><a class="ln" href="#L45">45</a><span class="c-comment">⍝</span><span class="c-comment"># s t_ick e: an 8-bit counter that counts when its enable e is 1.</span></span>
+<span class="line" id="L46"><a class="ln" href="#L46">46</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;ck:&quot; u_se&lt; &quot;Clocked&quot;</span></span>
+<span class="line" id="L47"><a class="ln" href="#L47">47</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; 127 ck:t_ick 1</span></span>
+<span class="line" id="L48"><a class="ln" href="#L48">48</a><span class="c-comment">⍝</span><span class="c-comment"># -128</span></span>
+<span class="line" id="L49"><a class="ln" href="#L49">49</a><span class="c-libfunc">ˡt̲ick</span> ← { s e → <span class="c-number">8</span> <a href="libs-Fixed-src-Fixed.xtl.html#l.w_rap" class="c-libfunc">ᶠˣw̲rap</a> s <a href="builtins.html#-2b" class="c-symbol">+</a> e }</span>
+<span class="line" id="L50"><a class="ln" href="#L50">50</a></span>
+<span class="line" id="L51"><a class="ln" href="#L51">51</a><span class="c-comment">⍝</span><span class="c-comment"># s a_ccumulate x: an 8-bit accumulator (an adder and a register).</span></span>
+<span class="line" id="L52"><a class="ln" href="#L52">52</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;ck:&quot; u_se&lt; &quot;Clocked&quot;</span></span>
+<span class="line" id="L53"><a class="ln" href="#L53">53</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; 100 ck:a_ccumulate 100</span></span>
+<span class="line" id="L54"><a class="ln" href="#L54">54</a><span class="c-comment">⍝</span><span class="c-comment"># -56</span></span>
+<span class="line" id="L55"><a class="ln" href="#L55">55</a><span class="c-libfunc">ˡa̲ccumulate</span> ← { s x → <span class="c-number">8</span> <a href="libs-Fixed-src-Fixed.xtl.html#l.w_rap" class="c-libfunc">ᶠˣw̲rap</a> s <a href="builtins.html#-2b" class="c-symbol">+</a> x }</span>
+<span class="line" id="L56"><a class="ln" href="#L56">56</a></span>
+<span class="line" id="L57"><a class="ln" href="#L57">57</a><span class="c-comment">⍝</span><span class="c-comment">## Shift register</span></span>
+<span class="line" id="L58"><a class="ln" href="#L58">58</a></span>
+<span class="line" id="L59"><a class="ln" href="#L59">59</a><span class="c-comment">⍝</span><span class="c-comment"># s s_hift b: the bits move one place toward the front and b comes in</span></span>
+<span class="line" id="L60"><a class="ln" href="#L60">60</a><span class="c-comment">⍝</span><span class="c-comment"># at the end (a serial-in, parallel-out shift register: wiring and</span></span>
+<span class="line" id="L61"><a class="ln" href="#L61">61</a><span class="c-comment">⍝</span><span class="c-comment"># flip-flops, no logic).</span></span>
+<span class="line" id="L62"><a class="ln" href="#L62">62</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;ck:&quot; u_se&lt; &quot;Clocked&quot;</span></span>
+<span class="line" id="L63"><a class="ln" href="#L63">63</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; (0 0 0 1) ck:s_hift 1</span></span>
+<span class="line" id="L64"><a class="ln" href="#L64">64</a><span class="c-comment">⍝</span><span class="c-comment"># 0 0 1 1</span></span>
+<span class="line" id="L65"><a class="ln" href="#L65">65</a><span class="c-libfunc">ˡs̲hift</span> ← { s b → (<span class="c-number">1</span> <a href="builtins.html#d_rop" class="c-builtin">d̲rop</a> s) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> b }</span>
+<span class="line" id="L66"><a class="ln" href="#L66">66</a></span>
+<span class="line" id="L67"><a class="ln" href="#L67">67</a><span class="c-comment">⍝</span><span class="c-comment">## A sequence detector: a state machine from a table</span></span>
+<span class="line" id="L68"><a class="ln" href="#L68">68</a></span>
+<span class="line" id="L69"><a class="ln" href="#L69">69</a><span class="c-comment">⍝</span><span class="c-comment"># Next101: the next state of a detector of the bits 1 0 1 (overlapping),</span></span>
+<span class="line" id="L70"><a class="ln" href="#L70">70</a><span class="c-comment">⍝</span><span class="c-comment"># a table indexed by state and bit: item 1 + s + 4 * b. States: 0</span></span>
+<span class="line" id="L71"><a class="ln" href="#L71">71</a><span class="c-comment">⍝</span><span class="c-comment"># nothing yet, 1 seen 1, 2 seen 1 0, 3 seen 1 0 1 (found). In</span></span>
+<span class="line" id="L72"><a class="ln" href="#L72">72</a><span class="c-comment">⍝</span><span class="c-comment"># hardware the table is a ROM or a few gates.</span></span>
+<span class="line" id="L73"><a class="ln" href="#L73">73</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;ck:&quot; u_se&lt; &quot;Clocked&quot;</span></span>
+<span class="line" id="L74"><a class="ln" href="#L74">74</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; ck:Next101</span></span>
+<span class="line" id="L75"><a class="ln" href="#L75">75</a><span class="c-comment">⍝</span><span class="c-comment"># 0 2 0 2 1 1 3 1</span></span>
+<span class="line" id="L76"><a class="ln" href="#L76">76</a>ˡNext101 ← <span class="c-number">0</span> <span class="c-number">2</span> <span class="c-number">0</span> <span class="c-number">2</span> <span class="c-number">1</span> <span class="c-number">1</span> <span class="c-number">3</span> <span class="c-number">1</span></span>
+<span class="line" id="L77"><a class="ln" href="#L77">77</a></span>
+<span class="line" id="L78"><a class="ln" href="#L78">78</a><span class="c-comment">⍝</span><span class="c-comment"># s d_etect b: the detector's next state.</span></span>
+<span class="line" id="L79"><a class="ln" href="#L79">79</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;ck:&quot; u_se&lt; &quot;Clocked&quot;</span></span>
+<span class="line" id="L80"><a class="ln" href="#L80">80</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; 2 ck:d_etect 1</span></span>
+<span class="line" id="L81"><a class="ln" href="#L81">81</a><span class="c-comment">⍝</span><span class="c-comment"># 3</span></span>
+<span class="line" id="L82"><a class="ln" href="#L82">82</a><span class="c-libfunc">ˡd̲etect</span> ← { s b → (<span class="c-number">1</span> <a href="builtins.html#-2b" class="c-symbol">+</a> s <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">4</span> <a href="builtins.html#-2a" class="c-symbol">×</a> b) <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> <a href="libs-Clocked-src-Clocked.xtl.html#l.Next101">ˡNext101</a> }</span>
+<span class="line" id="L83"><a class="ln" href="#L83">83</a></span>
+<span class="line" id="L84"><a class="ln" href="#L84">84</a><span class="c-comment">⍝</span><span class="c-comment"># f_ound? s: whether the state says 1 0 1 was just seen (the Moore</span></span>
+<span class="line" id="L85"><a class="ln" href="#L85">85</a><span class="c-comment">⍝</span><span class="c-comment"># output).</span></span>
+<span class="line" id="L86"><a class="ln" href="#L86">86</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;ck:&quot; u_se&lt; &quot;Clocked&quot;</span></span>
+<span class="line" id="L87"><a class="ln" href="#L87">87</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; ck:f_ound? 0 1 2 3</span></span>
+<span class="line" id="L88"><a class="ln" href="#L88">88</a><span class="c-comment">⍝</span><span class="c-comment"># 0 0 0 1</span></span>
+<span class="line" id="L89"><a class="ln" href="#L89">89</a><span class="c-libfunc">ˡf̲ound?</span> ← { s → s <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">3</span> }</span>
+<span class="line" id="L90"><a class="ln" href="#L90">90</a></span>
+<span class="line" id="L91"><a class="ln" href="#L91">91</a><span class="c-comment">⍝</span><span class="c-comment">## A RAM</span></span>
+<span class="line" id="L92"><a class="ln" href="#L92">92</a></span>
+<span class="line" id="L93"><a class="ln" href="#L93">93</a><span class="c-comment">⍝</span><span class="c-comment"># m w_rite c: a memory of 8-bit words after one clock of a write port:</span></span>
+<span class="line" id="L94"><a class="ln" href="#L94">94</a><span class="c-comment">⍝</span><span class="c-comment"># the command c is write-enable, address (from 0) and data; when</span></span>
+<span class="line" id="L95"><a class="ln" href="#L95">95</a><span class="c-comment">⍝</span><span class="c-comment"># write-enable is 1 the word at the address becomes the data, every</span></span>
+<span class="line" id="L96"><a class="ln" href="#L96">96</a><span class="c-comment">⍝</span><span class="c-comment"># other word is kept (each word a register with a mux in front).</span></span>
+<span class="line" id="L97"><a class="ln" href="#L97">97</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;ck:&quot; u_se&lt; &quot;Clocked&quot;</span></span>
+<span class="line" id="L98"><a class="ln" href="#L98">98</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; (4 r_eshape 0) ck:w_rite 1 2 9</span></span>
+<span class="line" id="L99"><a class="ln" href="#L99">99</a><span class="c-comment">⍝</span><span class="c-comment"># 0 0 9 0</span></span>
+<span class="line" id="L100"><a class="ln" href="#L100">100</a><span class="c-libfunc">ˡw̲rite</span> ← { m c →</span>
+<span class="line" id="L101"><a class="ln" href="#L101">101</a>  we ← <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> c</span>
+<span class="line" id="L102"><a class="ln" href="#L102">102</a>  hit ← (<a href="builtins.html#o_ffsets" class="c-builtin">o̲ffsets</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> m) <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">2</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> c</span>
+<span class="line" id="L103"><a class="ln" href="#L103">103</a>  <span class="c-number">8</span> <a href="libs-Fixed-src-Fixed.xtl.html#l.w_rap" class="c-libfunc">ᶠˣw̲rap</a> m <a href="builtins.html#-2b" class="c-symbol">+</a> we <a href="builtins.html#-2a" class="c-symbol">×</a> hit <a href="builtins.html#-2a" class="c-symbol">×</a> (<span class="c-number">3</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> c) <a href="builtins.html#-2d" class="c-symbol">−</a> m</span>
+<span class="line" id="L104"><a class="ln" href="#L104">104</a>}</span>
+<span class="line" id="L105"><a class="ln" href="#L105">105</a></span>
+<span class="line" id="L106"><a class="ln" href="#L106">106</a><span class="c-comment">⍝</span><span class="c-comment"># m r_ead a: the word at address a (from 0): a read port, a mux.</span></span>
+<span class="line" id="L107"><a class="ln" href="#L107">107</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;ck:&quot; u_se&lt; &quot;Clocked&quot;</span></span>
+<span class="line" id="L108"><a class="ln" href="#L108">108</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; (0 0 9 0) ck:r_ead 2</span></span>
+<span class="line" id="L109"><a class="ln" href="#L109">109</a><span class="c-comment">⍝</span><span class="c-comment"># 9</span></span>
+<span class="line" id="L110"><a class="ln" href="#L110">110</a><span class="c-libfunc">ˡr̲ead</span> ← { m a → (<span class="c-number">1</span> <a href="builtins.html#-2b" class="c-symbol">+</a> a) <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> m }</span>
+</div>
+</main>
+</body>
+</html>

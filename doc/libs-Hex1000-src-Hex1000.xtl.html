@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>libs/Hex1000/src/Hex1000.xtl - X_eTaL doc</title>
+<link rel="stylesheet" href="style.css">
+<script src="theme.js"></script>
+<script defer src="search-index.js"></script>
+<script defer src="search.js"></script>
+</head>
+<body>
+<nav class="side">
+<a class="home" href="index.html">X_eTaL doc</a>
+<input id="search" type="search" autocomplete="off" placeholder="Search: a name, or a type" title="A name (mean finds m_ean), or a type: Num a =&gt; a -&gt; a -&gt; a finds +, m_ax ...">
+<h2>Files</h2>
+<h3>libs/Clocked/src/</h3>
+<ul>
+<li><a href="libs-Clocked-src-Clocked.xtl.html">Clocked.xtl</a></li>
+</ul>
+<h3>libs/Fixed/src/</h3>
+<ul>
+<li><a href="libs-Fixed-src-Fixed.xtl.html">Fixed.xtl</a></li>
+</ul>
+<h3>libs/Datapath/src/</h3>
+<ul>
+<li><a href="libs-Datapath-src-Datapath.xtl.html">Datapath.xtl</a></li>
+</ul>
+<h3>libs/Hex1000/src/</h3>
+<ul>
+<li><a href="libs-Hex1000-src-Hex1000.xtl.html">Hex1000.xtl</a></li>
+</ul>
+<h3>work/libs/Strings/src/</h3>
+<ul>
+<li><a href="work-libs-Strings-src-Strings.xtl.html">Strings.xtl</a></li>
+</ul>
+<h3>libs/Radix/src/</h3>
+<ul>
+<li><a href="libs-Radix-src-Radix.xtl.html">Radix.xtl</a></li>
+</ul>
+<h3>std/</h3>
+<ul>
+<li><a href="std-System.xtlm.html">System.xtlm</a></li>
+</ul>
+<h3>libs/Panel/src/</h3>
+<ul>
+<li><a href="libs-Panel-src-Panel.xtl.html">Panel.xtl</a></li>
+</ul>
+<h3>libs/Uart/src/</h3>
+<ul>
+<li><a href="libs-Uart-src-Uart.xtl.html">Uart.xtl</a></li>
+</ul>
+<h3>libs/Clocked/demos/</h3>
+<ul>
+<li><a href="libs-Clocked-demos-accumulator.xtl.html">accumulator.xtl</a></li>
+<li><a href="libs-Clocked-demos-counter.xtl.html">counter.xtl</a></li>
+<li><a href="libs-Clocked-demos-detect.xtl.html">detect.xtl</a></li>
+<li><a href="libs-Clocked-demos-ram.xtl.html">ram.xtl</a></li>
+<li><a href="libs-Clocked-demos-shift.xtl.html">shift.xtl</a></li>
+</ul>
+<h3>libs/Datapath/demos/</h3>
+<ul>
+<li><a href="libs-Datapath-demos-pipeline.xtl.html">pipeline.xtl</a></li>
+<li><a href="libs-Datapath-demos-reduce-sum.xtl.html">reduce-sum.xtl</a></li>
+<li><a href="libs-Datapath-demos-saxpy.xtl.html">saxpy.xtl</a></li>
+<li><a href="libs-Datapath-demos-threshold.xtl.html">threshold.xtl</a></li>
+<li><a href="libs-Datapath-demos-vector-add.xtl.html">vector-add.xtl</a></li>
+</ul>
+<h3>libs/Fixed/demos/</h3>
+<ul>
+<li><a href="libs-Fixed-demos-counter.xtl.html">counter.xtl</a></li>
+<li><a href="libs-Fixed-demos-overflow.xtl.html">overflow.xtl</a></li>
+</ul>
+<h3>libs/Hex1000/demos/</h3>
+<ul>
+<li><a href="libs-Hex1000-demos-board.xtl.html">board.xtl</a></li>
+<li><a href="libs-Hex1000-demos-calc.xtl.html">calc.xtl</a></li>
+<li><a href="libs-Hex1000-demos-circuit.xtl.html">circuit.xtl</a></li>
+<li><a href="libs-Hex1000-demos-counter.xtl.html">counter.xtl</a></li>
+<li><a href="libs-Hex1000-demos-keys.xtl.html">keys.xtl</a></li>
+<li><a href="libs-Hex1000-demos-listing.xtl.html">listing.xtl</a></li>
+<li><a href="libs-Hex1000-demos-serial.xtl.html">serial.xtl</a></li>
+<li><a href="libs-Hex1000-demos-terminal.xtl.html">terminal.xtl</a></li>
+</ul>
+<h3>libs/Panel/demos/</h3>
+<ul>
+<li><a href="libs-Panel-demos-font.xtl.html">font.xtl</a></li>
+</ul>
+<h3>libs/Radix/demos/</h3>
+<ul>
+<li><a href="libs-Radix-demos-radixes.xtl.html">radixes.xtl</a></li>
+<li><a href="libs-Radix-demos-session.xtl.html">session.xtl</a></li>
+</ul>
+<h3>libs/Uart/demos/</h3>
+<ul>
+<li><a href="libs-Uart-demos-loopback.xtl.html">loopback.xtl</a></li>
+</ul>
+<ul>
+<li><a href="builtins.html">built-ins</a></li>
+</ul>
+<h2>On this page</h2>
+<ul>
+<li><a href="#section-1">The program counter</a></li>
+<li class="item"><a href="#l.n_extPc"><span class="c-libfunc">ˡn̲extPc</span></a></li>
+<li class="item"><a href="#l.Order">ˡOrder</a></li>
+<li><a href="#section-2">The instructions</a></li>
+<li class="item"><a href="#l.Names">ˡNames</a></li>
+<li class="item"><a href="#Base">Base</a></li>
+<li class="item"><a href="#Top">Top</a></li>
+<li class="item"><a href="#l.k_ind"><span class="c-libfunc">ˡk̲ind</span></a></li>
+<li class="item"><a href="#l.d_isasm"><span class="c-libfunc">ˡd̲isasm</span></a></li>
+<li><a href="#section-3">The state</a></li>
+<li class="item"><a href="#l.Reset">ˡReset</a></li>
+<li class="item"><a href="#l.r_egs"><span class="c-libfunc">ˡr̲egs</span></a></li>
+<li class="item"><a href="#l.r_am"><span class="c-libfunc">ˡr̲am</span></a></li>
+<li class="item"><a href="#l.l_atches"><span class="c-libfunc">ˡl̲atches</span></a></li>
+<li><a href="#section-4">One instruction</a></li>
+<li class="item"><a href="#l.s_tep"><span class="c-libfunc">ˡs̲tep</span></a></li>
+<li><a href="#section-5">Running a program</a></li>
+<li class="item"><a href="#l.r_un"><span class="c-libfunc">ˡr̲un</span></a></li>
+<li class="item"><a href="#l.r_unKeys"><span class="c-libfunc">ˡr̲unKeys</span></a></li>
+<li class="item"><a href="#h.p_ress"><span class="c-libfunc">ʰp̲ress</span></a></li>
+<li class="item"><a href="#l.t_race"><span class="c-libfunc">ˡt̲race</span></a></li>
+<li class="item"><a href="#h.n_ext"><span class="c-libfunc">ʰn̲ext</span></a></li>
+<li><a href="#section-6">Showing it</a></li>
+<li class="item"><a href="#l.RegNames">ˡRegNames</a></li>
+<li class="item"><a href="#l.t_able"><span class="c-libfunc">ˡt̲able</span></a></li>
+<li class="item"><a href="#h.m_atrix"><span class="c-libfunc">ʰm̲atrix</span></a></li>
+<li class="item"><a href="#h.r_ow"><span class="c-libfunc">ʰr̲ow</span></a></li>
+<li class="item"><a href="#h.j_oin"><span class="c-libfunc">ʰj̲oin</span></a></li>
+<li class="item"><a href="#l.l_isting"><span class="c-libfunc">ˡl̲isting</span></a></li>
+<li><a href="#section-7">The assembler</a></li>
+<li class="item"><a href="#l.a_ssemble"><span class="c-libfunc">ˡa̲ssemble</span></a></li>
+<li class="item"><a href="#h.w_ords"><span class="c-libfunc">ʰw̲ords</span></a></li>
+<li class="item"><a href="#h.l_abel-3f"><span class="c-libfunc">ʰl̲abel?</span></a></li>
+<li class="item"><a href="#h.r_est"><span class="c-libfunc">ʰr̲est</span></a></li>
+<li class="item"><a href="#h.l_abel"><span class="c-libfunc">ʰl̲abel</span></a></li>
+<li class="item"><a href="#h.p_lace"><span class="c-libfunc">ʰp̲lace</span></a></li>
+<li class="item"><a href="#h.o_perand"><span class="c-libfunc">ʰo̲perand</span></a></li>
+<li class="item"><a href="#h.n_umber"><span class="c-libfunc">ʰn̲umber</span></a></li>
+<li><a href="#section-8">The calculator</a></li>
+<li class="item"><a href="#l.Calc">ˡCalc</a></li>
+<li class="item"><a href="#l.CalcRom">ˡCalcRom</a></li>
+<li class="item"><a href="#l.m_atrix"><span class="c-libfunc">ˡm̲atrix</span></a></li>
+<li class="item"><a href="#l.t_ype"><span class="c-libfunc">ˡt̲ype</span></a></li>
+<li class="item"><a href="#l.t_ypeOn"><span class="c-libfunc">ˡt̲ypeOn</span></a></li>
+<li class="item"><a href="#l.r_ecord"><span class="c-libfunc">ˡr̲ecord</span></a></li>
+<li class="item"><a href="#h.r_ec"><span class="c-libfunc">ʰr̲ec</span></a></li>
+<li class="item"><a href="#h.t_ick"><span class="c-libfunc">ʰt̲ick</span></a></li>
+<li class="item"><a href="#l.s_creen"><span class="c-libfunc">ˡs̲creen</span></a></li>
+<li class="item"><a href="#l.c_alc"><span class="c-libfunc">ˡc̲alc</span></a></li>
+<li class="item"><a href="#l.c_ost"><span class="c-libfunc">ˡc̲ost</span></a></li>
+<li><a href="#section-9">The board's glue</a></li>
+<li class="item"><a href="#l.Keymap">ˡKeymap</a></li>
+<li class="item"><a href="#l.GlueReset">ˡGlueReset</a></li>
+<li class="item"><a href="#l.g_lueK"><span class="c-libfunc">ˡg̲lueK</span></a></li>
+<li class="item"><a href="#l.g_lue"><span class="c-libfunc">ˡg̲lue</span></a></li>
+<li class="item"><a href="#l.b_oard"><span class="c-libfunc">ˡb̲oard</span></a></li>
+<li class="item"><a href="#l.s_erial"><span class="c-libfunc">ˡs̲erial</span></a></li>
+<li class="item"><a href="#h.c_lock"><span class="c-libfunc">ʰc̲lock</span></a></li>
+<li class="item"><a href="#l.w_ires"><span class="c-libfunc">ˡw̲ires</span></a></li>
+<li class="item"><a href="#h.w_ire"><span class="c-libfunc">ʰw̲ire</span></a></li>
+</ul>
+</nav>
+<main>
+<button class="theme" title="Light or dark">theme</button>
+<section id="results"></section>
+<h1><span class="kind">library</span>libs/Hex1000/src/Hex1000.xtl</h1>
+<p class="meta"><a href="libs-Hex1000-src-Hex1000.xtl.src.html">source</a> &middot; imports <code><span class="c-error">s:</span></code> <a href="work-libs-Strings-src-Strings.xtl.html">work/libs/Strings/src/Strings.xtl</a>; <code><span class="c-error">rx:</span></code> <a href="libs-Radix-src-Radix.xtl.html">libs/Radix/src/Radix.xtl</a></p>
+<h2 class="section" id="section-1">The program counter</h2>
+<div class="item" id="l.n_extPc">
+<h3><a href="#l.n_extPc"><span class="c-libfunc">ˡn̲extPc</span></a> <span class="type">: Int -&gt; Int</span></h3>
+<div class="meta">function &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L27">line 27</a></div>
+<div class="doc">
+<p>n_extPc pc: the address after pc, the shift register's rule: shifted
+left, the new low bit the XNOR of the two top bits, inverted when
+the low five bits are all 1 (so all 64 addresses are visited).</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʰˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Hex1000-src-Hex1000.xtl.html" class="c-string">&quot;Hex1000&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Hex1000-src-Hex1000.xtl.html#l.n_extPc" class="c-libfunc">ʰˣn̲extPc</a> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">3</span> <span class="c-number">31</span> <span class="c-number">63</span> <span class="c-number">62</span>
+1 3 7 63 62 61</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡn̲extPc</span> ← { pc →
+  f ← <span class="c-number">1</span> <a href="builtins.html#-2d" class="c-symbol">−</a> <a href="builtins.html#a_bs" class="c-builtin">a̲bs</a> (pc <a href="builtins.html#d_iv" class="c-builtin">d̲iv</a> <span class="c-number">32</span>) <a href="builtins.html#-2d" class="c-symbol">−</a> (pc <a href="builtins.html#d_iv" class="c-builtin">d̲iv</a> <span class="c-number">16</span>) <a href="builtins.html#m_od" class="c-builtin">m̲od</a> <span class="c-number">2</span>
+  (<span class="c-number">2</span> <a href="builtins.html#-2a" class="c-symbol">×</a> pc <a href="builtins.html#m_od" class="c-builtin">m̲od</a> <span class="c-number">32</span>) <a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#a_bs" class="c-builtin">a̲bs</a> f <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">31</span> <a href="builtins.html#-3d" class="c-symbol">=</a> pc <a href="builtins.html#m_od" class="c-builtin">m̲od</a> <span class="c-number">32</span>
+}</pre>
+<div class="uses">Used in: <a href="libs-Hex1000-src-Hex1000.xtl.html#l.Order">ˡOrder</a>, <a href="libs-Hex1000-src-Hex1000.xtl.html#l.s_tep"><span class="c-libfunc">ˡs̲tep</span></a></div>
+</div>
+<div class="item" id="l.Order">
+<h3><a href="#l.Order">ˡOrder</a> <span class="type">: Int</span></h3>
+<div class="meta">value &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L38">line 38</a></div>
+<div class="doc">
+<p>Order: the 64 addresses in the order the program counter visits
+them from 0. The assembler puts a page's n-th instruction at
+address n s_elect Order, so a program is written in reading order.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʰˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Hex1000-src-Hex1000.xtl.html" class="c-string">&quot;Hex1000&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-number">12</span> <a href="builtins.html#t_ake" class="c-builtin">t̲ake</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#l.Order">ʰˣOrder</a>
+0 1 3 7 15 31 63 62 61 59 55 47</pre>
+</div>
+<pre class="code">ˡOrder ← <span class="c-number">63</span> <span class="c-quote">'</span>{ v → v <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#l.n_extPc" class="c-libfunc">ˡn̲extPc</a> <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> (<a href="builtins.html#n_eg" class="c-builtin">n̲eg</a> <span class="c-number">1</span>) <a href="builtins.html#t_ake" class="c-builtin">t̲ake</a> v } <a href="builtins.html#p_ower" class="c-builtin">p̲ower</a> <span class="c-number">1</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0</span></pre>
+<div class="uses">Used in: <a href="libs-Hex1000-src-Hex1000.xtl.html#l.l_isting"><span class="c-libfunc">ˡl̲isting</span></a>, <a href="libs-Hex1000-src-Hex1000.xtl.html#h.p_lace"><span class="c-libfunc">ʰp̲lace</span></a>, <a href="libs-Hex1000-src-Hex1000.xtl.html#h.o_perand"><span class="c-libfunc">ʰo̲perand</span></a></div>
+</div>
+<h2 class="section" id="section-2">The instructions</h2>
+<div class="item" id="l.Names">
+<h3><a href="#l.Names">ˡNames</a> <span class="type">: Box Char</span></h3>
+<div class="meta">value &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L48">line 48</a></div>
+<div class="doc">
+<p>Names: the mnemonics, in the order of their kinds: the 29 fixed
+instructions (code = kind), then the bit group, LDP, TCY, TCMIY,
+YNEC, ACC, BR and CALL, which take an operand.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʰˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Hex1000-src-Hex1000.xtl.html" class="c-string">&quot;Hex1000&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#l.Names">ʰˣNames</a>
+40</pre>
+</div>
+<pre class="code">ˡNames ← <a href="work-libs-Strings-src-Strings.xtl.html#l.w_ords" class="c-libfunc">ˢw̲ords</a> <span class="c-string">&quot;NOP TAY TYA CLA TAM TMA TMY TAMIY TAMZA XMA AMAAC SAMAN IMAC DMAN IA IYC DYN CPAIZ ALEM MNEZ YNEA KNEZ TKA SETR RSTR TDO CLO COMX RETN SBIT RBIT TBIT LDX LDP TCY TCMIY YNEC ACC BR CALL&quot;</span></pre>
+<div class="uses">Used in: <a href="libs-Hex1000-src-Hex1000.xtl.html#l.d_isasm"><span class="c-libfunc">ˡd̲isasm</span></a>, <a href="libs-Hex1000-src-Hex1000.xtl.html#h.p_lace"><span class="c-libfunc">ʰp̲lace</span></a></div>
+</div>
+<div class="item" id="Base">
+<h3><a href="#Base">Base</a> <span class="type">: Int</span></h3>
+<div class="meta">value <span class="private">(private)</span> &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L52">line 52</a></div>
+<div class="doc">
+<p>Base: each kind's first code; an instruction's code is its base
+plus its operand.</p>
+</div>
+<pre class="code">Base ← (<a href="builtins.html#o_ffsets" class="c-builtin">o̲ffsets</a> <span class="c-number">29</span>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">32</span> <span class="c-number">36</span> <span class="c-number">40</span> <span class="c-number">44</span> <span class="c-number">48</span> <span class="c-number">64</span> <span class="c-number">80</span> <span class="c-number">96</span> <span class="c-number">112</span> <span class="c-number">128</span> <span class="c-number">192</span></pre>
+<div class="uses">Used in: <a href="libs-Hex1000-src-Hex1000.xtl.html#l.d_isasm"><span class="c-libfunc">ˡd̲isasm</span></a>, <a href="libs-Hex1000-src-Hex1000.xtl.html#h.p_lace"><span class="c-libfunc">ʰp̲lace</span></a></div>
+</div>
+<div class="item" id="Top">
+<h3><a href="#Top">Top</a> <span class="type">: Int</span></h3>
+<div class="meta">value <span class="private">(private)</span> &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L55">line 55</a></div>
+<div class="doc">
+<p>Top: each kind's largest operand (0: none).</p>
+</div>
+<pre class="code">Top ← (<span class="c-number">29</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0</span>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">3</span> <span class="c-number">3</span> <span class="c-number">3</span> <span class="c-number">3</span> <span class="c-number">15</span> <span class="c-number">15</span> <span class="c-number">15</span> <span class="c-number">15</span> <span class="c-number">15</span> <span class="c-number">63</span> <span class="c-number">63</span></pre>
+<div class="uses">Used in: <a href="libs-Hex1000-src-Hex1000.xtl.html#l.d_isasm"><span class="c-libfunc">ˡd̲isasm</span></a>, <a href="libs-Hex1000-src-Hex1000.xtl.html#h.p_lace"><span class="c-libfunc">ʰp̲lace</span></a></div>
+</div>
+<div class="item" id="l.k_ind">
+<h3><a href="#l.k_ind"><span class="c-libfunc">ˡk̲ind</span></a> <span class="type">: Int -&gt; Int</span></h3>
+<div class="meta">function &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L62">line 62</a></div>
+<div class="doc">
+<p>k_ind op: the kind of an instruction code, its place in Names from
+0 (the unused fixed codes 29 to 31 are NOP).</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʰˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Hex1000-src-Hex1000.xtl.html" class="c-string">&quot;Hex1000&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Hex1000-src-Hex1000.xtl.html#l.k_ind" class="c-libfunc">ʰˣk̲ind</a> <span class="c-number">0</span> <span class="c-number">1</span> <span class="c-number">28</span> <span class="c-number">31</span> <span class="c-number">32</span> <span class="c-number">47</span> <span class="c-number">48</span> <span class="c-number">127</span> <span class="c-number">128</span> <span class="c-number">255</span>
+0 1 28 0 29 32 33 37 38 39</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡk̲ind</span> ← { op →
+  fixed ← op <a href="builtins.html#-2a" class="c-symbol">×</a> op <a href="builtins.html#-3c" class="c-symbol">&lt;</a> <span class="c-number">29</span>
+  bits ← (op <a href="builtins.html#-3e-3d" class="c-symbol">≥</a> <span class="c-number">32</span>) <a href="builtins.html#-2a" class="c-symbol">×</a> (op <a href="builtins.html#-3c" class="c-symbol">&lt;</a> <span class="c-number">48</span>) <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-number">29</span> <a href="builtins.html#-2b" class="c-symbol">+</a> (op <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">32</span>) <a href="builtins.html#d_iv" class="c-builtin">d̲iv</a> <span class="c-number">4</span>
+  imm ← (op <a href="builtins.html#-3e-3d" class="c-symbol">≥</a> <span class="c-number">48</span>) <a href="builtins.html#-2a" class="c-symbol">×</a> (op <a href="builtins.html#-3c" class="c-symbol">&lt;</a> <span class="c-number">128</span>) <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-number">30</span> <a href="builtins.html#-2b" class="c-symbol">+</a> op <a href="builtins.html#d_iv" class="c-builtin">d̲iv</a> <span class="c-number">16</span>
+  jump ← (op <a href="builtins.html#-3e-3d" class="c-symbol">≥</a> <span class="c-number">128</span>) <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-number">38</span> <a href="builtins.html#-2b" class="c-symbol">+</a> op <a href="builtins.html#-3e-3d" class="c-symbol">≥</a> <span class="c-number">192</span>
+  fixed <a href="builtins.html#-2b" class="c-symbol">+</a> bits <a href="builtins.html#-2b" class="c-symbol">+</a> imm <a href="builtins.html#-2b" class="c-symbol">+</a> jump
+}</pre>
+<div class="uses">Used in: <a href="libs-Hex1000-src-Hex1000.xtl.html#l.d_isasm"><span class="c-libfunc">ˡd̲isasm</span></a>, <a href="libs-Hex1000-src-Hex1000.xtl.html#l.s_tep"><span class="c-libfunc">ˡs̲tep</span></a></div>
+</div>
+<div class="item" id="l.d_isasm">
+<h3><a href="#l.d_isasm"><span class="c-libfunc">ˡd̲isasm</span></a> <span class="type">: Int -&gt; Char</span></h3>
+<div class="meta">function &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L75">line 75</a></div>
+<div class="doc">
+<p>d_isasm op: an instruction code as text (BR and CALL show the
+address they go to, as PC holds it).</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʰˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Hex1000-src-Hex1000.xtl.html" class="c-string">&quot;Hex1000&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Hex1000-src-Hex1000.xtl.html#l.d_isasm" class="c-libfunc">ʰˣd̲isasm</a> <span class="c-number">113</span>
+ACC 1</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡd̲isasm</span> ← { op →
+  i ← <a href="libs-Hex1000-src-Hex1000.xtl.html#l.k_ind" class="c-libfunc">ˡk̲ind</a> op
+  name ← <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> (<span class="c-number">1</span> <a href="builtins.html#-2b" class="c-symbol">+</a> i) <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#l.Names">ˡNames</a>
+  <span class="c-number">0</span> <a href="builtins.html#-3d" class="c-symbol">=</a> (<span class="c-number">1</span> <a href="builtins.html#-2b" class="c-symbol">+</a> i) <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#Top">Top</a> ? name
+  name <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot; &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#f_ormat" class="c-builtin">f̲ormat</a> op <a href="builtins.html#-2d" class="c-symbol">−</a> (<span class="c-number">1</span> <a href="builtins.html#-2b" class="c-symbol">+</a> i) <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#Base">Base</a>
+}</pre>
+<div class="uses">Used in: <a href="libs-Hex1000-src-Hex1000.xtl.html#l.l_isting"><span class="c-libfunc">ˡl̲isting</span></a></div>
+</div>
+<h2 class="section" id="section-3">The state</h2>
+<div class="item" id="l.Reset">
+<h3><a href="#l.Reset">ˡReset</a> <span class="type">: (Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int)</span></h3>
+<div class="meta">value &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L89">line 89</a></div>
+<div class="doc">
+<p>Reset: the state after reset, the tuple (A, Y, X, S, PC, PA, PB, SR,
+CL, O, R, RAM): everything 0 but S, which is 1.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʰˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Hex1000-src-Hex1000.xtl.html" class="c-string">&quot;Hex1000&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Hex1000-src-Hex1000.xtl.html#l.r_egs" class="c-libfunc">ʰˣr̲egs</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#l.Reset">ʰˣReset</a>
+0 0 0 1 0 0 0 0 0 0</pre>
+</div>
+<pre class="code">ˡReset ← (<span class="c-number">0</span>, <span class="c-number">0</span>, <span class="c-number">0</span>, <span class="c-number">1</span>, <span class="c-number">0</span>, <span class="c-number">0</span>, <span class="c-number">0</span>, <span class="c-number">0</span>, <span class="c-number">0</span>, <span class="c-number">0</span>, <span class="c-number">16</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0</span>, <span class="c-number">64</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0</span>)</pre>
+<div class="uses">Used in: <a href="libs-Hex1000-src-Hex1000.xtl.html#l.c_alc"><span class="c-libfunc">ˡc̲alc</span></a>, <a href="libs-Hex1000-src-Hex1000.xtl.html#l.c_ost"><span class="c-libfunc">ˡc̲ost</span></a>, <a href="libs-Hex1000-src-Hex1000.xtl.html#l.s_erial"><span class="c-libfunc">ˡs̲erial</span></a>, <a href="libs-Hex1000-src-Hex1000.xtl.html#l.w_ires"><span class="c-libfunc">ˡw̲ires</span></a>, <a href="libs-Hex1000-demos-circuit.xtl.html#-2556"><span class="c-error">%</span><span class="c-number">56</span></a>, <a href="libs-Hex1000-demos-circuit.xtl.html#-2557"><span class="c-error">%</span><span class="c-number">57</span></a>, <a href="libs-Hex1000-demos-circuit.xtl.src.html#L14">libs/Hex1000/demos/circuit.xtl:14</a>, <a href="libs-Hex1000-demos-counter.xtl.src.html#L13">libs/Hex1000/demos/counter.xtl:13</a>, <a href="libs-Hex1000-demos-keys.xtl.html#after">after</a>, <a href="libs-Hex1000-demos-terminal.xtl.html#-2559"><span class="c-error">%</span><span class="c-number">59</span></a>, <a href="libs-Panel-demos-font.xtl.html#u.s_hown"><span class="c-userfunc">ᵘs̲hown</span></a></div>
+</div>
+<div class="item" id="l.r_egs">
+<h3><a href="#l.r_egs"><span class="c-libfunc">ˡr̲egs</span></a> <span class="type">: (Any b, Any c) =&gt; (a, a, a, a, a, a, a, a, a, a, b, c) -&gt; a</span></h3>
+<div class="meta">function &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L96">line 96</a></div>
+<div class="doc">
+<p>r_egs st: the registers as numbers, A Y X S PC PA PB SR CL O (the
+view a trace shows).</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʰˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Hex1000-src-Hex1000.xtl.html" class="c-string">&quot;Hex1000&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Hex1000-src-Hex1000.xtl.html#l.r_egs" class="c-libfunc">ʰˣr̲egs</a> (<span class="c-number">1</span>, <span class="c-number">2</span>, <span class="c-number">3</span>, <span class="c-number">0</span>, <span class="c-number">4</span>, <span class="c-number">5</span>, <span class="c-number">6</span>, <span class="c-number">7</span>, <span class="c-number">1</span>, <span class="c-number">8</span>, <span class="c-number">16</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0</span>, <span class="c-number">64</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0</span>)
+1 2 3 0 4 5 6 7 1 8</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡr̲egs</span> ← { (a, y, x, s, pc, pa, pb, sr, cl, o, r, ram) →
+  a <a href="builtins.html#c_at" class="c-builtin">c̲at</a> y <a href="builtins.html#c_at" class="c-builtin">c̲at</a> x <a href="builtins.html#c_at" class="c-builtin">c̲at</a> s <a href="builtins.html#c_at" class="c-builtin">c̲at</a> pc <a href="builtins.html#c_at" class="c-builtin">c̲at</a> pa <a href="builtins.html#c_at" class="c-builtin">c̲at</a> pb <a href="builtins.html#c_at" class="c-builtin">c̲at</a> sr <a href="builtins.html#c_at" class="c-builtin">c̲at</a> cl <a href="builtins.html#c_at" class="c-builtin">c̲at</a> o
+}</pre>
+<div class="uses">Used in: <a href="libs-Hex1000-src-Hex1000.xtl.html#l.t_race"><span class="c-libfunc">ˡt̲race</span></a>, <a href="libs-Hex1000-src-Hex1000.xtl.html#h.n_ext"><span class="c-libfunc">ʰn̲ext</span></a>, <a href="libs-Hex1000-src-Hex1000.xtl.html#h.r_ec"><span class="c-libfunc">ʰr̲ec</span></a>, <a href="libs-Hex1000-src-Hex1000.xtl.html#h.t_ick"><span class="c-libfunc">ʰt̲ick</span></a>, <a href="libs-Hex1000-src-Hex1000.xtl.html#l.b_oard"><span class="c-libfunc">ˡb̲oard</span></a>, <a href="libs-Hex1000-demos-keys.xtl.src.html#L16">libs/Hex1000/demos/keys.xtl:16</a></div>
+</div>
+<div class="item" id="l.r_am">
+<h3><a href="#l.r_am"><span class="c-libfunc">ˡr̲am</span></a> <span class="type">: (Any a, Any b, Any c, Any d, Any e, Any f, Any g, Any h, Any i, Any j, Any k) =&gt; (a, b, c, d, e, f, g, h, i, j, k, l) -&gt; l</span></h3>
+<div class="meta">function &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L104">line 104</a></div>
+<div class="doc">
+<p>r_am st: the RAM as four files of 16 words, a row per file.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʰˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Hex1000-src-Hex1000.xtl.html" class="c-string">&quot;Hex1000&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="builtins.html#s_hape" class="c-builtin">s̲hape</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#l.r_am" class="c-libfunc">ʰˣr̲am</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#l.Reset">ʰˣReset</a>
+4 16</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡr̲am</span> ← { (a, y, x, s, pc, pa, pb, sr, cl, o, r, ram) → <span class="c-number">4</span> <span class="c-number">16</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> ram }</pre>
+<div class="uses">Used in: <a href="libs-Hex1000-demos-keys.xtl.src.html#L17">libs/Hex1000/demos/keys.xtl:17</a></div>
+</div>
+<div class="item" id="l.l_atches">
+<h3><a href="#l.l_atches"><span class="c-libfunc">ˡl̲atches</span></a> <span class="type">: (Any a, Any b, Any c, Any d, Any e, Any f, Any g, Any h, Any i, Any j, Any k, Any l) =&gt; (a, b, c, d, e, f, g, h, i, j, k, l) -&gt; k</span></h3>
+<div class="meta">function &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L110">line 110</a></div>
+<div class="doc">
+<p>l_atches st: the 16 output latches R, R0 first.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʰˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Hex1000-src-Hex1000.xtl.html" class="c-string">&quot;Hex1000&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Hex1000-src-Hex1000.xtl.html#l.l_atches" class="c-libfunc">ʰˣl̲atches</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#l.Reset">ʰˣReset</a>
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡl̲atches</span> ← { (a, y, x, s, pc, pa, pb, sr, cl, o, r, ram) → r }</pre>
+<div class="uses">Used in: <a href="libs-Hex1000-src-Hex1000.xtl.html#l.t_ypeOn"><span class="c-libfunc">ˡt̲ypeOn</span></a>, <a href="libs-Hex1000-src-Hex1000.xtl.html#l.r_ecord"><span class="c-libfunc">ˡr̲ecord</span></a>, <a href="libs-Hex1000-src-Hex1000.xtl.html#h.t_ick"><span class="c-libfunc">ʰt̲ick</span></a>, <a href="libs-Hex1000-src-Hex1000.xtl.html#l.b_oard"><span class="c-libfunc">ˡb̲oard</span></a>, <a href="libs-Panel-src-Panel.xtl.html#l.r_eady"><span class="c-libfunc">ˡr̲eady</span></a>, <a href="libs-Hex1000-demos-circuit.xtl.src.html#L14">libs/Hex1000/demos/circuit.xtl:14</a></div>
+</div>
+<h2 class="section" id="section-4">One instruction</h2>
+<div class="item" id="l.s_tep">
+<h3><a href="#l.s_tep"><span class="c-libfunc">ˡs̲tep</span></a> <span class="type">: (Num a, Truthy a) =&gt; Int -&gt; (Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, a, Int) -&gt; Int -&gt; (Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, a, Int)</span></h3>
+<div class="meta">function &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L124">line 124</a></div>
+<div class="doc">
+<p>rom s_tep st k: the state after one instruction, with k (0 to 15)
+on the K inputs: the instruction at 64 PA + PC is fetched and
+executed (two clocks in the circuit). S goes back to 1 after every
+instruction that does not set it; BR and CALL go when S is 1 and
+otherwise only set S to 1. A word of RAM is 16 X + Y. Bind the ROM
+once: u:s_tep := rom hx:s_tep, then st u:s_tep k.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʰˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Hex1000-src-Hex1000.xtl.html" class="c-string">&quot;Hex1000&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span>rom ← <a href="libs-Hex1000-src-Hex1000.xtl.html#l.a_ssemble" class="c-libfunc">ʰˣa̲ssemble</a> <span class="c-string">&quot;TCY 9\nTYA\nIA&quot;</span></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Hex1000-src-Hex1000.xtl.html#l.r_egs" class="c-libfunc">ʰˣr̲egs</a> (rom <a href="libs-Hex1000-src-Hex1000.xtl.html#l.s_tep" class="c-libfunc">ʰˣs̲tep</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#l.Reset">ʰˣReset</a>)_ <span class="c-number">0</span>
+0 9 0 1 1 0 0 0 0 0</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡs̲tep</span> ← { rom (a, y, x, s, pc, pa, pb, sr, cl, o, r, ram) k →
+  op ← (<span class="c-number">1</span> <a href="builtins.html#-2b" class="c-symbol">+</a> pc <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">64</span> <a href="builtins.html#-2a" class="c-symbol">×</a> pa) <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> rom
+  i ← <a href="libs-Hex1000-src-Hex1000.xtl.html#l.k_ind" class="c-libfunc">ˡk̲ind</a> op
+  n ← op <a href="builtins.html#m_od" class="c-builtin">m̲od</a> <span class="c-number">16</span>
+  at ← y <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">16</span> <a href="builtins.html#-2a" class="c-symbol">×</a> x
+  m ← (<span class="c-number">1</span> <a href="builtins.html#-2b" class="c-symbol">+</a> at) <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> ram
+  bit ← <span class="c-number">2</span> <a href="builtins.html#-5e" class="c-symbol">^</a> op <a href="builtins.html#m_od" class="c-builtin">m̲od</a> <span class="c-number">4</span>
+  set ← <span class="c-number">1</span> <a href="builtins.html#-3d" class="c-symbol">=</a> (m <a href="builtins.html#d_iv" class="c-builtin">d̲iv</a> bit) <a href="builtins.html#m_od" class="c-builtin">m̲od</a> <span class="c-number">2</span>
+  go ← op <a href="builtins.html#m_od" class="c-builtin">m̲od</a> <span class="c-number">64</span>
+  p1 ← <a href="libs-Hex1000-src-Hex1000.xtl.html#l.n_extPc" class="c-libfunc">ˡn̲extPc</a> pc
+  y1 ← (y <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">1</span>) <a href="builtins.html#m_od" class="c-builtin">m̲od</a> <span class="c-number">16</span>
+  <span class="c-builtin">w̲r</span> ← { v → ram <a href="builtins.html#-2b" class="c-symbol">+</a> (v <a href="builtins.html#-2d" class="c-symbol">−</a> m) <a href="builtins.html#-2a" class="c-symbol">×</a> at <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#o_ffsets" class="c-builtin">o̲ffsets</a> <span class="c-number">64</span> }
+  i <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">1</span> ? (a, a, x, <span class="c-number">1</span>, p1, pa, pb, sr, cl, o, r, ram)                          <span class="c-comment">⍝</span><span class="c-comment"> TAY</span>
+  i <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">2</span> ? (y, y, x, <span class="c-number">1</span>, p1, pa, pb, sr, cl, o, r, ram)                          <span class="c-comment">⍝</span><span class="c-comment"> TYA</span>
+  i <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">3</span> ? (<span class="c-number">0</span>, y, x, <span class="c-number">1</span>, p1, pa, pb, sr, cl, o, r, ram)                          <span class="c-comment">⍝</span><span class="c-comment"> CLA</span>
+  i <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">4</span> ? (a, y, x, <span class="c-number">1</span>, p1, pa, pb, sr, cl, o, r, <span class="c-builtin">w̲r</span> a)                         <span class="c-comment">⍝</span><span class="c-comment"> TAM</span>
+  i <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">5</span> ? (m, y, x, <span class="c-number">1</span>, p1, pa, pb, sr, cl, o, r, ram)                          <span class="c-comment">⍝</span><span class="c-comment"> TMA</span>
+  i <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">6</span> ? (a, m, x, <span class="c-number">1</span>, p1, pa, pb, sr, cl, o, r, ram)                          <span class="c-comment">⍝</span><span class="c-comment"> TMY</span>
+  i <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">7</span> ? (a, y1, x, <span class="c-number">1</span>, p1, pa, pb, sr, cl, o, r, <span class="c-builtin">w̲r</span> a)                        <span class="c-comment">⍝</span><span class="c-comment"> TAMIY</span>
+  i <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">8</span> ? (<span class="c-number">0</span>, y, x, <span class="c-number">1</span>, p1, pa, pb, sr, cl, o, r, <span class="c-builtin">w̲r</span> a)                         <span class="c-comment">⍝</span><span class="c-comment"> TAMZA</span>
+  i <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">9</span> ? (m, y, x, <span class="c-number">1</span>, p1, pa, pb, sr, cl, o, r, <span class="c-builtin">w̲r</span> a)                         <span class="c-comment">⍝</span><span class="c-comment"> XMA</span>
+  i <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">10</span> ? ((a <a href="builtins.html#-2b" class="c-symbol">+</a> m) <a href="builtins.html#m_od" class="c-builtin">m̲od</a> <span class="c-number">16</span>, y, x, <span class="c-number">0</span> <a href="builtins.html#-2b" class="c-symbol">+</a> (a <a href="builtins.html#-2b" class="c-symbol">+</a> m) <a href="builtins.html#-3e" class="c-symbol">&gt;</a> <span class="c-number">15</span>, p1, pa, pb, sr, cl, o, r, ram)    <span class="c-comment">⍝</span><span class="c-comment"> AMAAC</span>
+  i <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">11</span> ? ((m <a href="builtins.html#-2d" class="c-symbol">−</a> a) <a href="builtins.html#m_od" class="c-builtin">m̲od</a> <span class="c-number">16</span>, y, x, <span class="c-number">0</span> <a href="builtins.html#-2b" class="c-symbol">+</a> m <a href="builtins.html#-3e-3d" class="c-symbol">≥</a> a, p1, pa, pb, sr, cl, o, r, ram)         <span class="c-comment">⍝</span><span class="c-comment"> SAMAN</span>
+  i <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">12</span> ? ((m <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">1</span>) <a href="builtins.html#m_od" class="c-builtin">m̲od</a> <span class="c-number">16</span>, y, x, <span class="c-number">0</span> <a href="builtins.html#-2b" class="c-symbol">+</a> m <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">15</span>, p1, pa, pb, sr, cl, o, r, ram)        <span class="c-comment">⍝</span><span class="c-comment"> IMAC</span>
+  i <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">13</span> ? ((m <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span>) <a href="builtins.html#m_od" class="c-builtin">m̲od</a> <span class="c-number">16</span>, y, x, <span class="c-number">0</span> <a href="builtins.html#-2b" class="c-symbol">+</a> m <a href="builtins.html#-3e" class="c-symbol">&gt;</a> <span class="c-number">0</span>, p1, pa, pb, sr, cl, o, r, ram)         <span class="c-comment">⍝</span><span class="c-comment"> DMAN</span>
+  i <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">14</span> ? ((a <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">1</span>) <a href="builtins.html#m_od" class="c-builtin">m̲od</a> <span class="c-number">16</span>, y, x, <span class="c-number">1</span>, p1, pa, pb, sr, cl, o, r, ram)                 <span class="c-comment">⍝</span><span class="c-comment"> IA</span>
+  i <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">15</span> ? (a, y1, x, <span class="c-number">0</span> <a href="builtins.html#-2b" class="c-symbol">+</a> y <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">15</span>, p1, pa, pb, sr, cl, o, r, ram)                    <span class="c-comment">⍝</span><span class="c-comment"> IYC</span>
+  i <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">16</span> ? (a, (y <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span>) <a href="builtins.html#m_od" class="c-builtin">m̲od</a> <span class="c-number">16</span>, x, <span class="c-number">0</span> <a href="builtins.html#-2b" class="c-symbol">+</a> y <a href="builtins.html#-3e" class="c-symbol">&gt;</a> <span class="c-number">0</span>, p1, pa, pb, sr, cl, o, r, ram)         <span class="c-comment">⍝</span><span class="c-comment"> DYN</span>
+  i <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">17</span> ? ((<span class="c-number">16</span> <a href="builtins.html#-2d" class="c-symbol">−</a> a) <a href="builtins.html#m_od" class="c-builtin">m̲od</a> <span class="c-number">16</span>, y, x, <span class="c-number">0</span> <a href="builtins.html#-2b" class="c-symbol">+</a> a <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">0</span>, p1, pa, pb, sr, cl, o, r, ram)        <span class="c-comment">⍝</span><span class="c-comment"> CPAIZ</span>
+  i <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">18</span> ? (a, y, x, <span class="c-number">0</span> <a href="builtins.html#-2b" class="c-symbol">+</a> a <a href="builtins.html#-3c-3d" class="c-symbol">≤</a> m, p1, pa, pb, sr, cl, o, r, ram)                 <span class="c-comment">⍝</span><span class="c-comment"> ALEM</span>
+  i <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">19</span> ? (a, y, x, <span class="c-number">0</span> <a href="builtins.html#-2b" class="c-symbol">+</a> m <a href="builtins.html#-21-3d" class="c-symbol">≠</a> <span class="c-number">0</span>, p1, pa, pb, sr, cl, o, r, ram)                 <span class="c-comment">⍝</span><span class="c-comment"> MNEZ</span>
+  i <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">20</span> ? (a, y, x, <span class="c-number">0</span> <a href="builtins.html#-2b" class="c-symbol">+</a> y <a href="builtins.html#-21-3d" class="c-symbol">≠</a> a, p1, pa, pb, sr, cl, o, r, ram)                 <span class="c-comment">⍝</span><span class="c-comment"> YNEA</span>
+  i <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">21</span> ? (a, y, x, <span class="c-number">0</span> <a href="builtins.html#-2b" class="c-symbol">+</a> k <a href="builtins.html#-21-3d" class="c-symbol">≠</a> <span class="c-number">0</span>, p1, pa, pb, sr, cl, o, r, ram)                 <span class="c-comment">⍝</span><span class="c-comment"> KNEZ</span>
+  i <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">22</span> ? (k, y, x, <span class="c-number">1</span>, p1, pa, pb, sr, cl, o, r, ram)                         <span class="c-comment">⍝</span><span class="c-comment"> TKA</span>
+  i <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">23</span> ? (a, y, x, <span class="c-number">1</span>, p1, pa, pb, sr, cl, o, r <a href="builtins.html#m_ax" class="c-builtin">m̲ax</a> <span class="c-number">0</span> <a href="builtins.html#-2b" class="c-symbol">+</a> y <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#o_ffsets" class="c-builtin">o̲ffsets</a> <span class="c-number">16</span>, ram)      <span class="c-comment">⍝</span><span class="c-comment"> SETR</span>
+  i <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">24</span> ? (a, y, x, <span class="c-number">1</span>, p1, pa, pb, sr, cl, o, r <a href="builtins.html#-2a" class="c-symbol">×</a> y <a href="builtins.html#-21-3d" class="c-symbol">≠</a> <a href="builtins.html#o_ffsets" class="c-builtin">o̲ffsets</a> <span class="c-number">16</span>, ram)        <span class="c-comment">⍝</span><span class="c-comment"> RSTR</span>
+  i <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">25</span> ? (a, y, x, <span class="c-number">1</span>, p1, pa, pb, sr, cl, a <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">16</span> <a href="builtins.html#-2a" class="c-symbol">×</a> s, r, ram)                <span class="c-comment">⍝</span><span class="c-comment"> TDO</span>
+  i <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">26</span> ? (a, y, x, <span class="c-number">1</span>, p1, pa, pb, sr, cl, <span class="c-number">0</span>, r, ram)                         <span class="c-comment">⍝</span><span class="c-comment"> CLO</span>
+  i <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">27</span> ? (a, y, <span class="c-number">3</span> <a href="builtins.html#-2d" class="c-symbol">−</a> x, <span class="c-number">1</span>, p1, pa, pb, sr, cl, o, r, ram)                     <span class="c-comment">⍝</span><span class="c-comment"> COMX</span>
+  (i <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">28</span>) <a href="builtins.html#-26" class="c-symbol">∧</a> cl <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">1</span> ? (a, y, x, <span class="c-number">1</span>, sr, pb, pb, sr, <span class="c-number">0</span>, o, r, ram)               <span class="c-comment">⍝</span><span class="c-comment"> RETN</span>
+  i <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">29</span> ? (a, y, x, <span class="c-number">1</span>, p1, pa, pb, sr, cl, o, r, <span class="c-builtin">w̲r</span> m <a href="builtins.html#-2b" class="c-symbol">+</a> bit <a href="builtins.html#-2a" class="c-symbol">×</a> <a href="builtins.html#n_ot" class="c-builtin">n̲ot</a> set)       <span class="c-comment">⍝</span><span class="c-comment"> SBIT</span>
+  i <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">30</span> ? (a, y, x, <span class="c-number">1</span>, p1, pa, pb, sr, cl, o, r, <span class="c-builtin">w̲r</span> m <a href="builtins.html#-2d" class="c-symbol">−</a> bit <a href="builtins.html#-2a" class="c-symbol">×</a> set)            <span class="c-comment">⍝</span><span class="c-comment"> RBIT</span>
+  i <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">31</span> ? (a, y, x, <span class="c-number">0</span> <a href="builtins.html#-2b" class="c-symbol">+</a> set, p1, pa, pb, sr, cl, o, r, ram)                   <span class="c-comment">⍝</span><span class="c-comment"> TBIT</span>
+  i <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">32</span> ? (a, y, op <a href="builtins.html#m_od" class="c-builtin">m̲od</a> <span class="c-number">4</span>, <span class="c-number">1</span>, p1, pa, pb, sr, cl, o, r, ram)                  <span class="c-comment">⍝</span><span class="c-comment"> LDX</span>
+  i <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">33</span> ? (a, y, x, <span class="c-number">1</span>, p1, pa, n, sr, cl, o, r, ram)                          <span class="c-comment">⍝</span><span class="c-comment"> LDP</span>
+  i <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">34</span> ? (a, n, x, <span class="c-number">1</span>, p1, pa, pb, sr, cl, o, r, ram)                         <span class="c-comment">⍝</span><span class="c-comment"> TCY</span>
+  i <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">35</span> ? (a, y1, x, <span class="c-number">1</span>, p1, pa, pb, sr, cl, o, r, <span class="c-builtin">w̲r</span> n)                       <span class="c-comment">⍝</span><span class="c-comment"> TCMIY</span>
+  i <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">36</span> ? (a, y, x, <span class="c-number">0</span> <a href="builtins.html#-2b" class="c-symbol">+</a> y <a href="builtins.html#-21-3d" class="c-symbol">≠</a> n, p1, pa, pb, sr, cl, o, r, ram)                 <span class="c-comment">⍝</span><span class="c-comment"> YNEC</span>
+  i <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">37</span> ? ((a <a href="builtins.html#-2b" class="c-symbol">+</a> n) <a href="builtins.html#m_od" class="c-builtin">m̲od</a> <span class="c-number">16</span>, y, x, <span class="c-number">0</span> <a href="builtins.html#-2b" class="c-symbol">+</a> (a <a href="builtins.html#-2b" class="c-symbol">+</a> n) <a href="builtins.html#-3e" class="c-symbol">&gt;</a> <span class="c-number">15</span>, p1, pa, pb, sr, cl, o, r, ram)    <span class="c-comment">⍝</span><span class="c-comment"> ACC</span>
+  (i <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">38</span>) <a href="builtins.html#-26" class="c-symbol">∧</a> s <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">1</span> ? (a, y, x, <span class="c-number">1</span>, go, pa <a href="builtins.html#-2b" class="c-symbol">+</a> (<span class="c-number">1</span> <a href="builtins.html#-2d" class="c-symbol">−</a> cl) <a href="builtins.html#-2a" class="c-symbol">×</a> pb <a href="builtins.html#-2d" class="c-symbol">−</a> pa, pb, sr, cl, o, r, ram)   <span class="c-comment">⍝</span><span class="c-comment"> BR</span>
+  (i <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">39</span>) <a href="builtins.html#-26" class="c-symbol">∧</a> (s <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">1</span>) <a href="builtins.html#-26" class="c-symbol">∧</a> cl <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">0</span> ? (a, y, x, <span class="c-number">1</span>, go, pb, pa, p1, <span class="c-number">1</span>, o, r, ram)     <span class="c-comment">⍝</span><span class="c-comment"> CALL</span>
+  (i <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">39</span>) <a href="builtins.html#-26" class="c-symbol">∧</a> s <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">1</span> ? (a, y, x, <span class="c-number">1</span>, go, pa, pb, sr, cl, o, r, ram)               <span class="c-comment">⍝</span><span class="c-comment"> CALL in a subroutine: a branch in the page</span>
+  (a, y, x, <span class="c-number">1</span>, p1, pa, pb, sr, cl, o, r, ram)                                  <span class="c-comment">⍝</span><span class="c-comment"> NOP, and BR or CALL with S 0</span>
+}</pre>
+<div class="uses">Used in: <a href="libs-Hex1000-src-Hex1000.xtl.html#l.r_un"><span class="c-libfunc">ˡr̲un</span></a>, <a href="libs-Hex1000-src-Hex1000.xtl.html#h.n_ext"><span class="c-libfunc">ʰn̲ext</span></a>, <a href="libs-Hex1000-src-Hex1000.xtl.html#h.t_ick"><span class="c-libfunc">ʰt̲ick</span></a>, <a href="libs-Hex1000-src-Hex1000.xtl.html#l.b_oard"><span class="c-libfunc">ˡb̲oard</span></a></div>
+</div>
+<h2 class="section" id="section-5">Running a program</h2>
+<div class="item" id="l.r_un">
+<h3><a href="#l.r_un"><span class="c-libfunc">ˡr̲un</span></a> <span class="type">: (Num a, Truthy a) =&gt; Int -&gt; ((Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, a, Int), Int, Int) -&gt; (Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, a, Int)</span></h3>
+<div class="meta">function &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L187">line 187</a></div>
+<div class="doc">
+<p>rom r_un (st, k, n): the state after n instructions with k held on
+the K inputs.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʰˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Hex1000-src-Hex1000.xtl.html" class="c-string">&quot;Hex1000&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span>rom ← <a href="libs-Hex1000-src-Hex1000.xtl.html#l.a_ssemble" class="c-libfunc">ʰˣa̲ssemble</a> <span class="c-string">&quot;loop: IA\nBR loop&quot;</span></pre>
+<pre class="example"><span class="prompt">      </span><a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#l.r_egs" class="c-libfunc">ʰˣr̲egs</a> rom <a href="libs-Hex1000-src-Hex1000.xtl.html#l.r_un" class="c-libfunc">ʰˣr̲un</a> (<a href="libs-Hex1000-src-Hex1000.xtl.html#l.Reset">ʰˣReset</a>, <span class="c-number">0</span>, <span class="c-number">9</span>)
+5</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡr̲un</span> ← { rom (st, k, n) → n <span class="c-quote">'</span>{ t → (rom <a href="libs-Hex1000-src-Hex1000.xtl.html#l.s_tep" class="c-libfunc">ˡs̲tep</a> t)_ k } <a href="builtins.html#p_ower" class="c-builtin">p̲ower</a> st }</pre>
+<div class="uses">Used in: <a href="libs-Hex1000-src-Hex1000.xtl.html#h.p_ress"><span class="c-libfunc">ʰp̲ress</span></a></div>
+</div>
+<div class="item" id="l.r_unKeys">
+<h3><a href="#l.r_unKeys"><span class="c-libfunc">ˡr̲unKeys</span></a> <span class="type">: (Num a, Truthy a) =&gt; Int -&gt; ((Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, a, Int), Int) -&gt; (Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, a, Int)</span></h3>
+<div class="meta">function &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L196">line 196</a></div>
+<div class="doc">
+<p>rom r_unKeys (st, ks): the state after a run of key presses: ks is a
+matrix with a row per press, the K value and how many instructions
+it is held (K 0 for no key).</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʰˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Hex1000-src-Hex1000.xtl.html" class="c-string">&quot;Hex1000&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span>rom ← <a href="libs-Hex1000-src-Hex1000.xtl.html#l.a_ssemble" class="c-libfunc">ʰˣa̲ssemble</a> <span class="c-string">&quot;loop: TKA\nTAMIY\nBR loop&quot;</span></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-number">8</span> <a href="builtins.html#t_ake" class="c-builtin">t̲ake</a> <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#l.r_am" class="c-libfunc">ʰˣr̲am</a> rom <a href="libs-Hex1000-src-Hex1000.xtl.html#l.r_unKeys" class="c-libfunc">ʰˣr̲unKeys</a> (<a href="libs-Hex1000-src-Hex1000.xtl.html#l.Reset">ʰˣReset</a>, <span class="c-number">2</span> <span class="c-number">2</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">7</span> <span class="c-number">3</span> <span class="c-number">5</span> <span class="c-number">3</span>)
+7 5 0 0 0 0 0 0</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡr̲unKeys</span> ← { rom (st, ks) →
+  (i, last) ← (<a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> ks) <span class="c-quote">'</span>{ (j, t) → (j <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">1</span>, rom <a href="libs-Hex1000-src-Hex1000.xtl.html#h.p_ress" class="c-libfunc">ʰp̲ress</a> (t, j <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> ks)) } <a href="builtins.html#p_ower" class="c-builtin">p̲ower</a> (<span class="c-number">1</span>, st)
+  last
+}</pre>
+<div class="uses">Used in: <a href="libs-Hex1000-demos-keys.xtl.html#after">after</a></div>
+</div>
+<div class="item" id="h.p_ress">
+<h3><a href="#h.p_ress"><span class="c-libfunc">ʰp̲ress</span></a> <span class="type">: (Num a, Truthy a) =&gt; Int -&gt; ((Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, a, Int), Int) -&gt; (Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, a, Int)</span></h3>
+<div class="meta">function <span class="private">(private)</span> &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L202">line 202</a></div>
+<div class="doc">
+<p>One press: a row of ks, the K value and how many instructions.</p>
+</div>
+<pre class="code"><span class="c-libfunc">ʰp̲ress</span> ← { rom (t, row) → rom <a href="libs-Hex1000-src-Hex1000.xtl.html#l.r_un" class="c-libfunc">ˡr̲un</a> (t, <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> row, <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> <span class="c-number">1</span> <a href="builtins.html#d_rop" class="c-builtin">d̲rop</a> row) }</pre>
+<div class="uses">Used in: <a href="libs-Hex1000-src-Hex1000.xtl.html#l.r_unKeys"><span class="c-libfunc">ˡr̲unKeys</span></a></div>
+</div>
+<div class="item" id="l.t_race">
+<h3><a href="#l.t_race"><span class="c-libfunc">ˡt̲race</span></a> <span class="type">: (Num a, Truthy a) =&gt; Int -&gt; ((Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, a, Int), Int, Int) -&gt; Int</span></h3>
+<div class="meta">function &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L213">line 213</a></div>
+<div class="doc">
+<p>rom t_race (st, k, n): the registers (r_egs) after reset and after
+each of n instructions, a row each, with k on the K inputs.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʰˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Hex1000-src-Hex1000.xtl.html" class="c-string">&quot;Hex1000&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span>rom ← <a href="libs-Hex1000-src-Hex1000.xtl.html#l.a_ssemble" class="c-libfunc">ʰˣa̲ssemble</a> <span class="c-string">&quot;TCY 3\nDYN\nBR 1&quot;</span></pre>
+<pre class="example"><span class="prompt">      </span>rom <a href="libs-Hex1000-src-Hex1000.xtl.html#l.t_race" class="c-libfunc">ʰˣt̲race</a> (<a href="libs-Hex1000-src-Hex1000.xtl.html#l.Reset">ʰˣReset</a>, <span class="c-number">0</span>, <span class="c-number">3</span>)
+0 0 0 1 0 0 0 0 0 0
+0 3 0 1 1 0 0 0 0 0
+0 2 0 1 3 0 0 0 0 0
+0 2 0 1 1 0 0 0 0 0</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡt̲race</span> ← { rom (st, k, n) →
+  (last, rows) ← n <span class="c-quote">'</span>{ (t, m) → <a href="libs-Hex1000-src-Hex1000.xtl.html#h.n_ext" class="c-libfunc">ʰn̲ext</a> (rom, t, m, k) } <a href="builtins.html#p_ower" class="c-builtin">p̲ower</a> (st, <span class="c-number">1</span> <span class="c-number">10</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#l.r_egs" class="c-libfunc">ˡr̲egs</a> st)
+  rows
+}</pre>
+<div class="uses">Used in: <a href="libs-Hex1000-demos-counter.xtl.src.html#L13">libs/Hex1000/demos/counter.xtl:13</a></div>
+</div>
+<div class="item" id="h.n_ext">
+<h3><a href="#h.n_ext"><span class="c-libfunc">ʰn̲ext</span></a> <span class="type">: (Num a, Truthy a) =&gt; (Int, (Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, a, Int), Int, Int) -&gt; ((Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, a, Int), Int)</span></h3>
+<div class="meta">function <span class="private">(private)</span> &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L219">line 219</a></div>
+<div class="doc">
+<p>One more instruction, its registers added as a row.</p>
+</div>
+<pre class="code"><span class="c-libfunc">ʰn̲ext</span> ← { (rom, t, m, k) →
+  t1 ← (rom <a href="libs-Hex1000-src-Hex1000.xtl.html#l.s_tep" class="c-libfunc">ˡs̲tep</a> t)_ k
+  (t1, m <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#l.r_egs" class="c-libfunc">ˡr̲egs</a> t1)
+}</pre>
+<div class="uses">Used in: <a href="libs-Hex1000-src-Hex1000.xtl.html#l.t_race"><span class="c-libfunc">ˡt̲race</span></a></div>
+</div>
+<h2 class="section" id="section-6">Showing it</h2>
+<div class="item" id="l.RegNames">
+<h3><a href="#l.RegNames">ˡRegNames</a> <span class="type">: Char</span></h3>
+<div class="meta">value &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L230">line 230</a></div>
+<div class="doc">
+<p>RegNames: the names of r_egs's columns, for t_able.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʰˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Hex1000-src-Hex1000.xtl.html" class="c-string">&quot;Hex1000&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Hex1000-src-Hex1000.xtl.html#l.RegNames">ʰˣRegNames</a>
+A Y X S PC PA PB SR CL O</pre>
+</div>
+<pre class="code">ˡRegNames ← <span class="c-string">&quot;A Y X S PC PA PB SR CL O&quot;</span></pre>
+<div class="uses">Used in: <a href="libs-Hex1000-demos-counter.xtl.src.html#L13">libs/Hex1000/demos/counter.xtl:13</a>, <a href="libs-Hex1000-demos-keys.xtl.src.html#L16">libs/Hex1000/demos/keys.xtl:16</a></div>
+</div>
+<div class="item" id="l.t_able">
+<h3><a href="#l.t_able"><span class="c-libfunc">ˡt̲able</span></a> <span class="type">: Char -&gt; a -&gt; Char</span></h3>
+<div class="meta">function &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L239">line 239</a></div>
+<div class="doc">
+<p>names t_able m: the rows of a matrix of numbers (or one vector) as
+text under column names, each column five characters wide.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʰˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Hex1000-src-Hex1000.xtl.html" class="c-string">&quot;Hex1000&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-string">&quot;K held&quot;</span> <a href="libs-Hex1000-src-Hex1000.xtl.html#l.t_able" class="c-libfunc">ʰˣt̲able</a> <span class="c-number">2</span> <span class="c-number">2</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">12</span> <span class="c-number">8</span> <span class="c-number">0</span> <span class="c-number">9</span>
+    K held
+   12    8
+    0    9</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡt̲able</span> ← { names m →
+  rows ← <a href="libs-Hex1000-src-Hex1000.xtl.html#h.m_atrix" class="c-libfunc">ʰm̲atrix</a> m
+  ws ← <a href="work-libs-Strings-src-Strings.xtl.html#l.w_ords" class="c-libfunc">ˢw̲ords</a> names
+  head ← <span class="c-quote">'</span>{ j → <span class="c-number">5</span> <a href="work-libs-Strings-src-Strings.xtl.html#l.p_adLeft" class="c-libfunc">ˢp̲adLeft</a> <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> j <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> ws } <a href="libs-Hex1000-src-Hex1000.xtl.html#h.j_oin" class="c-libfunc">ʰj̲oin</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> ws
+  head <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-quote">'</span>{ i → <span class="c-string">&quot;\n&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#h.r_ow" class="c-libfunc">ʰr̲ow</a> i <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> rows } <a href="libs-Hex1000-src-Hex1000.xtl.html#h.j_oin" class="c-libfunc">ʰj̲oin</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> rows
+}</pre>
+<div class="uses">Used in: <a href="libs-Hex1000-demos-counter.xtl.src.html#L13">libs/Hex1000/demos/counter.xtl:13</a>, <a href="libs-Hex1000-demos-keys.xtl.src.html#L14">libs/Hex1000/demos/keys.xtl:14</a>, <a href="libs-Hex1000-demos-keys.xtl.src.html#L16">libs/Hex1000/demos/keys.xtl:16</a>, <a href="libs-Hex1000-demos-keys.xtl.src.html#L17">libs/Hex1000/demos/keys.xtl:17</a></div>
+</div>
+<div class="item" id="h.m_atrix">
+<h3><a href="#h.m_atrix"><span class="c-libfunc">ʰm̲atrix</span></a> <span class="type">: a -&gt; a</span></h3>
+<div class="meta">function <span class="private">(private)</span> &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L247">line 247</a></div>
+<div class="doc">
+<p>A vector as a matrix of one row.</p>
+</div>
+<pre class="code"><span class="c-libfunc">ʰm̲atrix</span> ← { m →
+  <span class="c-number">1</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> <a href="builtins.html#s_hape" class="c-builtin">s̲hape</a> m ? (<span class="c-number">1</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> m) <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> m
+  m
+}</pre>
+<div class="uses">Used in: <a href="libs-Hex1000-src-Hex1000.xtl.html#l.t_able"><span class="c-libfunc">ˡt̲able</span></a></div>
+</div>
+<div class="item" id="h.r_ow">
+<h3><a href="#h.r_ow"><span class="c-libfunc">ʰr̲ow</span></a> <span class="type">: a -&gt; Char</span></h3>
+<div class="meta">function <span class="private">(private)</span> &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L253">line 253</a></div>
+<div class="doc">
+<p>One row of numbers, five characters each.</p>
+</div>
+<pre class="code"><span class="c-libfunc">ʰr̲ow</span> ← { row → <span class="c-quote">'</span>{ j → <span class="c-number">5</span> <a href="work-libs-Strings-src-Strings.xtl.html#l.p_adLeft" class="c-libfunc">ˢp̲adLeft</a> <a href="builtins.html#f_ormat" class="c-builtin">f̲ormat</a> j <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> row } <a href="libs-Hex1000-src-Hex1000.xtl.html#h.j_oin" class="c-libfunc">ʰj̲oin</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> row }</pre>
+<div class="uses">Used in: <a href="libs-Hex1000-src-Hex1000.xtl.html#l.t_able"><span class="c-libfunc">ˡt̲able</span></a></div>
+</div>
+<div class="item" id="h.j_oin">
+<h3><a href="#h.j_oin"><span class="c-libfunc">ʰj̲oin</span></a> <span class="type">: (Int -&gt; Char) -&gt; Int -&gt; Char</span></h3>
+<div class="meta">function <span class="private">(private)</span> &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L256">line 256</a></div>
+<div class="doc">
+<p>'f j_oin n: the texts f 1, f 2, ... f n, one after another (a loop).</p>
+</div>
+<pre class="code"><span class="c-libfunc">ʰj̲oin</span> ← { <span class="c-builtin">f̲</span> n →
+  (j, t) ← n <span class="c-quote">'</span>{ (j, t) → (j <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">1</span>, t <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-builtin">f̲</span> j) } <a href="builtins.html#p_ower" class="c-builtin">p̲ower</a> (<span class="c-number">1</span>, <span class="c-string">&quot;&quot;</span>)
+  t
+}</pre>
+<div class="uses">Used in: <a href="libs-Hex1000-src-Hex1000.xtl.html#l.t_able"><span class="c-libfunc">ˡt̲able</span></a>, <a href="libs-Hex1000-src-Hex1000.xtl.html#h.r_ow"><span class="c-libfunc">ʰr̲ow</span></a>, <a href="libs-Hex1000-src-Hex1000.xtl.html#l.l_isting"><span class="c-libfunc">ˡl̲isting</span></a></div>
+</div>
+<div class="item" id="l.l_isting">
+<h3><a href="#l.l_isting"><span class="c-libfunc">ˡl̲isting</span></a> <span class="type">: Int -&gt; Int -&gt; Char</span></h3>
+<div class="meta">function &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L269">line 269</a></div>
+<div class="doc">
+<p>p l_isting rom: page p of a ROM in the order it runs, up to its last
+instruction that is not NOP: each instruction's PC, code and text.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʰˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Hex1000-src-Hex1000.xtl.html" class="c-string">&quot;Hex1000&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-number">0</span> <a href="libs-Hex1000-src-Hex1000.xtl.html#l.l_isting" class="c-libfunc">ʰˣl̲isting</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#l.a_ssemble" class="c-libfunc">ʰˣa̲ssemble</a> <span class="c-string">&quot;loop: TDO\nIA\nBR loop&quot;</span>
+  PC code  instruction
+   0   25  TDO
+   1   14  IA
+   3  128  BR 0</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡl̲isting</span> ← { p rom →
+  codes ← (<span class="c-number">1</span> <a href="builtins.html#-2b" class="c-symbol">+</a> (<span class="c-number">64</span> <a href="builtins.html#-2a" class="c-symbol">×</a> p) <a href="builtins.html#-2b" class="c-symbol">+</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#l.Order">ˡOrder</a>) <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> rom
+  n ← <span class="c-builtin">'</span><a href="builtins.html#m_ax" class="c-builtin">m̲ax</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> (codes <a href="builtins.html#-21-3d" class="c-symbol">≠</a> <span class="c-number">0</span>) <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-number">1</span> <a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#o_ffsets" class="c-builtin">o̲ffsets</a> <span class="c-number">64</span>
+  <span class="c-builtin">l̲ine</span> ← { j → <span class="c-string">&quot;\n&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<span class="c-number">4</span> <a href="work-libs-Strings-src-Strings.xtl.html#l.p_adLeft" class="c-libfunc">ˢp̲adLeft</a> <a href="builtins.html#f_ormat" class="c-builtin">f̲ormat</a> j <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#l.Order">ˡOrder</a>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<span class="c-number">5</span> <a href="work-libs-Strings-src-Strings.xtl.html#l.p_adLeft" class="c-libfunc">ˢp̲adLeft</a> <a href="builtins.html#f_ormat" class="c-builtin">f̲ormat</a> j <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> codes) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;  &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#l.d_isasm" class="c-libfunc">ˡd̲isasm</a> j <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> codes }
+  <span class="c-string">&quot;  PC code  instruction&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-builtin">'</span><span class="c-builtin">l̲ine</span> <a href="libs-Hex1000-src-Hex1000.xtl.html#h.j_oin" class="c-libfunc">ʰj̲oin</a> n
+}</pre>
+<div class="uses">Used in: <a href="libs-Hex1000-demos-counter.xtl.src.html#L12">libs/Hex1000/demos/counter.xtl:12</a>, <a href="libs-Hex1000-demos-keys.xtl.src.html#L12">libs/Hex1000/demos/keys.xtl:12</a>, <a href="libs-Hex1000-demos-listing.xtl.src.html#L10">libs/Hex1000/demos/listing.xtl:10</a>, <a href="libs-Hex1000-demos-listing.xtl.src.html#L11">libs/Hex1000/demos/listing.xtl:11</a>, <a href="libs-Hex1000-demos-listing.xtl.src.html#L12">libs/Hex1000/demos/listing.xtl:12</a>, <a href="libs-Hex1000-demos-listing.xtl.src.html#L13">libs/Hex1000/demos/listing.xtl:13</a>, <a href="libs-Hex1000-demos-listing.xtl.src.html#L14">libs/Hex1000/demos/listing.xtl:14</a>, <a href="libs-Hex1000-demos-listing.xtl.src.html#L15">libs/Hex1000/demos/listing.xtl:15</a>, <a href="libs-Hex1000-demos-listing.xtl.src.html#L16">libs/Hex1000/demos/listing.xtl:16</a></div>
+</div>
+<h2 class="section" id="section-7">The assembler</h2>
+<div class="item" id="l.a_ssemble">
+<h3><a href="#l.a_ssemble"><span class="c-libfunc">ˡa̲ssemble</span></a> <span class="type">: Char -&gt; Int</span></h3>
+<div class="meta">function &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L288">line 288</a></div>
+<div class="doc">
+<p>a_ssemble text: the 1024-byte ROM of a program. A line is an
+optional label ending in &quot;:&quot;, then an instruction and its operand
+(a number, or a label: BR and CALL go to it, LDP takes its page),
+then an optional comment after &quot;;&quot;. &quot;PAGE n&quot; starts page n (from 0);
+a page's instructions are placed in the program counter's order
+(Order), so they run in the order they are written. Unused bytes
+are 0, NOP. A mistake stops the program with the line it is on.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʰˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Hex1000-src-Hex1000.xtl.html" class="c-string">&quot;Hex1000&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-number">8</span> <a href="builtins.html#t_ake" class="c-builtin">t̲ake</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#l.a_ssemble" class="c-libfunc">ʰˣa̲ssemble</a> <span class="c-string">&quot;CLA\nTCY 5\nloop: IA\nBR loop&quot;</span>
+3 69 0 14 0 0 0 131</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡa̲ssemble</span> ← { text →
+  lines ← <a href="work-libs-Strings-src-Strings.xtl.html#l.l_ines" class="c-libfunc">ˢl̲ines</a> text
+  n ← <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> lines
+  (i, page, slot, names, places) ← n <span class="c-quote">'</span>{ t → lines <a href="libs-Hex1000-src-Hex1000.xtl.html#h.l_abel" class="c-libfunc">ʰl̲abel</a> t } <a href="builtins.html#p_ower" class="c-builtin">p̲ower</a> (<span class="c-number">1</span>, <span class="c-number">0</span>, <span class="c-number">0</span>, <span class="c-number">0</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <a href="builtins.html#e_nclose" class="c-builtin">e̲nclose</a> <span class="c-string">&quot;&quot;</span>, <span class="c-number">0</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0</span>)
+  (j, pg, sl, addrs, codes) ← n <span class="c-quote">'</span>{ t → (lines, names, places) <a href="libs-Hex1000-src-Hex1000.xtl.html#h.p_lace" class="c-libfunc">ʰp̲lace</a> t } <a href="builtins.html#p_ower" class="c-builtin">p̲ower</a> (<span class="c-number">1</span>, <span class="c-number">0</span>, <span class="c-number">0</span>, <span class="c-number">0</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0</span>, <span class="c-number">0</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0</span>)
+  (addrs <a href="builtins.html#i_ndexOf" class="c-builtin">i̲ndexOf</a> <a href="builtins.html#o_ffsets" class="c-builtin">o̲ffsets</a> <span class="c-number">1024</span>) <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> codes <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0</span>
+}</pre>
+<div class="uses">Used in: <a href="libs-Hex1000-src-Hex1000.xtl.html#l.CalcRom">ˡCalcRom</a>, <a href="libs-Hex1000-demos-counter.xtl.html#rom">rom</a>, <a href="libs-Hex1000-demos-keys.xtl.html#scan">scan</a></div>
+</div>
+<div class="item" id="h.w_ords">
+<h3><a href="#h.w_ords"><span class="c-libfunc">ʰw̲ords</span></a> <span class="type">: Char -&gt; Box Char</span></h3>
+<div class="meta">function <span class="private">(private)</span> &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L297">line 297</a></div>
+<div class="doc">
+<p>The words of a line, its comment dropped.</p>
+</div>
+<pre class="code"><span class="c-libfunc">ʰw̲ords</span> ← { t → <a href="work-libs-Strings-src-Strings.xtl.html#l.w_ords" class="c-libfunc">ˢw̲ords</a> (<span class="c-symbol">'</span><a href="builtins.html#-26" class="c-symbol">∧</a> <a href="builtins.html#s_-5c" class="c-builtin">s̲\</a> t <a href="builtins.html#-21-3d" class="c-symbol">≠</a> <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> <span class="c-string">&quot;;&quot;</span>) <a href="builtins.html#r_eplicate" class="c-builtin">r̲eplicate</a> t }</pre>
+<div class="uses">Used in: <a href="libs-Hex1000-src-Hex1000.xtl.html#h.l_abel"><span class="c-libfunc">ʰl̲abel</span></a>, <a href="libs-Hex1000-src-Hex1000.xtl.html#h.p_lace"><span class="c-libfunc">ʰp̲lace</span></a></div>
+</div>
+<div class="item" id="h.l_abel-3f">
+<h3><a href="#h.l_abel-3f"><span class="c-libfunc">ʰl̲abel?</span></a> <span class="type">: Box Char -&gt; Int</span></h3>
+<div class="meta">function <span class="private">(private)</span> &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L300">line 300</a></div>
+<div class="doc">
+<p>Whether a line's first word is a label.</p>
+</div>
+<pre class="code"><span class="c-libfunc">ʰl̲abel?</span> ← { ws →
+  <span class="c-number">0</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> ws ? <span class="c-number">0</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">1</span>
+  (<a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> <span class="c-string">&quot;:&quot;</span>) <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> (<a href="builtins.html#n_eg" class="c-builtin">n̲eg</a> <span class="c-number">1</span>) <a href="builtins.html#t_ake" class="c-builtin">t̲ake</a> <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> ws
+}</pre>
+<div class="uses">Used in: <a href="libs-Hex1000-src-Hex1000.xtl.html#h.r_est"><span class="c-libfunc">ʰr̲est</span></a>, <a href="libs-Hex1000-src-Hex1000.xtl.html#h.l_abel"><span class="c-libfunc">ʰl̲abel</span></a></div>
+</div>
+<div class="item" id="h.r_est">
+<h3><a href="#h.r_est"><span class="c-libfunc">ʰr̲est</span></a> <span class="type">: Box Char -&gt; Box Char</span></h3>
+<div class="meta">function <span class="private">(private)</span> &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L306">line 306</a></div>
+<div class="doc">
+<p>Where the instruction words start, past a label.</p>
+</div>
+<pre class="code"><span class="c-libfunc">ʰr̲est</span> ← { ws → (<span class="c-number">0</span> <a href="builtins.html#-2b" class="c-symbol">+</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#h.l_abel-3f" class="c-libfunc">ʰl̲abel?</a> ws) <a href="builtins.html#d_rop" class="c-builtin">d̲rop</a> ws }</pre>
+<div class="uses">Used in: <a href="libs-Hex1000-src-Hex1000.xtl.html#h.l_abel"><span class="c-libfunc">ʰl̲abel</span></a>, <a href="libs-Hex1000-src-Hex1000.xtl.html#h.p_lace"><span class="c-libfunc">ʰp̲lace</span></a></div>
+</div>
+<div class="item" id="h.l_abel">
+<h3><a href="#h.l_abel"><span class="c-libfunc">ʰl̲abel</span></a> <span class="type">: Box Char -&gt; (Int, Int, Int, Box Char, Int) -&gt; (Int, Int, Int, Box Char, Int)</span></h3>
+<div class="meta">function <span class="private">(private)</span> &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L311">line 311</a></div>
+<div class="doc">
+<p>The first pass, one line: a label's name and place (64 page +
+slot) recorded; the slot advanced past an instruction; PAGE n starts
+page n.</p>
+</div>
+<pre class="code"><span class="c-libfunc">ʰl̲abel</span> ← { lines (i, page, slot, names, places) →
+  ws ← <a href="libs-Hex1000-src-Hex1000.xtl.html#h.w_ords" class="c-libfunc">ʰw̲ords</a> <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> i <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> lines
+  rest ← <a href="libs-Hex1000-src-Hex1000.xtl.html#h.r_est" class="c-libfunc">ʰr̲est</a> ws
+  named ← <span class="c-number">0</span> <a href="builtins.html#-2b" class="c-symbol">+</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#h.l_abel-3f" class="c-libfunc">ʰl̲abel?</a> ws
+  name ← (<a href="builtins.html#n_eg" class="c-builtin">n̲eg</a> <span class="c-number">1</span>) <a href="builtins.html#d_rop" class="c-builtin">d̲rop</a> <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> ws <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#e_nclose" class="c-builtin">e̲nclose</a> <span class="c-string">&quot; &quot;</span>
+  nn ← names <a href="builtins.html#c_at" class="c-builtin">c̲at</a> named <a href="builtins.html#t_ake" class="c-builtin">t̲ake</a> <span class="c-number">1</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <a href="builtins.html#e_nclose" class="c-builtin">e̲nclose</a> name
+  np ← places <a href="builtins.html#c_at" class="c-builtin">c̲at</a> named <a href="builtins.html#t_ake" class="c-builtin">t̲ake</a> <span class="c-number">1</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> slot <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">64</span> <a href="builtins.html#-2a" class="c-symbol">×</a> page
+  <span class="c-number">0</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> rest ? (i <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">1</span>, page, slot, nn, np)
+  <span class="c-string">&quot;PAGE&quot;</span> <a href="builtins.html#m_atch" class="c-builtin">m̲atch</a> <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> rest ? (i <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">1</span>, <a href="libs-Hex1000-src-Hex1000.xtl.html#h.n_umber" class="c-libfunc">ʰn̲umber</a> <span class="c-number">1</span> <a href="builtins.html#d_rop" class="c-builtin">d̲rop</a> rest, <span class="c-number">0</span>, nn, np)
+  (i <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">1</span>, page, slot <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">1</span>, nn, np)
+}</pre>
+<div class="uses">Used in: <a href="libs-Hex1000-src-Hex1000.xtl.html#l.a_ssemble"><span class="c-libfunc">ˡa̲ssemble</span></a></div>
+</div>
+<div class="item" id="h.p_lace">
+<h3><a href="#h.p_lace"><span class="c-libfunc">ʰp̲lace</span></a> <span class="type">: (Box Char, Box Char, Int) -&gt; (Int, Int, Int, Int, Int) -&gt; (Int, Int, Int, Int, Int)</span></h3>
+<div class="meta">function <span class="private">(private)</span> &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L324">line 324</a></div>
+<div class="doc">
+<p>The second pass, one line: the instruction's address and code.</p>
+</div>
+<pre class="code"><span class="c-libfunc">ʰp̲lace</span> ← { (lines, names, places) (i, page, slot, addrs, codes) →
+  rest ← <a href="libs-Hex1000-src-Hex1000.xtl.html#h.r_est" class="c-libfunc">ʰr̲est</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#h.w_ords" class="c-libfunc">ʰw̲ords</a> <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> i <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> lines
+  <span class="c-number">0</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> rest ? (i <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">1</span>, page, slot, addrs, codes)
+  word ← <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> rest
+  <span class="c-string">&quot;PAGE&quot;</span> <a href="builtins.html#m_atch" class="c-builtin">m̲atch</a> word ? (i <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">1</span>, <a href="libs-Hex1000-src-Hex1000.xtl.html#h.n_umber" class="c-libfunc">ʰn̲umber</a> <span class="c-number">1</span> <a href="builtins.html#d_rop" class="c-builtin">d̲rop</a> rest, <span class="c-number">0</span>, addrs, codes)
+  where ← <span class="c-string">&quot;line &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<a href="builtins.html#f_ormat" class="c-builtin">f̲ormat</a> i) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;: &quot;</span>
+  slot <a href="builtins.html#-3e" class="c-symbol">&gt;</a> <span class="c-number">63</span> ? <a href="builtins.html#-5b-5dP_ANIC" class="c-builtin">⎕P̲ANIC</a> where <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;page &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<a href="builtins.html#f_ormat" class="c-builtin">f̲ormat</a> page) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot; is full&quot;</span>
+  kind ← (<a href="libs-Hex1000-src-Hex1000.xtl.html#l.Names">ˡNames</a> <a href="builtins.html#i_ndexOf" class="c-builtin">i̲ndexOf</a> <a href="builtins.html#e_nclose" class="c-builtin">e̲nclose</a> word) <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span>
+  kind <a href="builtins.html#-3e-3d" class="c-symbol">≥</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#l.Names">ˡNames</a> ? <a href="builtins.html#-5b-5dP_ANIC" class="c-builtin">⎕P̲ANIC</a> where <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;unknown instruction &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> word
+  v ← (names, places) <a href="libs-Hex1000-src-Hex1000.xtl.html#h.o_perand" class="c-libfunc">ʰo̲perand</a> (where, kind, <span class="c-number">1</span> <a href="builtins.html#d_rop" class="c-builtin">d̲rop</a> rest)
+  (v <a href="builtins.html#-3c" class="c-symbol">&lt;</a> <span class="c-number">0</span>) <a href="builtins.html#-7c" class="c-symbol">∨</a> v <a href="builtins.html#-3e" class="c-symbol">&gt;</a> (<span class="c-number">1</span> <a href="builtins.html#-2b" class="c-symbol">+</a> kind) <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#Top">Top</a> ? <a href="builtins.html#-5b-5dP_ANIC" class="c-builtin">⎕P̲ANIC</a> where <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;operand out of range for &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> word
+  addr ← (<span class="c-number">64</span> <a href="builtins.html#-2a" class="c-symbol">×</a> page) <a href="builtins.html#-2b" class="c-symbol">+</a> (<span class="c-number">1</span> <a href="builtins.html#-2b" class="c-symbol">+</a> slot) <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#l.Order">ˡOrder</a>
+  (i <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">1</span>, page, slot <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">1</span>, addrs <a href="builtins.html#c_at" class="c-builtin">c̲at</a> addr, codes <a href="builtins.html#c_at" class="c-builtin">c̲at</a> v <a href="builtins.html#-2b" class="c-symbol">+</a> (<span class="c-number">1</span> <a href="builtins.html#-2b" class="c-symbol">+</a> kind) <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#Base">Base</a>)
+}</pre>
+<div class="uses">Used in: <a href="libs-Hex1000-src-Hex1000.xtl.html#l.a_ssemble"><span class="c-libfunc">ˡa̲ssemble</span></a></div>
+</div>
+<div class="item" id="h.o_perand">
+<h3><a href="#h.o_perand"><span class="c-libfunc">ʰo̲perand</span></a> <span class="type">: (Box Char, Int) -&gt; (Char, Int, Box Char) -&gt; Int</span></h3>
+<div class="meta">function <span class="private">(private)</span> &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L341">line 341</a></div>
+<div class="doc">
+<p>An operand: a number, or a label (BR and CALL: its address as PC
+holds it; LDP: its page); none is 0.</p>
+</div>
+<pre class="code"><span class="c-libfunc">ʰo̲perand</span> ← { (names, places) (where, kind, ws) →
+  <span class="c-number">0</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> ws ? <span class="c-number">0</span>
+  w ← <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> ws
+  <span class="c-symbol">'</span><a href="builtins.html#-26" class="c-symbol">∧</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> w <a href="builtins.html#m_ember-3f" class="c-builtin">m̲ember?</a> <a href="builtins.html#-5b-5dD" class="c-builtin">⎕D</a> ? <a href="libs-Hex1000-src-Hex1000.xtl.html#h.n_umber" class="c-libfunc">ʰn̲umber</a> ws
+  j ← names <a href="builtins.html#i_ndexOf" class="c-builtin">i̲ndexOf</a> <a href="builtins.html#e_nclose" class="c-builtin">e̲nclose</a> w
+  j <a href="builtins.html#-3e" class="c-symbol">&gt;</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> names ? <a href="builtins.html#-5b-5dP_ANIC" class="c-builtin">⎕P̲ANIC</a> where <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;unknown label &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> w
+  place ← j <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> places
+  kind <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">33</span> ? place <a href="builtins.html#d_iv" class="c-builtin">d̲iv</a> <span class="c-number">64</span>
+  kind <a href="builtins.html#-3e-3d" class="c-symbol">≥</a> <span class="c-number">38</span> ? (<span class="c-number">1</span> <a href="builtins.html#-2b" class="c-symbol">+</a> place <a href="builtins.html#m_od" class="c-builtin">m̲od</a> <span class="c-number">64</span>) <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#l.Order">ˡOrder</a>
+  <a href="builtins.html#-5b-5dP_ANIC" class="c-builtin">⎕P̲ANIC</a> where <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;a label is an operand only of BR, CALL and LDP&quot;</span>
+}</pre>
+<div class="uses">Used in: <a href="libs-Hex1000-src-Hex1000.xtl.html#h.p_lace"><span class="c-libfunc">ʰp̲lace</span></a></div>
+</div>
+<div class="item" id="h.n_umber">
+<h3><a href="#h.n_umber"><span class="c-libfunc">ʰn̲umber</span></a> <span class="type">: Box Char -&gt; Int</span></h3>
+<div class="meta">function <span class="private">(private)</span> &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L354">line 354</a></div>
+<div class="doc">
+<p>A decimal number, the first word.</p>
+</div>
+<pre class="code"><span class="c-libfunc">ʰn̲umber</span> ← { ws → <span class="c-number">10</span> <a href="builtins.html#d_ecode" class="c-builtin">d̲ecode</a> (<a href="builtins.html#-5b-5dD" class="c-builtin">⎕D</a> <a href="builtins.html#i_ndexOf" class="c-builtin">i̲ndexOf</a> <a href="builtins.html#d_isclose" class="c-builtin">d̲isclose</a> <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> ws) <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span> }</pre>
+<div class="uses">Used in: <a href="libs-Hex1000-src-Hex1000.xtl.html#h.l_abel"><span class="c-libfunc">ʰl̲abel</span></a>, <a href="libs-Hex1000-src-Hex1000.xtl.html#h.p_lace"><span class="c-libfunc">ʰp̲lace</span></a>, <a href="libs-Hex1000-src-Hex1000.xtl.html#h.o_perand"><span class="c-libfunc">ʰo̲perand</span></a></div>
+</div>
+<h2 class="section" id="section-8">The calculator</h2>
+<div class="item" id="l.Calc">
+<h3><a href="#l.Calc">ˡCalc</a> <span class="type">: Char</span></h3>
+<div class="meta">value &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L363">line 363</a></div>
+<div class="doc">
+<p>Calc: the calculator program's source (rom/calc.asm): an
+eight-digit hexadecimal calculator, Radix's behavior key for key.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʰˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Hex1000-src-Hex1000.xtl.html" class="c-string">&quot;Hex1000&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-number">5</span> <a href="builtins.html#t_ake" class="c-builtin">t̲ake</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#l.Calc">ʰˣCalc</a>
+; HEX</pre>
+</div>
+<pre class="code">ˡCalc ← @ <a href="std-System.xtlm.html#s.i_nclude-3c" class="c-macro">i̲nclude&lt;</a> <span class="c-string">&quot;../rom/calc.asm&quot;</span></pre>
+<details class="expansion"><summary><code><a href="std-System.xtlm.html#s.i_nclude-3c" class="c-macro">i̲nclude&lt;</a></code> expands to</summary><pre class="code">(<span class="c-string">&quot;; HEX1000's calculator program: an eight-digit hexadecimal calculator\n; with + - * = and X (clear), the behavior of the Radix library\n; (libs/Radix) key for key. Assembled by hx:a_ssemble; the library\n; includes this file as hx:Calc.\n;\n; RAM: file 0 the accumulator, file 1 the entry, file 2 the\n; multiplier's digits while multiplying, each eight words, word 0 the\n; least significant digit. File 3 holds the control words:\n;   word 0  the column of the key just read (8 to 13)\n;   word 1  the pending operation: 0 none, 1 +, 2 -, 3 *\n;   word 2  the phase: 0 after an operator, 1 entering digits, 2 after =\n;   word 3  the digit just keyed\n;   word 4  the operator key's row: 0 +, 1 -, 2 *, 3 =\n;   word 5  the multiplier digit being worked on\n;   words 8 to 13: the K bits read from that column\n;\n; The R latches: R0 to R7 strobe the display's digits (digit 0 on the\n; right): a digit takes O when its latch rises; O's bit 4 (S at TDO)\n; set shows the digit A, clear blanks it. R8 to R13 select the key\n; columns: the key with code c is in column c / 4 and drives K's bit\n; c mod 4 while its column is selected (codes as Radix's: 0 to 15 the\n; digits, 16 + 17 - 18 * 19 =, 20 X). R15 is 1 while the program waits\n; for a key, so a terminal (or the test harness) types the next key\n; only then.\n;\n; One subroutine level: the subroutines (pages 4 to 6) call nothing;\n; the main code (pages 0 to 3) calls them, after LDP of their page.\n\nPAGE 0          ; reset, the key scan, what kind of key\n\ninit:   LDX 1\n        LDP show\n        CALL show       ; show the entry: 0\nready:  TCY 8           ; wait until every key is up\nrl:     SETR\n        KNEZ\n        BR held\n        RSTR\n        IYC\n        YNEC 14\n        BR rl\n        TCY 15\n        SETR            ; R15: ready for a key\nscan:   TCY 8\ncol:    SETR            ; select a column\n        KNEZ\n        BR hit          ; a key in it\n        RSTR\n        IYC\n        YNEC 14\n        BR col\n        BR scan\nheld:   RSTR\n        BR ready\nhit:    TKA             ; the key's row bit\n        RSTR\n        LDX 3\n        TAM             ; kept in file 3 at the column's word\n        TYA\n        TCY 0\n        TAM             ; the column\n        TCY 15\n        RSTR            ; R15 0: busy\n        TCY 0\n        TMY             ; Y: the column again\n        CLA             ; A: the row, from the bit\n        TBIT 0\n        BR rowok\n        IA\n        TBIT 1\n        BR rowok\n        IA\n        TBIT 2\n        BR rowok\n        IA\nrowok:  YNEC 12\n        BR notop\n        LDP opkey       ; column 12: + - * =\n        BR opkey\nnotop:  YNEC 13\n        BR digit\n        ACC 15          ; column 13: only row 0 is a key, X\n        BR ready\n        LDP clear\n        BR clear\ndigit:  YNEC 8          ; the digit: the row plus 4 per column\n        BR dm\n        LDP dgo\n        BR dgo\ndm:     ACC 4\n        DYN\n        BR digit\n\nPAGE 1          ; a digit key\n\ndgo:    LDX 3\n        TCY 3\n        TAM             ; keep the digit\n        TCY 2\n        TMA\n        ACC 14\n        BR fresh        ; phase 2: a new calculation\n        TMA\n        ACC 15\n        BR app          ; phase 1: append\n        LDX 1           ; phase 0: a new entry\n        LDP zero\n        CALL zero\n        BR app2\nfresh:  LDX 0\n        LDP zero\n        CALL zero\n        LDX 1\n        LDP zero\n        CALL zero\n        LDX 3\n        TCY 1\n        TCMIY 0         ; nothing pending\n        BR app2\napp:    LDX 1\n        TCY 7\n        MNEZ\n        BR full         ; eight digits already: ignored\napp2:   LDX 1\n        LDP shl\n        CALL shl        ; the entry times 16\n        LDX 3\n        TCY 3\n        TMA\n        LDX 1\n        TCY 0\n        TAM             ; plus the digit\n        LDX 3\n        TCY 2\n        TCMIY 1         ; phase 1\n        LDX 1\n        LDP show\n        CALL show       ; show the entry\n        LDP ready\n        BR ready\nfull:   LDP ready\n        BR ready\n\nPAGE 2          ; an operator key, or =: settle the pending operation\n\nopkey:  LDX 3\n        TCY 4\n        TAM             ; keep the row\n        TCY 2\n        TMA\n        ACC 14\n        BR settled      ; phase 2: nothing keyed since =\n        TMA\n        ACC 15\n        BR p1           ; phase 1: settle\n        BR settled      ; phase 0: nothing keyed since the operator\np1:     TCY 1\n        TMA             ; the pending operation\n        ACC 15\n        BR doop\n        LDP copy10\n        CALL copy10     ; none: the entry is the result\n        BR settled\ndoop:   ACC 15\n        BR nadd\n        LDP add\n        CALL add\n        BR settled\nnadd:   ACC 15\n        BR domul\n        LDP sub\n        CALL sub\n        BR settled\ndomul:  LDP mul\n        BR mul\nsettled: LDX 3\n        TCY 4\n        TMA\n        ACC 13\n        BR equals       ; row 3: =\n        TMA\n        IA\n        TCY 1\n        TAM             ; pending: the row plus 1\n        TCY 2\n        TCMIY 0         ; phase 0\n        BR cle\nequals: TCY 1\n        TCMIY 0         ; nothing pending\n        TCMIY 2         ; phase 2\ncle:    LDX 1\n        LDP zero\n        CALL zero       ; the entry starts at 0\n        LDX 0\n        LDP show\n        CALL show       ; show the result\n        LDP ready\n        BR ready\n\nPAGE 3          ; multiply, and clear\n\nmul:    LDP copy12\n        CALL copy12     ; the multiplier (the entry) to file 2\n        LDP copy01\n        CALL copy01     ; the multiplicand (the accumulator) to file 1\n        LDX 0\n        LDP zero\n        CALL zero       ; the product\n        LDX 3\n        TCY 5\n        TCMIY 7         ; from the multiplier's top digit\nmloop:  LDX 0\n        LDP shl\n        CALL shl        ; the product times 16\ninner:  LDX 3\n        TCY 5\n        TMY\n        LDX 2\n        MNEZ\n        BR mdo          ; this digit not yet used up\n        LDX 3\n        TCY 5\n        DMAN\n        BR mnext        ; the next digit down\n        LDP settled\n        BR settled      ; done: the product is in file 0\nmnext:  TAM\n        BR mloop\nmdo:    DMAN\n        TAM             ; one fewer\n        LDP add\n        CALL add        ; the product plus the multiplicand\n        BR inner\nclear:  LDX 0\n        LDP zero\n        CALL zero\n        LDX 1\n        LDP zero\n        CALL zero\n        LDX 3\n        TCY 1\n        TCMIY 0         ; nothing pending\n        TCMIY 0         ; phase 0\n        LDX 1\n        LDP show\n        CALL show\n        LDP ready\n        BR ready\n\nPAGE 4          ; subroutines: show, shl, zero (on file X)\n\nshow:   TCY 7           ; from the top digit: leading zeros blank\nlead:   TMA\n        MNEZ\n        BR digs         ; the first digit that is not 0\n        YNEC 0\n        BR blank\n        TDO             ; the number is 0: its last digit shows 0\n        SETR\n        RSTR\n        RETN\nblank:  MNEZ            ; S 0: blank\n        TDO\n        SETR\n        RSTR\n        DYN\n        BR lead\ndigs:   TMA\n        TDO             ; S 1: shown\n        SETR\n        RSTR\n        DYN\n        BR digs\n        RETN\nshl:    TCY 6           ; each word up one, 0 into word 0\nsl:     TMA\n        IYC\n        TAM\n        DYN\n        DYN\n        BR sl\n        TCY 0\n        TCMIY 0\n        RETN\nzero:   TCY 0\nzl:     TCMIY 0\n        YNEC 8\n        BR zl\n        RETN\n\nPAGE 5          ; subroutines: file 0 plus file 1, file 0 minus file 1\n\nadd:    TCY 0\nan:     LDX 1           ; no carry in\n        TMA\n        LDX 0\n        AMAAC\n        BR ac\n        TAMIY\n        YNEC 8\n        BR an\n        RETN\nac:     TAMIY           ; a carry out\n        YNEC 8\n        BR ci\n        RETN\nci:     LDX 1           ; a carry in\n        TMA\n        LDX 0\n        AMAAC\n        BR cc\n        ACC 1\n        BR ac\n        TAMIY\n        YNEC 8\n        BR an\n        RETN\ncc:     IA\n        BR ac\nsub:    TCY 0\nsn:     LDX 1           ; no borrow in\n        TMA\n        LDX 0\n        SAMAN\n        BR snb\n        TAMIY           ; a borrow out\n        YNEC 8\n        BR sb\n        RETN\nsnb:    TAMIY\n        YNEC 8\n        BR sn\n        RETN\nsb:     LDX 1           ; a borrow in\n        TMA\n        LDX 0\n        SAMAN\n        BR sb1\n        ACC 15\n        TAMIY\n        YNEC 8\n        BR sb\n        RETN\nsb1:    ACC 15\n        BR snb\n        TAMIY\n        YNEC 8\n        BR sb\n        RETN\n\nPAGE 6          ; subroutines: copies between files\n\ncopy10: TCY 0           ; file 1 to file 0\nc10:    LDX 1\n        TMA\n        LDX 0\n        TAMIY\n        YNEC 8\n        BR c10\n        RETN\ncopy12: TCY 0           ; file 1 to file 2\nc12:    LDX 1\n        TMA\n        LDX 2\n        TAMIY\n        YNEC 8\n        BR c12\n        RETN\ncopy01: TCY 0           ; file 0 to file 1\nc01:    LDX 0\n        TMA\n        LDX 1\n        TAMIY\n        YNEC 8\n        BR c01\n        RETN\n&quot;</span>)</pre></details>
+<div class="uses">Used in: <a href="libs-Hex1000-src-Hex1000.xtl.html#l.CalcRom">ˡCalcRom</a></div>
+</div>
+<div class="item" id="l.CalcRom">
+<h3><a href="#l.CalcRom">ˡCalcRom</a> <span class="type">: Int</span></h3>
+<div class="meta">value &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L369">line 369</a></div>
+<div class="doc">
+<p>CalcRom: the calculator program assembled, 1024 bytes.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʰˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Hex1000-src-Hex1000.xtl.html" class="c-string">&quot;Hex1000&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Hex1000-src-Hex1000.xtl.html#l.d_isasm" class="c-libfunc">ʰˣd̲isasm</a> <span class="c-number">4</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#l.CalcRom">ʰˣCalcRom</a>
+CALL 0</pre>
+</div>
+<pre class="code">ˡCalcRom ← <a href="libs-Hex1000-src-Hex1000.xtl.html#l.a_ssemble" class="c-libfunc">ˡa̲ssemble</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#l.Calc">ˡCalc</a></pre>
+<div class="uses">Used in: <a href="libs-Hex1000-src-Hex1000.xtl.html#l.c_alc"><span class="c-libfunc">ˡc̲alc</span></a>, <a href="libs-Hex1000-src-Hex1000.xtl.html#l.c_ost"><span class="c-libfunc">ˡc̲ost</span></a>, <a href="libs-Panel-src-Panel.xtl.html#l.p_ress"><span class="c-libfunc">ˡp̲ress</span></a>, <a href="libs-Hex1000-demos-board.xtl.html#-2556"><span class="c-error">%</span><span class="c-number">56</span></a>, <a href="libs-Hex1000-demos-circuit.xtl.html#-2556"><span class="c-error">%</span><span class="c-number">56</span></a>, <a href="libs-Hex1000-demos-circuit.xtl.html#-2557"><span class="c-error">%</span><span class="c-number">57</span></a>, <a href="libs-Hex1000-demos-listing.xtl.src.html#L10">libs/Hex1000/demos/listing.xtl:10</a>, <a href="libs-Hex1000-demos-listing.xtl.src.html#L11">libs/Hex1000/demos/listing.xtl:11</a>, <a href="libs-Hex1000-demos-listing.xtl.src.html#L12">libs/Hex1000/demos/listing.xtl:12</a>, <a href="libs-Hex1000-demos-listing.xtl.src.html#L13">libs/Hex1000/demos/listing.xtl:13</a>, <a href="libs-Hex1000-demos-listing.xtl.src.html#L14">libs/Hex1000/demos/listing.xtl:14</a>, <a href="libs-Hex1000-demos-listing.xtl.src.html#L15">libs/Hex1000/demos/listing.xtl:15</a>, <a href="libs-Hex1000-demos-listing.xtl.src.html#L16">libs/Hex1000/demos/listing.xtl:16</a>, <a href="libs-Hex1000-demos-serial.xtl.html#u.s_how"><span class="c-userfunc">ᵘs̲how</span></a>, <a href="libs-Hex1000-demos-terminal.xtl.html#u.p_ress"><span class="c-userfunc">ᵘp̲ress</span></a>, <a href="libs-Hex1000-demos-terminal.xtl.html#-2559"><span class="c-error">%</span><span class="c-number">59</span></a>, <a href="libs-Panel-demos-font.xtl.html#u.s_hown"><span class="c-userfunc">ᵘs̲hown</span></a></div>
+</div>
+<div class="item" id="l.m_atrix">
+<h3><a href="#l.m_atrix"><span class="c-libfunc">ˡm̲atrix</span></a> <span class="type">: (Int, Int) -&gt; Int</span></h3>
+<div class="meta">function &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L378">line 378</a></div>
+<div class="doc">
+<p>m_atrix (c, r): the K inputs the keyboard gives with key c held
+and the latches r: the keys are a matrix of 6 columns, selected by
+R8 to R13, of 4 rows, one K bit each; key c is in column c / 4 and
+row c mod 4 (the codes are Radix's, rx:k_eys).</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʰˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Hex1000-src-Hex1000.xtl.html" class="c-string">&quot;Hex1000&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Hex1000-src-Hex1000.xtl.html#l.m_atrix" class="c-libfunc">ʰˣm̲atrix</a> (<span class="c-number">18</span>, (<span class="c-number">12</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0</span>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span>)
+4</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡm̲atrix</span> ← { (c, r) → ((<span class="c-number">9</span> <a href="builtins.html#-2b" class="c-symbol">+</a> c <a href="builtins.html#d_iv" class="c-builtin">d̲iv</a> <span class="c-number">4</span>) <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> r) <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-number">2</span> <a href="builtins.html#-5e" class="c-symbol">^</a> c <a href="builtins.html#m_od" class="c-builtin">m̲od</a> <span class="c-number">4</span> }</pre>
+<div class="uses">Used in: <a href="libs-Hex1000-src-Hex1000.xtl.html#h.r_ec"><span class="c-libfunc">ʰr̲ec</span></a>, <a href="libs-Hex1000-src-Hex1000.xtl.html#h.t_ick"><span class="c-libfunc">ʰt̲ick</span></a>, <a href="libs-Hex1000-src-Hex1000.xtl.html#l.g_lueK"><span class="c-libfunc">ˡg̲lueK</span></a></div>
+</div>
+<div class="item" id="l.t_ype">
+<h3><a href="#l.t_ype"><span class="c-libfunc">ˡt̲ype</span></a> <span class="type">: (Truthy a, Num b) =&gt; Int -&gt; ((Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int), Int, Int) -&gt; ((Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int), Int, a, b)</span></h3>
+<div class="meta">function &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L391">line 391</a></div>
+<div class="doc">
+<p>rom t_ype (st, keys, n): the machine typed at, as a terminal does:
+each key is held from when R15 says the program is ready until it
+says busy, and the display latches each digit's O when its latch
+R0 to R7 rises. Gives (the state, the eight digit latches, digit 0
+first, whether every key was taken and the program is ready again,
+the instructions it took) after at most n instructions; once done
+it stops.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʰˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Hex1000-src-Hex1000.xtl.html" class="c-string">&quot;Hex1000&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span>(st, digits, done, took) ← <a href="libs-Hex1000-src-Hex1000.xtl.html#l.CalcRom">ʰˣCalcRom</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#l.t_ype" class="c-libfunc">ʰˣt̲ype</a> (<a href="libs-Hex1000-src-Hex1000.xtl.html#l.Reset">ʰˣReset</a>, <span class="c-number">1</span> <span class="c-number">2</span>, <span class="c-number">2000</span>)</pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Hex1000-src-Hex1000.xtl.html#l.s_creen" class="c-libfunc">ʰˣs̲creen</a> <a href="builtins.html#r_ev" class="c-builtin">r̲ev</a> digits
+      12</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡt̲ype</span> ← { rom (st, keys, n) → rom <a href="libs-Hex1000-src-Hex1000.xtl.html#l.t_ypeOn" class="c-libfunc">ˡt̲ypeOn</a> (st, <span class="c-number">8</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0</span>, keys, n) }</pre>
+<div class="uses">Used in: <a href="libs-Hex1000-src-Hex1000.xtl.html#l.c_alc"><span class="c-libfunc">ˡc̲alc</span></a>, <a href="libs-Hex1000-src-Hex1000.xtl.html#l.c_ost"><span class="c-libfunc">ˡc̲ost</span></a>, <a href="libs-Hex1000-demos-circuit.xtl.html#-2556"><span class="c-error">%</span><span class="c-number">56</span></a>, <a href="libs-Hex1000-demos-terminal.xtl.html#-2559"><span class="c-error">%</span><span class="c-number">59</span></a>, <a href="libs-Panel-demos-font.xtl.html#u.s_hown"><span class="c-userfunc">ᵘs̲hown</span></a></div>
+</div>
+<div class="item" id="l.t_ypeOn">
+<h3><a href="#l.t_ypeOn"><span class="c-libfunc">ˡt̲ypeOn</span></a> <span class="type">: (Truthy a, Num b) =&gt; Int -&gt; ((Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int), Int, Int, Int) -&gt; ((Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int), Int, a, b)</span></h3>
+<div class="meta">function &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L401">line 401</a></div>
+<div class="doc">
+<p>rom t_ypeOn (st, digits, keys, n): t_ype from a display already
+showing digits (a terminal keeps its screen between keys: a key the
+program ignores changes nothing on it).</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʰˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Hex1000-src-Hex1000.xtl.html" class="c-string">&quot;Hex1000&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span>(st, digits, done, took) ← <a href="libs-Hex1000-src-Hex1000.xtl.html#l.CalcRom">ʰˣCalcRom</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#l.t_ype" class="c-libfunc">ʰˣt̲ype</a> (<a href="libs-Hex1000-src-Hex1000.xtl.html#l.Reset">ʰˣReset</a>, <span class="c-number">1</span> <span class="c-number">2</span>, <span class="c-number">2000</span>)</pre>
+<pre class="example"><span class="prompt">      </span>(st2, digits2, done2, took2) ← <a href="libs-Hex1000-src-Hex1000.xtl.html#l.CalcRom">ʰˣCalcRom</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#l.t_ypeOn" class="c-libfunc">ʰˣt̲ypeOn</a> (st, digits, <span class="c-number">21</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0</span>, <span class="c-number">0</span>)</pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Hex1000-src-Hex1000.xtl.html#l.s_creen" class="c-libfunc">ʰˣs̲creen</a> <a href="builtins.html#r_ev" class="c-builtin">r̲ev</a> digits2
+      12</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡt̲ypeOn</span> ← { rom (st, digits, keys, n) →
+  start ← (st, digits, <a href="libs-Hex1000-src-Hex1000.xtl.html#l.l_atches" class="c-libfunc">ˡl̲atches</a> st, <span class="c-number">0</span>, <span class="c-number">1</span>, <span class="c-number">0</span>)
+  (t, d, r, ph, i, took) ← n <span class="c-quote">'</span>{ v → (rom, keys) <a href="libs-Hex1000-src-Hex1000.xtl.html#h.t_ick" class="c-libfunc">ʰt̲ick</a> v } <a href="builtins.html#p_ower" class="c-builtin">p̲ower</a> start
+  (t, d, ph <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">3</span>, took)
+}</pre>
+<div class="uses">Used in: <a href="libs-Hex1000-src-Hex1000.xtl.html#l.t_ype"><span class="c-libfunc">ˡt̲ype</span></a>, <a href="libs-Panel-src-Panel.xtl.html#l.p_ress"><span class="c-libfunc">ˡp̲ress</span></a>, <a href="libs-Hex1000-demos-terminal.xtl.html#u.p_ress"><span class="c-userfunc">ᵘp̲ress</span></a></div>
+</div>
+<div class="item" id="l.r_ecord">
+<h3><a href="#l.r_ecord"><span class="c-libfunc">ˡr̲ecord</span></a> <span class="type">: Int -&gt; ((Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int), Int, Int) -&gt; (Int, Int, Int)</span></h3>
+<div class="meta">function &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L415">line 415</a></div>
+<div class="doc">
+<p>rom r_ecord (st, keys, n): t_ype's first n instructions as the
+circuit sees them at its ports: per instruction, the K value given,
+and O and the R latches after it, (ks, os, rs) (rs a row per
+instruction). n is t_ype's count for the keys, so nothing is idle.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʰˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Hex1000-src-Hex1000.xtl.html" class="c-string">&quot;Hex1000&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span>(ks, os, rs) ← <a href="libs-Hex1000-src-Hex1000.xtl.html#l.CalcRom">ʰˣCalcRom</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#l.r_ecord" class="c-libfunc">ʰˣr̲ecord</a> (<a href="libs-Hex1000-src-Hex1000.xtl.html#l.Reset">ʰˣReset</a>, <span class="c-number">0</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0</span>, <span class="c-number">3</span>)</pre>
+<pre class="example"><span class="prompt">      </span>ks
+0 0 0</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡr̲ecord</span> ← { rom (st, keys, n) →
+  start ← ((st, <span class="c-number">8</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0</span>, <a href="libs-Hex1000-src-Hex1000.xtl.html#l.l_atches" class="c-libfunc">ˡl̲atches</a> st, <span class="c-number">0</span>, <span class="c-number">1</span>, <span class="c-number">0</span>), <span class="c-number">0</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0</span>, <span class="c-number">0</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0</span>, <span class="c-number">0</span> <span class="c-number">16</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0</span>)
+  (v, ks, os, rs) ← n <span class="c-quote">'</span>{ (v, ks, os, rs) → <a href="libs-Hex1000-src-Hex1000.xtl.html#h.r_ec" class="c-libfunc">ʰr̲ec</a> (rom, keys, v, ks, os, rs) } <a href="builtins.html#p_ower" class="c-builtin">p̲ower</a> start
+  (ks, os, rs)
+}</pre>
+<div class="uses">Used in: <a href="libs-Hex1000-demos-circuit.xtl.html#-2557"><span class="c-error">%</span><span class="c-number">57</span></a></div>
+</div>
+<div class="item" id="h.r_ec">
+<h3><a href="#h.r_ec"><span class="c-libfunc">ʰr̲ec</span></a> <span class="type">: (Num a, Truthy a, Num b) =&gt; (Int, Int, ((Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int), Int, Int, a, Int, b), Int, Int, Int) -&gt; (((Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int), Int, Int, a, Int, b), Int, Int, Int)</span></h3>
+<div class="meta">function <span class="private">(private)</span> &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L422">line 422</a></div>
+<div class="doc">
+<p>One recorded instruction: t_ick, and what crossed the ports.</p>
+</div>
+<pre class="code"><span class="c-libfunc">ʰr̲ec</span> ← { (rom, keys, (t, digits, r, ph, i, took), ks, os, rs) →
+  c ← (i <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> keys <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0</span>) <a href="builtins.html#-2a" class="c-symbol">×</a> ph <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">1</span>
+  k ← (ph <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">1</span>) <a href="builtins.html#-2a" class="c-symbol">×</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#l.m_atrix" class="c-libfunc">ˡm̲atrix</a> (c, r)
+  v1 ← (rom, keys) <a href="libs-Hex1000-src-Hex1000.xtl.html#h.t_ick" class="c-libfunc">ʰt̲ick</a> (t, digits, r, ph, i, took)
+  (t1, d1, r1, ph1, i1, took1) ← v1
+  (v1, ks <a href="builtins.html#c_at" class="c-builtin">c̲at</a> k, os <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> (<a href="builtins.html#n_eg" class="c-builtin">n̲eg</a> <span class="c-number">1</span>) <a href="builtins.html#t_ake" class="c-builtin">t̲ake</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#l.r_egs" class="c-libfunc">ˡr̲egs</a> t1, rs <a href="builtins.html#c_at" class="c-builtin">c̲at</a> r1)
+}</pre>
+<div class="uses">Used in: <a href="libs-Hex1000-src-Hex1000.xtl.html#l.r_ecord"><span class="c-libfunc">ˡr̲ecord</span></a></div>
+</div>
+<div class="item" id="h.t_ick">
+<h3><a href="#h.t_ick"><span class="c-libfunc">ʰt̲ick</span></a> <span class="type">: (Num a, Truthy a, Num b) =&gt; (Int, Int) -&gt; ((Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int), Int, Int, a, Int, b) -&gt; ((Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int), Int, Int, a, Int, b)</span></h3>
+<div class="meta">function <span class="private">(private)</span> &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L432">line 432</a></div>
+<div class="doc">
+<p>One instruction of t_ype: phase 0 waits for R15, 1 holds key i, 3
+is done.</p>
+</div>
+<pre class="code"><span class="c-libfunc">ʰt̲ick</span> ← { (rom, keys) (t, digits, r, ph, i, took) →
+  ph <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">3</span> ? (t, digits, r, ph, i, took)
+  c ← (i <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> keys <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0</span>) <a href="builtins.html#-2a" class="c-symbol">×</a> ph <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">1</span>
+  k ← (ph <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">1</span>) <a href="builtins.html#-2a" class="c-symbol">×</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#l.m_atrix" class="c-libfunc">ˡm̲atrix</a> (c, r)
+  t1 ← (rom <a href="libs-Hex1000-src-Hex1000.xtl.html#l.s_tep" class="c-libfunc">ˡs̲tep</a> t)_ k
+  r1 ← <a href="libs-Hex1000-src-Hex1000.xtl.html#l.l_atches" class="c-libfunc">ˡl̲atches</a> t1
+  rose ← (<span class="c-number">8</span> <a href="builtins.html#t_ake" class="c-builtin">t̲ake</a> r1) <a href="builtins.html#-3e" class="c-symbol">&gt;</a> <span class="c-number">8</span> <a href="builtins.html#t_ake" class="c-builtin">t̲ake</a> r
+  o ← <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> (<a href="builtins.html#n_eg" class="c-builtin">n̲eg</a> <span class="c-number">1</span>) <a href="builtins.html#t_ake" class="c-builtin">t̲ake</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#l.r_egs" class="c-libfunc">ˡr̲egs</a> t1
+  d1 ← digits <a href="builtins.html#-2b" class="c-symbol">+</a> rose <a href="builtins.html#-2a" class="c-symbol">×</a> o <a href="builtins.html#-2d" class="c-symbol">−</a> digits
+  ready ← <span class="c-number">1</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">16</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> r1
+  (ph <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">0</span>) <a href="builtins.html#-26" class="c-symbol">∧</a> ready ? (t1, d1, r1, <span class="c-number">1</span> <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">2</span> <a href="builtins.html#-2a" class="c-symbol">×</a> i <a href="builtins.html#-3e" class="c-symbol">&gt;</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> keys, i, took <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">1</span>)
+  (ph <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">1</span>) <a href="builtins.html#-26" class="c-symbol">∧</a> <a href="builtins.html#n_ot" class="c-builtin">n̲ot</a> ready ? (t1, d1, r1, <span class="c-number">0</span>, i <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">1</span>, took <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">1</span>)
+  (t1, d1, r1, ph, i, took <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">1</span>)
+}</pre>
+<div class="uses">Used in: <a href="libs-Hex1000-src-Hex1000.xtl.html#l.t_ypeOn"><span class="c-libfunc">ˡt̲ypeOn</span></a>, <a href="libs-Hex1000-src-Hex1000.xtl.html#h.r_ec"><span class="c-libfunc">ʰr̲ec</span></a></div>
+</div>
+<div class="item" id="l.s_creen">
+<h3><a href="#l.s_creen"><span class="c-libfunc">ˡs̲creen</span></a> <span class="type">: Int -&gt; Char</span></h3>
+<div class="meta">function &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L453">line 453</a></div>
+<div class="doc">
+<p>s_creen digits: latched digits as text, in the order given (the
+display's is digit 7 first: hx:s_creen r_ev digits); a digit latched
+with O's bit 4 clear is blank.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʰˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Hex1000-src-Hex1000.xtl.html" class="c-string">&quot;Hex1000&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Hex1000-src-Hex1000.xtl.html#l.s_creen" class="c-libfunc">ʰˣs̲creen</a> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">31</span> <span class="c-number">17</span> <span class="c-number">2</span>
+     F1 </pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡs̲creen</span> ← { d → (<span class="c-number">1</span> <a href="builtins.html#-2b" class="c-symbol">+</a> (d <a href="builtins.html#-3e-3d" class="c-symbol">≥</a> <span class="c-number">16</span>) <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-number">1</span> <a href="builtins.html#-2b" class="c-symbol">+</a> d <a href="builtins.html#m_od" class="c-builtin">m̲od</a> <span class="c-number">16</span>) <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> <span class="c-string">&quot; &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#-5b-5dD" class="c-builtin">⎕D</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">6</span> <a href="builtins.html#t_ake" class="c-builtin">t̲ake</a> <a href="builtins.html#-5b-5dA" class="c-builtin">⎕A</a> }</pre>
+<div class="uses">Used in: <a href="libs-Hex1000-src-Hex1000.xtl.html#l.c_alc"><span class="c-libfunc">ˡc̲alc</span></a>, <a href="libs-Hex1000-demos-serial.xtl.html#u.s_how"><span class="c-userfunc">ᵘs̲how</span></a>, <a href="libs-Hex1000-demos-terminal.xtl.html#u.d_raw"><span class="c-userfunc">ᵘd̲raw</span></a></div>
+</div>
+<div class="item" id="l.c_alc">
+<h3><a href="#l.c_alc"><span class="c-libfunc">ˡc̲alc</span></a> <span class="type">: Char -&gt; Char</span></h3>
+<div class="meta">function &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L472">line 472</a></div>
+<div class="doc">
+<p>c_ost text: how many instructions the calculator takes for the keys
+of a text, from reset until it is ready after the last key (at
+13.5 million instructions a second on a board, two clocks each at
+27 MHz).</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʰˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Hex1000-src-Hex1000.xtl.html" class="c-string">&quot;Hex1000&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Hex1000-src-Hex1000.xtl.html#l.c_ost" class="c-libfunc">ʰˣc̲ost</a> <span class="c-string">&quot;12+34=&quot;</span>
+1752</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡc̲alc</span> ← { text →
+  codes ← <a href="libs-Radix-src-Radix.xtl.html#l.k_eys" class="c-libfunc">ʳˣk̲eys</a> text
+  keys ← (codes <a href="builtins.html#-3c" class="c-symbol">&lt;</a> <span class="c-number">21</span>) <a href="builtins.html#r_eplicate" class="c-builtin">r̲eplicate</a> codes
+  n ← <span class="c-number">2000</span> <a href="builtins.html#-2b" class="c-symbol">+</a> (<span class="c-number">1500</span> <a href="builtins.html#-2a" class="c-symbol">×</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> keys) <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">12000</span> <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> text <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> <span class="c-string">&quot;*&quot;</span>
+  (st, digits, done, took) ← <a href="libs-Hex1000-src-Hex1000.xtl.html#l.CalcRom">ˡCalcRom</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#l.t_ype" class="c-libfunc">ˡt̲ype</a> (<a href="libs-Hex1000-src-Hex1000.xtl.html#l.Reset">ˡReset</a>, keys, n)
+  <a href="builtins.html#n_ot" class="c-builtin">n̲ot</a> done ? <a href="builtins.html#-5b-5dP_ANIC" class="c-builtin">⎕P̲ANIC</a> <span class="c-string">&quot;hx:c_alc: the program did not finish &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> text <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot; in &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#f_ormat" class="c-builtin">f̲ormat</a> n
+  <a href="libs-Hex1000-src-Hex1000.xtl.html#l.s_creen" class="c-libfunc">ˡs̲creen</a> <a href="builtins.html#r_ev" class="c-builtin">r̲ev</a> digits
+}</pre>
+<div class="uses">Used in: <a href="libs-Hex1000-demos-calc.xtl.src.html#L9">libs/Hex1000/demos/calc.xtl:9</a>, <a href="libs-Hex1000-demos-calc.xtl.src.html#L10">libs/Hex1000/demos/calc.xtl:10</a>, <a href="libs-Hex1000-demos-calc.xtl.src.html#L11">libs/Hex1000/demos/calc.xtl:11</a>, <a href="libs-Hex1000-demos-calc.xtl.src.html#L12">libs/Hex1000/demos/calc.xtl:12</a>, <a href="libs-Hex1000-demos-calc.xtl.src.html#L13">libs/Hex1000/demos/calc.xtl:13</a>, <a href="libs-Hex1000-demos-calc.xtl.src.html#L14">libs/Hex1000/demos/calc.xtl:14</a>, <a href="libs-Hex1000-demos-calc.xtl.src.html#L15">libs/Hex1000/demos/calc.xtl:15</a>, <a href="libs-Hex1000-demos-calc.xtl.src.html#L16">libs/Hex1000/demos/calc.xtl:16</a></div>
+</div>
+<div class="item" id="l.c_ost">
+<h3><a href="#l.c_ost"><span class="c-libfunc">ˡc̲ost</span></a> <span class="type">: Num a =&gt; Char -&gt; a</span></h3>
+<div class="meta">function &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L481">line 481</a></div>
+<pre class="code"><span class="c-libfunc">ˡc̲ost</span> ← { text →
+  codes ← <a href="libs-Radix-src-Radix.xtl.html#l.k_eys" class="c-libfunc">ʳˣk̲eys</a> text
+  keys ← (codes <a href="builtins.html#-3c" class="c-symbol">&lt;</a> <span class="c-number">21</span>) <a href="builtins.html#r_eplicate" class="c-builtin">r̲eplicate</a> codes
+  n ← <span class="c-number">2000</span> <a href="builtins.html#-2b" class="c-symbol">+</a> (<span class="c-number">1500</span> <a href="builtins.html#-2a" class="c-symbol">×</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> keys) <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">12000</span> <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> text <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> <span class="c-string">&quot;*&quot;</span>
+  (st, digits, done, took) ← <a href="libs-Hex1000-src-Hex1000.xtl.html#l.CalcRom">ˡCalcRom</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#l.t_ype" class="c-libfunc">ˡt̲ype</a> (<a href="libs-Hex1000-src-Hex1000.xtl.html#l.Reset">ˡReset</a>, keys, n)
+  took
+}</pre>
+<div class="uses">Used in: <a href="libs-Hex1000-demos-calc.xtl.src.html#L17">libs/Hex1000/demos/calc.xtl:17</a>, <a href="libs-Hex1000-demos-calc.xtl.src.html#L18">libs/Hex1000/demos/calc.xtl:18</a></div>
+</div>
+<h2 class="section" id="section-9">The board's glue</h2>
+<div class="item" id="l.Keymap">
+<h3><a href="#l.Keymap">ˡKeymap</a> <span class="type">: Int</span></h3>
+<div class="meta">value &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L499">line 499</a></div>
+<div class="doc">
+<p>Keymap: the key code of each character, ASCII 0 to 127, as the
+board's glue decodes what a terminal sends: 0 to 9, A to F (or a to
+f), + - * = and X (or x) as hx:m_atrix's codes, Enter (a carriage
+return or a line feed) as =, and 31 for any other character (not a
+key).</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʰˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Hex1000-src-Hex1000.xtl.html" class="c-string">&quot;Hex1000&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span>(<span class="c-number">1</span> <a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#-5b-5dU_CS" class="c-builtin">⎕U̲CS</a> <span class="c-string">&quot;1a+= ?&quot;</span>) <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#l.Keymap">ʰˣKeymap</a>
+1 10 16 19 31 31</pre>
+</div>
+<pre class="code">ˡKeymap ← ((<a href="builtins.html#-5b-5dD" class="c-builtin">⎕D</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<span class="c-number">6</span> <a href="builtins.html#t_ake" class="c-builtin">t̲ake</a> <a href="builtins.html#-5b-5dA" class="c-builtin">⎕A</a>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;+-*=Xabcdefx&quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="builtins.html#-5b-5dU_CHAR" class="c-builtin">⎕U̲CHAR</a> <span class="c-number">13</span> <span class="c-number">10</span>) <a href="builtins.html#i_ndexOf" class="c-builtin">i̲ndexOf</a> <a href="builtins.html#-5b-5dAV" class="c-builtin">⎕AV</a>) <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> (<a href="builtins.html#o_ffsets" class="c-builtin">o̲ffsets</a> <span class="c-number">21</span>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">10</span> <span class="c-number">11</span> <span class="c-number">12</span> <span class="c-number">13</span> <span class="c-number">14</span> <span class="c-number">15</span> <span class="c-number">20</span> <span class="c-number">19</span> <span class="c-number">19</span> <span class="c-number">31</span></pre>
+<div class="uses">Used in: <a href="libs-Hex1000-src-Hex1000.xtl.html#l.g_lue"><span class="c-libfunc">ˡg̲lue</span></a></div>
+</div>
+<div class="item" id="l.GlueReset">
+<h3><a href="#l.GlueReset">ˡGlueReset</a> <span class="type">: (Int, Int, Int, Int, Int, Int, Int, Int, Int)</span></h3>
+<div class="meta">value &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L511">line 511</a></div>
+<div class="doc">
+<p>GlueReset: the glue's state at reset, (queue, write, read, count,
+held, key, digits, seen, frame): a queue of 16 key codes with the
+places to write and read and how many are queued, whether a key is
+held and its code, the eight digit latches (digit 0 first, O as
+latched), R0 to R7 as last seen, and whether a frame was just
+completed.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʰˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Hex1000-src-Hex1000.xtl.html" class="c-string">&quot;Hex1000&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span>(q, w, rd, n, held, key, d, seen, f) ← <a href="libs-Hex1000-src-Hex1000.xtl.html#l.GlueReset">ʰˣGlueReset</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> q
+16</pre>
+</div>
+<pre class="code">ˡGlueReset ← (<span class="c-number">16</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0</span>, <span class="c-number">0</span>, <span class="c-number">0</span>, <span class="c-number">0</span>, <span class="c-number">0</span>, <span class="c-number">0</span>, <span class="c-number">8</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0</span>, <span class="c-number">8</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0</span>, <span class="c-number">0</span>)</pre>
+<div class="uses">Used in: <a href="libs-Hex1000-src-Hex1000.xtl.html#l.s_erial"><span class="c-libfunc">ˡs̲erial</span></a>, <a href="libs-Hex1000-src-Hex1000.xtl.html#l.w_ires"><span class="c-libfunc">ˡw̲ires</span></a></div>
+</div>
+<div class="item" id="l.g_lueK">
+<h3><a href="#l.g_lueK"><span class="c-libfunc">ˡg̲lueK</span></a> <span class="type">: (Any a, Any b, Any c, Any d, Any e, Any f, Any g) =&gt; ((a, b, c, d, Int, Int, e, f, g), Int) -&gt; Int</span></h3>
+<div class="meta">function &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L521">line 521</a></div>
+<div class="doc">
+<p>g_lueK (g, r): the K inputs the glue in state g gives the machine
+with latches r: the held key's, as hx:m_atrix, while one is held,
+else 0. Combinational: the machine reads K in the clock it selects a
+column.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʰˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Hex1000-src-Hex1000.xtl.html" class="c-string">&quot;Hex1000&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span>(q, w, rd, n, held, key, d, seen, f) ← <a href="libs-Hex1000-src-Hex1000.xtl.html#l.GlueReset">ʰˣGlueReset</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Hex1000-src-Hex1000.xtl.html#l.g_lueK" class="c-libfunc">ʰˣg̲lueK</a> ((q, w, rd, n, <span class="c-number">1</span>, <span class="c-number">18</span>, d, seen, f), (<span class="c-number">12</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0</span>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span>)
+4</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡg̲lueK</span> ← { ((q, w, rd, n, held, key, d, seen, f), r) → held <a href="builtins.html#-2a" class="c-symbol">×</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#l.m_atrix" class="c-libfunc">ˡm̲atrix</a> (key, r) }</pre>
+<div class="uses">Used in: <a href="libs-Hex1000-src-Hex1000.xtl.html#l.b_oard"><span class="c-libfunc">ˡb̲oard</span></a></div>
+</div>
+<div class="item" id="l.g_lue">
+<h3><a href="#l.g_lue"><span class="c-libfunc">ˡg̲lue</span></a> <span class="type">: (Truthy a, Ord a, Num b, Truthy b, Any c, Num d, Truthy d) =&gt; ((Int, Int, Int, Int, a, Int, b, a, c), Int, b, a) -&gt; (Int, Int, Int, Int, d, Int, b, a, b)</span></h3>
+<div class="meta">function &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L533">line 533</a></div>
+<div class="doc">
+<p>g_lue (g, c, o, r): the glue's next state, given the character c
+that arrived this clock (0: none) and the machine's O and latches r.
+A key is queued (dropped when 16 are waiting); the next is held from
+when R15 says the program is ready until it says busy; digit p
+latches O when R p rises; R0 rising completes a frame.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʰˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Hex1000-src-Hex1000.xtl.html" class="c-string">&quot;Hex1000&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span>g ← <a href="libs-Hex1000-src-Hex1000.xtl.html#l.g_lue" class="c-libfunc">ʰˣg̲lue</a> (<a href="libs-Hex1000-src-Hex1000.xtl.html#l.GlueReset">ʰˣGlueReset</a>, <span class="c-number">55</span>, <span class="c-number">0</span>, <span class="c-number">16</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0</span>)</pre>
+<pre class="example"><span class="prompt">      </span>(q, w, rd, n, held, key, d, seen, f) ← <a href="libs-Hex1000-src-Hex1000.xtl.html#l.g_lue" class="c-libfunc">ʰˣg̲lue</a> (g, <span class="c-number">0</span>, <span class="c-number">0</span>, (<span class="c-number">15</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0</span>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">1</span>)</pre>
+<pre class="example"><span class="prompt">      </span>held <a href="builtins.html#c_at" class="c-builtin">c̲at</a> key <a href="builtins.html#c_at" class="c-builtin">c̲at</a> n
+1 7 0</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡg̲lue</span> ← { ((q, w, rd, n, held, key, d, seen, f), c, o, r) →
+  kc ← (<span class="c-number">1</span> <a href="builtins.html#-2b" class="c-symbol">+</a> c) <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#l.Keymap">ˡKeymap</a>
+  push ← (kc <a href="builtins.html#-3c" class="c-symbol">&lt;</a> <span class="c-number">21</span>) <a href="builtins.html#-26" class="c-symbol">∧</a> n <a href="builtins.html#-3c" class="c-symbol">&lt;</a> <span class="c-number">16</span>
+  ready ← <span class="c-number">16</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> r
+  pop ← (<a href="builtins.html#n_ot" class="c-builtin">n̲ot</a> held) <a href="builtins.html#-26" class="c-symbol">∧</a> (n <a href="builtins.html#-3e" class="c-symbol">&gt;</a> <span class="c-number">0</span>) <a href="builtins.html#-26" class="c-symbol">∧</a> ready
+  q1 ← q <a href="builtins.html#-2b" class="c-symbol">+</a> (push <a href="builtins.html#-2a" class="c-symbol">×</a> (w <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">1</span>) <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="builtins.html#r_ange" class="c-builtin">r̲ange</a> <span class="c-number">16</span>) <a href="builtins.html#-2a" class="c-symbol">×</a> kc <a href="builtins.html#-2d" class="c-symbol">−</a> q
+  key1 ← key <a href="builtins.html#-2b" class="c-symbol">+</a> pop <a href="builtins.html#-2a" class="c-symbol">×</a> ((<span class="c-number">1</span> <a href="builtins.html#-2b" class="c-symbol">+</a> rd) <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> q) <a href="builtins.html#-2d" class="c-symbol">−</a> key
+  rose ← (<span class="c-number">8</span> <a href="builtins.html#t_ake" class="c-builtin">t̲ake</a> r) <a href="builtins.html#-3e" class="c-symbol">&gt;</a> seen
+  held1 ← <span class="c-number">0</span> <a href="builtins.html#-2b" class="c-symbol">+</a> pop <a href="builtins.html#-7c" class="c-symbol">∨</a> held <a href="builtins.html#-26" class="c-symbol">∧</a> ready
+  (q1, (w <a href="builtins.html#-2b" class="c-symbol">+</a> push) <a href="builtins.html#m_od" class="c-builtin">m̲od</a> <span class="c-number">16</span>, (rd <a href="builtins.html#-2b" class="c-symbol">+</a> pop) <a href="builtins.html#m_od" class="c-builtin">m̲od</a> <span class="c-number">16</span>, n <a href="builtins.html#-2b" class="c-symbol">+</a> push <a href="builtins.html#-2d" class="c-symbol">−</a> pop, held1, key1, d <a href="builtins.html#-2b" class="c-symbol">+</a> rose <a href="builtins.html#-2a" class="c-symbol">×</a> o <a href="builtins.html#-2d" class="c-symbol">−</a> d, <span class="c-number">8</span> <a href="builtins.html#t_ake" class="c-builtin">t̲ake</a> r, <span class="c-number">0</span> <a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> rose)
+}</pre>
+<div class="uses">Used in: <a href="libs-Hex1000-src-Hex1000.xtl.html#l.b_oard"><span class="c-libfunc">ˡb̲oard</span></a></div>
+</div>
+<div class="item" id="l.b_oard">
+<h3><a href="#l.b_oard"><span class="c-libfunc">ˡb̲oard</span></a> <span class="type">: (Any a, Num b, Truthy b) =&gt; Int -&gt; ((Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int), (Int, Int, Int, Int, Int, Int, Int, Int, a), Int) -&gt; ((Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int), (Int, Int, Int, Int, b, Int, Int, Int, Int))</span></h3>
+<div class="meta">function &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L554">line 554</a></div>
+<div class="doc">
+<p>rom b_oard (st, g, c): one clock of the board, (the machine's state,
+the glue's): the machine's instruction with K from the glue, and the
+glue's step with character c, both reading the ports as they were
+before the clock.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʰˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Hex1000-src-Hex1000.xtl.html" class="c-string">&quot;Hex1000&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span>(st, g) ← <a href="libs-Hex1000-src-Hex1000.xtl.html#l.CalcRom">ʰˣCalcRom</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#l.b_oard" class="c-libfunc">ʰˣb̲oard</a> (<a href="libs-Hex1000-src-Hex1000.xtl.html#l.Reset">ʰˣReset</a>, <a href="libs-Hex1000-src-Hex1000.xtl.html#l.GlueReset">ʰˣGlueReset</a>, <span class="c-number">49</span>)</pre>
+<pre class="example"><span class="prompt">      </span>(q, w, rd, n, held, key, d, seen, f) ← g</pre>
+<pre class="example"><span class="prompt">      </span>n
+1</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡb̲oard</span> ← { rom (st, g, c) →
+  r ← <a href="libs-Hex1000-src-Hex1000.xtl.html#l.l_atches" class="c-libfunc">ˡl̲atches</a> st
+  k ← <a href="libs-Hex1000-src-Hex1000.xtl.html#l.g_lueK" class="c-libfunc">ˡg̲lueK</a> (g, r)
+  ((rom <a href="libs-Hex1000-src-Hex1000.xtl.html#l.s_tep" class="c-libfunc">ˡs̲tep</a> st)_ k, <a href="libs-Hex1000-src-Hex1000.xtl.html#l.g_lue" class="c-libfunc">ˡg̲lue</a> (g, c, <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> (<a href="builtins.html#n_eg" class="c-builtin">n̲eg</a> <span class="c-number">1</span>) <a href="builtins.html#t_ake" class="c-builtin">t̲ake</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#l.r_egs" class="c-libfunc">ˡr̲egs</a> st, r))
+}</pre>
+<div class="uses">Used in: <a href="libs-Hex1000-src-Hex1000.xtl.html#h.c_lock"><span class="c-libfunc">ʰc̲lock</span></a>, <a href="libs-Hex1000-src-Hex1000.xtl.html#h.w_ire"><span class="c-libfunc">ʰw̲ire</span></a></div>
+</div>
+<div class="item" id="l.s_erial">
+<h3><a href="#l.s_erial"><span class="c-libfunc">ˡs̲erial</span></a> <span class="type">: Int -&gt; (Char, Int) -&gt; Int</span></h3>
+<div class="meta">function &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L573">line 573</a></div>
+<div class="doc">
+<p>rom s_erial (text, n): the board typed at over its serial line: the
+characters of text arrive one a clock from the first, the board runs
+n clocks from reset, and each frame the glue completes is a row of
+its eight digits, digit 7 first (hx:s_creen shows them).</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʰˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Hex1000-src-Hex1000.xtl.html" class="c-string">&quot;Hex1000&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Hex1000-src-Hex1000.xtl.html#l.s_creen" class="c-libfunc">ʰˣs̲creen</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#l.CalcRom">ʰˣCalcRom</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#l.s_erial" class="c-libfunc">ʰˣs̲erial</a> (<span class="c-string">&quot;12+34=&quot;</span>, <span class="c-number">2000</span>)
+       0
+       1
+      12
+      12
+       3
+      34
+      46</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡs̲erial</span> ← { rom (text, n) →
+  cs ← <a href="builtins.html#-5b-5dU_CS" class="c-builtin">⎕U̲CS</a> text
+  start ← (<a href="libs-Hex1000-src-Hex1000.xtl.html#l.Reset">ˡReset</a>, <a href="libs-Hex1000-src-Hex1000.xtl.html#l.GlueReset">ˡGlueReset</a>, <span class="c-number">0</span>, <span class="c-number">0</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0</span>)
+  (st, g, i, fr) ← n <span class="c-quote">'</span>{ v → (rom, cs) <a href="libs-Hex1000-src-Hex1000.xtl.html#h.c_lock" class="c-libfunc">ʰc̲lock</a> v } <a href="builtins.html#p_ower" class="c-builtin">p̲ower</a> start
+  (((<a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> fr) <a href="builtins.html#d_iv" class="c-builtin">d̲iv</a> <span class="c-number">8</span>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">8</span>) <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> fr
+}</pre>
+<div class="uses">Used in: <a href="libs-Hex1000-demos-serial.xtl.html#u.s_how"><span class="c-userfunc">ᵘs̲how</span></a></div>
+</div>
+<div class="item" id="h.c_lock">
+<h3><a href="#h.c_lock"><span class="c-libfunc">ʰc̲lock</span></a> <span class="type">: (Int, Int) -&gt; ((Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int), (Int, Int, Int, Int, Int, Int, Int, Int, Int), Int, Int) -&gt; ((Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int), (Int, Int, Int, Int, Int, Int, Int, Int, Int), Int, Int)</span></h3>
+<div class="meta">function <span class="private">(private)</span> &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L581">line 581</a></div>
+<div class="doc">
+<p>One clock of s_erial: the board, and the frame kept when completed.</p>
+</div>
+<pre class="code"><span class="c-libfunc">ʰc̲lock</span> ← { (rom, cs) (st, g, i, fr) →
+  c ← (<span class="c-number">1</span> <a href="builtins.html#-2b" class="c-symbol">+</a> i <a href="builtins.html#m_in" class="c-builtin">m̲in</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> cs) <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> cs <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0</span>
+  (st1, g1) ← rom <a href="libs-Hex1000-src-Hex1000.xtl.html#l.b_oard" class="c-libfunc">ˡb̲oard</a> (st, g, c)
+  (q, w, rd, n, held, key, d, seen, f) ← g1
+  (st1, g1, i <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">1</span>, fr <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<span class="c-number">8</span> <a href="builtins.html#-2a" class="c-symbol">×</a> f) <a href="builtins.html#t_ake" class="c-builtin">t̲ake</a> <a href="builtins.html#r_ev" class="c-builtin">r̲ev</a> d)
+}</pre>
+<div class="uses">Used in: <a href="libs-Hex1000-src-Hex1000.xtl.html#l.s_erial"><span class="c-libfunc">ˡs̲erial</span></a></div>
+</div>
+<div class="item" id="l.w_ires">
+<h3><a href="#l.w_ires"><span class="c-libfunc">ˡw̲ires</span></a> <span class="type">: Int -&gt; (Char, Int) -&gt; (Int, Int, Int)</span></h3>
+<div class="meta">function &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L596">line 596</a></div>
+<div class="doc">
+<p>rom w_ires (text, n): s_erial's run at the glue's ports, (cs, fs,
+ds): the character given at each clock, then after reset and after
+each clock whether a frame was just completed and the eight digit
+latches (a row each, digit 0 first).</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʰˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Hex1000-src-Hex1000.xtl.html" class="c-string">&quot;Hex1000&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span>(cs, fs, ds) ← <a href="libs-Hex1000-src-Hex1000.xtl.html#l.CalcRom">ʰˣCalcRom</a> <a href="libs-Hex1000-src-Hex1000.xtl.html#l.w_ires" class="c-libfunc">ʰˣw̲ires</a> (<span class="c-string">&quot;1&quot;</span>, <span class="c-number">3</span>)</pre>
+<pre class="example"><span class="prompt">      </span>cs
+49 0 0</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡw̲ires</span> ← { rom (text, n) →
+  cs ← n <a href="builtins.html#t_ake" class="c-builtin">t̲ake</a> <a href="builtins.html#-5b-5dU_CS" class="c-builtin">⎕U̲CS</a> text
+  start ← (<a href="libs-Hex1000-src-Hex1000.xtl.html#l.Reset">ˡReset</a>, <a href="libs-Hex1000-src-Hex1000.xtl.html#l.GlueReset">ˡGlueReset</a>, <span class="c-number">0</span>, <span class="c-number">1</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0</span>, <span class="c-number">1</span> <span class="c-number">8</span> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0</span>)
+  (st, g, i, fs, ds) ← n <span class="c-quote">'</span>{ v → (rom, cs) <a href="libs-Hex1000-src-Hex1000.xtl.html#h.w_ire" class="c-libfunc">ʰw̲ire</a> v } <a href="builtins.html#p_ower" class="c-builtin">p̲ower</a> start
+  (cs, fs, ds)
+}</pre>
+<div class="uses">Used in: <a href="libs-Hex1000-demos-board.xtl.html#-2556"><span class="c-error">%</span><span class="c-number">56</span></a></div>
+</div>
+<div class="item" id="h.w_ire">
+<h3><a href="#h.w_ire"><span class="c-libfunc">ʰw̲ire</span></a> <span class="type">: (Int, Int) -&gt; ((Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int), (Int, Int, Int, Int, Int, Int, Int, Int, Int), Int, Int, Int) -&gt; ((Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int), (Int, Int, Int, Int, Int, Int, Int, Int, Int), Int, Int, Int)</span></h3>
+<div class="meta">function <span class="private">(private)</span> &middot; <a href="libs-Hex1000-src-Hex1000.xtl.src.html#L604">line 604</a></div>
+<div class="doc">
+<p>One clock of w_ires.</p>
+</div>
+<pre class="code"><span class="c-libfunc">ʰw̲ire</span> ← { (rom, cs) (st, g, i, fs, ds) →
+  (st1, g1) ← rom <a href="libs-Hex1000-src-Hex1000.xtl.html#l.b_oard" class="c-libfunc">ˡb̲oard</a> (st, g, (<span class="c-number">1</span> <a href="builtins.html#-2b" class="c-symbol">+</a> i) <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> cs)
+  (q, w, rd, n, held, key, d, seen, f) ← g1
+  (st1, g1, i <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">1</span>, fs <a href="builtins.html#c_at" class="c-builtin">c̲at</a> f, ds <a href="builtins.html#c_at" class="c-builtin">c̲at</a> d)
+}</pre>
+<div class="uses">Used in: <a href="libs-Hex1000-src-Hex1000.xtl.html#l.w_ires"><span class="c-libfunc">ˡw̲ires</span></a></div>
+</div>
+</main>
+</body>
+</html>

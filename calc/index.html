@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HEX1000</title>
+  
+<script type="module">
+import init, * as bindings from '/X_eTaL-fpga/calc/hex1000-web-9c4425e43f93fb4b.js';
+const wasm = await init({ module_or_path: '/X_eTaL-fpga/calc/hex1000-web-9c4425e43f93fb4b_bg.wasm' });
+
+
+window.wasmBindings = bindings;
+
+
+dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
+
+</script>
+  <link rel="stylesheet" href="/X_eTaL-fpga/calc/hex1000-466ff6f031cd6986.css" integrity="sha384-wpAbvNDJvcC1BF63WFVIaeZQwNrglOD3rm2M1qWgC+uGFVrEAzyz97jupoGjKOqQ"/>
+<link rel="modulepreload" href="/X_eTaL-fpga/calc/hex1000-web-9c4425e43f93fb4b.js" crossorigin="anonymous" integrity="sha384-xyJvrvtkgFjTO8ZuIt/ZpkY6rVVjBiRedqw5tTxFQFm40f2FKJlXFenSYfj/Jkpz"><link rel="preload" href="/X_eTaL-fpga/calc/hex1000-web-9c4425e43f93fb4b_bg.wasm" crossorigin="anonymous" integrity="sha384-gdaGdc03ema2CpfLGLo1b3OnTFOW28Skp5UDYgQAAfCI43e3kH5ymsYyLw01COvG" as="fetch" type="application/wasm"></head>
+<body>
+<main>
+  <h1>HEX1000</h1>
+  <p class="lede">A 4-bit machine in the spirit of the TMS1000, computing in X_eTaL in your browser: each key goes through its key matrix into the machine running its ROM program, and the display shows the digits the program strobed out. Nothing else computes. Type on your keyboard, or use the keys below.</p>
+  <pre id="screen" aria-live="polite">starting X_eTaL ...</pre>
+  <div id="keys"></div>
+  <p id="status"></p>
+  <p class="foot">The program: <a href="https://github.com/hardwarewrighter/X_eTaL-fpga/blob/main/libs/Hex1000/demos/terminal.xtl">terminal.xtl</a>; the machine: <a href="https://github.com/hardwarewrighter/X_eTaL-fpga/blob/main/libs/Hex1000/src/Hex1000.xtl">Hex1000.xtl</a>; its ROM program: <a href="https://github.com/hardwarewrighter/X_eTaL-fpga/blob/main/libs/Hex1000/rom/calc.asm">calc.asm</a>. The X_eTaL evaluator interprets the machine, which interprets its ROM, so a multiply takes a moment here; on a Tang Nano it takes about a millisecond. <a href="../">X_eTaL-fpga</a></p>
+</main>
+</body>
+</html>

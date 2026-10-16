@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>libs/Datapath/src/Datapath.xtl - X_eTaL doc</title>
+<link rel="stylesheet" href="style.css">
+<script src="theme.js"></script>
+<script defer src="search-index.js"></script>
+<script defer src="search.js"></script>
+</head>
+<body>
+<nav class="side">
+<a class="home" href="index.html">X_eTaL doc</a>
+<input id="search" type="search" autocomplete="off" placeholder="Search: a name, or a type" title="A name (mean finds m_ean), or a type: Num a =&gt; a -&gt; a -&gt; a finds +, m_ax ...">
+<h2>Files</h2>
+<h3>libs/Clocked/src/</h3>
+<ul>
+<li><a href="libs-Clocked-src-Clocked.xtl.html">Clocked.xtl</a></li>
+</ul>
+<h3>libs/Fixed/src/</h3>
+<ul>
+<li><a href="libs-Fixed-src-Fixed.xtl.html">Fixed.xtl</a></li>
+</ul>
+<h3>libs/Datapath/src/</h3>
+<ul>
+<li><a href="libs-Datapath-src-Datapath.xtl.html">Datapath.xtl</a></li>
+</ul>
+<h3>libs/Hex1000/src/</h3>
+<ul>
+<li><a href="libs-Hex1000-src-Hex1000.xtl.html">Hex1000.xtl</a></li>
+</ul>
+<h3>work/libs/Strings/src/</h3>
+<ul>
+<li><a href="work-libs-Strings-src-Strings.xtl.html">Strings.xtl</a></li>
+</ul>
+<h3>libs/Radix/src/</h3>
+<ul>
+<li><a href="libs-Radix-src-Radix.xtl.html">Radix.xtl</a></li>
+</ul>
+<h3>std/</h3>
+<ul>
+<li><a href="std-System.xtlm.html">System.xtlm</a></li>
+</ul>
+<h3>libs/Panel/src/</h3>
+<ul>
+<li><a href="libs-Panel-src-Panel.xtl.html">Panel.xtl</a></li>
+</ul>
+<h3>libs/Uart/src/</h3>
+<ul>
+<li><a href="libs-Uart-src-Uart.xtl.html">Uart.xtl</a></li>
+</ul>
+<h3>libs/Clocked/demos/</h3>
+<ul>
+<li><a href="libs-Clocked-demos-accumulator.xtl.html">accumulator.xtl</a></li>
+<li><a href="libs-Clocked-demos-counter.xtl.html">counter.xtl</a></li>
+<li><a href="libs-Clocked-demos-detect.xtl.html">detect.xtl</a></li>
+<li><a href="libs-Clocked-demos-ram.xtl.html">ram.xtl</a></li>
+<li><a href="libs-Clocked-demos-shift.xtl.html">shift.xtl</a></li>
+</ul>
+<h3>libs/Datapath/demos/</h3>
+<ul>
+<li><a href="libs-Datapath-demos-pipeline.xtl.html">pipeline.xtl</a></li>
+<li><a href="libs-Datapath-demos-reduce-sum.xtl.html">reduce-sum.xtl</a></li>
+<li><a href="libs-Datapath-demos-saxpy.xtl.html">saxpy.xtl</a></li>
+<li><a href="libs-Datapath-demos-threshold.xtl.html">threshold.xtl</a></li>
+<li><a href="libs-Datapath-demos-vector-add.xtl.html">vector-add.xtl</a></li>
+</ul>
+<h3>libs/Fixed/demos/</h3>
+<ul>
+<li><a href="libs-Fixed-demos-counter.xtl.html">counter.xtl</a></li>
+<li><a href="libs-Fixed-demos-overflow.xtl.html">overflow.xtl</a></li>
+</ul>
+<h3>libs/Hex1000/demos/</h3>
+<ul>
+<li><a href="libs-Hex1000-demos-board.xtl.html">board.xtl</a></li>
+<li><a href="libs-Hex1000-demos-calc.xtl.html">calc.xtl</a></li>
+<li><a href="libs-Hex1000-demos-circuit.xtl.html">circuit.xtl</a></li>
+<li><a href="libs-Hex1000-demos-counter.xtl.html">counter.xtl</a></li>
+<li><a href="libs-Hex1000-demos-keys.xtl.html">keys.xtl</a></li>
+<li><a href="libs-Hex1000-demos-listing.xtl.html">listing.xtl</a></li>
+<li><a href="libs-Hex1000-demos-serial.xtl.html">serial.xtl</a></li>
+<li><a href="libs-Hex1000-demos-terminal.xtl.html">terminal.xtl</a></li>
+</ul>
+<h3>libs/Panel/demos/</h3>
+<ul>
+<li><a href="libs-Panel-demos-font.xtl.html">font.xtl</a></li>
+</ul>
+<h3>libs/Radix/demos/</h3>
+<ul>
+<li><a href="libs-Radix-demos-radixes.xtl.html">radixes.xtl</a></li>
+<li><a href="libs-Radix-demos-session.xtl.html">session.xtl</a></li>
+</ul>
+<h3>libs/Uart/demos/</h3>
+<ul>
+<li><a href="libs-Uart-demos-loopback.xtl.html">loopback.xtl</a></li>
+</ul>
+<ul>
+<li><a href="builtins.html">built-ins</a></li>
+</ul>
+<h2>On this page</h2>
+<ul>
+<li class="item"><a href="#L25"><span class="c-libfunc">ˡv̲add</span></a></li>
+<li class="item"><a href="#L33"><span class="c-libfunc">ˡs̲axpy</span></a></li>
+<li class="item"><a href="#L39"><span class="c-libfunc">ˡr̲elu</span></a></li>
+<li class="item"><a href="#L48"><span class="c-libfunc">ˡt̲hreshold</span></a></li>
+<li class="item"><a href="#L54"><span class="c-libfunc">ˡk̲eep</span></a></li>
+<li class="item"><a href="#L67"><span class="c-libfunc">ˡs̲um</span></a></li>
+<li class="item"><a href="#L74"><span class="c-libfunc">ʰh̲alve</span></a></li>
+<li class="item"><a href="#L84"><span class="c-libfunc">ˡl̲argest</span></a></li>
+<li class="item"><a href="#L92"><span class="c-libfunc">ˡd̲ot</span></a></li>
+<li class="item"><a href="#L104"><span class="c-libfunc">ˡp̲ipeline</span></a></li>
+</ul>
+</nav>
+<main>
+<button class="theme" title="Light or dark">theme</button>
+<section id="results"></section>
+<h1><span class="kind">source</span><a href="libs-Datapath-src-Datapath.xtl.html">libs/Datapath/src/Datapath.xtl</a></h1>
+<div class="source"><span class="line" id="L1"><a class="ln" href="#L1">1</a><span class="c-comment">⍝</span><span class="c-comment"># Datapath: the vector examples at a stated width: the whole-array operations a circuit realizes directly</span></span>
+<span class="line" id="L2"><a class="ln" href="#L2">2</a><span class="c-comment">⍝</span><span class="c-comment"># Import it with an alias of your choice: &quot;dp:&quot; u_se&lt; &quot;Datapath&quot;.</span></span>
+<span class="line" id="L3"><a class="ln" href="#L3">3</a><span class="c-comment">⍝</span><span class="c-comment"># Put libs/Datapath/src on XETAL_PATH (&quot;just path&quot;); the reference is libs/Datapath/docs.</span></span>
+<span class="line" id="L4"><a class="ln" href="#L4">4</a><span class="c-comment">⍝</span><span class="c-comment"># Names with l: are exported; the others are private to this file.</span></span>
+<span class="line" id="L5"><a class="ln" href="#L5">5</a><span class="c-comment">⍝</span><span class="c-comment">#</span></span>
+<span class="line" id="L6"><a class="ln" href="#L6">6</a><span class="c-comment">⍝</span><span class="c-comment"># Each function here is one whole-array expression a circuit can take</span></span>
+<span class="line" id="L7"><a class="ln" href="#L7">7</a><span class="c-comment">⍝</span><span class="c-comment"># on directly: arithmetic and comparisons item by item with scalar</span></span>
+<span class="line" id="L8"><a class="ln" href="#L8">8</a><span class="c-comment">⍝</span><span class="c-comment"># extension (one unit per element, or one unit and a counter), a</span></span>
+<span class="line" id="L9"><a class="ln" href="#L9">9</a><span class="c-comment">⍝</span><span class="c-comment"># select by mask (a mux), and reductions (a tree of adders). The</span></span>
+<span class="line" id="L10"><a class="ln" href="#L10">10</a><span class="c-comment">⍝</span><span class="c-comment"># arithmetic is Fixed's (a wrap at every unit), so every result is what w-bit units give, and</span></span>
+<span class="line" id="L11"><a class="ln" href="#L11">11</a><span class="c-comment">⍝</span><span class="c-comment"># the X_eTaL evaluator is the reference the generated circuit must</span></span>
+<span class="line" id="L12"><a class="ln" href="#L12">12</a><span class="c-comment">⍝</span><span class="c-comment"># match bit for bit (the demos are the programs it checks). The width</span></span>
+<span class="line" id="L13"><a class="ln" href="#L13">13</a><span class="c-comment">⍝</span><span class="c-comment"># comes first; a function of three or four arguments is used curried,</span></span>
+<span class="line" id="L14"><a class="ln" href="#L14">14</a><span class="c-comment">⍝</span><span class="c-comment"># the width bound once: u:v_add := dp:v_add 16, then x u:v_add y.</span></span>
+<span class="line" id="L15"><a class="ln" href="#L15">15</a><span class="c-libfunc">ᶠˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Fixed-src-Fixed.xtl.html" class="c-string">&quot;Fixed&quot;</a></span>
+<span class="line" id="L16"><a class="ln" href="#L16">16</a></span>
+<span class="line" id="L17"><a class="ln" href="#L17">17</a><span class="c-comment">⍝</span><span class="c-comment">## Elementwise: one unit per element</span></span>
+<span class="line" id="L18"><a class="ln" href="#L18">18</a></span>
+<span class="line" id="L19"><a class="ln" href="#L19">19</a><span class="c-comment">⍝</span><span class="c-comment"># w v_add x y: the sum, item by item, wrapped to w bits (eight 16-bit</span></span>
+<span class="line" id="L20"><a class="ln" href="#L20">20</a><span class="c-comment">⍝</span><span class="c-comment"># numbers: eight 16-bit adders).</span></span>
+<span class="line" id="L21"><a class="ln" href="#L21">21</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;dp:&quot; u_se&lt; &quot;Datapath&quot;</span></span>
+<span class="line" id="L22"><a class="ln" href="#L22">22</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; u:v_add := dp:v_add 16</span></span>
+<span class="line" id="L23"><a class="ln" href="#L23">23</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; 30000 u:v_add 30000 -30000</span></span>
+<span class="line" id="L24"><a class="ln" href="#L24">24</a><span class="c-comment">⍝</span><span class="c-comment"># -5536 0</span></span>
+<span class="line" id="L25"><a class="ln" href="#L25">25</a><span class="c-libfunc">ˡv̲add</span> ← { w x y → w <a href="libs-Fixed-src-Fixed.xtl.html#l.w_rap" class="c-libfunc">ᶠˣw̲rap</a> x <a href="builtins.html#-2b" class="c-symbol">+</a> y }</span>
+<span class="line" id="L26"><a class="ln" href="#L26">26</a></span>
+<span class="line" id="L27"><a class="ln" href="#L27">27</a><span class="c-comment">⍝</span><span class="c-comment"># w s_axpy a x y: a times x plus y, wrapped at each unit (a multiplier</span></span>
+<span class="line" id="L28"><a class="ln" href="#L28">28</a><span class="c-comment">⍝</span><span class="c-comment"># and an adder per element); bind w and a: u:s_axpy := 16 dp:s_axpy 3.</span></span>
+<span class="line" id="L29"><a class="ln" href="#L29">29</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;dp:&quot; u_se&lt; &quot;Datapath&quot;</span></span>
+<span class="line" id="L30"><a class="ln" href="#L30">30</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; u:s_axpy := 16 dp:s_axpy 3</span></span>
+<span class="line" id="L31"><a class="ln" href="#L31">31</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; 1 2 3 4 u:s_axpy 100 200 300 400</span></span>
+<span class="line" id="L32"><a class="ln" href="#L32">32</a><span class="c-comment">⍝</span><span class="c-comment"># 103 206 309 412</span></span>
+<span class="line" id="L33"><a class="ln" href="#L33">33</a><span class="c-libfunc">ˡs̲axpy</span> ← { w a x y → w <a href="libs-Fixed-src-Fixed.xtl.html#l.w_rap" class="c-libfunc">ᶠˣw̲rap</a> y <a href="builtins.html#-2b" class="c-symbol">+</a> w <a href="libs-Fixed-src-Fixed.xtl.html#l.w_rap" class="c-libfunc">ᶠˣw̲rap</a> a <a href="builtins.html#-2a" class="c-symbol">×</a> x }</span>
+<span class="line" id="L34"><a class="ln" href="#L34">34</a></span>
+<span class="line" id="L35"><a class="ln" href="#L35">35</a><span class="c-comment">⍝</span><span class="c-comment"># r_elu x: x where positive, 0 elsewhere (a comparator and a mux).</span></span>
+<span class="line" id="L36"><a class="ln" href="#L36">36</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;dp:&quot; u_se&lt; &quot;Datapath&quot;</span></span>
+<span class="line" id="L37"><a class="ln" href="#L37">37</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; dp:r_elu 1 -2 3 -4</span></span>
+<span class="line" id="L38"><a class="ln" href="#L38">38</a><span class="c-comment">⍝</span><span class="c-comment"># 1 0 3 0</span></span>
+<span class="line" id="L39"><a class="ln" href="#L39">39</a><span class="c-libfunc">ˡr̲elu</span> ← { x → x <a href="builtins.html#m_ax" class="c-builtin">m̲ax</a> <span class="c-number">0</span> }</span>
+<span class="line" id="L40"><a class="ln" href="#L40">40</a></span>
+<span class="line" id="L41"><a class="ln" href="#L41">41</a><span class="c-comment">⍝</span><span class="c-comment">## Masks and select: a mux</span></span>
+<span class="line" id="L42"><a class="ln" href="#L42">42</a></span>
+<span class="line" id="L43"><a class="ln" href="#L43">43</a><span class="c-comment">⍝</span><span class="c-comment"># t t_hreshold x: x where x &gt; t, 0 elsewhere: the mask </span><span class="c-comment"></span>x <span class="c-symbol">&gt;</span> t<span class="c-comment"></span><span class="c-comment"> is the</span></span>
+<span class="line" id="L44"><a class="ln" href="#L44">44</a><span class="c-comment">⍝</span><span class="c-comment"># mux's select line.</span></span>
+<span class="line" id="L45"><a class="ln" href="#L45">45</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;dp:&quot; u_se&lt; &quot;Datapath&quot;</span></span>
+<span class="line" id="L46"><a class="ln" href="#L46">46</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; 2 dp:t_hreshold 1 2 3 4</span></span>
+<span class="line" id="L47"><a class="ln" href="#L47">47</a><span class="c-comment">⍝</span><span class="c-comment"># 0 0 3 4</span></span>
+<span class="line" id="L48"><a class="ln" href="#L48">48</a><span class="c-libfunc">ˡt̲hreshold</span> ← { t x → x <a href="builtins.html#-2a" class="c-symbol">×</a> x <a href="builtins.html#-3e" class="c-symbol">&gt;</a> t }</span>
+<span class="line" id="L49"><a class="ln" href="#L49">49</a></span>
+<span class="line" id="L50"><a class="ln" href="#L50">50</a><span class="c-comment">⍝</span><span class="c-comment"># m k_eep x: x where the mask m is 1, 0 elsewhere.</span></span>
+<span class="line" id="L51"><a class="ln" href="#L51">51</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;dp:&quot; u_se&lt; &quot;Datapath&quot;</span></span>
+<span class="line" id="L52"><a class="ln" href="#L52">52</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; (1 0 1 0) dp:k_eep 5 6 7 8</span></span>
+<span class="line" id="L53"><a class="ln" href="#L53">53</a><span class="c-comment">⍝</span><span class="c-comment"># 5 0 7 0</span></span>
+<span class="line" id="L54"><a class="ln" href="#L54">54</a><span class="c-libfunc">ˡk̲eep</span> ← { m x → x <a href="builtins.html#-2a" class="c-symbol">×</a> m }</span>
+<span class="line" id="L55"><a class="ln" href="#L55">55</a></span>
+<span class="line" id="L56"><a class="ln" href="#L56">56</a><span class="c-comment">⍝</span><span class="c-comment">## Reductions: a tree of adders</span></span>
+<span class="line" id="L57"><a class="ln" href="#L57">57</a></span>
+<span class="line" id="L58"><a class="ln" href="#L58">58</a><span class="c-comment">⍝</span><span class="c-comment"># w s_um x: the sum of a vector as a balanced tree of w-bit adders:</span></span>
+<span class="line" id="L59"><a class="ln" href="#L59">59</a><span class="c-comment">⍝</span><span class="c-comment"># the first half added to the second half, item by item, then that</span></span>
+<span class="line" id="L60"><a class="ln" href="#L60">60</a><span class="c-comment">⍝</span><span class="c-comment"># vector likewise, down to one number (a loop over the log2 n levels</span></span>
+<span class="line" id="L61"><a class="ln" href="#L61">61</a><span class="c-comment">⍝</span><span class="c-comment"># of the tree; an odd length is padded with a 0). Wrapping at every</span></span>
+<span class="line" id="L62"><a class="ln" href="#L62">62</a><span class="c-comment">⍝</span><span class="c-comment"># adder gives the same bits as wrapping the exact sum once (checked in</span></span>
+<span class="line" id="L63"><a class="ln" href="#L63">63</a><span class="c-comment">⍝</span><span class="c-comment"># tests/checks.xtl).</span></span>
+<span class="line" id="L64"><a class="ln" href="#L64">64</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;dp:&quot; u_se&lt; &quot;Datapath&quot;</span></span>
+<span class="line" id="L65"><a class="ln" href="#L65">65</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; 16 dp:s_um 20000 20000 20000 20000</span></span>
+<span class="line" id="L66"><a class="ln" href="#L66">66</a><span class="c-comment">⍝</span><span class="c-comment"># 14464</span></span>
+<span class="line" id="L67"><a class="ln" href="#L67">67</a><span class="c-libfunc">ˡs̲um</span> ← { w x →</span>
+<span class="line" id="L68"><a class="ln" href="#L68">68</a>  levels ← <span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> (<span class="c-number">2</span> <a href="builtins.html#-5e" class="c-symbol">^</a> <a href="builtins.html#o_ffsets" class="c-builtin">o̲ffsets</a> <span class="c-number">63</span>) <a href="builtins.html#-3c" class="c-symbol">&lt;</a> <a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> x</span>
+<span class="line" id="L69"><a class="ln" href="#L69">69</a>  <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> levels <span class="c-quote">'</span>{ v → w <a href="libs-Datapath-src-Datapath.xtl.html#h.h_alve" class="c-libfunc">ʰh̲alve</a> v } <a href="builtins.html#p_ower" class="c-builtin">p̲ower</a> x</span>
+<span class="line" id="L70"><a class="ln" href="#L70">70</a>}</span>
+<span class="line" id="L71"><a class="ln" href="#L71">71</a></span>
+<span class="line" id="L72"><a class="ln" href="#L72">72</a><span class="c-comment">⍝</span><span class="c-comment"># One level of the tree: the first half added to the second (after a</span></span>
+<span class="line" id="L73"><a class="ln" href="#L73">73</a><span class="c-comment">⍝</span><span class="c-comment"># 0 pads an odd length).</span></span>
+<span class="line" id="L74"><a class="ln" href="#L74">74</a><span class="c-libfunc">ʰh̲alve</span> ← { w v →</span>
+<span class="line" id="L75"><a class="ln" href="#L75">75</a>  e ← v <a href="builtins.html#c_at" class="c-builtin">c̲at</a> ((<a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> v) <a href="builtins.html#m_od" class="c-builtin">m̲od</a> <span class="c-number">2</span>) <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">0</span></span>
+<span class="line" id="L76"><a class="ln" href="#L76">76</a>  h ← (<a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> e) <a href="builtins.html#d_iv" class="c-builtin">d̲iv</a> <span class="c-number">2</span></span>
+<span class="line" id="L77"><a class="ln" href="#L77">77</a>  w <a href="libs-Fixed-src-Fixed.xtl.html#l.w_rap" class="c-libfunc">ᶠˣw̲rap</a> (h <a href="builtins.html#t_ake" class="c-builtin">t̲ake</a> e) <a href="builtins.html#-2b" class="c-symbol">+</a> h <a href="builtins.html#d_rop" class="c-builtin">d̲rop</a> e</span>
+<span class="line" id="L78"><a class="ln" href="#L78">78</a>}</span>
+<span class="line" id="L79"><a class="ln" href="#L79">79</a></span>
+<span class="line" id="L80"><a class="ln" href="#L80">80</a><span class="c-comment">⍝</span><span class="c-comment"># l_argest x: the largest item (a tree of comparators and muxes).</span></span>
+<span class="line" id="L81"><a class="ln" href="#L81">81</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;dp:&quot; u_se&lt; &quot;Datapath&quot;</span></span>
+<span class="line" id="L82"><a class="ln" href="#L82">82</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; dp:l_argest 3 9 2</span></span>
+<span class="line" id="L83"><a class="ln" href="#L83">83</a><span class="c-comment">⍝</span><span class="c-comment"># 9</span></span>
+<span class="line" id="L84"><a class="ln" href="#L84">84</a><span class="c-libfunc">ˡl̲argest</span> ← { x → <span class="c-builtin">'</span><a href="builtins.html#m_ax" class="c-builtin">m̲ax</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> x }</span>
+<span class="line" id="L85"><a class="ln" href="#L85">85</a></span>
+<span class="line" id="L86"><a class="ln" href="#L86">86</a><span class="c-comment">⍝</span><span class="c-comment"># w d_ot x y: the inner product, a multiplier per element then the</span></span>
+<span class="line" id="L87"><a class="ln" href="#L87">87</a><span class="c-comment">⍝</span><span class="c-comment"># tree.</span></span>
+<span class="line" id="L88"><a class="ln" href="#L88">88</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;dp:&quot; u_se&lt; &quot;Datapath&quot;</span></span>
+<span class="line" id="L89"><a class="ln" href="#L89">89</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; u:d_ot := dp:d_ot 16</span></span>
+<span class="line" id="L90"><a class="ln" href="#L90">90</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; 1 2 3 u:d_ot 4 5 6</span></span>
+<span class="line" id="L91"><a class="ln" href="#L91">91</a><span class="c-comment">⍝</span><span class="c-comment"># 32</span></span>
+<span class="line" id="L92"><a class="ln" href="#L92">92</a><span class="c-libfunc">ˡd̲ot</span> ← { w x y → w <a href="libs-Datapath-src-Datapath.xtl.html#l.s_um" class="c-libfunc">ˡs̲um</a> w <a href="libs-Fixed-src-Fixed.xtl.html#l.w_rap" class="c-libfunc">ᶠˣw̲rap</a> x <a href="builtins.html#-2a" class="c-symbol">×</a> y }</span>
+<span class="line" id="L93"><a class="ln" href="#L93">93</a></span>
+<span class="line" id="L94"><a class="ln" href="#L94">94</a><span class="c-comment">⍝</span><span class="c-comment">## The acceptance pipeline</span></span>
+<span class="line" id="L95"><a class="ln" href="#L95">95</a></span>
+<span class="line" id="L96"><a class="ln" href="#L96">96</a><span class="c-comment">⍝</span><span class="c-comment"># w p_ipeline x k: multiply, add, select, reduce in one expression,</span></span>
+<span class="line" id="L97"><a class="ln" href="#L97">97</a><span class="c-comment">⍝</span><span class="c-comment"># the sum of the positive items of x + x * k, every unit w bits: the</span></span>
+<span class="line" id="L98"><a class="ln" href="#L98">98</a><span class="c-comment">⍝</span><span class="c-comment"># first end-to-end test research7 asks for (arithmetic, map, zip,</span></span>
+<span class="line" id="L99"><a class="ln" href="#L99">99</a><span class="c-comment">⍝</span><span class="c-comment"># comparison, selection, reduction).</span></span>
+<span class="line" id="L100"><a class="ln" href="#L100">100</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;dp:&quot; u_se&lt; &quot;Datapath&quot;</span></span>
+<span class="line" id="L101"><a class="ln" href="#L101">101</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; u:p_ipeline := dp:p_ipeline 16</span></span>
+<span class="line" id="L102"><a class="ln" href="#L102">102</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; 1 2 3 4 u:p_ipeline 1 -2 1 -2</span></span>
+<span class="line" id="L103"><a class="ln" href="#L103">103</a><span class="c-comment">⍝</span><span class="c-comment"># 8</span></span>
+<span class="line" id="L104"><a class="ln" href="#L104">104</a><span class="c-libfunc">ˡp̲ipeline</span> ← { w x k → w <a href="libs-Datapath-src-Datapath.xtl.html#l.s_um" class="c-libfunc">ˡs̲um</a> <a href="libs-Datapath-src-Datapath.xtl.html#l.r_elu" class="c-libfunc">ˡr̲elu</a> w <a href="libs-Fixed-src-Fixed.xtl.html#l.w_rap" class="c-libfunc">ᶠˣw̲rap</a> x <a href="builtins.html#-2b" class="c-symbol">+</a> w <a href="libs-Fixed-src-Fixed.xtl.html#l.w_rap" class="c-libfunc">ᶠˣw̲rap</a> x <a href="builtins.html#-2a" class="c-symbol">×</a> k }</span>
+</div>
+</main>
+</body>
+</html>

@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>libs/Radix/src/Radix.xtl - X_eTaL doc</title>
+<link rel="stylesheet" href="style.css">
+<script src="theme.js"></script>
+<script defer src="search-index.js"></script>
+<script defer src="search.js"></script>
+</head>
+<body>
+<nav class="side">
+<a class="home" href="index.html">X_eTaL doc</a>
+<input id="search" type="search" autocomplete="off" placeholder="Search: a name, or a type" title="A name (mean finds m_ean), or a type: Num a =&gt; a -&gt; a -&gt; a finds +, m_ax ...">
+<h2>Files</h2>
+<h3>libs/Clocked/src/</h3>
+<ul>
+<li><a href="libs-Clocked-src-Clocked.xtl.html">Clocked.xtl</a></li>
+</ul>
+<h3>libs/Fixed/src/</h3>
+<ul>
+<li><a href="libs-Fixed-src-Fixed.xtl.html">Fixed.xtl</a></li>
+</ul>
+<h3>libs/Datapath/src/</h3>
+<ul>
+<li><a href="libs-Datapath-src-Datapath.xtl.html">Datapath.xtl</a></li>
+</ul>
+<h3>libs/Hex1000/src/</h3>
+<ul>
+<li><a href="libs-Hex1000-src-Hex1000.xtl.html">Hex1000.xtl</a></li>
+</ul>
+<h3>work/libs/Strings/src/</h3>
+<ul>
+<li><a href="work-libs-Strings-src-Strings.xtl.html">Strings.xtl</a></li>
+</ul>
+<h3>libs/Radix/src/</h3>
+<ul>
+<li><a href="libs-Radix-src-Radix.xtl.html">Radix.xtl</a></li>
+</ul>
+<h3>std/</h3>
+<ul>
+<li><a href="std-System.xtlm.html">System.xtlm</a></li>
+</ul>
+<h3>libs/Panel/src/</h3>
+<ul>
+<li><a href="libs-Panel-src-Panel.xtl.html">Panel.xtl</a></li>
+</ul>
+<h3>libs/Uart/src/</h3>
+<ul>
+<li><a href="libs-Uart-src-Uart.xtl.html">Uart.xtl</a></li>
+</ul>
+<h3>libs/Clocked/demos/</h3>
+<ul>
+<li><a href="libs-Clocked-demos-accumulator.xtl.html">accumulator.xtl</a></li>
+<li><a href="libs-Clocked-demos-counter.xtl.html">counter.xtl</a></li>
+<li><a href="libs-Clocked-demos-detect.xtl.html">detect.xtl</a></li>
+<li><a href="libs-Clocked-demos-ram.xtl.html">ram.xtl</a></li>
+<li><a href="libs-Clocked-demos-shift.xtl.html">shift.xtl</a></li>
+</ul>
+<h3>libs/Datapath/demos/</h3>
+<ul>
+<li><a href="libs-Datapath-demos-pipeline.xtl.html">pipeline.xtl</a></li>
+<li><a href="libs-Datapath-demos-reduce-sum.xtl.html">reduce-sum.xtl</a></li>
+<li><a href="libs-Datapath-demos-saxpy.xtl.html">saxpy.xtl</a></li>
+<li><a href="libs-Datapath-demos-threshold.xtl.html">threshold.xtl</a></li>
+<li><a href="libs-Datapath-demos-vector-add.xtl.html">vector-add.xtl</a></li>
+</ul>
+<h3>libs/Fixed/demos/</h3>
+<ul>
+<li><a href="libs-Fixed-demos-counter.xtl.html">counter.xtl</a></li>
+<li><a href="libs-Fixed-demos-overflow.xtl.html">overflow.xtl</a></li>
+</ul>
+<h3>libs/Hex1000/demos/</h3>
+<ul>
+<li><a href="libs-Hex1000-demos-board.xtl.html">board.xtl</a></li>
+<li><a href="libs-Hex1000-demos-calc.xtl.html">calc.xtl</a></li>
+<li><a href="libs-Hex1000-demos-circuit.xtl.html">circuit.xtl</a></li>
+<li><a href="libs-Hex1000-demos-counter.xtl.html">counter.xtl</a></li>
+<li><a href="libs-Hex1000-demos-keys.xtl.html">keys.xtl</a></li>
+<li><a href="libs-Hex1000-demos-listing.xtl.html">listing.xtl</a></li>
+<li><a href="libs-Hex1000-demos-serial.xtl.html">serial.xtl</a></li>
+<li><a href="libs-Hex1000-demos-terminal.xtl.html">terminal.xtl</a></li>
+</ul>
+<h3>libs/Panel/demos/</h3>
+<ul>
+<li><a href="libs-Panel-demos-font.xtl.html">font.xtl</a></li>
+</ul>
+<h3>libs/Radix/demos/</h3>
+<ul>
+<li><a href="libs-Radix-demos-radixes.xtl.html">radixes.xtl</a></li>
+<li><a href="libs-Radix-demos-session.xtl.html">session.xtl</a></li>
+</ul>
+<h3>libs/Uart/demos/</h3>
+<ul>
+<li><a href="libs-Uart-demos-loopback.xtl.html">loopback.xtl</a></li>
+</ul>
+<ul>
+<li><a href="builtins.html">built-ins</a></li>
+</ul>
+<h2>On this page</h2>
+<ul>
+<li><a href="#section-1">Numbers as digits</a></li>
+<li class="item"><a href="#l.Width">ˡWidth</a></li>
+<li class="item"><a href="#l.m_odulus"><span class="c-libfunc">ˡm̲odulus</span></a></li>
+<li class="item"><a href="#l.d_igits"><span class="c-libfunc">ˡd̲igits</span></a></li>
+<li class="item"><a href="#l.v_alue"><span class="c-libfunc">ˡv̲alue</span></a></li>
+<li class="item"><a href="#l.w_rap"><span class="c-libfunc">ˡw̲rap</span></a></li>
+<li><a href="#section-2">The keys</a></li>
+<li class="item"><a href="#Keys">Keys</a></li>
+<li class="item"><a href="#l.KeyPlus">ˡKeyPlus</a></li>
+<li class="item"><a href="#l.KeyMinus">ˡKeyMinus</a></li>
+<li class="item"><a href="#l.KeyTimes">ˡKeyTimes</a></li>
+<li class="item"><a href="#l.KeyEquals">ˡKeyEquals</a></li>
+<li class="item"><a href="#l.KeyClear">ˡKeyClear</a></li>
+<li class="item"><a href="#l.k_eys"><span class="c-libfunc">ˡk̲eys</span></a></li>
+<li><a href="#section-3">The calculator: a step per key</a></li>
+<li class="item"><a href="#l.Reset">ˡReset</a></li>
+<li class="item"><a href="#h.a_cc"><span class="c-libfunc">ʰa̲cc</span></a></li>
+<li class="item"><a href="#h.e_ntry"><span class="c-libfunc">ʰe̲ntry</span></a></li>
+<li class="item"><a href="#h.o_p"><span class="c-libfunc">ʰo̲p</span></a></li>
+<li class="item"><a href="#h.p_hase"><span class="c-libfunc">ʰp̲hase</span></a></li>
+<li class="item"><a href="#l.a_lu"><span class="c-libfunc">ˡa̲lu</span></a></li>
+<li class="item"><a href="#h.t_imes"><span class="c-libfunc">ʰt̲imes</span></a></li>
+<li class="item"><a href="#h.s_ettle"><span class="c-libfunc">ʰs̲ettle</span></a></li>
+<li class="item"><a href="#l.k_ey"><span class="c-libfunc">ˡk̲ey</span></a></li>
+<li class="item"><a href="#l.d_isplay"><span class="c-libfunc">ˡd̲isplay</span></a></li>
+<li class="item"><a href="#l.s_creen"><span class="c-libfunc">ˡs̲creen</span></a></li>
+<li class="item"><a href="#l.c_alc"><span class="c-libfunc">ˡc̲alc</span></a></li>
+<li class="item"><a href="#l.r_un"><span class="c-libfunc">ˡr̲un</span></a></li>
+</ul>
+</nav>
+<main>
+<button class="theme" title="Light or dark">theme</button>
+<section id="results"></section>
+<h1><span class="kind">library</span>libs/Radix/src/Radix.xtl</h1>
+<div class="doc">
+<p>Radix: an eight-digit calculator in any radix (hexadecimal, octal, decimal): the specification HEX1000's ROM program must meet
+Import it with an alias of your choice: &quot;rx:&quot; u_se&lt; &quot;Radix&quot;.
+Put libs/Radix/src on XETAL_PATH (&quot;just path&quot;); the reference is libs/Radix/docs.
+Names with l: are exported; the others are private to this file.</p>
+<p>A number is eight digits in radix r (16, 8 or 10), as a calculator
+chip keeps it: a whole number from 0 to r^8 - 1. Arithmetic wraps
+like an odometer, modulo r^8: in hexadecimal FFFFFFFF + 1 is 0 and
+5 - 7 is FFFFFFFE (the r's complement a digit-serial subtract
+leaves). The radix is the first argument of every function, bound
+once by applying the function to it: u:k_ey := rx:k_ey 16.</p>
+</div>
+<p class="meta"><a href="libs-Radix-src-Radix.xtl.src.html">source</a></p>
+<h2 class="section" id="section-1">Numbers as digits</h2>
+<div class="item" id="l.Width">
+<h3><a href="#l.Width">ˡWidth</a> <span class="type">: Int</span></h3>
+<div class="meta">value &middot; <a href="libs-Radix-src-Radix.xtl.src.html#L19">line 19</a></div>
+<div class="doc">
+<p>Width: the digits a number has (the display's).</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʳˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Radix-src-Radix.xtl.html" class="c-string">&quot;Radix&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Radix-src-Radix.xtl.html#l.Width">ʳˣWidth</a>
+8</pre>
+</div>
+<pre class="code">ˡWidth ← <span class="c-number">8</span></pre>
+<div class="uses">Used in: <a href="libs-Radix-src-Radix.xtl.html#l.m_odulus"><span class="c-libfunc">ˡm̲odulus</span></a>, <a href="libs-Radix-src-Radix.xtl.html#l.d_igits"><span class="c-libfunc">ˡd̲igits</span></a>, <a href="libs-Radix-src-Radix.xtl.html#l.k_ey"><span class="c-libfunc">ˡk̲ey</span></a></div>
+</div>
+<div class="item" id="l.m_odulus">
+<h3><a href="#l.m_odulus"><span class="c-libfunc">ˡm̲odulus</span></a> <span class="type">: Int -&gt; Int</span></h3>
+<div class="meta">function &middot; <a href="libs-Radix-src-Radix.xtl.src.html#L25">line 25</a></div>
+<div class="doc">
+<p>m_odulus r: r^8, one more than the largest number.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʳˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Radix-src-Radix.xtl.html" class="c-string">&quot;Radix&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Radix-src-Radix.xtl.html#l.m_odulus" class="c-libfunc">ʳˣm̲odulus</a> <span class="c-number">16</span>
+4294967296</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡm̲odulus</span> ← { r → r <a href="builtins.html#-5e" class="c-symbol">^</a> <a href="libs-Radix-src-Radix.xtl.html#l.Width">ˡWidth</a> }</pre>
+<div class="uses">Used in: <a href="libs-Radix-src-Radix.xtl.html#l.d_igits"><span class="c-libfunc">ˡd̲igits</span></a>, <a href="libs-Radix-src-Radix.xtl.html#l.w_rap"><span class="c-libfunc">ˡw̲rap</span></a></div>
+</div>
+<div class="item" id="l.d_igits">
+<h3><a href="#l.d_igits"><span class="c-libfunc">ˡd̲igits</span></a> <span class="type">: Int -&gt; Int -&gt; Int</span></h3>
+<div class="meta">function &middot; <a href="libs-Radix-src-Radix.xtl.src.html#L32">line 32</a></div>
+<div class="doc">
+<p>r d_igits n: the eight digits of n, most significant first (the
+display's order); n is wrapped first.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʳˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Radix-src-Radix.xtl.html" class="c-string">&quot;Radix&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-number">16</span> <a href="libs-Radix-src-Radix.xtl.html#l.d_igits" class="c-libfunc">ʳˣd̲igits</a> <span class="c-number">255</span>
+0 0 0 0 0 0 15 15</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡd̲igits</span> ← { r n → (<a href="libs-Radix-src-Radix.xtl.html#l.Width">ˡWidth</a> <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> r) <a href="builtins.html#e_ncode" class="c-builtin">e̲ncode</a> n <a href="builtins.html#m_od" class="c-builtin">m̲od</a> <a href="libs-Radix-src-Radix.xtl.html#l.m_odulus" class="c-libfunc">ˡm̲odulus</a> r }</pre>
+<div class="uses">Used in: <a href="libs-Radix-src-Radix.xtl.html#l.s_creen"><span class="c-libfunc">ˡs̲creen</span></a></div>
+</div>
+<div class="item" id="l.v_alue">
+<h3><a href="#l.v_alue"><span class="c-libfunc">ˡv̲alue</span></a> <span class="type">: Num a =&gt; a -&gt; a -&gt; a</span></h3>
+<div class="meta">function &middot; <a href="libs-Radix-src-Radix.xtl.src.html#L38">line 38</a></div>
+<div class="doc">
+<p>r v_alue ds: the number eight digits (or any digits) stand for.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʳˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Radix-src-Radix.xtl.html" class="c-string">&quot;Radix&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-number">16</span> <a href="libs-Radix-src-Radix.xtl.html#l.v_alue" class="c-libfunc">ʳˣv̲alue</a> <span class="c-number">1</span> <span class="c-number">0</span> <span class="c-number">0</span>
+256</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡv̲alue</span> ← { r ds → r <a href="builtins.html#d_ecode" class="c-builtin">d̲ecode</a> ds }</pre>
+</div>
+<div class="item" id="l.w_rap">
+<h3><a href="#l.w_rap"><span class="c-libfunc">ˡw̲rap</span></a> <span class="type">: Int -&gt; Int -&gt; Int</span></h3>
+<div class="meta">function &middot; <a href="libs-Radix-src-Radix.xtl.src.html#L44">line 44</a></div>
+<div class="doc">
+<p>r w_rap n: n modulo r^8 (an odometer).</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʳˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Radix-src-Radix.xtl.html" class="c-string">&quot;Radix&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-number">16</span> <a href="libs-Radix-src-Radix.xtl.html#l.w_rap" class="c-libfunc">ʳˣw̲rap</a> <span class="c-number">-1</span>
+4294967295</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡw̲rap</span> ← { r n → n <a href="builtins.html#m_od" class="c-builtin">m̲od</a> <a href="libs-Radix-src-Radix.xtl.html#l.m_odulus" class="c-libfunc">ˡm̲odulus</a> r }</pre>
+<div class="uses">Used in: <a href="libs-Radix-src-Radix.xtl.html#l.a_lu"><span class="c-libfunc">ˡa̲lu</span></a>, <a href="libs-Radix-src-Radix.xtl.html#h.t_imes"><span class="c-libfunc">ʰt̲imes</span></a></div>
+</div>
+<h2 class="section" id="section-2">The keys</h2>
+<div class="item" id="Keys">
+<h3><a href="#Keys">Keys</a> <span class="type">: Char</span></h3>
+<div class="meta">value <span class="private">(private)</span> &middot; <a href="libs-Radix-src-Radix.xtl.src.html#L51">line 51</a></div>
+<div class="doc">
+<p>Key codes: the digits 0 to 15 are themselves, then + - * = and X
+(clear: C is a hexadecimal digit); Keys is the text whose place,
+less 1, is the code.</p>
+</div>
+<pre class="code">Keys ← <a href="builtins.html#-5b-5dD" class="c-builtin">⎕D</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<span class="c-number">6</span> <a href="builtins.html#t_ake" class="c-builtin">t̲ake</a> <a href="builtins.html#-5b-5dA" class="c-builtin">⎕A</a>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-string">&quot;+-*=X&quot;</span></pre>
+<div class="uses">Used in: <a href="libs-Radix-src-Radix.xtl.html#l.k_eys"><span class="c-libfunc">ˡk̲eys</span></a>, <a href="libs-Radix-src-Radix.xtl.html#l.s_creen"><span class="c-libfunc">ˡs̲creen</span></a></div>
+</div>
+<div class="item" id="l.KeyPlus">
+<h3><a href="#l.KeyPlus">ˡKeyPlus</a> <span class="type">: Int</span></h3>
+<div class="meta">value &middot; <a href="libs-Radix-src-Radix.xtl.src.html#L57">line 57</a></div>
+<div class="doc">
+<p>KeyPlus: the code of +.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʳˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Radix-src-Radix.xtl.html" class="c-string">&quot;Radix&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Radix-src-Radix.xtl.html#l.KeyPlus">ʳˣKeyPlus</a>
+16</pre>
+</div>
+<pre class="code">ˡKeyPlus ← <span class="c-number">16</span></pre>
+<div class="uses">Used in: <a href="libs-Radix-src-Radix.xtl.html#l.k_ey"><span class="c-libfunc">ˡk̲ey</span></a></div>
+</div>
+<div class="item" id="l.KeyMinus">
+<h3><a href="#l.KeyMinus">ˡKeyMinus</a> <span class="type">: Int</span></h3>
+<div class="meta">value &middot; <a href="libs-Radix-src-Radix.xtl.src.html#L63">line 63</a></div>
+<div class="doc">
+<p>KeyMinus: the code of -.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʳˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Radix-src-Radix.xtl.html" class="c-string">&quot;Radix&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Radix-src-Radix.xtl.html#l.KeyMinus">ʳˣKeyMinus</a>
+17</pre>
+</div>
+<pre class="code">ˡKeyMinus ← <span class="c-number">17</span></pre>
+</div>
+<div class="item" id="l.KeyTimes">
+<h3><a href="#l.KeyTimes">ˡKeyTimes</a> <span class="type">: Int</span></h3>
+<div class="meta">value &middot; <a href="libs-Radix-src-Radix.xtl.src.html#L69">line 69</a></div>
+<div class="doc">
+<p>KeyTimes: the code of *.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʳˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Radix-src-Radix.xtl.html" class="c-string">&quot;Radix&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Radix-src-Radix.xtl.html#l.KeyTimes">ʳˣKeyTimes</a>
+18</pre>
+</div>
+<pre class="code">ˡKeyTimes ← <span class="c-number">18</span></pre>
+</div>
+<div class="item" id="l.KeyEquals">
+<h3><a href="#l.KeyEquals">ˡKeyEquals</a> <span class="type">: Int</span></h3>
+<div class="meta">value &middot; <a href="libs-Radix-src-Radix.xtl.src.html#L75">line 75</a></div>
+<div class="doc">
+<p>KeyEquals: the code of =.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʳˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Radix-src-Radix.xtl.html" class="c-string">&quot;Radix&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Radix-src-Radix.xtl.html#l.KeyEquals">ʳˣKeyEquals</a>
+19</pre>
+</div>
+<pre class="code">ˡKeyEquals ← <span class="c-number">19</span></pre>
+<div class="uses">Used in: <a href="libs-Radix-src-Radix.xtl.html#l.k_ey"><span class="c-libfunc">ˡk̲ey</span></a></div>
+</div>
+<div class="item" id="l.KeyClear">
+<h3><a href="#l.KeyClear">ˡKeyClear</a> <span class="type">: Int</span></h3>
+<div class="meta">value &middot; <a href="libs-Radix-src-Radix.xtl.src.html#L81">line 81</a></div>
+<div class="doc">
+<p>KeyClear: the code of X, clear.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʳˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Radix-src-Radix.xtl.html" class="c-string">&quot;Radix&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Radix-src-Radix.xtl.html#l.KeyClear">ʳˣKeyClear</a>
+20</pre>
+</div>
+<pre class="code">ˡKeyClear ← <span class="c-number">20</span></pre>
+<div class="uses">Used in: <a href="libs-Radix-src-Radix.xtl.html#l.k_ey"><span class="c-libfunc">ˡk̲ey</span></a></div>
+</div>
+<div class="item" id="l.k_eys">
+<h3><a href="#l.k_eys"><span class="c-libfunc">ˡk̲eys</span></a> <span class="type">: Char -&gt; Int</span></h3>
+<div class="meta">function &middot; <a href="libs-Radix-src-Radix.xtl.src.html#L88">line 88</a></div>
+<div class="doc">
+<p>k_eys text: the key codes of a text such as &quot;12+34=&quot; (spaces are
+skipped; any other character gives 21, which k_ey ignores).</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʳˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Radix-src-Radix.xtl.html" class="c-string">&quot;Radix&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Radix-src-Radix.xtl.html#l.k_eys" class="c-libfunc">ʳˣk̲eys</a> <span class="c-string">&quot;12+34=&quot;</span>
+1 2 16 3 4 19</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡk̲eys</span> ← { t → (<a href="libs-Radix-src-Radix.xtl.html#Keys">Keys</a> <a href="builtins.html#i_ndexOf" class="c-builtin">i̲ndexOf</a> (t <a href="builtins.html#-21-3d" class="c-symbol">≠</a> <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> <span class="c-string">&quot; &quot;</span>) <a href="builtins.html#r_eplicate" class="c-builtin">r̲eplicate</a> t) <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span> }</pre>
+<div class="uses">Used in: <a href="libs-Hex1000-src-Hex1000.xtl.html#l.c_alc"><span class="c-libfunc">ˡc̲alc</span></a>, <a href="libs-Hex1000-src-Hex1000.xtl.html#l.c_ost"><span class="c-libfunc">ˡc̲ost</span></a>, <a href="libs-Radix-src-Radix.xtl.html#l.c_alc"><span class="c-libfunc">ˡc̲alc</span></a>, <a href="libs-Hex1000-demos-terminal.xtl.html#u.c_ode"><span class="c-userfunc">ᵘc̲ode</span></a>, <a href="libs-Panel-demos-font.xtl.html#u.s_hown"><span class="c-userfunc">ᵘs̲hown</span></a></div>
+</div>
+<h2 class="section" id="section-3">The calculator: a step per key</h2>
+<div class="item" id="l.Reset">
+<h3><a href="#l.Reset">ˡReset</a> <span class="type">: Int</span></h3>
+<div class="meta">value &middot; <a href="libs-Radix-src-Radix.xtl.src.html#L98">line 98</a></div>
+<div class="doc">
+<p>The state, five numbers: the accumulator, the entry, the pending
+operation (0 none, 1 +, 2 -, 3 *), the phase (0 after an operator,
+1 entering digits, 2 after =) and the number displayed.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʳˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Radix-src-Radix.xtl.html" class="c-string">&quot;Radix&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Radix-src-Radix.xtl.html#l.Reset">ʳˣReset</a>
+0 0 0 0 0</pre>
+</div>
+<pre class="code">ˡReset ← <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span></pre>
+<div class="uses">Used in: <a href="libs-Radix-src-Radix.xtl.html#l.k_ey"><span class="c-libfunc">ˡk̲ey</span></a>, <a href="libs-Radix-src-Radix.xtl.html#l.r_un"><span class="c-libfunc">ˡr̲un</span></a></div>
+</div>
+<div class="item" id="h.a_cc">
+<h3><a href="#h.a_cc"><span class="c-libfunc">ʰa̲cc</span></a> <span class="type">: a -&gt; a</span></h3>
+<div class="meta">function <span class="private">(private)</span> &middot; <a href="libs-Radix-src-Radix.xtl.src.html#L100">line 100</a></div>
+<pre class="code"><span class="c-libfunc">ʰa̲cc</span> ← { s → <span class="c-number">1</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> s }</pre>
+<div class="uses">Used in: <a href="libs-Radix-src-Radix.xtl.html#h.s_ettle"><span class="c-libfunc">ʰs̲ettle</span></a>, <a href="libs-Radix-src-Radix.xtl.html#l.k_ey"><span class="c-libfunc">ˡk̲ey</span></a></div>
+</div>
+<div class="item" id="h.e_ntry">
+<h3><a href="#h.e_ntry"><span class="c-libfunc">ʰe̲ntry</span></a> <span class="type">: a -&gt; a</span></h3>
+<div class="meta">function <span class="private">(private)</span> &middot; <a href="libs-Radix-src-Radix.xtl.src.html#L101">line 101</a></div>
+<pre class="code"><span class="c-libfunc">ʰe̲ntry</span> ← { s → <span class="c-number">2</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> s }</pre>
+<div class="uses">Used in: <a href="libs-Radix-src-Radix.xtl.html#h.s_ettle"><span class="c-libfunc">ʰs̲ettle</span></a>, <a href="libs-Radix-src-Radix.xtl.html#l.k_ey"><span class="c-libfunc">ˡk̲ey</span></a></div>
+</div>
+<div class="item" id="h.o_p">
+<h3><a href="#h.o_p"><span class="c-libfunc">ʰo̲p</span></a> <span class="type">: a -&gt; a</span></h3>
+<div class="meta">function <span class="private">(private)</span> &middot; <a href="libs-Radix-src-Radix.xtl.src.html#L102">line 102</a></div>
+<pre class="code"><span class="c-libfunc">ʰo̲p</span> ← { s → <span class="c-number">3</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> s }</pre>
+<div class="uses">Used in: <a href="libs-Radix-src-Radix.xtl.html#h.s_ettle"><span class="c-libfunc">ʰs̲ettle</span></a>, <a href="libs-Radix-src-Radix.xtl.html#l.k_ey"><span class="c-libfunc">ˡk̲ey</span></a></div>
+</div>
+<div class="item" id="h.p_hase">
+<h3><a href="#h.p_hase"><span class="c-libfunc">ʰp̲hase</span></a> <span class="type">: a -&gt; a</span></h3>
+<div class="meta">function <span class="private">(private)</span> &middot; <a href="libs-Radix-src-Radix.xtl.src.html#L103">line 103</a></div>
+<pre class="code"><span class="c-libfunc">ʰp̲hase</span> ← { s → <span class="c-number">4</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> s }</pre>
+<div class="uses">Used in: <a href="libs-Radix-src-Radix.xtl.html#h.s_ettle"><span class="c-libfunc">ʰs̲ettle</span></a>, <a href="libs-Radix-src-Radix.xtl.html#l.k_ey"><span class="c-libfunc">ˡk̲ey</span></a></div>
+</div>
+<div class="item" id="l.a_lu">
+<h3><a href="#l.a_lu"><span class="c-libfunc">ˡa̲lu</span></a> <span class="type">: Int -&gt; Int -&gt; Int</span></h3>
+<div class="meta">function &middot; <a href="libs-Radix-src-Radix.xtl.src.html#L111">line 111</a></div>
+<div class="doc">
+<p>r a_lu ops: the operation ops[1] (1 +, 2 -, 3 *) of ops[2] and
+ops[3], wrapped (the operands as one vector: a function has two
+sides).</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʳˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Radix-src-Radix.xtl.html" class="c-string">&quot;Radix&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-number">16</span> <a href="libs-Radix-src-Radix.xtl.html#l.a_lu" class="c-libfunc">ʳˣa̲lu</a> <span class="c-number">2</span> <span class="c-number">5</span> <span class="c-number">7</span>
+4294967294</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡa̲lu</span> ← { r ops →
+  op ← <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> ops
+  a ← <span class="c-number">2</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> ops
+  b ← <span class="c-number">3</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> ops
+  r <a href="libs-Radix-src-Radix.xtl.html#l.w_rap" class="c-libfunc">ˡw̲rap</a> <span class="c-symbol">'</span><a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#r_-2f" class="c-builtin">r̲/</a> (op <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">1</span> <span class="c-number">2</span> <span class="c-number">3</span>) <a href="builtins.html#-2a" class="c-symbol">×</a> (a <a href="builtins.html#-2b" class="c-symbol">+</a> b) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (a <a href="builtins.html#-2d" class="c-symbol">−</a> b) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> r <a href="libs-Radix-src-Radix.xtl.html#h.t_imes" class="c-libfunc">ʰt̲imes</a> a <a href="builtins.html#c_at" class="c-builtin">c̲at</a> b
+}</pre>
+<div class="uses">Used in: <a href="libs-Radix-src-Radix.xtl.html#h.s_ettle"><span class="c-libfunc">ʰs̲ettle</span></a></div>
+</div>
+<div class="item" id="h.t_imes">
+<h3><a href="#h.t_imes"><span class="c-libfunc">ʰt̲imes</span></a> <span class="type">: Int -&gt; Int -&gt; Int</span></h3>
+<div class="meta">function <span class="private">(private)</span> &middot; <a href="libs-Radix-src-Radix.xtl.src.html#L121">line 121</a></div>
+<div class="doc">
+<p>r t_imes a b: a * b wrapped, without overflow: b split at r^4, so no
+partial product reaches r^12 (FFFFFFFF * FFFFFFFF itself is past a
+64-bit Int).</p>
+</div>
+<pre class="code"><span class="c-libfunc">ʰt̲imes</span> ← { r ab →
+  a ← <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> ab
+  b ← <a href="builtins.html#f_irst" class="c-builtin">f̲irst</a> <span class="c-number">1</span> <a href="builtins.html#d_rop" class="c-builtin">d̲rop</a> ab
+  half ← r <a href="builtins.html#-5e" class="c-symbol">^</a> <span class="c-number">4</span>
+  r <a href="libs-Radix-src-Radix.xtl.html#l.w_rap" class="c-libfunc">ˡw̲rap</a> (half <a href="builtins.html#-2a" class="c-symbol">×</a> r <a href="libs-Radix-src-Radix.xtl.html#l.w_rap" class="c-libfunc">ˡw̲rap</a> a <a href="builtins.html#-2a" class="c-symbol">×</a> b <a href="builtins.html#d_iv" class="c-builtin">d̲iv</a> half) <a href="builtins.html#-2b" class="c-symbol">+</a> a <a href="builtins.html#-2a" class="c-symbol">×</a> b <a href="builtins.html#m_od" class="c-builtin">m̲od</a> half
+}</pre>
+<div class="uses">Used in: <a href="libs-Radix-src-Radix.xtl.html#l.a_lu"><span class="c-libfunc">ˡa̲lu</span></a></div>
+</div>
+<div class="item" id="h.s_ettle">
+<h3><a href="#h.s_ettle"><span class="c-libfunc">ʰs̲ettle</span></a> <span class="type">: Int -&gt; Int -&gt; Int</span></h3>
+<div class="meta">function <span class="private">(private)</span> &middot; <a href="libs-Radix-src-Radix.xtl.src.html#L131">line 131</a></div>
+<div class="doc">
+<p>The pending operation settled: the accumulator after it takes the
+entry (the entry itself when nothing is pending; the accumulator
+unchanged when no digit was entered since).</p>
+</div>
+<pre class="code"><span class="c-libfunc">ʰs̲ettle</span> ← { r s →
+  <span class="c-number">1</span> <a href="builtins.html#-21-3d" class="c-symbol">≠</a> <a href="libs-Radix-src-Radix.xtl.html#h.p_hase" class="c-libfunc">ʰp̲hase</a> s ? <a href="libs-Radix-src-Radix.xtl.html#h.a_cc" class="c-libfunc">ʰa̲cc</a> s
+  <span class="c-number">0</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="libs-Radix-src-Radix.xtl.html#h.o_p" class="c-libfunc">ʰo̲p</a> s ? <a href="libs-Radix-src-Radix.xtl.html#h.e_ntry" class="c-libfunc">ʰe̲ntry</a> s
+  r <a href="libs-Radix-src-Radix.xtl.html#l.a_lu" class="c-libfunc">ˡa̲lu</a> (<a href="libs-Radix-src-Radix.xtl.html#h.o_p" class="c-libfunc">ʰo̲p</a> s) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (<a href="libs-Radix-src-Radix.xtl.html#h.a_cc" class="c-libfunc">ʰa̲cc</a> s) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <a href="libs-Radix-src-Radix.xtl.html#h.e_ntry" class="c-libfunc">ʰe̲ntry</a> s
+}</pre>
+<div class="uses">Used in: <a href="libs-Radix-src-Radix.xtl.html#l.k_ey"><span class="c-libfunc">ˡk̲ey</span></a></div>
+</div>
+<div class="item" id="l.k_ey">
+<h3><a href="#l.k_ey"><span class="c-libfunc">ˡk̲ey</span></a> <span class="type">: Int -&gt; Int -&gt; Int -&gt; Int</span></h3>
+<div class="meta">function &middot; <a href="libs-Radix-src-Radix.xtl.src.html#L144">line 144</a></div>
+<div class="doc">
+<p>r k_ey s k: the state after the key k (a step: the machine's ROM
+program must leave the same display). A digit not below the radix,
+or one that would make a ninth digit, is ignored.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʳˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Radix-src-Radix.xtl.html" class="c-string">&quot;Radix&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-userfunc">ᵘk̲ey</span> ← <a href="libs-Radix-src-Radix.xtl.html#l.k_ey" class="c-libfunc">ʳˣk̲ey</a> <span class="c-number">16</span></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Radix-src-Radix.xtl.html#l.Reset">ʳˣReset</a> <span class="c-userfunc">ᵘk̲ey</span> <span class="c-number">10</span>
+0 10 0 1 10</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡk̲ey</span> ← { r s k →
+  k <a href="builtins.html#-3e-3d" class="c-symbol">≥</a> <span class="c-number">21</span> ? s
+  k <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="libs-Radix-src-Radix.xtl.html#l.KeyClear">ˡKeyClear</a> ? <a href="libs-Radix-src-Radix.xtl.html#l.Reset">ˡReset</a>
+  k <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="libs-Radix-src-Radix.xtl.html#l.KeyEquals">ˡKeyEquals</a> ? (r <a href="libs-Radix-src-Radix.xtl.html#h.s_ettle" class="c-libfunc">ʰs̲ettle</a> s) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">2</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> r <a href="libs-Radix-src-Radix.xtl.html#h.s_ettle" class="c-libfunc">ʰs̲ettle</a> s
+  k <a href="builtins.html#-3e-3d" class="c-symbol">≥</a> <a href="libs-Radix-src-Radix.xtl.html#l.KeyPlus">ˡKeyPlus</a> ? (r <a href="libs-Radix-src-Radix.xtl.html#h.s_ettle" class="c-libfunc">ʰs̲ettle</a> s) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> (k <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">15</span>) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> r <a href="libs-Radix-src-Radix.xtl.html#h.s_ettle" class="c-libfunc">ʰs̲ettle</a> s
+  k <a href="builtins.html#-3e-3d" class="c-symbol">≥</a> r ? s
+  fresh ← <span class="c-number">2</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="libs-Radix-src-Radix.xtl.html#h.p_hase" class="c-libfunc">ʰp̲hase</a> s
+  old ← (<a href="builtins.html#n_ot" class="c-builtin">n̲ot</a> fresh) <a href="builtins.html#-2a" class="c-symbol">×</a> (<span class="c-number">1</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <a href="libs-Radix-src-Radix.xtl.html#h.p_hase" class="c-libfunc">ʰp̲hase</a> s) <a href="builtins.html#-2a" class="c-symbol">×</a> <a href="libs-Radix-src-Radix.xtl.html#h.e_ntry" class="c-libfunc">ʰe̲ntry</a> s
+  old <a href="builtins.html#-3e-3d" class="c-symbol">≥</a> r <a href="builtins.html#-5e" class="c-symbol">^</a> <a href="libs-Radix-src-Radix.xtl.html#l.Width">ˡWidth</a> <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span> ? s
+  entry ← k <a href="builtins.html#-2b" class="c-symbol">+</a> r <a href="builtins.html#-2a" class="c-symbol">×</a> old
+  ((<a href="builtins.html#n_ot" class="c-builtin">n̲ot</a> fresh) <a href="builtins.html#-2a" class="c-symbol">×</a> <a href="libs-Radix-src-Radix.xtl.html#h.a_cc" class="c-libfunc">ʰa̲cc</a> s) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> entry <a href="builtins.html#c_at" class="c-builtin">c̲at</a> ((<a href="builtins.html#n_ot" class="c-builtin">n̲ot</a> fresh) <a href="builtins.html#-2a" class="c-symbol">×</a> <a href="libs-Radix-src-Radix.xtl.html#h.o_p" class="c-libfunc">ʰo̲p</a> s) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">1</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> entry
+}</pre>
+<div class="uses">Used in: <a href="libs-Radix-src-Radix.xtl.html#l.r_un"><span class="c-libfunc">ˡr̲un</span></a></div>
+</div>
+<div class="item" id="l.d_isplay">
+<h3><a href="#l.d_isplay"><span class="c-libfunc">ˡd̲isplay</span></a> <span class="type">: a -&gt; a</span></h3>
+<div class="meta">function &middot; <a href="libs-Radix-src-Radix.xtl.src.html#L161">line 161</a></div>
+<div class="doc">
+<p>d_isplay s: the number displayed.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʳˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Radix-src-Radix.xtl.html" class="c-string">&quot;Radix&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><a href="libs-Radix-src-Radix.xtl.html#l.d_isplay" class="c-libfunc">ʳˣd̲isplay</a> <span class="c-number">70</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">2</span> <span class="c-number">70</span>
+70</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡd̲isplay</span> ← { s → <span class="c-number">5</span> <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> s }</pre>
+<div class="uses">Used in: <a href="libs-Radix-src-Radix.xtl.html#l.s_creen"><span class="c-libfunc">ˡs̲creen</span></a></div>
+</div>
+<div class="item" id="l.s_creen">
+<h3><a href="#l.s_creen"><span class="c-libfunc">ˡs̲creen</span></a> <span class="type">: Int -&gt; Int -&gt; Char</span></h3>
+<div class="meta">function &middot; <a href="libs-Radix-src-Radix.xtl.src.html#L168">line 168</a></div>
+<div class="doc">
+<p>r s_creen s: the display as eight characters: the digits, leading
+zeros blank (zero itself shows one 0).</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʳˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Radix-src-Radix.xtl.html" class="c-string">&quot;Radix&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-number">16</span> <a href="libs-Radix-src-Radix.xtl.html#l.s_creen" class="c-libfunc">ʳˣs̲creen</a> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">0</span> <span class="c-number">305419896</span>
+12345678</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡs̲creen</span> ← { r s →
+  ds ← r <a href="libs-Radix-src-Radix.xtl.html#l.d_igits" class="c-libfunc">ˡd̲igits</a> <a href="libs-Radix-src-Radix.xtl.html#l.d_isplay" class="c-libfunc">ˡd̲isplay</a> s
+  blank ← (<span class="c-symbol">'</span><a href="builtins.html#-26" class="c-symbol">∧</a> <a href="builtins.html#s_-5c" class="c-builtin">s̲\</a> <span class="c-number">0</span> <a href="builtins.html#-3d" class="c-symbol">=</a> <span class="c-number">7</span> <a href="builtins.html#t_ake" class="c-builtin">t̲ake</a> ds) <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">0</span>
+  (<span class="c-number">1</span> <a href="builtins.html#-2b" class="c-symbol">+</a> (<span class="c-number">1</span> <a href="builtins.html#-2d" class="c-symbol">−</a> blank) <a href="builtins.html#-2a" class="c-symbol">×</a> <span class="c-number">1</span> <a href="builtins.html#-2b" class="c-symbol">+</a> ds) <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> <span class="c-string">&quot; &quot;</span> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">16</span> <a href="builtins.html#t_ake" class="c-builtin">t̲ake</a> <a href="libs-Radix-src-Radix.xtl.html#Keys">Keys</a>
+}</pre>
+<div class="uses">Used in: <a href="libs-Radix-src-Radix.xtl.html#l.c_alc"><span class="c-libfunc">ˡc̲alc</span></a></div>
+</div>
+<div class="item" id="l.c_alc">
+<h3><a href="#l.c_alc"><span class="c-libfunc">ˡc̲alc</span></a> <span class="type">: Int -&gt; Char -&gt; Char</span></h3>
+<div class="meta">function &middot; <a href="libs-Radix-src-Radix.xtl.src.html#L179">line 179</a></div>
+<div class="doc">
+<p>r c_alc text: the screen after the keys of a text, from Reset:
+16 rx:c_alc &quot;12+34=&quot; is &quot;      46&quot;.</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʳˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Radix-src-Radix.xtl.html" class="c-string">&quot;Radix&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-number">16</span> <a href="libs-Radix-src-Radix.xtl.html#l.c_alc" class="c-libfunc">ʳˣc̲alc</a> <span class="c-string">&quot;5-7=&quot;</span>
+FFFFFFFE</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡc̲alc</span> ← { r t →
+  s ← r <a href="libs-Radix-src-Radix.xtl.html#l.r_un" class="c-libfunc">ˡr̲un</a> <a href="libs-Radix-src-Radix.xtl.html#l.k_eys" class="c-libfunc">ˡk̲eys</a> t
+  r <a href="libs-Radix-src-Radix.xtl.html#l.s_creen" class="c-libfunc">ˡs̲creen</a> s
+}</pre>
+<div class="uses">Used in: <a href="libs-Radix-demos-radixes.xtl.src.html#L5">libs/Radix/demos/radixes.xtl:5</a>, <a href="libs-Radix-demos-radixes.xtl.src.html#L6">libs/Radix/demos/radixes.xtl:6</a>, <a href="libs-Radix-demos-radixes.xtl.src.html#L7">libs/Radix/demos/radixes.xtl:7</a>, <a href="libs-Radix-demos-radixes.xtl.src.html#L8">libs/Radix/demos/radixes.xtl:8</a>, <a href="libs-Radix-demos-radixes.xtl.src.html#L9">libs/Radix/demos/radixes.xtl:9</a>, <a href="libs-Radix-demos-radixes.xtl.src.html#L10">libs/Radix/demos/radixes.xtl:10</a>, <a href="libs-Radix-demos-session.xtl.src.html#L6">libs/Radix/demos/session.xtl:6</a>, <a href="libs-Radix-demos-session.xtl.src.html#L7">libs/Radix/demos/session.xtl:7</a>, <a href="libs-Radix-demos-session.xtl.src.html#L8">libs/Radix/demos/session.xtl:8</a>, <a href="libs-Radix-demos-session.xtl.src.html#L9">libs/Radix/demos/session.xtl:9</a>, <a href="libs-Radix-demos-session.xtl.src.html#L10">libs/Radix/demos/session.xtl:10</a>, <a href="libs-Radix-demos-session.xtl.src.html#L11">libs/Radix/demos/session.xtl:11</a>, <a href="libs-Radix-demos-session.xtl.src.html#L12">libs/Radix/demos/session.xtl:12</a></div>
+</div>
+<div class="item" id="l.r_un">
+<h3><a href="#l.r_un"><span class="c-libfunc">ˡr̲un</span></a> <span class="type">: Int -&gt; Int -&gt; Int</span></h3>
+<div class="meta">function &middot; <a href="libs-Radix-src-Radix.xtl.src.html#L189">line 189</a></div>
+<div class="doc">
+<p>r r_un keys: the state after every key, from Reset (the harness: a
+loop over the keys, as Clocked's).</p>
+<pre class="example"><span class="prompt">      </span><span class="c-libfunc">ʳˣ⁼</span><a href="std-System.xtlm.html#s.u_se-3c" class="c-macro">u̲se&lt;</a> <a href="libs-Radix-src-Radix.xtl.html" class="c-string">&quot;Radix&quot;</a></pre>
+<pre class="example"><span class="prompt">      </span><span class="c-number">16</span> <a href="libs-Radix-src-Radix.xtl.html#l.r_un" class="c-libfunc">ʳˣr̲un</a> <a href="libs-Radix-src-Radix.xtl.html#l.k_eys" class="c-libfunc">ʳˣk̲eys</a> <span class="c-string">&quot;12+34=&quot;</span>
+70 0 0 2 70</pre>
+</div>
+<pre class="code"><span class="c-libfunc">ˡr̲un</span> ← { r keys →
+  (n, s) ← (<a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> keys) <span class="c-quote">'</span>{ (i, s) → (i <a href="builtins.html#-2b" class="c-symbol">+</a> <span class="c-number">1</span>, (r <a href="libs-Radix-src-Radix.xtl.html#l.k_ey" class="c-libfunc">ˡk̲ey</a> s)_ i <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> keys) } <a href="builtins.html#p_ower" class="c-builtin">p̲ower</a> (<span class="c-number">1</span>, <a href="libs-Radix-src-Radix.xtl.html#l.Reset">ˡReset</a>)
+  s
+}</pre>
+<div class="uses">Used in: <a href="libs-Radix-src-Radix.xtl.html#l.c_alc"><span class="c-libfunc">ˡc̲alc</span></a></div>
+</div>
+</main>
+</body>
+</html>

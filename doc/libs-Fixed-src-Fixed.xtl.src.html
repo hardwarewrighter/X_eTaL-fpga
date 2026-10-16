@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>libs/Fixed/src/Fixed.xtl - X_eTaL doc</title>
+<link rel="stylesheet" href="style.css">
+<script src="theme.js"></script>
+<script defer src="search-index.js"></script>
+<script defer src="search.js"></script>
+</head>
+<body>
+<nav class="side">
+<a class="home" href="index.html">X_eTaL doc</a>
+<input id="search" type="search" autocomplete="off" placeholder="Search: a name, or a type" title="A name (mean finds m_ean), or a type: Num a =&gt; a -&gt; a -&gt; a finds +, m_ax ...">
+<h2>Files</h2>
+<h3>libs/Clocked/src/</h3>
+<ul>
+<li><a href="libs-Clocked-src-Clocked.xtl.html">Clocked.xtl</a></li>
+</ul>
+<h3>libs/Fixed/src/</h3>
+<ul>
+<li><a href="libs-Fixed-src-Fixed.xtl.html">Fixed.xtl</a></li>
+</ul>
+<h3>libs/Datapath/src/</h3>
+<ul>
+<li><a href="libs-Datapath-src-Datapath.xtl.html">Datapath.xtl</a></li>
+</ul>
+<h3>libs/Hex1000/src/</h3>
+<ul>
+<li><a href="libs-Hex1000-src-Hex1000.xtl.html">Hex1000.xtl</a></li>
+</ul>
+<h3>work/libs/Strings/src/</h3>
+<ul>
+<li><a href="work-libs-Strings-src-Strings.xtl.html">Strings.xtl</a></li>
+</ul>
+<h3>libs/Radix/src/</h3>
+<ul>
+<li><a href="libs-Radix-src-Radix.xtl.html">Radix.xtl</a></li>
+</ul>
+<h3>std/</h3>
+<ul>
+<li><a href="std-System.xtlm.html">System.xtlm</a></li>
+</ul>
+<h3>libs/Panel/src/</h3>
+<ul>
+<li><a href="libs-Panel-src-Panel.xtl.html">Panel.xtl</a></li>
+</ul>
+<h3>libs/Uart/src/</h3>
+<ul>
+<li><a href="libs-Uart-src-Uart.xtl.html">Uart.xtl</a></li>
+</ul>
+<h3>libs/Clocked/demos/</h3>
+<ul>
+<li><a href="libs-Clocked-demos-accumulator.xtl.html">accumulator.xtl</a></li>
+<li><a href="libs-Clocked-demos-counter.xtl.html">counter.xtl</a></li>
+<li><a href="libs-Clocked-demos-detect.xtl.html">detect.xtl</a></li>
+<li><a href="libs-Clocked-demos-ram.xtl.html">ram.xtl</a></li>
+<li><a href="libs-Clocked-demos-shift.xtl.html">shift.xtl</a></li>
+</ul>
+<h3>libs/Datapath/demos/</h3>
+<ul>
+<li><a href="libs-Datapath-demos-pipeline.xtl.html">pipeline.xtl</a></li>
+<li><a href="libs-Datapath-demos-reduce-sum.xtl.html">reduce-sum.xtl</a></li>
+<li><a href="libs-Datapath-demos-saxpy.xtl.html">saxpy.xtl</a></li>
+<li><a href="libs-Datapath-demos-threshold.xtl.html">threshold.xtl</a></li>
+<li><a href="libs-Datapath-demos-vector-add.xtl.html">vector-add.xtl</a></li>
+</ul>
+<h3>libs/Fixed/demos/</h3>
+<ul>
+<li><a href="libs-Fixed-demos-counter.xtl.html">counter.xtl</a></li>
+<li><a href="libs-Fixed-demos-overflow.xtl.html">overflow.xtl</a></li>
+</ul>
+<h3>libs/Hex1000/demos/</h3>
+<ul>
+<li><a href="libs-Hex1000-demos-board.xtl.html">board.xtl</a></li>
+<li><a href="libs-Hex1000-demos-calc.xtl.html">calc.xtl</a></li>
+<li><a href="libs-Hex1000-demos-circuit.xtl.html">circuit.xtl</a></li>
+<li><a href="libs-Hex1000-demos-counter.xtl.html">counter.xtl</a></li>
+<li><a href="libs-Hex1000-demos-keys.xtl.html">keys.xtl</a></li>
+<li><a href="libs-Hex1000-demos-listing.xtl.html">listing.xtl</a></li>
+<li><a href="libs-Hex1000-demos-serial.xtl.html">serial.xtl</a></li>
+<li><a href="libs-Hex1000-demos-terminal.xtl.html">terminal.xtl</a></li>
+</ul>
+<h3>libs/Panel/demos/</h3>
+<ul>
+<li><a href="libs-Panel-demos-font.xtl.html">font.xtl</a></li>
+</ul>
+<h3>libs/Radix/demos/</h3>
+<ul>
+<li><a href="libs-Radix-demos-radixes.xtl.html">radixes.xtl</a></li>
+<li><a href="libs-Radix-demos-session.xtl.html">session.xtl</a></li>
+</ul>
+<h3>libs/Uart/demos/</h3>
+<ul>
+<li><a href="libs-Uart-demos-loopback.xtl.html">loopback.xtl</a></li>
+</ul>
+<ul>
+<li><a href="builtins.html">built-ins</a></li>
+</ul>
+<h2>On this page</h2>
+<ul>
+<li class="item"><a href="#L21"><span class="c-libfunc">ˡl̲owest</span></a></li>
+<li class="item"><a href="#L27"><span class="c-libfunc">ˡh̲ighest</span></a></li>
+<li class="item"><a href="#L36"><span class="c-libfunc">ˡu̲wrap</span></a></li>
+<li class="item"><a href="#L43"><span class="c-libfunc">ˡw̲rap</span></a></li>
+<li class="item"><a href="#L53"><span class="c-libfunc">ˡo̲verflow?</span></a></li>
+<li class="item"><a href="#L60"><span class="c-libfunc">ˡs̲at</span></a></li>
+<li class="item"><a href="#L71"><span class="c-libfunc">ˡa̲dd</span></a></li>
+<li class="item"><a href="#L78"><span class="c-libfunc">ˡs̲ub</span></a></li>
+<li class="item"><a href="#L86"><span class="c-libfunc">ˡm̲ul</span></a></li>
+<li class="item"><a href="#L92"><span class="c-libfunc">ˡn̲eg</span></a></li>
+<li class="item"><a href="#L103"><span class="c-libfunc">ˡb̲its</span></a></li>
+<li class="item"><a href="#L110"><span class="c-libfunc">ˡv̲alue</span></a></li>
+<li class="item"><a href="#L118"><span class="c-libfunc">ˡh̲ex</span></a></li>
+</ul>
+</nav>
+<main>
+<button class="theme" title="Light or dark">theme</button>
+<section id="results"></section>
+<h1><span class="kind">source</span><a href="libs-Fixed-src-Fixed.xtl.html">libs/Fixed/src/Fixed.xtl</a></h1>
+<div class="source"><span class="line" id="L1"><a class="ln" href="#L1">1</a><span class="c-comment">⍝</span><span class="c-comment"># Fixed: fixed-width two's complement numbers at a stated width, the arithmetic a w-bit circuit does</span></span>
+<span class="line" id="L2"><a class="ln" href="#L2">2</a><span class="c-comment">⍝</span><span class="c-comment"># Import it with an alias of your choice: &quot;fx:&quot; u_se&lt; &quot;Fixed&quot;.</span></span>
+<span class="line" id="L3"><a class="ln" href="#L3">3</a><span class="c-comment">⍝</span><span class="c-comment"># Put libs/Fixed/src on XETAL_PATH (&quot;just path&quot;); the reference is libs/Fixed/docs.</span></span>
+<span class="line" id="L4"><a class="ln" href="#L4">4</a><span class="c-comment">⍝</span><span class="c-comment"># Names with l: are exported; the others are private to this file.</span></span>
+<span class="line" id="L5"><a class="ln" href="#L5">5</a><span class="c-comment">⍝</span><span class="c-comment">#</span></span>
+<span class="line" id="L6"><a class="ln" href="#L6">6</a><span class="c-comment">⍝</span><span class="c-comment"># X_eTaL's Int is 64 bits wide; hardware is 8, 16 or 32. Until X_eTaL</span></span>
+<span class="line" id="L7"><a class="ln" href="#L7">7</a><span class="c-comment">⍝</span><span class="c-comment"># has sized integer types (ask F3 in docs/xetal-asks.md), the width is</span></span>
+<span class="line" id="L8"><a class="ln" href="#L8">8</a><span class="c-comment">⍝</span><span class="c-comment"># written in the program: </span><span class="c-comment"></span><span class="c-number">16</span> <span class="c-libfunc">ᶠˣw̲rap</span> x <span class="c-symbol">+</span> y<span class="c-comment"></span><span class="c-comment"> is what a 16-bit adder</span></span>
+<span class="line" id="L9"><a class="ln" href="#L9">9</a><span class="c-comment">⍝</span><span class="c-comment"># gives, and the evaluator computes exactly that, so it is the</span></span>
+<span class="line" id="L10"><a class="ln" href="#L10">10</a><span class="c-comment">⍝</span><span class="c-comment"># reference the circuit must match bit for bit. Every function takes</span></span>
+<span class="line" id="L11"><a class="ln" href="#L11">11</a><span class="c-comment">⍝</span><span class="c-comment"># the width first (one number) and works on whole arrays of any</span></span>
+<span class="line" id="L12"><a class="ln" href="#L12">12</a><span class="c-comment">⍝</span><span class="c-comment"># shape. A function of three arguments is used curried: bind the</span></span>
+<span class="line" id="L13"><a class="ln" href="#L13">13</a><span class="c-comment">⍝</span><span class="c-comment"># width once, </span><span class="c-comment"></span><span class="c-userfunc">ᵘa̲dd</span> ← <span class="c-libfunc">ᶠˣa̲dd</span> <span class="c-number">16</span><span class="c-comment"></span><span class="c-comment">, then </span><span class="c-comment"></span>x <span class="c-userfunc">ᵘa̲dd</span> y<span class="c-comment"></span><span class="c-comment">.</span></span>
+<span class="line" id="L14"><a class="ln" href="#L14">14</a></span>
+<span class="line" id="L15"><a class="ln" href="#L15">15</a><span class="c-comment">⍝</span><span class="c-comment">## The ranges</span></span>
+<span class="line" id="L16"><a class="ln" href="#L16">16</a></span>
+<span class="line" id="L17"><a class="ln" href="#L17">17</a><span class="c-comment">⍝</span><span class="c-comment"># l_owest w: the lowest signed value of w bits, -2^(w-1) (-128 at 8 bits).</span></span>
+<span class="line" id="L18"><a class="ln" href="#L18">18</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;fx:&quot; u_se&lt; &quot;Fixed&quot;</span></span>
+<span class="line" id="L19"><a class="ln" href="#L19">19</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; fx:l_owest 8 16</span></span>
+<span class="line" id="L20"><a class="ln" href="#L20">20</a><span class="c-comment">⍝</span><span class="c-comment"># -128 -32768</span></span>
+<span class="line" id="L21"><a class="ln" href="#L21">21</a><span class="c-libfunc">ˡl̲owest</span> ← { w → <a href="builtins.html#n_eg" class="c-builtin">n̲eg</a> <span class="c-number">2</span> <a href="builtins.html#-5e" class="c-symbol">^</a> w <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span> }</span>
+<span class="line" id="L22"><a class="ln" href="#L22">22</a></span>
+<span class="line" id="L23"><a class="ln" href="#L23">23</a><span class="c-comment">⍝</span><span class="c-comment"># h_ighest w: the highest signed value of w bits, 2^(w-1) - 1 (127 at 8 bits).</span></span>
+<span class="line" id="L24"><a class="ln" href="#L24">24</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;fx:&quot; u_se&lt; &quot;Fixed&quot;</span></span>
+<span class="line" id="L25"><a class="ln" href="#L25">25</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; fx:h_ighest 8 16</span></span>
+<span class="line" id="L26"><a class="ln" href="#L26">26</a><span class="c-comment">⍝</span><span class="c-comment"># 127 32767</span></span>
+<span class="line" id="L27"><a class="ln" href="#L27">27</a><span class="c-libfunc">ˡh̲ighest</span> ← { w → (<span class="c-number">2</span> <a href="builtins.html#-5e" class="c-symbol">^</a> w <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span>) <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span> }</span>
+<span class="line" id="L28"><a class="ln" href="#L28">28</a></span>
+<span class="line" id="L29"><a class="ln" href="#L29">29</a><span class="c-comment">⍝</span><span class="c-comment">## Wrapping</span></span>
+<span class="line" id="L30"><a class="ln" href="#L30">30</a></span>
+<span class="line" id="L31"><a class="ln" href="#L31">31</a><span class="c-comment">⍝</span><span class="c-comment"># w u_wrap x: x reduced to the unsigned range of w bits, 0 to 2^w - 1:</span></span>
+<span class="line" id="L32"><a class="ln" href="#L32">32</a><span class="c-comment">⍝</span><span class="c-comment"># the bit pattern a w-bit register holds, read unsigned.</span></span>
+<span class="line" id="L33"><a class="ln" href="#L33">33</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;fx:&quot; u_se&lt; &quot;Fixed&quot;</span></span>
+<span class="line" id="L34"><a class="ln" href="#L34">34</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; 8 fx:u_wrap 100 200 -1 256</span></span>
+<span class="line" id="L35"><a class="ln" href="#L35">35</a><span class="c-comment">⍝</span><span class="c-comment"># 100 200 255 0</span></span>
+<span class="line" id="L36"><a class="ln" href="#L36">36</a><span class="c-libfunc">ˡu̲wrap</span> ← { w x → x <a href="builtins.html#m_od" class="c-builtin">m̲od</a> <span class="c-number">2</span> <a href="builtins.html#-5e" class="c-symbol">^</a> w }</span>
+<span class="line" id="L37"><a class="ln" href="#L37">37</a></span>
+<span class="line" id="L38"><a class="ln" href="#L38">38</a><span class="c-comment">⍝</span><span class="c-comment"># w w_rap x: x reduced to the signed range of w bits: the same bits,</span></span>
+<span class="line" id="L39"><a class="ln" href="#L39">39</a><span class="c-comment">⍝</span><span class="c-comment"># read as two's complement (a pattern at or above 2^(w-1) is negative).</span></span>
+<span class="line" id="L40"><a class="ln" href="#L40">40</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;fx:&quot; u_se&lt; &quot;Fixed&quot;</span></span>
+<span class="line" id="L41"><a class="ln" href="#L41">41</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; 8 fx:w_rap 100 200 -1 -129</span></span>
+<span class="line" id="L42"><a class="ln" href="#L42">42</a><span class="c-comment">⍝</span><span class="c-comment"># 100 -56 -1 127</span></span>
+<span class="line" id="L43"><a class="ln" href="#L43">43</a><span class="c-libfunc">ˡw̲rap</span> ← { w x →</span>
+<span class="line" id="L44"><a class="ln" href="#L44">44</a>  u ← w <a href="libs-Fixed-src-Fixed.xtl.html#l.u_wrap" class="c-libfunc">ˡu̲wrap</a> x</span>
+<span class="line" id="L45"><a class="ln" href="#L45">45</a>  u <a href="builtins.html#-2d" class="c-symbol">−</a> (<span class="c-number">2</span> <a href="builtins.html#-5e" class="c-symbol">^</a> w) <a href="builtins.html#-2a" class="c-symbol">×</a> u <a href="builtins.html#-3e-3d" class="c-symbol">≥</a> <span class="c-number">2</span> <a href="builtins.html#-5e" class="c-symbol">^</a> w <a href="builtins.html#-2d" class="c-symbol">−</a> <span class="c-number">1</span></span>
+<span class="line" id="L46"><a class="ln" href="#L46">46</a>}</span>
+<span class="line" id="L47"><a class="ln" href="#L47">47</a></span>
+<span class="line" id="L48"><a class="ln" href="#L48">48</a><span class="c-comment">⍝</span><span class="c-comment"># w o_verflow? x: whether x does not fit in w signed bits, so a</span></span>
+<span class="line" id="L49"><a class="ln" href="#L49">49</a><span class="c-comment">⍝</span><span class="c-comment"># w-bit unit holding it has wrapped.</span></span>
+<span class="line" id="L50"><a class="ln" href="#L50">50</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;fx:&quot; u_se&lt; &quot;Fixed&quot;</span></span>
+<span class="line" id="L51"><a class="ln" href="#L51">51</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; 8 fx:o_verflow? 127 128</span></span>
+<span class="line" id="L52"><a class="ln" href="#L52">52</a><span class="c-comment">⍝</span><span class="c-comment"># 0 1</span></span>
+<span class="line" id="L53"><a class="ln" href="#L53">53</a><span class="c-libfunc">ˡo̲verflow?</span> ← { w x → x <a href="builtins.html#-21-3d" class="c-symbol">≠</a> w <a href="libs-Fixed-src-Fixed.xtl.html#l.w_rap" class="c-libfunc">ˡw̲rap</a> x }</span>
+<span class="line" id="L54"><a class="ln" href="#L54">54</a></span>
+<span class="line" id="L55"><a class="ln" href="#L55">55</a><span class="c-comment">⍝</span><span class="c-comment"># w s_at x: x clamped to the signed range (saturating arithmetic:</span></span>
+<span class="line" id="L56"><a class="ln" href="#L56">56</a><span class="c-comment">⍝</span><span class="c-comment"># what a DSP does instead of wrapping).</span></span>
+<span class="line" id="L57"><a class="ln" href="#L57">57</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;fx:&quot; u_se&lt; &quot;Fixed&quot;</span></span>
+<span class="line" id="L58"><a class="ln" href="#L58">58</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; 8 fx:s_at 300 -300 5</span></span>
+<span class="line" id="L59"><a class="ln" href="#L59">59</a><span class="c-comment">⍝</span><span class="c-comment"># 127 -128 5</span></span>
+<span class="line" id="L60"><a class="ln" href="#L60">60</a><span class="c-libfunc">ˡs̲at</span> ← { w x → (<a href="libs-Fixed-src-Fixed.xtl.html#l.l_owest" class="c-libfunc">ˡl̲owest</a> w) <a href="builtins.html#m_ax" class="c-builtin">m̲ax</a> x <a href="builtins.html#m_in" class="c-builtin">m̲in</a> <a href="libs-Fixed-src-Fixed.xtl.html#l.h_ighest" class="c-libfunc">ˡh̲ighest</a> w }</span>
+<span class="line" id="L61"><a class="ln" href="#L61">61</a></span>
+<span class="line" id="L62"><a class="ln" href="#L62">62</a><span class="c-comment">⍝</span><span class="c-comment">## Arithmetic, wrapped: what a w-bit adder, subtractor, multiplier gives</span></span>
+<span class="line" id="L63"><a class="ln" href="#L63">63</a></span>
+<span class="line" id="L64"><a class="ln" href="#L64">64</a><span class="c-comment">⍝</span><span class="c-comment"># w a_dd x y: the sum wrapped to w bits, item by item, with scalar</span></span>
+<span class="line" id="L65"><a class="ln" href="#L65">65</a><span class="c-comment">⍝</span><span class="c-comment"># extension: what a w-bit adder gives. Bind the width once:</span></span>
+<span class="line" id="L66"><a class="ln" href="#L66">66</a><span class="c-comment">⍝</span><span class="c-comment"># u:a_dd := fx:a_dd 16, then x u:a_dd y.</span></span>
+<span class="line" id="L67"><a class="ln" href="#L67">67</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;fx:&quot; u_se&lt; &quot;Fixed&quot;</span></span>
+<span class="line" id="L68"><a class="ln" href="#L68">68</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; u:a_dd := fx:a_dd 8</span></span>
+<span class="line" id="L69"><a class="ln" href="#L69">69</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; 100 u:a_dd 100</span></span>
+<span class="line" id="L70"><a class="ln" href="#L70">70</a><span class="c-comment">⍝</span><span class="c-comment"># -56</span></span>
+<span class="line" id="L71"><a class="ln" href="#L71">71</a><span class="c-libfunc">ˡa̲dd</span> ← { w x y → w <a href="libs-Fixed-src-Fixed.xtl.html#l.w_rap" class="c-libfunc">ˡw̲rap</a> x <a href="builtins.html#-2b" class="c-symbol">+</a> y }</span>
+<span class="line" id="L72"><a class="ln" href="#L72">72</a></span>
+<span class="line" id="L73"><a class="ln" href="#L73">73</a><span class="c-comment">⍝</span><span class="c-comment"># w s_ub x y: the difference wrapped to w bits (a w-bit subtractor).</span></span>
+<span class="line" id="L74"><a class="ln" href="#L74">74</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;fx:&quot; u_se&lt; &quot;Fixed&quot;</span></span>
+<span class="line" id="L75"><a class="ln" href="#L75">75</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; u:s_ub := fx:s_ub 8</span></span>
+<span class="line" id="L76"><a class="ln" href="#L76">76</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; -100 u:s_ub 100</span></span>
+<span class="line" id="L77"><a class="ln" href="#L77">77</a><span class="c-comment">⍝</span><span class="c-comment"># 56</span></span>
+<span class="line" id="L78"><a class="ln" href="#L78">78</a><span class="c-libfunc">ˡs̲ub</span> ← { w x y → w <a href="libs-Fixed-src-Fixed.xtl.html#l.w_rap" class="c-libfunc">ˡw̲rap</a> x <a href="builtins.html#-2d" class="c-symbol">−</a> y }</span>
+<span class="line" id="L79"><a class="ln" href="#L79">79</a></span>
+<span class="line" id="L80"><a class="ln" href="#L80">80</a><span class="c-comment">⍝</span><span class="c-comment"># w m_ul x y: the product wrapped to w bits (a w-bit multiplier keeps</span></span>
+<span class="line" id="L81"><a class="ln" href="#L81">81</a><span class="c-comment">⍝</span><span class="c-comment"># the low w bits).</span></span>
+<span class="line" id="L82"><a class="ln" href="#L82">82</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;fx:&quot; u_se&lt; &quot;Fixed&quot;</span></span>
+<span class="line" id="L83"><a class="ln" href="#L83">83</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; u:m_ul := fx:m_ul 8</span></span>
+<span class="line" id="L84"><a class="ln" href="#L84">84</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; 16 u:m_ul 16</span></span>
+<span class="line" id="L85"><a class="ln" href="#L85">85</a><span class="c-comment">⍝</span><span class="c-comment"># 0</span></span>
+<span class="line" id="L86"><a class="ln" href="#L86">86</a><span class="c-libfunc">ˡm̲ul</span> ← { w x y → w <a href="libs-Fixed-src-Fixed.xtl.html#l.w_rap" class="c-libfunc">ˡw̲rap</a> x <a href="builtins.html#-2a" class="c-symbol">×</a> y }</span>
+<span class="line" id="L87"><a class="ln" href="#L87">87</a></span>
+<span class="line" id="L88"><a class="ln" href="#L88">88</a><span class="c-comment">⍝</span><span class="c-comment"># w n_eg x: the negation wrapped (the lowest value is its own negation).</span></span>
+<span class="line" id="L89"><a class="ln" href="#L89">89</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;fx:&quot; u_se&lt; &quot;Fixed&quot;</span></span>
+<span class="line" id="L90"><a class="ln" href="#L90">90</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; 8 fx:n_eg 5 -128</span></span>
+<span class="line" id="L91"><a class="ln" href="#L91">91</a><span class="c-comment">⍝</span><span class="c-comment"># -5 -128</span></span>
+<span class="line" id="L92"><a class="ln" href="#L92">92</a><span class="c-libfunc">ˡn̲eg</span> ← { w x → w <a href="libs-Fixed-src-Fixed.xtl.html#l.w_rap" class="c-libfunc">ˡw̲rap</a> <a href="builtins.html#n_eg" class="c-builtin">n̲eg</a> x }</span>
+<span class="line" id="L93"><a class="ln" href="#L93">93</a></span>
+<span class="line" id="L94"><a class="ln" href="#L94">94</a><span class="c-comment">⍝</span><span class="c-comment">## Bits</span></span>
+<span class="line" id="L95"><a class="ln" href="#L95">95</a></span>
+<span class="line" id="L96"><a class="ln" href="#L96">96</a><span class="c-comment">⍝</span><span class="c-comment"># w b_its x: the two's complement bits of each number, most</span></span>
+<span class="line" id="L97"><a class="ln" href="#L97">97</a><span class="c-comment">⍝</span><span class="c-comment"># significant first: a vector for one number, a row per number for a</span></span>
+<span class="line" id="L98"><a class="ln" href="#L98">98</a><span class="c-comment">⍝</span><span class="c-comment"># vector (as Bits' b_its, which reads numbers unsigned).</span></span>
+<span class="line" id="L99"><a class="ln" href="#L99">99</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;fx:&quot; u_se&lt; &quot;Fixed&quot;</span></span>
+<span class="line" id="L100"><a class="ln" href="#L100">100</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; 8 fx:b_its 5 -1</span></span>
+<span class="line" id="L101"><a class="ln" href="#L101">101</a><span class="c-comment">⍝</span><span class="c-comment"># 0 0 0 0 0 1 0 1</span></span>
+<span class="line" id="L102"><a class="ln" href="#L102">102</a><span class="c-comment">⍝</span><span class="c-comment"># 1 1 1 1 1 1 1 1</span></span>
+<span class="line" id="L103"><a class="ln" href="#L103">103</a><span class="c-libfunc">ˡb̲its</span> ← { w x → <a href="builtins.html#o_-5c" class="c-builtin">o̲\</a> (w <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">2</span>) <a href="builtins.html#e_ncode" class="c-builtin">e̲ncode</a> w <a href="libs-Fixed-src-Fixed.xtl.html#l.u_wrap" class="c-libfunc">ˡu̲wrap</a> x }</span>
+<span class="line" id="L104"><a class="ln" href="#L104">104</a></span>
+<span class="line" id="L105"><a class="ln" href="#L105">105</a><span class="c-comment">⍝</span><span class="c-comment"># v_alue bits: the signed number each row of bits (or the vector)</span></span>
+<span class="line" id="L106"><a class="ln" href="#L106">106</a><span class="c-comment">⍝</span><span class="c-comment"># stands for, the inverse of b_its; the width is the row's length.</span></span>
+<span class="line" id="L107"><a class="ln" href="#L107">107</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;fx:&quot; u_se&lt; &quot;Fixed&quot;</span></span>
+<span class="line" id="L108"><a class="ln" href="#L108">108</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; fx:v_alue 1 1 1 1 1 0 1 1</span></span>
+<span class="line" id="L109"><a class="ln" href="#L109">109</a><span class="c-comment">⍝</span><span class="c-comment"># -5</span></span>
+<span class="line" id="L110"><a class="ln" href="#L110">110</a><span class="c-libfunc">ˡv̲alue</span> ← { bits → (<a href="builtins.html#t_ally" class="c-builtin">t̲ally</a> <a href="builtins.html#o_-5c" class="c-builtin">o̲\</a> bits) <a href="libs-Fixed-src-Fixed.xtl.html#l.w_rap" class="c-libfunc">ˡw̲rap</a> <span class="c-number">2</span> <a href="builtins.html#d_ecode" class="c-builtin">d̲ecode</a> <a href="builtins.html#o_-5c" class="c-builtin">o̲\</a> bits }</span>
+<span class="line" id="L111"><a class="ln" href="#L111">111</a></span>
+<span class="line" id="L112"><a class="ln" href="#L112">112</a><span class="c-comment">⍝</span><span class="c-comment"># w h_ex x: the bit pattern of each number as hexadecimal text, w/4</span></span>
+<span class="line" id="L113"><a class="ln" href="#L113">113</a><span class="c-comment">⍝</span><span class="c-comment"># digits: text for one number, a row per number for a vector.</span></span>
+<span class="line" id="L114"><a class="ln" href="#L114">114</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; &quot;fx:&quot; u_se&lt; &quot;Fixed&quot;</span></span>
+<span class="line" id="L115"><a class="ln" href="#L115">115</a><span class="c-comment">⍝</span><span class="c-comment"># &gt;&gt; 16 fx:h_ex -1 48879</span></span>
+<span class="line" id="L116"><a class="ln" href="#L116">116</a><span class="c-comment">⍝</span><span class="c-comment"># FFFF</span></span>
+<span class="line" id="L117"><a class="ln" href="#L117">117</a><span class="c-comment">⍝</span><span class="c-comment"># BEEF</span></span>
+<span class="line" id="L118"><a class="ln" href="#L118">118</a><span class="c-libfunc">ˡh̲ex</span> ← { w x → (<span class="c-number">1</span> <a href="builtins.html#-2b" class="c-symbol">+</a> <a href="builtins.html#o_-5c" class="c-builtin">o̲\</a> ((w <a href="builtins.html#d_iv" class="c-builtin">d̲iv</a> <span class="c-number">4</span>) <a href="builtins.html#r_eshape" class="c-builtin">r̲eshape</a> <span class="c-number">16</span>) <a href="builtins.html#e_ncode" class="c-builtin">e̲ncode</a> w <a href="libs-Fixed-src-Fixed.xtl.html#l.u_wrap" class="c-libfunc">ˡu̲wrap</a> x) <a href="builtins.html#s_elect" class="c-builtin">s̲elect</a> <a href="builtins.html#-5b-5dD" class="c-builtin">⎕D</a> <a href="builtins.html#c_at" class="c-builtin">c̲at</a> <span class="c-number">6</span> <a href="builtins.html#t_ake" class="c-builtin">t̲ake</a> <a href="builtins.html#-5b-5dA" class="c-builtin">⎕A</a> }</span>
+</div>
+</main>
+</body>
+</html>
