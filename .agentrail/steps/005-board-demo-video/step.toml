@@ -1,8 +1,9 @@
 number = 5
 slug = "board-demo-video"
-status = "in-progress"
+status = "completed"
 description = "Record a real Nano 9K HEX1000 UART session using VHS, produce MP4 and GIF for..."
 role = "production"
 context_files = []
 created_at = "2026-10-14T12:22:42"
-commits = []
+completed_at = "2026-10-16T08:47:33"
+commits = ["656f0cce124f59c927ce7ae64325dcdd2d0dc465"]
