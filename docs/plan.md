@@ -248,6 +248,10 @@ layer the GPU repo schedules as kernels.
 | 2 | matvec | XIR `matvec`; MAC lanes, weights in a ROM, an accumulator; the schedule's lanes and cycles; the layer simulated |
 | 3 | layer-board | the layer on a Tang board (the smallest that holds it, likely the 9K); one input, the same decision on the evaluator, the GPU (X_eTaL-gpu) and the board |
 
+The design for what follows (activation and gate tables, the SD card
+and camera data paths, the demos on the 9K and the Primer 20K) is in
+[activation-gating.md](activation-gating.md).
+
 ### Saga 6 -- xetal-lowering (deferred: asks F1, F2, F3)
 
 Goal: the one-command demo, `xetal build --target verilog demo.xtl`,
